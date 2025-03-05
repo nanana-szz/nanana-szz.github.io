@@ -60,12 +60,12 @@ defaultContentLanguage = "en"           # Default language to use
   rssFullContent = true     # if false, Rss feed instead of the summary
   mainSections = ["post"]
 
-  author.name = "Jane"      # essential                     # 必需
+  author.name = "Zhenzhuo Shan"      # essential                     # 必需
   author.email = "me@example.com" # optional, for RSS             # 可选
   author.url = "/about"        # optional                      # 可选
 
   # site info (optional)                                  # 站点信息（可选，不需要的可以直接注释掉）
-  logoTitle = "Jane"        # default: the title value    # 默认值: 上面设置的title值
+  logoTitle = "Zhenzhuo Shan's Blog"        # default: the title value    # 默认值: 上面设置的title值
   keywords = ["Hugo", "theme","jane"]
   description = "Hugo theme jane example site."
 
@@ -77,7 +77,7 @@ defaultContentLanguage = "en"           # Default language to use
   # paginateOriginalStyle = true
 
   # The date format to use; for a list of valid formats, see https://gohugo.io/functions/format/
-  dateFormatToUse = "2006-01-02"
+  dateFormatToUse = "2025-03-02"
 
   # show word count and read time ?                       # 是否显示字数统计与阅读时间
   moreMeta = true
