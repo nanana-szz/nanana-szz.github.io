@@ -27,12 +27,12 @@ defaultContentLanguage = "en"           # Default language to use
 [languages.en]
   languageCode = "en"
 
-[sitemap]                 # essential                     # 必需
+[sitemap]                 # 必需
   changefreq = "weekly"
   priority = 0.5
   filename = "sitemap.xml"
 
-[[menu.main]]             # config your menu              # 配置目录
+[[menu.main]]             # 配置目录
   name = "Home"
   weight = 10
   identifier = "home"

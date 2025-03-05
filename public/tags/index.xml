@@ -8,8 +8,15 @@
     <language>en</language>
     <managingEditor>me@example.com (Zhenzhuo Shan)</managingEditor>
     <webMaster>me@example.com (Zhenzhuo Shan)</webMaster>
-    <lastBuildDate>Fri, 20 Sep 2024 16:01:23 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 05 Mar 2025 16:26:35 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Test</title>
+      <link>http://localhost:1313/tags/test/</link>
+      <pubDate>Wed, 05 Mar 2025 00:00:00 +0000</pubDate><author>me@example.com (Zhenzhuo Shan)</author>
+      <guid>http://localhost:1313/tags/test/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Preview</title>
       <link>http://localhost:1313/tags/preview/</link>
@@ -67,55 +74,6 @@
       <description></description>
     </item>
     <item>
-      <title>Contribute</title>
-      <link>http://localhost:1313/tags/contribute/</link>
-      <pubDate>Sat, 15 Oct 2022 00:00:00 +0000</pubDate><author>me@example.com (Zhenzhuo Shan)</author>
-      <guid>http://localhost:1313/tags/contribute/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Go</title>
-      <link>http://localhost:1313/tags/go/</link>
-      <pubDate>Sat, 15 Oct 2022 00:00:00 +0000</pubDate><author>me@example.com (Zhenzhuo Shan)</author>
-      <guid>http://localhost:1313/tags/go/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Golang</title>
-      <link>http://localhost:1313/tags/golang/</link>
-      <pubDate>Sat, 15 Oct 2022 00:00:00 +0000</pubDate><author>me@example.com (Zhenzhuo Shan)</author>
-      <guid>http://localhost:1313/tags/golang/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Development</title>
-      <link>http://localhost:1313/tags/development/</link>
-      <pubDate>Tue, 22 Feb 2022 00:00:00 +0000</pubDate><author>me@example.com (Zhenzhuo Shan)</author>
-      <guid>http://localhost:1313/tags/development/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Templates</title>
-      <link>http://localhost:1313/tags/templates/</link>
-      <pubDate>Tue, 22 Feb 2022 00:00:00 +0000</pubDate><author>me@example.com (Zhenzhuo Shan)</author>
-      <guid>http://localhost:1313/tags/templates/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Themes</title>
-      <link>http://localhost:1313/tags/themes/</link>
-      <pubDate>Tue, 22 Feb 2022 00:00:00 +0000</pubDate><author>me@example.com (Zhenzhuo Shan)</author>
-      <guid>http://localhost:1313/tags/themes/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Toc</title>
-      <link>http://localhost:1313/tags/toc/</link>
-      <pubDate>Tue, 22 Feb 2022 00:00:00 +0000</pubDate><author>me@example.com (Zhenzhuo Shan)</author>
-      <guid>http://localhost:1313/tags/toc/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>Math</title>
       <link>http://localhost:1313/tags/math/</link>
       <pubDate>Mon, 04 Mar 2019 16:01:23 +0800</pubDate><author>me@example.com (Zhenzhuo Shan)</author>
@@ -123,31 +81,45 @@
       <description></description>
     </item>
     <item>
-      <title>Image</title>
-      <link>http://localhost:1313/tags/image/</link>
-      <pubDate>Sat, 03 Mar 2018 16:01:23 +0800</pubDate><author>me@example.com (Zhenzhuo Shan)</author>
-      <guid>http://localhost:1313/tags/image/</guid>
+      <title>Development</title>
+      <link>http://localhost:1313/tags/development/</link>
+      <pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate><author>me@example.com (Zhenzhuo Shan)</author>
+      <guid>http://localhost:1313/tags/development/</guid>
       <description></description>
     </item>
     <item>
-      <title>Tag-7</title>
-      <link>http://localhost:1313/tags/tag-7/</link>
-      <pubDate>Sat, 03 Mar 2018 16:01:23 +0800</pubDate><author>me@example.com (Zhenzhuo Shan)</author>
-      <guid>http://localhost:1313/tags/tag-7/</guid>
+      <title>Go</title>
+      <link>http://localhost:1313/tags/go/</link>
+      <pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate><author>me@example.com (Zhenzhuo Shan)</author>
+      <guid>http://localhost:1313/tags/go/</guid>
       <description></description>
     </item>
     <item>
-      <title>Footnote</title>
-      <link>http://localhost:1313/tags/footnote/</link>
-      <pubDate>Thu, 01 Mar 2018 16:01:23 +0800</pubDate><author>me@example.com (Zhenzhuo Shan)</author>
-      <guid>http://localhost:1313/tags/footnote/</guid>
+      <title>Golang</title>
+      <link>http://localhost:1313/tags/golang/</link>
+      <pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate><author>me@example.com (Zhenzhuo Shan)</author>
+      <guid>http://localhost:1313/tags/golang/</guid>
       <description></description>
     </item>
     <item>
-      <title>Markdown</title>
-      <link>http://localhost:1313/tags/markdown/</link>
-      <pubDate>Thu, 01 Mar 2018 16:01:23 +0800</pubDate><author>me@example.com (Zhenzhuo Shan)</author>
-      <guid>http://localhost:1313/tags/markdown/</guid>
+      <title>Templates</title>
+      <link>http://localhost:1313/tags/templates/</link>
+      <pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate><author>me@example.com (Zhenzhuo Shan)</author>
+      <guid>http://localhost:1313/tags/templates/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Themes</title>
+      <link>http://localhost:1313/tags/themes/</link>
+      <pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate><author>me@example.com (Zhenzhuo Shan)</author>
+      <guid>http://localhost:1313/tags/themes/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Jekyll</title>
+      <link>http://localhost:1313/tags/jekyll/</link>
+      <pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate><author>me@example.com (Zhenzhuo Shan)</author>
+      <guid>http://localhost:1313/tags/jekyll/</guid>
       <description></description>
     </item>
   </channel>

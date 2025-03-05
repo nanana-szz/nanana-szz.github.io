@@ -1,0 +1,8 @@
+body {
+    background-image: url('/images/wallpaper.jpg'); /* 指向 static/images/ 目录下的图片 */
+    background-size: cover;   /* 让图片铺满整个页面 */
+    background-position: center;
+    background-attachment: fixed; /* 让背景固定，不随滚动条滚动 */
+
+    color: white;  /* 设置字体颜色为白色 */
+}

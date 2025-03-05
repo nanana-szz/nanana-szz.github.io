@@ -8,15 +8,8 @@
     <language>en</language>
     <managingEditor>me@example.com (Zhenzhuo Shan)</managingEditor>
     <webMaster>me@example.com (Zhenzhuo Shan)</webMaster>
-    <lastBuildDate>Fri, 20 Sep 2024 16:01:23 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 01 Mar 2025 10:49:39 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/update/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Jane Theme V3 Major Update</title>
-      <link>http://localhost:1313/post/jane-theme-v3-major-update/</link>
-      <pubDate>Fri, 20 Sep 2024 16:01:23 +0800</pubDate><author>me@example.com (Zhenzhuo Shan)</author>
-      <guid>http://localhost:1313/post/jane-theme-v3-major-update/</guid>
-      <description>&lt;h2 id=&#34;update-content&#34;&gt;Update Content&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Use &lt;a href=&#34;https://picocss.com/&#34;&gt;Pico CSS&lt;/a&gt; as the color scheme, allowing theme color switching and dark/light mode toggle.&lt;/li&gt;&#xA;&lt;li&gt;Customize Your Homepage.&lt;/li&gt;&#xA;&lt;li&gt;Added STYLE SETTINGS, located at &lt;code&gt;/assets/sass/_settings.scss&lt;/code&gt; .&lt;/li&gt;&#xA;&lt;li&gt;Deprecated the Category page, merging it into the Archive page.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Please note that due to the extensive modifications, some areas may still need refinement. I appreciate your understanding!&lt;/p&gt;</description>
-    </item>
     <item>
       <title>Jane 主题 V3 大版本更新</title>
       <link>http://localhost:1313/post/jane-theme-v3-major-update.zh-cn/</link>

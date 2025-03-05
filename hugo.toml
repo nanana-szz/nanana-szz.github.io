@@ -1,17 +1,17 @@
-baseURL = "http://nanana-szz.github.io/"
-title = "Zhenzhuo Shan's Blog"
-enableRobotsTXT = true
-enableEmoji = true
-theme = "jane"
+baseURL = "http://nanana-szz.github.io/"   # 站点根地址，由于要部署到 GitHub Pages ， 所以设为 GitHub Pages 的地址。末尾必须带‘/’
+title = "Zhenzhuo Shan's Blog"             # 站点标题，会显示在浏览器标签页、RSS订阅、HTML等地方        
+enableRobotsTXT = true                     # 启用 robots.txt 文件，允许 hugo 生成 robots.txt 文件。robots.txt 用于告诉搜索引擎爬虫哪些页面可以或不可以被索引
+enableEmoji = true                         # 启用 emoji 支持，允许在 Markdown 文档中使用 emoji 语法
+theme = "jane"                             # 指定 Hugo 站点使用的主题。 jane 主题将用于渲染博客页面的样式和布局
 
-hasCJKLanguage = true     # 自动检测是否包含 中文\日文\韩文
-paginate = 3              # 首页每页显示的文章数
-rssLimit = 20             # 限制 Rss 文章输出数量
-disqusShortname = ""      # disqus_shortname
-googleAnalytics = ""      # UA-XXXXXXXX-X
-copyright = ""            # 默认为下面配置的params.author.name ↓
-enableGitInfo = true      # use git commit log to generate lastmod record # 可根据 Git 中的提交生成最近更新记录。
-# uglyURLs = true         # more info: https://gohugo.io/content-management/urls/#ugly-urls
+hasCJKLanguage = true     # 自动检测是否包含 中文\日文\韩文 ， CJK 语言的特点是没有空格分隔单词，因此 Hugo 可能会调整字数统计和摘要截取的方式，以适应这些语言的需求 
+paginate = 3              # 首页每页显示的文章数，若超过， Hugo 将自动生成分页
+rssLimit = 20             # 设置 Rss 订阅源最多显示的文章数量
+disqusShortname = ""      # 配置 Disqus 评论系统(外部托管的评论系统，适用于静态网站)的短名称 shortname 。 为空 ""，则不启用 
+googleAnalytics = ""      # 若填写有效的 UA-XXXXXXXX-X ，Hugo 会自动在网站 <head> 部分插入 Google Analytics 追踪代码，帮助监测流量数据
+copyright = ""            # 用于在网站底部显示版权信息，为空则默认为下面配置的params.author.name ↓
+enableGitInfo = true      # 可根据 Git 中的提交生成最近更新记录。
+# uglyURLs = true         # more info: https://gohugo.io/content-management/urls/#ugly-urls ， true 时，启用 .html 结尾的URL，更适用于某些静态服务器（如 Apache）
 
 [pagination]
   pagerSize = 5           # 首页每页显示的文章数
