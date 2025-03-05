@@ -77,7 +77,7 @@ defaultContentLanguage = "en"           # Default language to use
   # paginateOriginalStyle = true
 
   # The date format to use; for a list of valid formats, see https://gohugo.io/functions/format/
-  dateFormatToUse = "2025-03-02"
+  dateFormatToUse = "2002-08-07"
 
   # show word count and read time ?                       # 是否显示字数统计与阅读时间
   moreMeta = true
@@ -88,8 +88,8 @@ defaultContentLanguage = "en"           # Default language to use
   showAuthorInfo = true # show author info below the article
 
   # Optional custom wallpaper image URL. Can be a remote image or local /static/img/wallpaper.jpg (make sure it has a small filesize for quick site painting)
-  # wallpaper = "/static/img/wallpaper.jpg"
-  wallpaper = "https://followingmyfeet.com/wp-content/uploads/2018/02/825_2229-HDR.jpg"
+  wallpaper = "/static/img/wallpaper.jpg"
+  # wallpaper = "https://followingmyfeet.com/wp-content/uploads/2018/02/825_2229-HDR.jpg"
 
   # 一些全局开关，你也可以在每一篇内容的 front matter 中针对单篇内容关闭或开启某些功能，在 archetypes/default.md 查看更多信息。
   # Some global options, you can also close or open something in front matter for a single post, see more information from `archetypes/default.md`.
