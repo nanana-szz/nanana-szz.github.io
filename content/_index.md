@@ -21,10 +21,10 @@ postWidget:
     title: Posts From Category Demo
     category: demo
     count: 3
-  # - type: category
-  #   title: Documents
-  #   category: docs
-  #   count: 3
+  - type: category
+    title: Documents
+    category: docs
+    count: 3
 
 
 projectWidget:

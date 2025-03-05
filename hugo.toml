@@ -109,7 +109,7 @@ defaultContentLanguage = "en"           # Default language to use
 
   # Link custom CSS and JS assets
   #   (relative to /static/css and /static/js respectively)
-  customCSS = ["css/custom.css"]            # if ['custom.css'], load '/static/css/custom.css' file
+  customCSS = ['custom.css']            # if ['custom.css'], load '/static/css/custom.css' file
   customJS = []             # if ['custom.js'], load '/static/js/custom.js' file
 
   # add custom info on the footer.   # 添加备案信息
