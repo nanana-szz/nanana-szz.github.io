@@ -26,26 +26,11 @@ postWidget:
   #   category: docs
   #   count: 3
 
-projectWidget:
-  - title: 开源项目
-    items:
-      - title: Hugo Theme Jane
-        imgUrl: /hugo-theme-jane/image/example.jpg
-        description: 一个可读性强且简洁的 Hugo 主题，提供多种配色方案，易于个性化定制。自 2018 年以来运行良好。
-        link: https://github.com/xianmin/hugo-theme-jane
-
-  - title: 精选项目
-    items:
-      - title: 电商平台
-        imgUrl: /hugo-theme-jane/image/example.jpg
-        description: 具有实时库存管理功能的全功能在线商店。
-        link: https://example.com
-      - title: 任务管理应用
-        imgUrl: /hugo-theme-jane/image/example.jpg
-        description: 具有实时更新功能的协作任务管理系统。
-        link: https://example.com
-      - title: 其他应用
-        imgUrl: /hugo-theme-jane/image/example.jpg
-        description: 具有实时更新功能的协作任务管理系统。
-        link: https://example.com
+# projectWidget:
+#   - title: 开源项目
+#     items:
+#       - title: Hugo Theme Jane
+#         imgUrl: /hugo-theme-jane/image/example.jpg
+#         description: 一个可读性强且简洁的 Hugo 主题，提供多种配色方案，易于个性化定制。自 2018 年以来运行良好。
+#         link: https://github.com/xianmin/hugo-theme-jane
 ---

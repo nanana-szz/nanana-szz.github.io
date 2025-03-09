@@ -3,7 +3,7 @@ title: Custom home page
 layout: custom_home  # use custom home layout
 
 introductionWidget:
-  title: Hi, I'm Zhenzhuo Shan
+  title: Hi, I'm YYA Shan
   description: |
     Full-stack developer passionate about creating elegant solutions to complex problems.
 
@@ -27,11 +27,11 @@ postWidget:
     count: 3
 
 
-projectWidget:
-  - title: Open Source Projects
-    items:
-      - title: Hugo Theme Jane
-        imgUrl: /hugo-theme-jane/image/example.jpg
-        description: A readable & concise theme for Hugo, color schemes to choose, easy to personalize. Working well since 2018.
-        link: https://github.com/xianmin/hugo-theme-jane
+# projectWidget:
+#   - title: Open Source Projects
+#     items:
+#       - title: Hugo Theme Jane
+#         imgUrl: /hugo-theme-jane/image/example.jpg
+#         description: A readable & concise theme for Hugo, color schemes to choose, easy to personalize. Working well since 2018.
+#         link: https://github.com/xianmin/hugo-theme-jane
 ---
