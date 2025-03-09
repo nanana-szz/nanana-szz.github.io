@@ -1,5 +1,5 @@
 baseURL = "http://nanana-szz.github.io/"   # 站点根地址，由于要部署到 GitHub Pages ， 所以设为 GitHub Pages 的地址。末尾必须带‘/’
-title = "Zhenzhuo Shan's Blog"             # 站点标题，会显示在浏览器标签页、RSS订阅、HTML等地方        
+title = "Zhenzhuo Shan's Blog🌻"             # 站点标题，会显示在浏览器标签页、RSS订阅、HTML等地方        
 enableRobotsTXT = true                     # 启用 robots.txt 文件，允许 hugo 生成 robots.txt 文件。robots.txt 用于告诉搜索引擎爬虫哪些页面可以或不可以被索引
 enableEmoji = true                         # 启用 emoji 支持，允许在 Markdown 文档中使用 emoji 语法
 theme = "jane"                             # 指定 Hugo 站点使用的主题。 jane 主题将用于渲染博客页面的样式和布局
