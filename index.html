@@ -9,7 +9,7 @@ data-theme="light"：自定义属性，通常与 CSS 或 JavaScript 配合使用
 itemscope itemtype="http://schema.org/WebPage" 
 data-theme="light">        <!---->
 
-<!--元信息与配置-->
+<!---------------------------------------------------------------------元信息与配置------------------------------------------------------------------------------------->
 <head>
   <!--网页基础信息-->
   <meta charset="utf-8" />        <!--指定网页采用 UTF-8 字符编码-->
@@ -78,126 +78,103 @@ data-theme="light">        <!---->
 
 
 
+<!--
+1. 指明这是一个外部样式表，用于为页面提供 CSS 样式
+2. 指定了样式文件的路径。文件名中带有一长串哈希值，通常是为了防止缓存问题和确保文件完整性（版本号或指纹）
+3. 这是子资源完整性（SRI）属性。浏览器在加载该文件时，会计算文件的 SHA-256 哈希值，并与这里给出的值比对，以确保文件没有被篡改
+4. 表示该样式表适用于“屏幕”设备。通常还有其他媒体类型（如打印时使用的样式）可以单独设置
+5. 当从不同源加载资源时（比如 CDN），这个属性会在请求中不携带身份验证信息。它与 SRI 一起使用，确保加载过程安全
+-->
+<link rel="stylesheet"          
+href="/css/style.min.032a704684185a9852ea43ac74b7ac02af4187b147e787ae634c1fae41b61758.css" 
+integrity="sha256-AypwRoQYWphS6kOsdLesAq9Bh7FH54euY0wfrkG2F1g=" 
+media="screen"
+crossorigin="anonymous">
 
 
 
-
-
-
-
-
-<link rel="stylesheet" href="/css/style.min.032a704684185a9852ea43ac74b7ac02af4187b147e787ae634c1fae41b61758.css" integrity="sha256-AypwRoQYWphS6kOsdLesAq9Bh7FH54euY0wfrkG2F1g=" media="screen"
-  crossorigin="anonymous">
-
-
-
-
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-
-
-
-
+<!--动态主题切换脚本-->
+<!--
+立即执行函数表达式（IIFE）是 JavaScript 中一种常见的编程模式，用于在定义时立即执行函数代码
+主要目的是创建一个独立的作用域，防止变量污染全局命名空间
+这里在静态资源中嵌入了 JavaScript 代码。语法：
+(function(){
+  // 这里写你的代码
+})();
+这种写法定义了一个匿名函数，并在后面加上括号立即执行。
+{} 中：
+1. 尝试从本地存储中获取用户上一次保存的主题设置。如果没有设置，则默认为 'light'（浅色模式）
+2. 将获取到的主题值设置到 <html> 标签的 data-theme 属性上，通常结合 CSS 来根据不同的 data-theme 值加载对应的样式，实现暗黑模式或其他主题切换效果
+-->
 <script>
   (function () {
-    var savedTheme = localStorage.getItem('theme') || 'light';
+    var savedTheme = localStorage.getItem('theme') || 'light';                 
     document.documentElement.setAttribute('data-theme', savedTheme);
   })();
 </script>
 
 
 </head>
+<!---------------------------------------------------------------------元信息与配置------------------------------------------------------------------------------------->
 
+
+
+<!----------------------------------------------------------------整个页面的主要内容区域--------------------------------------------------------------------------------->
 <body>
-  <div id="back-to-top"></div>
-
-  <header class="site-header">
+  <div id="back-to-top"></div>        <!--用于“返回顶部”按钮的占位元素，通常配合 JavaScript 和 CSS 实现页面滚动到顶部的功能-->
+<!----------------------------------------------------定义了网站的页头区域，内部通常包含网站的 logo、导航菜单等内容--------------------------------------------------------->
+  <header class="site-header">        
     
-<div class="desktop-header">
+<div class="desktop-header">          <!--专为桌面设备设计的页头部分-->
+  <!--<div class="desktop-header-logo"> 内包含一个链接 <a href="/" class="logo">，点击后跳转到首页，并显示网站名称“Zhenzhuo Shan's Blog”-->
   <div class="desktop-header-logo">
     <a href="/" class="logo">
-      
       Zhenzhuo Shan's Blog
-      
     </a>
   </div>
 
-  <nav class="desktop-navbar">
-    <ul id="menu" class="menu">
-      
-      
+  <nav class="desktop-navbar">        <!--定义桌面的导航区域-->
+    <ul id="menu" class="menu">       <!--无序列表作为导航菜单容器-->
+
+      <!--菜单项：每个菜单项包含一个链接（例如 Home、Archives、Tags、About、external-link）-->
       <li class="menu-item active">
-        
-        
-        
         <a class="menu-item-link" href="http://localhost:1313/">Home</a>
-        
-
-        
-
       </li>
       
       <li class="menu-item">
-        
-        
-        
         <a class="menu-item-link" href="http://localhost:1313/post/">Archives</a>
-        
-
-        
-
       </li>
       
       <li class="menu-item">
-        
-        
-        
         <a class="menu-item-link" href="http://localhost:1313/tags/">Tags</a>
-        
-
-        
-
       </li>
       
       <li class="menu-item">
-        
-        
-        
         <a class="menu-item-link" href="http://localhost:1313/about/">About</a>
-        
-
-        
-
       </li>
       
       <li class="menu-item">
-        
-        
-        
         <a class="menu-item-link" href="http://localhost:1313/">external-link</a>
-        
-
-        
-
       </li>
       
+      <!--带下拉子菜单的菜单项-->
+      <!--菜单链接中的 class "menu-parent"：提示这个菜单项包含下拉子菜单-->
+      <!--内嵌 SVG 图标：显示一个向下的箭头（Chevron Down），提示用户这里可以展开更多选项-->
       <li class="menu-item">
-        
-        
-        <a class="menu-item-link menu-parent" href="http://localhost:1313/">
-          demo
-          
-<svg aria-hidden="true" class="lucide lucide-chevron-down hi-svg-inline icon--chevron-down" fill="none" height="1em" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="m6 9 6 6 6-6"/></svg>
+        <a class="menu-item-link menu-parent" href="http://localhost:1313/">demo         
+<svg aria-hidden="true" 
+      class="lucide lucide-chevron-down hi-svg-inline icon--chevron-down" 
+      fill="none" 
+      height="1em" 
+      stroke="currentColor" 
+      stroke-linecap="round" 
+      stroke-linejoin="round" 
+      stroke-width="2" 
+      viewBox="0 0 24 24" 
+      width="1em" 
+      xmlns="http://www.w3.org/2000/svg"><path d="m6 9 6 6 6-6"/></svg>
         </a>
-        <ul class="submenu">
+        <ul class="submenu">          <!--下拉子菜单的容器，包含多个 <li class="submenu-item">，每个子菜单项对应一个 demo 示例页面-->
           
           <li class="submenu-item">
             <a href="http://localhost:1313/post/demo/1-image/">Demo: Image</a>
@@ -234,12 +211,18 @@ data-theme="light">        <!---->
       </li>
       
       <li class="menu-item">
-        
-        
-        <a class="menu-item-link menu-parent" href="http://localhost:1313/">
-          docs
-          
-<svg aria-hidden="true" class="lucide lucide-chevron-down hi-svg-inline icon--chevron-down" fill="none" height="1em" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="m6 9 6 6 6-6"/></svg>
+        <a class="menu-item-link menu-parent" href="http://localhost:1313/">docs         
+<svg aria-hidden="true" 
+      class="lucide lucide-chevron-down hi-svg-inline icon--chevron-down" 
+      fill="none" 
+      height="1em" 
+      stroke="currentColor" 
+      stroke-linecap="round" 
+      stroke-linejoin="round" 
+      stroke-width="2" 
+      viewBox="0 0 24 24" 
+      width="1em" 
+      xmlns="http://www.w3.org/2000/svg"><path d="m6 9 6 6 6-6"/></svg>
         </a>
         <ul class="submenu">
           
@@ -252,29 +235,56 @@ data-theme="light">        <!---->
           </li>
           
         </ul>
-
-        
-
       </li>
       
 
       
-      
-
-      
-
+      <!--主题切换按钮-->
       <li class="menu-item">
-        <a class="theme-toggle menu-item-link" href="javascript:void(0);">
+        <a class="theme-toggle menu-item-link" href="javascript:void(0);">        <!--点击后通过 JavaScript 触发主题切换（例如从浅色模式切换到暗色模式）-->
 
-          
-<svg aria-hidden="true" class="lucide lucide-sun hi-svg-inline theme-icon-light" fill="none" height="1em" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-
-          
-<svg aria-hidden="true" class="lucide lucide-moon hi-svg-inline theme-icon-dark" fill="none" height="1em" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+<!--内嵌两个 SVG 图标：
+一个显示太阳（表示当前或可切换至浅色主题）；
+另一个显示月亮（表示暗色主题）-->          
+<svg aria-hidden="true" 
+      class="lucide lucide-sun hi-svg-inline theme-icon-light" 
+      fill="none" 
+      height="1em" 
+      stroke="currentColor" 
+      stroke-linecap="round" 
+      stroke-linejoin="round" 
+      stroke-width="2" 
+      viewBox="0 0 24 24" 
+      width="1em" 
+      xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="4"/>
+      <path d="M12 2v2"/>
+      <path d="M12 20v2"/>
+      <path d="m4.93 4.93 1.41 1.41"/>
+      <path d="m17.66 17.66 1.41 1.41"/>
+      <path d="M2 12h2"/>
+      <path d="M20 12h2"/>
+      <path d="m6.34 17.66-1.41 1.41"/>
+      <path d="m19.07 4.93-1.41 1.41"/></svg>
+        
+<svg aria-hidden="true" 
+      class="lucide lucide-moon hi-svg-inline theme-icon-dark" 
+      fill="none" 
+      height="1em" 
+      stroke="currentColor" 
+      stroke-linecap="round" 
+      stroke-linejoin="round" 
+      stroke-width="2" 
+      viewBox="0 0 24 24" 
+      width="1em" 
+      xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
 
         </a>
       </li>
 
+      <!--这个菜单项链接到 RSS 订阅地址（index.xml），使用 SVG 图标显示 RSS 标识
+      属性 rel="noopener alternate"、type="application/rss+xml" 以及 target="_blank" 用于安全和标识资源类型-->
       <li class="menu-item">
         <a class="menu-item-link" href="http://localhost:1313/index.xml" rel="noopener alternate" type="application/rss&#43;xml"
           title="rss" target="_blank">
@@ -289,66 +299,62 @@ data-theme="light">        <!---->
 
     
 
-<div class="mobile-header">
+<!--为了更好地适配移动设备，代码中提供了单独的移动端头部与菜单结构-->
+<!--移动端导航条-->
+<div class="mobile-header">           <!--整个移动端头部的容器-->
   <div id="mobile-navbar" class="mobile-navbar">
-    <div id="mobile-navbar-icon" class="mobile-navbar-icon">
-      
-<svg aria-hidden="true" class="lucide lucide-menu hi-svg-inline icon--menu" fill="none" height="1em" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+    <div id="mobile-navbar-icon" class="mobile-navbar-icon"><!--汉堡菜单图标：<div id="mobile-navbar-icon" ...> 内的 SVG 图标显示三条横线，提示用户点击展开菜单-->     
+<svg aria-hidden="true" 
+      class="lucide lucide-menu hi-svg-inline icon--menu" 
+      fill="none" 
+      height="1em" 
+      stroke="currentColor" 
+      stroke-linecap="round" 
+      stroke-linejoin="round" 
+      stroke-width="2" 
+      viewBox="0 0 24 24" 
+      width="1em" 
+      xmlns="http://www.w3.org/2000/svg">
+      <line x1="4" x2="20" y1="12" y2="12"/>
+      <line x1="4" x2="20" y1="6" y2="6"/>
+      <line x1="4" x2="20" y1="18" y2="18"/></svg>
     </div>
-    <div class="mobile-navbar-logo">
+    <div class="mobile-navbar-logo">  <!--移动端 Logo ：和桌面端一样，显示网站名称并链接到首页-->
       <a href="/" class="logo">Zhenzhuo Shan's Blog</a>
     </div>
   </div>
-
-  <div id="mobile-menu-close-modal" class="mobile-menu-close-modal"></div>
+  <!--移动端菜单展开
+  基本与桌面端类似，但结构上进行了适配，比如下拉子菜单用 <div class="mobile-menu-parent"> 包裹，并包含 <span class="mobile-submenu-open"></span> 用于标记或触发子菜单展开-->
+  <div id="mobile-menu-close-modal" class="mobile-menu-close-modal"></div><!--通常用于在菜单展开时点击空白区域关闭菜单的背景遮罩层-->
   <nav id="mobile-menu" class="mobile-menu">
     <ul class="mobile-menu-list">
       <li class="mobile-menu-item">
-        
-        
-        
         <a class="menu-item-link" href="http://localhost:1313/">Home</a>
-        
-        
-      </li><li class="mobile-menu-item">
-        
-        
-        
+      </li>
+      
+      <li class="mobile-menu-item">
         <a class="menu-item-link" href="http://localhost:1313/post/">Archives</a>
-        
-        
-      </li><li class="mobile-menu-item">
-        
-        
-        
+      </li>
+      
+      <li class="mobile-menu-item">
         <a class="menu-item-link" href="http://localhost:1313/tags/">Tags</a>
-        
-        
-      </li><li class="mobile-menu-item">
-        
-        
-        
+      </li>
+      
+      <li class="mobile-menu-item">
         <a class="menu-item-link" href="http://localhost:1313/about/">About</a>
-        
-        
-      </li><li class="mobile-menu-item">
-        
-        
-        
+      </li>
+      
+      <li class="mobile-menu-item">
         <a class="menu-item-link" href="http://localhost:1313/">external-link</a>
-        
-        
-      </li><li class="mobile-menu-item">
-        
-        
+      </li>
+      
+      <li class="mobile-menu-item">
         <div class="mobile-menu-parent">
           <span class="mobile-submenu-open"></span>
-          <a href="http://localhost:1313/">
-            demo
-          </a>
+          <a href="http://localhost:1313/">demo</a>
         </div>
+
         <ul class="mobile-submenu-list">
-          
           <li>
             <a href="http://localhost:1313/post/demo/1-image/">Demo: Image</a>
           </li>
@@ -378,15 +384,12 @@ data-theme="light">        <!---->
           </li>
           
         </ul>
-        
-      </li><li class="mobile-menu-item">
-        
-        
+      </li>
+      
+      <li class="mobile-menu-item">
         <div class="mobile-menu-parent">
           <span class="mobile-submenu-open"></span>
-          <a href="http://localhost:1313/">
-            docs
-          </a>
+          <a href="http://localhost:1313/">docs</a>
         </div>
         <ul class="mobile-submenu-list">
           
@@ -399,7 +402,6 @@ data-theme="light">        <!---->
           </li>
           
         </ul>
-        
       </li>
       
 
@@ -430,29 +432,29 @@ data-theme="light">        <!---->
 </div>
 
   </header>
-
+<!----------------------------------------------------定义了网站的页头区域，内部通常包含网站的 logo、导航菜单等内容--------------------------------------------------------->
   
 
   
 
 
-
+<!-----------------------------------------------------------------主要内容区域（Main）与介绍卡片------------------------------------------------------------------------>
   <main id="main" class="main pico container">
     
   
-    <section class="introduction-card">
+    <section class="introduction-card"><!--用于显示网站主人的简介或欢迎信息-->
   <div class="container">
     <div class="introduction-card__content">
       <div class="introduction-card__text">
         
-          <h2>Hi, I&#39;m Yongliang Yang</h2>
+          <h2>Hi, I&#39;m Zhenzhuo Shan</h2>
           <div class="introduction-card__description">
             <p>Full-stack developer passionate about creating elegant solutions to complex problems.</p>
-<ul>
-<li>🚀 Working on web development</li>
-<li>📝 Writing about tech</li>
-<li>💡 Learning new things</li>
-</ul>
+            <ul>
+            <li>🚀 Working on web development</li>
+            <li>📝 Writing about tech</li>
+            <li>💡 Learning new things</li>
+            </ul>
           </div>
           
           <div class="introduction-card__social">

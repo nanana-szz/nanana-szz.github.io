@@ -19,3 +19,10 @@
 {{ range .Site.Params.customCSS }}
 <link rel="stylesheet" href="{{ `css/` | relURL }}{{ . }}">
 {{ end }}
+
+<!-- override navigation bar color -->
+<style>
+  .desktop-header {
+    background-color: #ACC0C0; /* 替换成你想要的碧绿色 */
+  }
+</style>
