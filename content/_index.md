@@ -22,8 +22,8 @@ postWidget:
     category: demo
     count: 3
   - type: category
-    title: Documents
-    category: docs
+    title: VS Code
+    category: VS-Code
     count: 3
 
 
