@@ -409,16 +409,11 @@
 
 <section class="jane-card post">
   
-  <div class="post-pinned">
-    
-<svg aria-hidden="true" class="lucide lucide-pin hi-svg-inline" fill="none" height="1em" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg>
-  </div>
-  
 
   <header class="post-header">
     <h1 class="post-title">
-      <a class="post-link" href="/post/vs-code/vs-code-bat/">
-        VS Code 设置：在 Windows 右键菜单中添加“Open with VS Code”选项
+      <a class="post-link" href="/post/demo/1-test/">
+        test
       </a>
     </h1>
     
@@ -437,8 +432,8 @@
       <div class="post-meta-item post-meta-time">
         
 <svg aria-hidden="true" class="lucide lucide-calendar-days hi-svg-inline" fill="none" height="1em" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg>
-        <time datetime=" 2025-03-12">
-          2025-03-12
+        <time datetime=" 2025-03-05">
+          2025-03-05
         </time>
       </div>
     </div>
@@ -447,19 +442,66 @@
   <div class="post-content">
     
     <div class="post-summary">
-      <h1 id="添加-vs-code-右键菜单">添加 VS Code 右键菜单</h1>
-<p>可以手动修改注册表，也可以使用<code>.bat</code>(批处理)文件自动添加。</p>
-<h2 id="一手动修改注册表">一、手动修改注册表</h2>
-<h3 id="步骤">步骤</h3>
+      <h1 id="测试">测试</h1>
+<p>😊👌</p>
+    </div>
+
+    <div class="read-more">
+      <a role="button" href="/post/demo/1-test/" class="read-more-link outline">Read more</a>
+    </div>
+    
+  </div>
+
+</section>
+
+  
+  
+
+<section class="jane-card post">
+  
+
+  <header class="post-header">
+    <h1 class="post-title">
+      <a class="post-link" href="/post/vs-code/customize-category-names/">
+        Customize Category Names
+      </a>
+    </h1>
+    
+    
+    <div class="post-meta-list">
+      <div class="post-meta-item post-meta-author">
+        
+<svg aria-hidden="true" class="lucide lucide-user-round-pen hi-svg-inline" fill="none" height="1em" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M2 21a8 8 0 0 1 10.821-7.487"/><path d="M21.378 16.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"/><circle cx="10" cy="8" r="5"/></svg>
+        <a href="/about">
+          <span class="post-meta-author-name">
+            Zhenzhuo Shan
+          </span>
+        </a>
+        
+      </div>
+      <div class="post-meta-item post-meta-time">
+        
+<svg aria-hidden="true" class="lucide lucide-calendar-days hi-svg-inline" fill="none" height="1em" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg>
+        <time datetime=" 2024-01-20">
+          2024-01-20
+        </time>
+      </div>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    
+    <div class="post-summary">
+      <h2 id="customizing-category-names">Customizing Category Names</h2>
+<p>The theme allows you to customize category display names and supports both single language and multilingual configurations.</p>
+<h3 id="setup-steps">Setup Steps</h3>
 <ol>
-<li>打开注册表编辑器，路径为：<code>计算机\HKEY_CLASSES_ROOT\Directory\shell\Open with VS Code</code></li>
-<li>新建一个名为<code>command</code>的字符串值，值为<code>&quot;C:\Program Files\Microsoft VS Code\Code.exe&quot; &quot;%V&quot;</code></li>
+<li>Create a <code>data/categories.yaml</code> file in your site root directory</li>
+<li>Choose either single language or multilingual format</li>
+<li>Configure your categories with display names and weights</li>
 </ol>
-<h2 id="二使用批处理添加">二、使用批处理添加</h2>
-<h3 id="一步骤">（一）步骤</h3>
-<ol>
-<li>新建一个<code>.bat</code>文件，内容如下（注意修改 VS code 安装路径）：</li>
-</ol>
+<h3 id="single-language-configuration">Single Language Configuration</h3>
+<p>For single language sites, use this simple format:</p>
 <div class="highlight-container">
 
   <button class="copy-code-btn outline">Copy</button>
@@ -472,40 +514,28 @@
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="hl-0-3"><a style="outline:none;text-decoration:none;color:inherit" href="#hl-0-3">3</a>
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="hl-0-4"><a style="outline:none;text-decoration:none;color:inherit" href="#hl-0-4">4</a>
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="hl-0-5"><a style="outline:none;text-decoration:none;color:inherit" href="#hl-0-5">5</a>
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="hl-0-6"><a style="outline:none;text-decoration:none;color:inherit" href="#hl-0-6">6</a>
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="hl-0-7"><a style="outline:none;text-decoration:none;color:inherit" href="#hl-0-7">7</a>
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f" id="hl-0-8"><a style="outline:none;text-decoration:none;color:inherit" href="#hl-0-8">8</a>
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>@<span style="color:#007020;font-weight:bold">echo</span> off
-</span></span><span style="display:flex;"><span>REG ADD <span style="color:#4070a0">&#34;HKEY_CLASSES_ROOT\Directory\Background\shell\Open with VS Code&#34;</span> /ve /t REG_SZ /d <span style="color:#4070a0">&#34;open here with VS Code&#34;</span> /f
-</span></span><span style="display:flex;"><span>REG ADD <span style="color:#4070a0">&#34;HKEY_CLASSES_ROOT\Directory\Background\shell\Open with VS Code\command&#34;</span> /ve /t REG_SZ /d <span style="color:#4070a0">&#34;\&#34;</span>D:\software\Microsoft VS Code\Code.exe\<span style="color:#4070a0">&#34; \&#34;</span><span style="color:#4070a0;font-weight:bold">%%</span>V\<span style="color:#4070a0">&#34;&#34;</span> /f
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">echo</span> VS Code Sucess!
-</span></span><span style="display:flex;"><span>pause</span></span></code></pre></td></tr></table>
+<pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml:data/categories.yaml" data-lang="yaml:data/categories.yaml"><span style="display:flex;"><span><span style="color:#60a0b0;font-style:italic"># Single language format</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#062873;font-weight:bold">index</span>:<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">  </span><span style="color:#062873;font-weight:bold">name</span>:<span style="color:#bbb"> </span><span style="color:#4070a0">&#34;Computer Technology&#34;</span><span style="color:#bbb">  </span><span style="color:#60a0b0;font-style:italic"># Display name for the category</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">  </span><span style="color:#062873;font-weight:bold">weight</span>:<span style="color:#bbb"> </span><span style="color:#40a070">10</span><span style="color:#bbb">                  </span><span style="color:#60a0b0;font-style:italic"># Lower weight appears first in navigation</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#062873;font-weight:bold">docs</span>:<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">  </span><span style="color:#062873;font-weight:bold">name</span>:<span style="color:#bbb"> </span><span style="color:#4070a0">&#34;Programming&#34;</span><span style="color:#bbb">         </span><span style="color:#60a0b0;font-style:italic"># Custom display name</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">  </span><span style="color:#062873;font-weight:bold">weight</span>:<span style="color:#bbb"> </span><span style="color:#40a070">2</span><span style="color:#bbb">                  </span><span style="color:#60a0b0;font-style:italic"># Sorting weight</span></span></span></code></pre></td></tr></table>
 </div>
 </div>
 </div>
-<ol start="2">
-<li>右键点击该<code>.bat</code>文件，选择<code>以管理员身份运行</code>；</li>
-<li>运行完毕后，右键点击文件夹空白处，看看是否出现 <code>open here with VS Code</code> 选项。</li>
-</ol>
-<h3 id="二代码解析">（二）代码解析</h3>
-<h4 id="1-bat文件的基本概念">1. <code>.bat</code>文件的基本概念</h4>
-<ul>
-<li><code>.bat</code>(Batch file , 批处理文件) 是 <code>Windows</code> 下的一种脚本文件，常用于自动化执行多个命令。</li>
-<li>批处理脚本在 <code>cmd.exe</code> 终端中运行，每行代表一条命令，依次执行。</li>
-<li><code>.bat</code> 文件可以用于文件操作、系统配置、程序自动化等任务。</li>
-</ul>
-<h4 id="2-bat文件的语法">2. <code>.bat</code>文件的语法</h4>
-<ul>
-<li><code>@echo off</code>：关闭命令回显，不显示执行的命令，只显示执行结果。</li>
-<li><code>REG ADD</code>：向 <code>Windows</code> 注册表添加新项或修改现有项。</li>
-<li><code>echo</code>：显示后面的文本</li>
-<li><code>pause</code>：暂停批处理脚本的执行，等待用户按下任意键继续</li>
-</ul>
-<h4 id="3-reg-add命令的语法">3. <code>REG ADD</code>命令的语法</h4>
-<p>(1) 第 2 行<code>REG ADD</code></p>
+<h3 id="multilingual-configuration">Multilingual Configuration</h3>
+<p>For multilingual sites, use this format:</p>
     </div>
 
     <div class="read-more">
-      <a role="button" href="/post/vs-code/vs-code-bat/" class="read-more-link outline">Read more</a>
+      <a role="button" href="/post/vs-code/customize-category-names/" class="read-more-link outline">Read more</a>
     </div>
     
   </div>
@@ -517,16 +547,11 @@
 
 <section class="jane-card post">
   
-  <div class="post-pinned">
-    
-<svg aria-hidden="true" class="lucide lucide-pin hi-svg-inline" fill="none" height="1em" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg>
-  </div>
-  
 
   <header class="post-header">
     <h1 class="post-title">
-      <a class="post-link" href="/post/jane-theme-v3-major-update.zh-cn/">
-        Jane 主题 V3 大版本更新
+      <a class="post-link" href="/post/demo/5-math/">
+        Demo: Math
       </a>
     </h1>
     
@@ -537,7 +562,7 @@
 <svg aria-hidden="true" class="lucide lucide-user-round-pen hi-svg-inline" fill="none" height="1em" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M2 21a8 8 0 0 1 10.821-7.487"/><path d="M21.378 16.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"/><circle cx="10" cy="8" r="5"/></svg>
         <a href="/about">
           <span class="post-meta-author-name">
-            xianmin
+            Murray Bourne
           </span>
         </a>
         
@@ -545,8 +570,8 @@
       <div class="post-meta-item post-meta-time">
         
 <svg aria-hidden="true" class="lucide lucide-calendar-days hi-svg-inline" fill="none" height="1em" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg>
-        <time datetime=" 2024-09-20">
-          2024-09-20
+        <time datetime=" 2019-03-04">
+          2019-03-04
         </time>
       </div>
     </div>
@@ -555,73 +580,11 @@
   <div class="post-content">
     
     <div class="post-summary">
-      <h2 id="更新内容">更新内容</h2>
-<ul>
-<li>使用 <a href="https://picocss.com/">Pico CSS</a> 作为配色方案，可切换主题颜色，可切换 dark / light 模式。</li>
-<li>可自定义 home page 展示内容。</li>
-<li>添加 STYLE SETTINGS ，位于 /assets/sass/_settings.scss ；</li>
-<li>弃用 Category 页面，合并到 Archive 页面。</li>
-</ul>
-<p>由于修改的地方比较多，还有很多地方不完善，请您谅解！</p>
+      <p><a href="https://www.intmath.com/cg5/katex-mathjax-comparison.php">KaTeX and MathJax Comparison Demo, currently processed as KaTeX</a></p>
     </div>
 
     <div class="read-more">
-      <a role="button" href="/post/jane-theme-v3-major-update.zh-cn/" class="read-more-link outline">Read more</a>
-    </div>
-    
-  </div>
-
-</section>
-
-  
-  
-
-<section class="jane-card post">
-  
-  <div class="post-pinned">
-    
-<svg aria-hidden="true" class="lucide lucide-pin hi-svg-inline" fill="none" height="1em" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg>
-  </div>
-  
-
-  <header class="post-header">
-    <h1 class="post-title">
-      <a class="post-link" href="/post/jane-theme-preview/">
-        Jane Theme Preview
-      </a>
-    </h1>
-    
-    
-    <div class="post-meta-list">
-      <div class="post-meta-item post-meta-author">
-        
-<svg aria-hidden="true" class="lucide lucide-user-round-pen hi-svg-inline" fill="none" height="1em" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M2 21a8 8 0 0 1 10.821-7.487"/><path d="M21.378 16.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"/><circle cx="10" cy="8" r="5"/></svg>
-        <a href="/about">
-          <span class="post-meta-author-name">
-            Typora
-          </span>
-        </a>
-        
-      </div>
-      <div class="post-meta-item post-meta-time">
-        
-<svg aria-hidden="true" class="lucide lucide-calendar-days hi-svg-inline" fill="none" height="1em" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg>
-        <time datetime=" 2018-01-01">
-          2018-01-01
-        </time>
-      </div>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    
-    <div class="post-summary">
-      <p><strong>Markdown</strong> is created by <a href="http://daringfireball.net/">Daring Fireball</a>, the original guideline is <a href="http://daringfireball.net/projects/markdown/syntax">here</a>. Its syntax, however, varies between different parsers or editors.</p>
-<p>Please note that HTML fragments in markdown source will be recognized but not parsed or rendered. Also, there may be small reformatting on the original markdown source code after saving.</p>
-    </div>
-
-    <div class="read-more">
-      <a role="button" href="/post/jane-theme-preview/" class="read-more-link outline">Read more</a>
+      <a role="button" href="/post/demo/5-math/" class="read-more-link outline">Read more</a>
     </div>
     
   </div>
@@ -654,11 +617,11 @@
 <nav class="pagination">
   <ul>
     
-    <li  class="active" >
+    <li >
       <a href="/">1</a>
     </li>
     
-    <li >
+    <li  class="active" >
       <a href="/page/2/">2</a>
     </li>
     
