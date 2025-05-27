@@ -1,281 +1,281 @@
-<?xml-stylesheet type="text/xsl" href="http://nanana-szz.github.io/sitemap.xsl"?>
+<?xml-stylesheet type="text/xsl" href="http://localhost:1313/sitemap.xsl"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://nanana-szz.github.io/post/vs-code/vs-code-bat/</loc>
+    <loc>http://localhost:1313/post/vs-code/vs-code-bat/</loc>
     <lastmod>2025-03-12T14:25:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/post/jane-theme-v3-major-update.zh-cn/</loc>
+    <loc>http://localhost:1313/post/jane-theme-v3-major-update.zh-cn/</loc>
     <lastmod>2025-03-01T10:49:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/post/jane-theme-preview/</loc>
+    <loc>http://localhost:1313/post/jane-theme-preview/</loc>
     <lastmod>2025-03-01T10:49:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/about/</loc>
+    <loc>http://localhost:1313/about/</loc>
     <lastmod>2025-03-05T15:57:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/tags/.bat/</loc>
+    <loc>http://localhost:1313/tags/.bat/</loc>
     <lastmod>2025-03-12T14:25:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/categories/</loc>
+    <loc>http://localhost:1313/categories/</loc>
     <lastmod>2025-03-12T14:25:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/post/</loc>
+    <loc>http://localhost:1313/post/</loc>
     <lastmod>2025-03-12T14:25:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/tags/</loc>
+    <loc>http://localhost:1313/tags/</loc>
     <lastmod>2025-03-12T14:25:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/tags/vs-code/</loc>
+    <loc>http://localhost:1313/tags/vs-code/</loc>
     <lastmod>2025-03-12T14:25:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/categories/vs-code/</loc>
+    <loc>http://localhost:1313/categories/vs-code/</loc>
     <lastmod>2025-03-12T14:25:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/categories/demo/</loc>
+    <loc>http://localhost:1313/categories/demo/</loc>
     <lastmod>2025-03-05T16:26:35+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/categories/index/</loc>
+    <loc>http://localhost:1313/categories/index/</loc>
     <lastmod>2025-03-05T16:26:35+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/post/demo/1-test/</loc>
+    <loc>http://localhost:1313/post/demo/1-test/</loc>
     <lastmod>2025-03-05T16:26:35+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/tags/test/</loc>
+    <loc>http://localhost:1313/tags/test/</loc>
     <lastmod>2025-03-05T16:26:35+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/categories/docs/</loc>
+    <loc>http://localhost:1313/categories/docs/</loc>
     <lastmod>2025-03-12T14:25:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/tags/preview/</loc>
+    <loc>http://localhost:1313/tags/preview/</loc>
     <lastmod>2025-03-01T10:49:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/categories/shortcodes/</loc>
+    <loc>http://localhost:1313/tags/shortcodes/</loc>
     <lastmod>2025-03-01T10:49:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/tags/shortcodes/</loc>
+    <loc>http://localhost:1313/categories/shortcodes/</loc>
     <lastmod>2025-03-01T10:49:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/tags/tag-6/</loc>
+    <loc>http://localhost:1313/tags/tag-6/</loc>
     <lastmod>2025-03-01T10:49:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/tags/update/</loc>
+    <loc>http://localhost:1313/tags/update/</loc>
     <lastmod>2025-03-01T10:49:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/tags/category/</loc>
+    <loc>http://localhost:1313/tags/category/</loc>
     <lastmod>2025-03-12T14:25:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/tags/customization/</loc>
+    <loc>http://localhost:1313/tags/customization/</loc>
     <lastmod>2025-03-12T14:25:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/post/vs-code/customize-category-names/</loc>
+    <loc>http://localhost:1313/post/vs-code/customize-category-names/</loc>
     <lastmod>2025-03-12T14:25:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/tags/hugo/</loc>
+    <loc>http://localhost:1313/tags/hugo/</loc>
     <lastmod>2025-03-12T14:25:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/tags/i18n/</loc>
+    <loc>http://localhost:1313/tags/i18n/</loc>
     <lastmod>2025-03-12T14:25:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/post/demo/5-math/</loc>
+    <loc>http://localhost:1313/post/demo/5-math/</loc>
     <lastmod>2025-03-01T10:49:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/categories/math/</loc>
+    <loc>http://localhost:1313/tags/math/</loc>
     <lastmod>2025-03-01T10:49:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/tags/math/</loc>
+    <loc>http://localhost:1313/categories/math/</loc>
     <lastmod>2025-03-01T10:49:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/post/other/creating-a-new-theme/</loc>
+    <loc>http://localhost:1313/post/other/creating-a-new-theme/</loc>
     <lastmod>2025-03-01T10:49:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/categories/development/</loc>
+    <loc>http://localhost:1313/tags/development/</loc>
     <lastmod>2025-03-01T10:49:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/tags/development/</loc>
+    <loc>http://localhost:1313/categories/development/</loc>
     <lastmod>2025-03-01T10:49:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/tags/go/</loc>
+    <loc>http://localhost:1313/tags/go/</loc>
     <lastmod>2025-03-01T10:49:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/categories/golang/</loc>
+    <loc>http://localhost:1313/tags/golang/</loc>
     <lastmod>2025-03-01T10:49:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/tags/golang/</loc>
+    <loc>http://localhost:1313/categories/golang/</loc>
     <lastmod>2025-03-01T10:49:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/tags/templates/</loc>
+    <loc>http://localhost:1313/tags/templates/</loc>
     <lastmod>2025-03-01T10:49:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/tags/themes/</loc>
+    <loc>http://localhost:1313/tags/themes/</loc>
     <lastmod>2025-03-01T10:49:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/tags/jekyll/</loc>
+    <loc>http://localhost:1313/tags/jekyll/</loc>
     <lastmod>2025-03-01T10:49:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/post/other/migrate-from-jekyll/</loc>
+    <loc>http://localhost:1313/post/other/migrate-from-jekyll/</loc>
     <lastmod>2025-03-01T10:49:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/</loc>
+    <loc>http://localhost:1313/</loc>
     <lastmod>2025-03-12T14:25:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://nanana-szz.github.io/_index.zh-cn/</loc>
+    <loc>http://localhost:1313/_index.zh-cn/</loc>
     <lastmod>2025-03-09T15:48:18+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

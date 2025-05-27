@@ -12,3 +12,10 @@ body:lang(zh) {
   font-family: -apple-system, BlinkMacSystemFont, SF UI Text, Helvetica Neue, PingFang SC,
     Hiragino Sans GB, Noto Sans CJK SC, Microsoft YaHei, Arial, sans-serif;
 }
+/* 模糊卡片背景 */
+.card {
+  background-color: rgba(255, 255, 255, 0.4); /* 仍带透明度 */
+  backdrop-filter: blur(10px);               /* 关键：背景模糊 */
+  -webkit-backdrop-filter: blur(10px);       /* 兼容 Safari */
+  border-radius: 0.75rem;
+}

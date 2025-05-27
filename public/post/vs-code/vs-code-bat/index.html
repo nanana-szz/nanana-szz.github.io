@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" itemscope itemtype="http://schema.org/WebPage" data-theme="light">
 
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>
@@ -28,18 +28,16 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 
-<meta name="generator" content="Hugo 0.147.5" />
+<meta name="generator" content="Hugo 0.128.0" />
 
 
-<link rel="canonical" href="http://nanana-szz.github.io/post/vs-code/vs-code-bat/" />
+<link rel="canonical" href="http://localhost:1313/post/vs-code/vs-code-bat/" />
 
 
 
 
 <meta name="author" content="Zhenzhuo Shan" />
-<meta name="description" content="添加 VS Code 右键菜单 可以手动修改注册表，也可以使用.bat(批处理)文件自动添加。
-一、手动修改注册表 步骤 打开注册表编辑器，路径为：计算机\HKEY_CLASSES_ROOT\Directory\shell\Open with VS Code 新建一个名为command的字符串值，值为&quot;C:\Program Files\Microsoft VS Code\Code.exe&quot; &quot;%V&quot; 二、使用批处理添加 （一）步骤 新建一个.bat文件，内容如下（注意修改 VS code 安装路径）： Copy1 2 3 4 5 @echo off REG ADD &#34;HKEY_CLASSES_ROOT\Directory\Background\shell\Open with VS Code&#34; /ve /t REG_SZ /d &#34;open here with VS Code&#34; /f REG ADD &#34;HKEY_CLASSES_ROOT\Directory\Background\shell\Open with VS Code\command&#34; /ve /t REG_SZ /d &#34;\&#34;D:\software\Microsoft VS Code\Code.exe\&#34; \&#34;%%V\&#34;&#34; /f echo VS Code Sucess! pause 右键点击该.bat文件，选择以管理员身份运行； 运行完毕后，右键点击文件夹空白处，看看是否出现 open here with VS Code 选项。 （二）代码解析 1. .bat文件的基本概念 .bat(Batch file , 批处理文件) 是 Windows 下的一种脚本文件，常用于自动化执行多个命令。 批处理脚本在 cmd.exe 终端中运行，每行代表一条命令，依次执行。 .bat 文件可以用于文件操作、系统配置、程序自动化等任务。 2. .bat文件的语法 @echo off：关闭命令回显，不显示执行的命令，只显示执行结果。 REG ADD：向 Windows 注册表添加新项或修改现有项。 echo：显示后面的文本 pause：暂停批处理脚本的执行，等待用户按下任意键继续 3. REG ADD命令的语法 (1) 第 2 行REG ADD
-" />
+<meta name="description" content="添加 VS Code 右键菜单 可以手动修改注册表，也可以使用.bat(批处理)文件自动添加。 一、手动修改注册表 步骤 打开注册表编辑器，路径为：计算机\HKE" />
 
 
 
@@ -55,11 +53,10 @@
 <meta name="keywords" content="VS Code, .bat" />
 
 
-<meta property="og:url" content="http://nanana-szz.github.io/post/vs-code/vs-code-bat/">
+<meta property="og:url" content="http://localhost:1313/post/vs-code/vs-code-bat/">
   <meta property="og:site_name" content="Zhenzhuo Shan&#39;s Blog">
   <meta property="og:title" content="VS Code 设置：在 Windows 右键菜单中添加“Open with VS Code”选项">
-  <meta property="og:description" content="添加 VS Code 右键菜单 可以手动修改注册表，也可以使用.bat(批处理)文件自动添加。
-一、手动修改注册表 步骤 打开注册表编辑器，路径为：计算机\HKEY_CLASSES_ROOT\Directory\shell\Open with VS Code 新建一个名为command的字符串值，值为&#34;C:\Program Files\Microsoft VS Code\Code.exe&#34; &#34;%V&#34; 二、使用批处理添加 （一）步骤 新建一个.bat文件，内容如下（注意修改 VS code 安装路径）： Copy1 2 3 4 5 @echo off REG ADD &#34;HKEY_CLASSES_ROOT\Directory\Background\shell\Open with VS Code&#34; /ve /t REG_SZ /d &#34;open here with VS Code&#34; /f REG ADD &#34;HKEY_CLASSES_ROOT\Directory\Background\shell\Open with VS Code\command&#34; /ve /t REG_SZ /d &#34;\&#34;D:\software\Microsoft VS Code\Code.exe\&#34; \&#34;%%V\&#34;&#34; /f echo VS Code Sucess! pause 右键点击该.bat文件，选择以管理员身份运行； 运行完毕后，右键点击文件夹空白处，看看是否出现 open here with VS Code 选项。 （二）代码解析 1. .bat文件的基本概念 .bat(Batch file , 批处理文件) 是 Windows 下的一种脚本文件，常用于自动化执行多个命令。 批处理脚本在 cmd.exe 终端中运行，每行代表一条命令，依次执行。 .bat 文件可以用于文件操作、系统配置、程序自动化等任务。 2. .bat文件的语法 @echo off：关闭命令回显，不显示执行的命令，只显示执行结果。 REG ADD：向 Windows 注册表添加新项或修改现有项。 echo：显示后面的文本 pause：暂停批处理脚本的执行，等待用户按下任意键继续 3. REG ADD命令的语法 (1) 第 2 行REG ADD">
+  <meta property="og:description" content="添加 VS Code 右键菜单 可以手动修改注册表，也可以使用.bat(批处理)文件自动添加。 一、手动修改注册表 步骤 打开注册表编辑器，路径为：计算机\HKE">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
@@ -69,16 +66,14 @@
     <meta property="article:tag" content=".Bat">
 
   <meta itemprop="name" content="VS Code 设置：在 Windows 右键菜单中添加“Open with VS Code”选项">
-  <meta itemprop="description" content="添加 VS Code 右键菜单 可以手动修改注册表，也可以使用.bat(批处理)文件自动添加。
-一、手动修改注册表 步骤 打开注册表编辑器，路径为：计算机\HKEY_CLASSES_ROOT\Directory\shell\Open with VS Code 新建一个名为command的字符串值，值为&#34;C:\Program Files\Microsoft VS Code\Code.exe&#34; &#34;%V&#34; 二、使用批处理添加 （一）步骤 新建一个.bat文件，内容如下（注意修改 VS code 安装路径）： Copy1 2 3 4 5 @echo off REG ADD &#34;HKEY_CLASSES_ROOT\Directory\Background\shell\Open with VS Code&#34; /ve /t REG_SZ /d &#34;open here with VS Code&#34; /f REG ADD &#34;HKEY_CLASSES_ROOT\Directory\Background\shell\Open with VS Code\command&#34; /ve /t REG_SZ /d &#34;\&#34;D:\software\Microsoft VS Code\Code.exe\&#34; \&#34;%%V\&#34;&#34; /f echo VS Code Sucess! pause 右键点击该.bat文件，选择以管理员身份运行； 运行完毕后，右键点击文件夹空白处，看看是否出现 open here with VS Code 选项。 （二）代码解析 1. .bat文件的基本概念 .bat(Batch file , 批处理文件) 是 Windows 下的一种脚本文件，常用于自动化执行多个命令。 批处理脚本在 cmd.exe 终端中运行，每行代表一条命令，依次执行。 .bat 文件可以用于文件操作、系统配置、程序自动化等任务。 2. .bat文件的语法 @echo off：关闭命令回显，不显示执行的命令，只显示执行结果。 REG ADD：向 Windows 注册表添加新项或修改现有项。 echo：显示后面的文本 pause：暂停批处理脚本的执行，等待用户按下任意键继续 3. REG ADD命令的语法 (1) 第 2 行REG ADD">
+  <meta itemprop="description" content="添加 VS Code 右键菜单 可以手动修改注册表，也可以使用.bat(批处理)文件自动添加。 一、手动修改注册表 步骤 打开注册表编辑器，路径为：计算机\HKE">
   <meta itemprop="datePublished" content="2025-03-12T00:00:00+00:00">
   <meta itemprop="dateModified" content="2025-03-12T14:25:05+08:00">
   <meta itemprop="wordCount" content="796">
   <meta itemprop="keywords" content="VS Code,.Bat">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="VS Code 设置：在 Windows 右键菜单中添加“Open with VS Code”选项">
-  <meta name="twitter:description" content="添加 VS Code 右键菜单 可以手动修改注册表，也可以使用.bat(批处理)文件自动添加。
-一、手动修改注册表 步骤 打开注册表编辑器，路径为：计算机\HKEY_CLASSES_ROOT\Directory\shell\Open with VS Code 新建一个名为command的字符串值，值为&#34;C:\Program Files\Microsoft VS Code\Code.exe&#34; &#34;%V&#34; 二、使用批处理添加 （一）步骤 新建一个.bat文件，内容如下（注意修改 VS code 安装路径）： Copy1 2 3 4 5 @echo off REG ADD &#34;HKEY_CLASSES_ROOT\Directory\Background\shell\Open with VS Code&#34; /ve /t REG_SZ /d &#34;open here with VS Code&#34; /f REG ADD &#34;HKEY_CLASSES_ROOT\Directory\Background\shell\Open with VS Code\command&#34; /ve /t REG_SZ /d &#34;\&#34;D:\software\Microsoft VS Code\Code.exe\&#34; \&#34;%%V\&#34;&#34; /f echo VS Code Sucess! pause 右键点击该.bat文件，选择以管理员身份运行； 运行完毕后，右键点击文件夹空白处，看看是否出现 open here with VS Code 选项。 （二）代码解析 1. .bat文件的基本概念 .bat(Batch file , 批处理文件) 是 Windows 下的一种脚本文件，常用于自动化执行多个命令。 批处理脚本在 cmd.exe 终端中运行，每行代表一条命令，依次执行。 .bat 文件可以用于文件操作、系统配置、程序自动化等任务。 2. .bat文件的语法 @echo off：关闭命令回显，不显示执行的命令，只显示执行结果。 REG ADD：向 Windows 注册表添加新项或修改现有项。 echo：显示后面的文本 pause：暂停批处理脚本的执行，等待用户按下任意键继续 3. REG ADD命令的语法 (1) 第 2 行REG ADD">
+  <meta name="twitter:description" content="添加 VS Code 右键菜单 可以手动修改注册表，也可以使用.bat(批处理)文件自动添加。 一、手动修改注册表 步骤 打开注册表编辑器，路径为：计算机\HKE">
 
 <link rel="icon" href="/favicon.ico" />
 
@@ -92,7 +87,7 @@
 
 
 
-<link rel="stylesheet" href="/css/style.min.851eaca57995765c0e96ec5245b6191851460a9d9b7f5abfff70c2f49b65f7e8.css" integrity="sha256-hR6spXmVdlwOluxSRbYZGFFGCp2bf1q//3DC9Jtl9&#43;g=" media="screen"
+<link rel="stylesheet" href="/css/style.min.cad113e1bd00ebe8628595d7514f34b2e1aba149930f69e4f692f94018c20a78.css" integrity="sha256-ytET4b0A6&#43;hihZXXUU80suGroUmTD2nk9pL5QBjCCng=" media="screen"
   crossorigin="anonymous">
 <style>
   .wallpaper {
@@ -160,7 +155,7 @@
         
         
         
-        <a class="menu-item-link" href="http://nanana-szz.github.io/">Home</a>
+        <a class="menu-item-link" href="http://localhost:1313/">Home</a>
         
 
         
@@ -171,7 +166,7 @@
         
         
         
-        <a class="menu-item-link" href="http://nanana-szz.github.io/post/">Archives</a>
+        <a class="menu-item-link" href="http://localhost:1313/post/">Archives</a>
         
 
         
@@ -182,7 +177,7 @@
         
         
         
-        <a class="menu-item-link" href="http://nanana-szz.github.io/tags/">Tags</a>
+        <a class="menu-item-link" href="http://localhost:1313/tags/">Tags</a>
         
 
         
@@ -193,7 +188,7 @@
         
         
         
-        <a class="menu-item-link" href="http://nanana-szz.github.io/about/">About</a>
+        <a class="menu-item-link" href="http://localhost:1313/about/">About</a>
         
 
         
@@ -204,7 +199,7 @@
         
         
         
-        <a class="menu-item-link" href="http://nanana-szz.github.io/">external-link</a>
+        <a class="menu-item-link" href="http://localhost:1313/">external-link</a>
         
 
         
@@ -214,7 +209,7 @@
       <li class="menu-item">
         
         
-        <a class="menu-item-link menu-parent" href="http://nanana-szz.github.io/">
+        <a class="menu-item-link menu-parent" href="http://localhost:1313/">
           demo
           
 <svg aria-hidden="true" class="lucide lucide-chevron-down hi-svg-inline icon--chevron-down" fill="none" height="1em" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="m6 9 6 6 6-6"/></svg>
@@ -222,11 +217,11 @@
         <ul class="submenu">
           
           <li class="submenu-item">
-            <a href="http://nanana-szz.github.io/post/demo/1-test/">test</a>
+            <a href="http://localhost:1313/post/demo/1-test/">test</a>
           </li>
           
           <li class="submenu-item">
-            <a href="http://nanana-szz.github.io/post/demo/5-math/">Demo: Math</a>
+            <a href="http://localhost:1313/post/demo/5-math/">Demo: Math</a>
           </li>
           
         </ul>
@@ -238,7 +233,7 @@
       <li class="menu-item">
         
         
-        <a class="menu-item-link menu-parent" href="http://nanana-szz.github.io/">
+        <a class="menu-item-link menu-parent" href="http://localhost:1313/">
           docs
           
 <svg aria-hidden="true" class="lucide lucide-chevron-down hi-svg-inline icon--chevron-down" fill="none" height="1em" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="m6 9 6 6 6-6"/></svg>
@@ -246,7 +241,7 @@
         <ul class="submenu">
           
           <li class="submenu-item">
-            <a href="http://nanana-szz.github.io/post/jane-theme-preview/">Jane Theme Preview</a>
+            <a href="http://localhost:1313/post/jane-theme-preview/">Jane Theme Preview</a>
           </li>
           
         </ul>
@@ -274,7 +269,7 @@
       </li>
 
       <li class="menu-item">
-        <a class="menu-item-link" href="http://nanana-szz.github.io/index.xml" rel="noopener alternate" type="application/rss&#43;xml"
+        <a class="menu-item-link" href="http://localhost:1313/index.xml" rel="noopener alternate" type="application/rss&#43;xml"
           title="rss" target="_blank">
           
 <svg aria-hidden="true" class="lucide lucide-rss hi-svg-inline icon--rss" fill="none" height="1em" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
@@ -305,35 +300,35 @@
         
         
         
-        <a class="menu-item-link" href="http://nanana-szz.github.io/">Home</a>
+        <a class="menu-item-link" href="http://localhost:1313/">Home</a>
         
         
       </li><li class="mobile-menu-item">
         
         
         
-        <a class="menu-item-link" href="http://nanana-szz.github.io/post/">Archives</a>
+        <a class="menu-item-link" href="http://localhost:1313/post/">Archives</a>
         
         
       </li><li class="mobile-menu-item">
         
         
         
-        <a class="menu-item-link" href="http://nanana-szz.github.io/tags/">Tags</a>
+        <a class="menu-item-link" href="http://localhost:1313/tags/">Tags</a>
         
         
       </li><li class="mobile-menu-item">
         
         
         
-        <a class="menu-item-link" href="http://nanana-szz.github.io/about/">About</a>
+        <a class="menu-item-link" href="http://localhost:1313/about/">About</a>
         
         
       </li><li class="mobile-menu-item">
         
         
         
-        <a class="menu-item-link" href="http://nanana-szz.github.io/">external-link</a>
+        <a class="menu-item-link" href="http://localhost:1313/">external-link</a>
         
         
       </li><li class="mobile-menu-item">
@@ -341,18 +336,18 @@
         
         <div class="mobile-menu-parent">
           <span class="mobile-submenu-open"></span>
-          <a href="http://nanana-szz.github.io/">
+          <a href="http://localhost:1313/">
             demo
           </a>
         </div>
         <ul class="mobile-submenu-list">
           
           <li>
-            <a href="http://nanana-szz.github.io/post/demo/1-test/">test</a>
+            <a href="http://localhost:1313/post/demo/1-test/">test</a>
           </li>
           
           <li>
-            <a href="http://nanana-szz.github.io/post/demo/5-math/">Demo: Math</a>
+            <a href="http://localhost:1313/post/demo/5-math/">Demo: Math</a>
           </li>
           
         </ul>
@@ -362,14 +357,14 @@
         
         <div class="mobile-menu-parent">
           <span class="mobile-submenu-open"></span>
-          <a href="http://nanana-szz.github.io/">
+          <a href="http://localhost:1313/">
             docs
           </a>
         </div>
         <ul class="mobile-submenu-list">
           
           <li>
-            <a href="http://nanana-szz.github.io/post/jane-theme-preview/">Jane Theme Preview</a>
+            <a href="http://localhost:1313/post/jane-theme-preview/">Jane Theme Preview</a>
           </li>
           
         </ul>
@@ -392,7 +387,7 @@
       </li>
 
       <li class="mobile-menu-item">
-        <a class="menu-item-link" href="http://nanana-szz.github.io/index.xml" rel="noopener alternate" type="application/rss&#43;xml"
+        <a class="menu-item-link" href="http://localhost:1313/index.xml" rel="noopener alternate" type="application/rss&#43;xml"
           title="rss" target="_blank">
           
 <svg aria-hidden="true" class="lucide lucide-rss hi-svg-inline icon--rss" fill="none" height="1em" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
@@ -479,7 +474,7 @@
       2 min read
       
       
-      - <span class="remark42__counter" data-url="http://nanana-szz.github.io/post/vs-code/vs-code-bat/"></span> Comments
+      - <span class="remark42__counter" data-url="http://localhost:1313/post/vs-code/vs-code-bat/"></span> Comments
       
       </span>
 
@@ -487,7 +482,7 @@
       
         
           
-        <a href="http://nanana-szz.github.io/categories/vs-code/">vs-code</a>
+        <a href="http://localhost:1313/categories/vs-code/">vs-code</a>
     </div>
 
 
@@ -610,8 +605,8 @@
 
         <footer class="post-footer">
           <div class="post-tags">
-              <a href="http://nanana-szz.github.io/tags/vs-code/">VS Code</a>
-                <a href="http://nanana-szz.github.io/tags/.bat/">.bat</a>
+              <a href="http://localhost:1313/tags/vs-code/">VS Code</a>
+                <a href="http://localhost:1313/tags/.bat/">.bat</a>
                 
             </div>
 
@@ -683,7 +678,7 @@
 </a>
 
 
-<a href="http://nanana-szz.github.io/index.xml" rel="noopener alternate" type="application/rss&#43;xml" class="social-icon-link" title="rss"
+<a href="http://localhost:1313/index.xml" rel="noopener alternate" type="application/rss&#43;xml" class="social-icon-link" title="rss"
   target="_blank">
   
 <svg aria-hidden="true" class="lucide lucide-rss hi-svg-inline" fill="none" height="1em" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
@@ -729,7 +724,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.17699ed8d33f74337c43b07792e55e000be89351246738a29cbf2991828cf158.js" integrity="sha256-F2me2NM/dDN8Q7B3kuVeAAvok1EkZziinL8pkYKM8Vg=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/js/main.b14e6c5e6c6ac7cb9f636b2f4eae515cbe7fa4cf5c010a087dca9120ec5a4855.js" integrity="sha256-sU5sXmxqx8ufY2svTq5RXL5/pM9cAQoIfcqRIOxaSFU=" crossorigin="anonymous"></script>
 
 
 

@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: http://nanana-szz.github.io/sitemap.xml
+Sitemap: http://localhost:1313/sitemap.xml
