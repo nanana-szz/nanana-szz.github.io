@@ -1,0 +1,930 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文通过在 Python 中调用 CvxPy 进行凸优化时遇到的问题，介绍使用 CvxPy 进行凸优化的基本步骤和注意事项。➡️">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 Python 中调用 CvxPy 进行凸优化">
+<meta property="og:url" content="https://nanana-szz.github.io/2025/11/19/CvxPy/index.html">
+<meta property="og:site_name" content="远大前程">
+<meta property="og:description" content="本文通过在 Python 中调用 CvxPy 进行凸优化时遇到的问题，介绍使用 CvxPy 进行凸优化的基本步骤和注意事项。➡️">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nanana-szz.github.io/img/vscode.png">
+<meta property="article:published_time" content="2025-11-19T14:10:00.000Z">
+<meta property="article:modified_time" content="2025-11-19T15:41:50.237Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="CvxPy">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nanana-szz.github.io/img/vscode.png">
+  
+  
+  
+  <title>在 Python 中调用 CvxPy 进行凸优化 - 远大前程</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"nanana-szz.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>优化方法</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/" target="_self">
+                    
+                    <span>优化基础</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/%E5%87%B8%E4%BC%98%E5%8C%96/" target="_self">
+                    
+                    <span>凸优化</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/%E8%87%AA%E9%80%82%E5%BA%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" target="_self">
+                    
+                    <span>自适应动态规划</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/%E6%9C%80%E4%BC%98%E6%8E%A7%E5%88%B6/" target="_self">
+                    
+                    <span>最优控制</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>编程</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E7%BC%96%E7%A8%8B/Python/" target="_self">
+                    
+                    <span>Python</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E7%BC%96%E7%A8%8B/VS%20Code/" target="_self">
+                    
+                    <span>VS Code</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E7%BC%96%E7%A8%8B/Git/" target="_self">
+                    
+                    <span>Git</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="在 Python 中调用 CvxPy 进行凸优化"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-11-19 22:10" pubdate>
+          2025年11月19日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          16 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">在 Python 中调用 CvxPy 进行凸优化</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本文通过在 Python 中调用 CvxPy 进行凸优化时遇到的问题，介绍使用 CvxPy 进行凸优化的基本步骤和注意事项。➡️</p>
+<span id="more"></span>
+
+<hr>
+<h2 id="❓-问题引出"><a href="#❓-问题引出" class="headerlink" title="❓ 问题引出"></a>❓ 问题引出</h2><blockquote>
+<p>💭 <strong>问题：什么是 <code>CvxPy</code>？</strong></p>
+</blockquote>
+<p><code>CvxPy</code> 是一个基于 <code>Python</code> 的 <strong>凸优化建模库</strong>。可以把它理解成：</p>
+<ul>
+<li>用类似数学公式的方式，在 Python 里写优化问题；</li>
+<li>把 <code>变量</code> <code>目标函数</code> <code>约束条件</code> 写清楚；</li>
+<li>然后交给 <code>CvxPy</code> 调用底层求解器 <code>solver</code>，自动算出最优解。</li>
+</ul>
+<hr>
+<h3 id="🔧-一个简单的小例子"><a href="#🔧-一个简单的小例子" class="headerlink" title="🔧 一个简单的小例子"></a>🔧 一个简单的小例子</h3><p>下面是一个“让 (x) 尽量接近 2，同时要求 (x \ge 0)”的最小化问题：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cvxpy <span class="hljs-keyword">as</span> cp<br><br><span class="hljs-comment"># 定义变量</span><br>x = cp.Variable()<br><br><span class="hljs-comment"># 定义目标函数：minimize (x - 2)^2</span><br>objective = cp.Minimize((x - <span class="hljs-number">2</span>)**<span class="hljs-number">2</span>)<br><br><span class="hljs-comment"># 定义约束：x ≥ 0</span><br>constraints = [x &gt;= <span class="hljs-number">0</span>]<br><br><span class="hljs-comment"># 组合成一个问题并求解</span><br>prob = cp.Problem(objective, constraints)<br>prob.solve()<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;最优目标值:&quot;</span>, prob.value)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;最优解 x:&quot;</span>, x.value)<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>上面提到 <code>CvxPy</code> 需要调用 <code>solver</code>，为什么示例代码中没有体现？怎么调用求解器 <code>solver</code>？选择求解器时需要注意什么？</strong></p>
+</blockquote>
+<p>下面将详细介绍 <code>solver</code> 的调用和选择。</p>
+<hr>
+<h2 id="1-CvxPy-中的求解器调用"><a href="#1-CvxPy-中的求解器调用" class="headerlink" title="1. CvxPy 中的求解器调用"></a>1. CvxPy 中的求解器调用</h2><ul>
+<li>在 <code>CvxPy</code> 中，使用 <code>prob.solve()</code> 调用求解器。<ul>
+<li><strong>当前调用方法将会自动选择 <code>solver</code>。</strong></li>
+<li><strong><code>CvxPy</code> 会根据问题的特性和定义的约束条件，自动选择一个合适的求解器来求解优化问题。</strong></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>CvxPy 自动选择的所谓的 <strong>“合适的求解器”</strong> 真的就合适吗？CvxPy 是从哪些 solver 中选择的？</strong><br><strong>如果想手动指定求解器，应该怎么做？选择求解器时需要注意什么？</strong></p>
+</blockquote>
+<p>关于上述问题，下面将展开叙述。</p>
+<hr>
+<h3 id="1-1-solve-的设置"><a href="#1-1-solve-的设置" class="headerlink" title="1.1 solve 的设置"></a>1.1 solve 的设置</h3><ul>
+<li><p><code>prob.solve()</code> 这种写法的默认参数是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python">prob.solve(<br>    solver=<span class="hljs-literal">None</span>,<br>    verbose=<span class="hljs-literal">False</span>,<br>    gp=<span class="hljs-literal">False</span>,<br>    qcp=<span class="hljs-literal">False</span>,<br>    requires_grad=<span class="hljs-literal">False</span>,<br>    enforce_dpp=<span class="hljs-literal">False</span>,<br>    ignore_dpp=<span class="hljs-literal">False</span>,<br>    **kwargs<br>)<br></code></pre></td></tr></table></figure>
+
+<p>其中，</p>
+<ul>
+<li><p>当 <code>solver=None</code> 时，<code>CvxPy</code> 会<strong>自动根据问题类型和机器上安装的求解器选择一个“最合适”的 solver</strong>。比如：</p>
+<ul>
+<li>QP（二次规划）问题 → 优先用 <code>OSQP</code>  </li>
+<li>二阶锥问题（SOCP） → 会选 <code>CLARABEL</code> 这类锥规划求解器  </li>
+<li>更通用的凸问题 → 可以用 <code>SCS</code> 兜底（几乎所有凸问题都能解）</li>
+</ul>
+<p>也就是说：</p>
+<ul>
+<li>如果想手动指定调用哪个 <code>solver</code>，可以通过 <code>prob.solve( solver = cp.SOLVER_NAME )</code> 来实现。</li>
+<li>如果<strong>不写 <code>solver=</code>，CVXPY 一样会帮你选一个 solver 并调用，只是被“藏”在内部了。</strong></li>
+</ul>
+<p>想知道它到底选了谁，可以在求解后查看：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">prob.solve()<br><span class="hljs-built_in">print</span>(prob.solver_stats.solver_name)   <span class="hljs-comment"># 比如 &#x27;OSQP&#x27;、&#x27;CLARABEL&#x27;、&#x27;SCS&#x27; 等</span><br><span class="hljs-built_in">print</span>(prob.solver_stats.solve_time)    <span class="hljs-comment"># 求解耗时</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p><code>verbose=False</code>：表示不输出求解器的详细日志信息。如果想查看求解过程中的日志，可以将其设置为 <code>True</code>。</p>
+</li>
+<li><p><code>gp=False</code>：表示问题不是几何规划（Geometric Programming）。如果问题是几何规划，可以将其设置为 <code>True</code>。</p>
+</li>
+<li><p><code>qcp=False</code>：表示问题不是二次锥规划（Quadratically Constrained Programming）。如果问题是二次锥规划，可以将其设置为 <code>True</code>。</p>
+</li>
+<li><p><code>requires_grad=False</code>：表示不需要计算梯度信息。如果需要梯度信息，可以将其设置为 <code>True</code>。</p>
+</li>
+<li><p><code>enforce_dpp=False</code>：表示不强制执行 DPP（Disciplined Parametrized Programming）规则。如果需要强制执行，可以将其设置为 <code>True</code>。</p>
+</li>
+<li><p><code>ignore_dpp=False</code>：表示不忽略 DPP 规则。如果需要忽略，可以将其设置为 <code>True</code>。</p>
+</li>
+<li><p><code>**kwargs</code>：<code>keyword arguments</code>，可以传递给求解器的其他参数，例如 <code>max_iters</code>、<code>abstol</code>、<code>reltol</code> 等，具体参数取决于所使用的求解器。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-2-常见的求解器类型"><a href="#1-2-常见的求解器类型" class="headerlink" title="1.2 常见的求解器类型"></a>1.2 常见的求解器类型</h3><p>常见开源求解器</p>
+<ul>
+<li><p>OSQP</p>
+<ul>
+<li>问题类型：二次规划(QP)、二次目标 + 线性约束（凸二次）</li>
+<li>优点：对稀疏 QP 高效、支持 warm start、迭代法内存低、适合实时&#x2F;滚动优化。</li>
+<li>可配置：eps_abs&#x2F;eps_rel、max_iter、polish、warm_start。</li>
+</ul>
+</li>
+<li><p>SCS</p>
+<ul>
+<li>问题类型：广义锥问题（第一阶方法，适合大型问题近似解）</li>
+<li>优点：可处理大规模问题，内存占用低，收敛快但解粗糙（精度较低）。</li>
+<li>可配置：eps、max_iters、acceleration，支持并行（部分实现）。</li>
+</ul>
+</li>
+<li><p>ECOS</p>
+<ul>
+<li>问题类型：锥规划（SOCP、QCQP 可部分转换）</li>
+<li>优点：对 SOCP 和二次锥问题表现良好，速度快、可靠性高。</li>
+<li>可配置：max_iters、abstol&#x2F;reltol 等。</li>
+</ul>
+</li>
+<li><p>CVXOPT</p>
+<ul>
+<li>问题类型：QP、LP、二次锥等（经典 Python 求解器）</li>
+<li>优点：实现成熟、支持多种问题，但对大型稀疏问题不如专用求解器效率高。</li>
+<li>可配置：多项参数及低级接口。</li>
+</ul>
+</li>
+<li><p>ECOS：基于内点法的二阶锥规划（SOCP）求解器，适合凸二次锥问题和线性锥问题。精度高，收敛快（迭代次数少），但对大规模稀疏问题内存&#x2F;每次迭代成本较高。</p>
+</li>
+<li><p>SCS：基于一阶原语（交替方向乘子法&#x2F;ADMM）的锥规划近似求解器，能处理更广泛的锥（包括大规模问题），但收敛为近似解，精度通常低于内点法。对非常大的问题和内存受限场景更友好。</p>
+</li>
+<li><p>OSQP：专门针对二次规划（QP&#x2F;凸二次问题）的算子分裂二次规划求解器（ADMM 变体），对稀疏大规模 QP 非常高效且稳定，能提供较高精度且速度通常优于 SCS 在 QP 上的表现。</p>
+</li>
+</ul>
+<hr>
+<p>常见商业&#x2F;高性能求解器（通常需要许可证）</p>
+<ul>
+<li>Gurobi<ul>
+<li>问题类型：LP、QP、QCP、MIP（混合整数）、二次锥等</li>
+<li>优点：工业级性能、鲁棒、支持并行、多种高级选项。</li>
+<li>注意：需商业授权（学术可免费申请）。cvxpy 有接口。</li>
+</ul>
+</li>
+<li>MOSEK<ul>
+<li>问题类型：线性&#x2F;二次&#x2F;二次锥&#x2F;锥&#x2F;大类凸问题</li>
+<li>优点：对大型锥问题、二次锥问题表现优异，稳定且精度高。</li>
+<li>注意：商业授权&#x2F;学术许可证。cvxpy 支持调用。</li>
+</ul>
+</li>
+<li>CPLEX<ul>
+<li>问题类型：LP、QP、MIP 等</li>
+<li>优点：与 Gurobi 类似（IBM 产品），高性能但需授权。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>其他可用求解器&#x2F;接口</p>
+<ul>
+<li><p>HiGHS</p>
+<ul>
+<li>问题类型：LP、MIP、一些 QP 支持（近年来进展）</li>
+<li>优点：开源，高性能，用于结构化线性问题。cvxpy 有间接接口或通过 scipy &#x2F; OSQP 组件配合。</li>
+</ul>
+</li>
+<li><p>scs + gpu实现（如 SCS 的 GPU variant）</p>
+<ul>
+<li>适用于需要 GPU 加速的大规模问题（视实现与依赖）。</li>
+</ul>
+</li>
+<li><p>qpsolvers &#x2F; quadprog（Python 包）</p>
+<ul>
+<li>问题类型：小型 QP 求解（教学&#x2F;简单场景）。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>如何在 cvxpy 中选择</p>
+<ul>
+<li>若是 QP（你目前的情况：二次目标 + 线性约束）：<ul>
+<li>首选 OSQP（稀疏、支持 warm start）。若对精度或数值稳定性有更高要求，尝试 Gurobi 或 MOSEK（商业）。</li>
+</ul>
+</li>
+<li>若是大型近似解／第一阶方法可接受：<ul>
+<li>SCS（大规模、快速但精度有限）。</li>
+</ul>
+</li>
+<li>若问题含二次锥（SOCP）：<ul>
+<li>ECOS 或 MOSEK 通常更合适。</li>
+</ul>
+</li>
+<li>若需混合整数（MIP）：<ul>
+<li>Gurobi、CPLEX、CBC（开源）等。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>如何获取更多 solver 选项与诊断</p>
+<ul>
+<li>在 cvxpy 中，调用 problem.solve(solver&#x3D;cp.SOLVER_NAME, verbose&#x3D;True, **solver_options) 并打印 problem.solver_stats。不同 solver 支持的选项不同，参考各 solver 文档。</li>
+<li>若遇数值问题，试：<ul>
+<li>改变 solver（ECOS、SCS、OSQP、MOSEK、Gurobi 等逐个尝试）；</li>
+<li>改善问题缩放&#x2F;预处理；</li>
+<li>把部分硬约束改为软约束并在目标中惩罚。</li>
+</ul>
+</li>
+</ul>
+<p>如果你想手动指定求解器，可以在 <code>solve()</code> 方法中传入 <code>solver</code> 参数，例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">prob.solve(solver=cp.ECOS)<br></code></pre></td></tr></table></figure>
+
+<p>在选择求解器时，需要注意以下几点：</p>
+<ol>
+<li><strong>问题类型</strong>：不同的求解器适用于不同类型的优化问题，例如线性规划、二次规划等。</li>
+<li><strong>性能</strong>：某些求解器在特定问题上可能表现更好，可以根据实际情况进行选择。</li>
+<li><strong>依赖库</strong>：某些求解器可能需要额外的依赖库，确保在使用前已正确安装。</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BC%96%E7%A8%8B/" class="category-chain-item">编程</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BC%96%E7%A8%8B/Python/" class="category-chain-item">Python</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Python/" class="print-no-link">#Python</a>
+      
+        <a href="/tags/CvxPy/" class="print-no-link">#CvxPy</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>在 Python 中调用 CvxPy 进行凸优化</div>
+      <div>https://nanana-szz.github.io/2025/11/19/CvxPy/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年11月19日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/11/19/blog/" title="从 0 搭建 Hexo + Fluid + GitHub Pages 博客">
+                        <span class="hidden-mobile">从 0 搭建 Hexo + Fluid + GitHub Pages 博客</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
