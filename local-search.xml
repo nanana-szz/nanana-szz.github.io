@@ -73,27 +73,6 @@
   
   
   <entry>
-    <title>梯度下降法综述</title>
-    <link href="/2025/11/19/gd/"/>
-    <url>/2025/11/19/gd/</url>
-    
-    <content type="html"><![CDATA[]]></content>
-    
-    
-    <categories>
-      
-      <category>优化方法</category>
-      
-      <category>优化基础</category>
-      
-    </categories>
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>凸优化基础理论</title>
     <link href="/2025/11/19/cvx/"/>
     <url>/2025/11/19/cvx/</url>
@@ -106,6 +85,27 @@
       <category>优化方法</category>
       
       <category>凸优化</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>梯度下降法综述</title>
+    <link href="/2025/11/19/gd/"/>
+    <url>/2025/11/19/gd/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>优化方法</category>
+      
+      <category>优化基础</category>
       
     </categories>
     
