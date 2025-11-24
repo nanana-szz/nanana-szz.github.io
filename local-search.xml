@@ -52,27 +52,6 @@
   
   
   <entry>
-    <title>自适应动态规划简介</title>
-    <link href="/2025/11/19/adp/"/>
-    <url>/2025/11/19/adp/</url>
-    
-    <content type="html"><![CDATA[]]></content>
-    
-    
-    <categories>
-      
-      <category>优化方法</category>
-      
-      <category>自适应动态规划</category>
-      
-    </categories>
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>梯度下降法综述</title>
     <link href="/2025/11/19/gd/"/>
     <url>/2025/11/19/gd/</url>
@@ -85,6 +64,27 @@
       <category>优化方法</category>
       
       <category>优化基础</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>自适应动态规划简介</title>
+    <link href="/2025/11/19/adp/"/>
+    <url>/2025/11/19/adp/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>优化方法</category>
+      
+      <category>自适应动态规划</category>
       
     </categories>
     
