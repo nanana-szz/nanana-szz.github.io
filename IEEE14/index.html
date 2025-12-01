@@ -1,0 +1,1058 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><link href="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文概括电力系统标准测试系统的基本信息，包括 IEEE 14-bus 和 IEEE 33-bus 系统的特点、用途及适用场景。➡️">
+<meta property="og:type" content="article">
+<meta property="og:title" content="电力系统标准测试系统概述">
+<meta property="og:url" content="https://nanana-szz.github.io/IEEE14/index.html">
+<meta property="og:site_name" content="远大前程">
+<meta property="og:description" content="本文概括电力系统标准测试系统的基本信息，包括 IEEE 14-bus 和 IEEE 33-bus 系统的特点、用途及适用场景。➡️">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nanana-szz.github.io/img/power_system.jpg">
+<meta property="article:published_time" content="2025-12-01T02:00:00.000Z">
+<meta property="article:modified_time" content="2025-12-01T02:46:01.340Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="IEEE14">
+<meta property="article:tag" content="IEEE33">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nanana-szz.github.io/img/power_system.jpg">
+  
+  
+  
+  <title>电力系统标准测试系统概述 - 远大前程</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"nanana-szz.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Shan Z.Z.</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>优化方法</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/" target="_self">
+                    
+                    <span>优化基础</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/%E5%87%B8%E4%BC%98%E5%8C%96/" target="_self">
+                    
+                    <span>凸优化</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/%E8%87%AA%E9%80%82%E5%BA%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" target="_self">
+                    
+                    <span>自适应动态规划</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/%E6%9C%80%E4%BC%98%E6%8E%A7%E5%88%B6/" target="_self">
+                    
+                    <span>最优控制</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>编程</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E7%BC%96%E7%A8%8B/Python/" target="_self">
+                    
+                    <span>Python</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E7%BC%96%E7%A8%8B/VS%20Code/" target="_self">
+                    
+                    <span>VS Code</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E7%BC%96%E7%A8%8B/Git/" target="_self">
+                    
+                    <span>Git</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E7%BC%96%E7%A8%8B/Web/" target="_self">
+                    
+                    <span>Web</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>电力系统</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E7%94%B5%E5%8A%9B%E7%B3%BB%E7%BB%9F/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/" target="_self">
+                    
+                    <span>基础理论</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E7%94%B5%E5%8A%9B%E7%B3%BB%E7%BB%9F/%E4%BB%BF%E7%9C%9F%E5%B7%A5%E5%85%B7/" target="_self">
+                    
+                    <span>仿真工具</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="电力系统标准测试系统概述"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-12-01 10:00" pubdate>
+          2025年12月1日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="电力系统"
+        id="heading-9af22176100bfa1e4a53b65a65b06697" role="tab" data-toggle="collapse" href="#collapse-9af22176100bfa1e4a53b65a65b06697"
+        aria-expanded="true"
+      >
+        电力系统
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-9af22176100bfa1e4a53b65a65b06697"
+           role="tabpanel" aria-labelledby="heading-9af22176100bfa1e4a53b65a65b06697">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="基础理论"
+        id="heading-711643e656588b4a4b03ad8b5b3ccaac" role="tab" data-toggle="collapse" href="#collapse-711643e656588b4a4b03ad8b5b3ccaac"
+        aria-expanded="true"
+      >
+        基础理论
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-711643e656588b4a4b03ad8b5b3ccaac"
+           role="tabpanel" aria-labelledby="heading-711643e656588b4a4b03ad8b5b3ccaac">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/IEEE14/" title="电力系统标准测试系统概述"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">电力系统标准测试系统概述</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">电力系统标准测试系统概述</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本文概括电力系统标准测试系统的基本信息，包括 IEEE 14-bus 和 IEEE 33-bus 系统的特点、用途及适用场景。➡️</p>
+<span id="more"></span>
+<hr>
+<h2 id="1-IEEE-14-与-IEEE-33-是什么？"><a href="#1-IEEE-14-与-IEEE-33-是什么？" class="headerlink" title="1. IEEE 14 与 IEEE 33 是什么？"></a>1. IEEE 14 与 IEEE 33 是什么？</h2><h3 id="1-1-IEEE-14-bus-系统"><a href="#1-1-IEEE-14-bus-系统" class="headerlink" title="1.1 IEEE 14-bus 系统"></a>1.1 IEEE 14-bus 系统</h3><ul>
+<li><strong>性质</strong>：IEEE（Institute of Electrical and Electronics Engineers，电气电子工程师学会） 提供的典型<strong>高压输电网</strong>标准测试系统</li>
+<li><strong>规模与构成</strong>：<ul>
+<li>14 个母线</li>
+<li>5 台发电机（含 1 个平衡母线）</li>
+<li>11 个负荷</li>
+<li>约 20 条线路/变压器支路</li>
+<li>电压等级多区域（典型为 69 kV / 138 kV 等高压侧）</li>
+</ul>
+</li>
+<li><strong>主要用途</strong>：<ul>
+<li>潮流计算算法验证<ul>
+<li>牛顿法、PQ 法、解耦潮流等的基本算例。</li>
+</ul>
+</li>
+<li>最优潮流（OPF，Optimal Power Flow）与经济调度<ul>
+<li>带约束的 AC OPF 问题、线性化 OPF、凸松弛等，都喜欢拿 14、30、57、118、300 等作对比。</li>
+</ul>
+</li>
+<li>电压稳定、暂态稳定分析<ul>
+<li>在 14-bus 上做 PV 曲线、电压失稳、线路切除等仿真，复杂度适中。</li>
+</ul>
+</li>
+<li>FACTS 装置与无功补偿配置、继电保护整定等<ul>
+<li>例如优化配置 SVC/STATCOM、并联补偿，或方向型过流保护整定等。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>典型场景</strong>：<ul>
+<li>小规模高压网格输电系统的 <strong>入门算例</strong> 与 <strong>方法对比平台</strong></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>在电力系统研究里，“<strong>标准测试系统</strong>”（benchmark / test system）一般有几个特点：</p>
+<ol>
+<li><p><strong>拓扑结构已固定</strong>：给出清晰的单线图（bus-branch 结构）、额定电压、变压器接线、线路参数等。</p>
+</li>
+<li><p><strong>参数公开</strong>：每个节点（母线）的类型（Slack / PV / PQ）、负荷、发电机出力范围，支路的 R、X、B，基准容量 S_base 等全部公开，可直接建模。</p>
+</li>
+<li><p><strong>被广泛引用</strong>：大量文献、教材、软件（MATPOWER、PYPOWER、pandapower、PowerWorld 等）都有相应数据集，用它做算例方便和别人比较。</p>
+</li>
+<li><p><strong>划定使用场景</strong>：有的代表高压输电网，有的代表中低压配电网；有的偏重潮流/OPF，有的偏重动态稳定、暂态仿真等。</p>
+</li>
+</ol>
+</blockquote>
+<hr>
+<h3 id="1-2-IEEE-33-bus-系统"><a href="#1-2-IEEE-33-bus-系统" class="headerlink" title="1.2 IEEE 33-bus 系统"></a>1.2 IEEE 33-bus 系统</h3><ul>
+<li><strong>性质</strong>：Baran &amp; Wu 提出的典型<strong>中压径向配电网</strong>标准测试系统</li>
+<li><strong>规模与构成</strong>：<ul>
+<li>33 个节点（1 个变电站节点 + 32 个中压负荷节点）</li>
+<li>32 条主馈线分段 + 若干联络线（部分版本为 37 支路，其中 32 条常闭，5 条常开联络开关）</li>
+<li>额定电压通常为 12.66 kV，基准容量多取 100 MVA，为<strong>中压径向配电馈线</strong></li>
+</ul>
+</li>
+<li><strong>主要用途</strong>：<ul>
+<li>配电网潮流与电压质量分析<ul>
+<li>单相/三相潮流，考虑线路电阻占比大、R/X 比高的特点。</li>
+</ul>
+</li>
+<li>网损最小化与网络重构（开关重构）<ul>
+<li>通过开关操作改变径向结构，寻优网损、负荷平衡、电压偏差等目标。</li>
+</ul>
+</li>
+<li>分布式电源（DG）、储能接入位置与容量优化<ul>
+<li>太阳能、风电、储能、EV 充电站布置问题的首选 benchmark。</li>
+</ul>
+</li>
+<li>主动配电网控制、EV 充电站布置等<ul>
+<li>电压/无功优化、FRT 策略、需求响应、分布式调度等。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>典型场景</strong>：<ul>
+<li>中压径向配电系统的 <strong>网损优化、DG/储能规划与重构研究</strong></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="2-其他常见“输电网”标准测试系统"><a href="#2-其他常见“输电网”标准测试系统" class="headerlink" title="2. 其他常见“输电网”标准测试系统"></a>2. 其他常见“<strong>输电网</strong>”标准测试系统</h2><h3 id="2-1-典型-IEEE-输电网系统"><a href="#2-1-典型-IEEE-输电网系统" class="headerlink" title="2.1 典型 IEEE 输电网系统"></a>2.1 典型 IEEE 输电网系统</h3><ul>
+<li><p><strong>9-bus（WSCC）</strong></p>
+<ul>
+<li>规模很小，多用于教学、潮流基本概念与敏感度分析。</li>
+</ul>
+</li>
+<li><p><strong>14-bus、30-bus、57-bus、118-bus、300-bus</strong></p>
+<ul>
+<li><strong>14-bus</strong>：小规模、真实感较强，是输电网入门算例。</li>
+<li><strong>30-bus</strong>：规模稍大，常用于 OPF、无功优化等问题。</li>
+<li><strong>57-bus</strong>：多区域系统，适合电压稳定、OPF、运行分析。</li>
+<li><strong>118-bus</strong>：大型系统，适合测试算法在较大规模下的性能。</li>
+<li><strong>300-bus</strong>：超大规模输电算例，用于评估大系统潮流/OPF 算法。</li>
+</ul>
+</li>
+<li><p><strong>New England 39-bus 动态系统</strong></p>
+<ul>
+<li>强调暂态与小干扰稳定仿真，如机电振荡、故障切除等。</li>
+</ul>
+</li>
+<li><p><strong>IEEE RTS-24 / RTS-96 可靠性测试系统</strong></p>
+<ul>
+<li>用于研究发电与系统可靠性（失负荷概率、备用容量等）。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-2-适用场景（输电网）"><a href="#2-2-适用场景（输电网）" class="headerlink" title="2.2 适用场景（输电网）"></a>2.2 适用场景（输电网）</h3><ul>
+<li>潮流计算、短路分析、无功优化、电压控制。</li>
+<li>最优潮流（OPF）、经济调度、安全约束调度（SCOPF）。</li>
+<li>电压稳定、暂态稳定、小干扰稳定分析。</li>
+<li>继电保护协调、系统可靠性与风险评估等。</li>
+</ul>
+<hr>
+<h2 id="3-其他常见“配电网”标准测试系统"><a href="#3-其他常见“配电网”标准测试系统" class="headerlink" title="3. 其他常见“配电网”标准测试系统"></a>3. 其他常见“<strong>配电网</strong>”标准测试系统</h2><h3 id="3-1-IEEE-配电测试馈线"><a href="#3-1-IEEE-配电测试馈线" class="headerlink" title="3.1 IEEE 配电测试馈线"></a>3.1 IEEE 配电测试馈线</h3><ul>
+<li><p><strong>IEEE 4-node、13-node、34-node、37-node、123-node Test Feeder</strong></p>
+<ul>
+<li>包含单相/三相、不平衡负荷、长线路、电压调节器等复杂特性。</li>
+</ul>
+</li>
+<li><p><strong>IEEE 8500-node、9500-node、342-node 等大规模配电系统</strong></p>
+<ul>
+<li>面向大规模中低压配电网的时序仿真与状态估计。</li>
+</ul>
+</li>
+<li><p><strong>Baran &amp; Wu 系列径向配电系统</strong></p>
+<ul>
+<li>如 33-bus、69-bus、119-bus 等，用于网损优化、网络重构、DG/储能布置等。</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-2-适用场景（配电网）"><a href="#3-2-适用场景（配电网）" class="headerlink" title="3.2 适用场景（配电网）"></a>3.2 适用场景（配电网）</h3><ul>
+<li>配电网（尤其是不平衡配电网）潮流分析。</li>
+<li>网损最小化、网络重构、无功/电压协同控制。</li>
+<li>分布式电源（光伏、风电等）、储能以及 EV 充电站接入与规划。</li>
+<li>主动配电网控制、微电网耦合、配电自动化与时序仿真。</li>
+</ul>
+<hr>
+<h2 id="4-如何根据研究场景选择测试系统？"><a href="#4-如何根据研究场景选择测试系统？" class="headerlink" title="4. 如何根据研究场景选择测试系统？"></a>4. 如何根据研究场景选择测试系统？</h2><h3 id="4-1-按电压等级与拓扑类型"><a href="#4-1-按电压等级与拓扑类型" class="headerlink" title="4.1 按电压等级与拓扑类型"></a>4.1 按电压等级与拓扑类型</h3><ul>
+<li><p><strong>高压网格输电系统</strong></p>
+<ul>
+<li>优先选择：9/14/30/57/118/300-bus 等 IEEE 输电系统。</li>
+<li>适用问题：潮流、OPF、AGC、跨区潮流、输电规划、稳定性分析等。</li>
+</ul>
+</li>
+<li><p><strong>中压/低压径向或弱环网配电系统</strong></p>
+<ul>
+<li>优先选择：IEEE 13/34/37/123-node feeder，33/69/8500/9500-node 等。</li>
+<li>适用问题：配电潮流、网损优化、DG 布置、重构、配电自动化等。</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-2-按系统规模与算法复杂度"><a href="#4-2-按系统规模与算法复杂度" class="headerlink" title="4.2 按系统规模与算法复杂度"></a>4.2 按系统规模与算法复杂度</h3><ul>
+<li><p><strong>小规模（教学 / 原理验证）</strong></p>
+<ul>
+<li>9-bus、14-bus、IEEE 13-node、33-bus 等。</li>
+</ul>
+</li>
+<li><p><strong>中等规模（工程可行性 / 算法扩展验证）</strong></p>
+<ul>
+<li>30/57/69/118-bus、123-node 等。</li>
+</ul>
+</li>
+<li><p><strong>大规模（性能评估 / 大规模优化 / 时序仿真）</strong></p>
+<ul>
+<li>300-bus、8500-node、9500-node 等。</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-3-按研究问题类型"><a href="#4-3-按研究问题类型" class="headerlink" title="4.3 按研究问题类型"></a>4.3 按研究问题类型</h3><ul>
+<li><p><strong>输电网方向</strong></p>
+<ul>
+<li>经济调度、AC/DC OPF：14/30/57/118/300-bus。</li>
+<li>暂态、稳定性及保护：39-bus 动态系统等。</li>
+<li>可靠性：RTS-24/RTS-96 等。</li>
+</ul>
+</li>
+<li><p><strong>配电网方向</strong></p>
+<ul>
+<li>网损优化、重构：33/69/123-node 等。</li>
+<li>DG/储能/EV 布局与调度：33-bus、69-bus、8500/9500-node 等。</li>
+<li>时序潮流、状态估计、数据驱动分析：含时序负荷与运行数据的大规模配电测试系统。</li>
+</ul>
+</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%94%B5%E5%8A%9B%E7%B3%BB%E7%BB%9F/" class="category-chain-item">电力系统</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%94%B5%E5%8A%9B%E7%B3%BB%E7%BB%9F/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/" class="category-chain-item">基础理论</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/IEEE14/" class="print-no-link">#IEEE14</a>
+      
+        <a href="/tags/IEEE33/" class="print-no-link">#IEEE33</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>电力系统标准测试系统概述</div>
+      <div>https://nanana-szz.github.io/IEEE14/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年12月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/hexo_tab/" title="Hexo + Fluid 中使用选项卡（Tabs）踩坑记录">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Hexo + Fluid 中使用选项卡（Tabs）踩坑记录</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/CvxPy/" title="在 Python 中调用 CvxPy 进行凸优化">
+                        <span class="hidden-mobile">在 Python 中调用 CvxPy 进行凸优化</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/js/index.js"></script><!-- hexo injector body_end end --></body>
+</html>
