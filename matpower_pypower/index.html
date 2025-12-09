@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nanana-szz.github.io/img/power_system.jpg">
 <meta property="article:published_time" content="2025-12-08T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-12-09T08:17:34.505Z">
+<meta property="article:modified_time" content="2025-12-09T09:07:24.712Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="MATPOWER">
 <meta property="article:tag" content="PYPOWER">
@@ -355,7 +355,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          1.3k 字
         
       </span>
     
@@ -366,7 +366,7 @@
         
         
         
-          9 分钟
+          12 分钟
         
       </span>
     
@@ -530,7 +530,23 @@
                 
                 <p>本文将简要介绍电力系统的研究与应用中常见的三个开源工具：MATPOWER、PYPOWER 和 pandapower，它们提供了丰富的电力系统分析功能，适用于潮流计算、最优潮流、状态估计等任务。<br><span id="more"></span></p>
 <hr>
-<h2 id="1-MATPOWER-是什么？"><a href="#1-MATPOWER-是什么？" class="headerlink" title="1. MATPOWER 是什么？"></a>1. MATPOWER 是什么？</h2><p><code>MATPOWER</code> 是一套基于 <strong>Matlab</strong> 或 <strong>Octave</strong> 的开源工具包，主要用于电力系统稳态分析和最优潮流（OPF）问题求解。它包括了潮流计算（PF）、延续潮流（CPF）、最优潮流（OPF）、机组组合（UC）等多种功能，适用于学术研究中的算法验证。</p>
+<h2 id="1-MATPOWER-是什么？"><a href="#1-MATPOWER-是什么？" class="headerlink" title="1. MATPOWER 是什么？"></a>1. MATPOWER 是什么？</h2><p><code>MATPOWER</code> 是一套基于 <strong>Matlab</strong> 或 <strong>Octave</strong> 的开源工具包，主要用于电力系统稳态分析和最优潮流（OPF，Optimal Power Flow）问题求解。它包括了潮流计算（PF，Power Flow）、连续潮流（CPF，Continuation Power Flow）、最优潮流（OPF）、机组组合（UC，Unit Commitment）等多种功能，适用于学术研究中的算法验证。</p>
+<p><strong>连续潮流</strong> 是沿着某个“加载参数”（比如系统总负荷逐渐增加）的方向，一步步跟踪潮流解的变化，直到接近电压崩溃点/极限点，用来做：</p>
+<ul>
+<li>电压稳定分析（找最大可承载负荷、电压崩溃点）；</li>
+<li>研究“从当前工况到临界工况”这条路径上的电压变化情况。</li>
+</ul>
+<p><strong>机组组合</strong> 是电力系统调度中的一个经典优化问题，在满足电力系统安全约束的前提下，决定每个发电机在每个时段要不要开机、开多大功率，目标通常是：</p>
+<ul>
+<li>最小化总运行成本（燃料成本 + 启停成本等）；</li>
+<li><p>在满足各种约束（负荷平衡、备用、爬坡、最小开停时间、网络约束等）的前提下，找到最经济的机组启停方案。<br>典型特点：</p>
+<ul>
+<li>决策变量既有 0/1 离散变量（某台机组在该时段是开=1 还是停=0），</li>
+<li>也有 连续变量（机组的出力大小）。</li>
+<li>常见模型是 混合整数规划。 </li>
+</ul>
+</li>
+</ul>
 <p><strong>主要功能：</strong></p>
 <ul>
 <li>AC/DC 潮流计算；</li>
