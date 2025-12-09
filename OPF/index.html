@@ -19,25 +19,24 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本文概括电力系统标准测试系统的基本信息，包括 IEEE 14-bus 和 IEEE 33-bus 系统的特点、用途及适用场景。➡️">
+    <meta name="description" content="本文给出电力系统中的最优潮流（OPF）的基础讲解。➡️">
 <meta property="og:type" content="article">
-<meta property="og:title" content="电力系统标准测试系统概述">
-<meta property="og:url" content="https://nanana-szz.github.io/IEEE14/index.html">
+<meta property="og:title" content="电力系统中的最优潮流（OPF）基础讲解">
+<meta property="og:url" content="https://nanana-szz.github.io/OPF/index.html">
 <meta property="og:site_name" content="远大前程">
-<meta property="og:description" content="本文概括电力系统标准测试系统的基本信息，包括 IEEE 14-bus 和 IEEE 33-bus 系统的特点、用途及适用场景。➡️">
+<meta property="og:description" content="本文给出电力系统中的最优潮流（OPF）的基础讲解。➡️">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nanana-szz.github.io/img/power_system.jpg">
-<meta property="article:published_time" content="2025-12-01T02:00:00.000Z">
-<meta property="article:modified_time" content="2025-12-01T02:46:01.340Z">
+<meta property="article:published_time" content="2025-12-08T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-12-09T15:19:01.481Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="IEEE14">
-<meta property="article:tag" content="IEEE33">
+<meta property="article:tag" content="电力系统,最优潮流">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nanana-szz.github.io/img/power_system.jpg">
   
   
   
-  <title>电力系统标准测试系统概述 - 远大前程</title>
+  <title>电力系统中的最优潮流（OPF）基础讲解 - 远大前程</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -331,7 +330,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="电力系统标准测试系统概述"></span>
+            <span id="subtitle" data-typed-text="电力系统中的最优潮流（OPF）基础讲解"></span>
           
         </div>
 
@@ -342,8 +341,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-12-01 10:00" pubdate>
-          2025年12月1日 上午
+        <time datetime="2025-12-09 00:00" pubdate>
+          2025年12月9日 凌晨
         </time>
       </span>
     
@@ -354,7 +353,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k 字
+          2.3k 字
         
       </span>
     
@@ -365,7 +364,7 @@
         
         
         
-          14 分钟
+          20 分钟
         
       </span>
     
@@ -495,7 +494,7 @@
       
         <a href="/OPF/" title="电力系统中的最优潮流（OPF）基础讲解"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">电力系统中的最优潮流（OPF）基础讲解</span>
         </a>
       
@@ -504,7 +503,7 @@
       
         <a href="/IEEE14/" title="电力系统标准测试系统概述"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">电力系统标准测试系统概述</span>
         </a>
       
@@ -531,216 +530,337 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">电力系统标准测试系统概述</h1>
+            <h1 id="seo-header">电力系统中的最优潮流（OPF）基础讲解</h1>
             
             
               <div class="markdown-body">
                 
-                <p>本文概括电力系统标准测试系统的基本信息，包括 IEEE 14-bus 和 IEEE
-33-bus 系统的特点、用途及适用场景。➡️</p>
+                <p>本文给出电力系统中的最优潮流（OPF）的基础讲解。➡️</p>
 <span id="more"></span>
 <hr />
-<h2 id="ieee-14-与-ieee-33-是什么">1. IEEE 14 与 IEEE 33 是什么？</h2>
-<h3 id="ieee-14-bus-系统">1.1 IEEE 14-bus 系统</h3>
-<ul>
-<li><strong>性质</strong>：IEEE（Institute of Electrical and Electronics
-Engineers，电气电子工程师学会）
-提供的典型<strong>高压输电网</strong>标准测试系统</li>
-<li><strong>规模与构成</strong>：
-<ul>
-<li>14 个母线</li>
-<li>5 台发电机（含 1 个平衡母线）</li>
-<li>11 个负荷</li>
-<li>约 20 条线路/变压器支路</li>
-<li>电压等级多区域（典型为 69 kV / 138 kV 等高压侧）</li>
-</ul></li>
-<li><strong>主要用途</strong>：
-<ul>
-<li>潮流计算算法验证
-<ul>
-<li>牛顿法、PQ 法、解耦潮流等的基本算例。</li>
-</ul></li>
-<li>最优潮流（OPF，Optimal Power Flow）与经济调度
-<ul>
-<li>带约束的 AC OPF 问题、线性化 OPF、凸松弛等，都喜欢拿
-14、30、57、118、300 等作对比。</li>
-</ul></li>
-<li>电压稳定、暂态稳定分析
-<ul>
-<li>在 14-bus 上做 PV 曲线、电压失稳、线路切除等仿真，复杂度适中。</li>
-</ul></li>
-<li>FACTS 装置与无功补偿配置、继电保护整定等
-<ul>
-<li>例如优化配置 SVC/STATCOM、并联补偿，或方向型过流保护整定等。</li>
-</ul></li>
-</ul></li>
-<li><strong>典型场景</strong>：
-<ul>
-<li>小规模高压网格输电系统的 <strong>入门算例</strong> 与
-<strong>方法对比平台</strong></li>
-</ul></li>
-</ul>
+<p>在电力系统中，<strong>OPF</strong> 是 <strong>Optimal Power
+Flow（最优潮流）</strong> 的缩写。</p>
 <blockquote>
-<p>在电力系统研究里，“<strong>标准测试系统</strong>”（benchmark / test
-system）一般有几个特点：</p>
-<ol type="1">
-<li><p><strong>拓扑结构已固定</strong>：给出清晰的单线图（bus-branch
-结构）、额定电压、变压器接线、线路参数等。</p></li>
-<li><p><strong>参数公开</strong>：每个节点（母线）的类型（Slack / PV /
-PQ）、负荷、发电机出力范围，支路的 R、X、B，基准容量 S_base
-等全部公开，可直接建模。</p></li>
-<li><p><strong>被广泛引用</strong>：大量文献、教材、软件（MATPOWER、PYPOWER、pandapower、PowerWorld
-等）都有相应数据集，用它做算例方便和别人比较。</p></li>
-<li><p><strong>划定使用场景</strong>：有的代表高压输电网，有的代表中低压配电网；有的偏重潮流/OPF，有的偏重动态稳定、暂态仿真等。</p></li>
-</ol>
+<p>粗略对比可以这样记：</p>
+<ul>
+<li><strong>潮流计算（PF, Power Flow / Load Flow）</strong>：<br />
+在给定发电出力、负荷、电压设定的前提下，计算<strong>电压、电流、功率在系统中的分布</strong>。</li>
+<li><strong>最优潮流（OPF, Optimal Power Flow）</strong>：<br />
+在满足潮流方程和各种运行约束的前提下，<strong>通过调整发电出力、无功补偿、变压器分接头等决策变量，使某个目标最优</strong>（如成本最小、网损最小、电压偏差最小等）。</li>
+</ul>
 </blockquote>
 <hr />
-<h3 id="ieee-33-bus-系统">1.2 IEEE 33-bus 系统</h3>
+<h2 id="opf-在解决什么问题">1. OPF 在解决什么问题？</h2>
+<p>在给定的电网拓扑、网络参数、负荷水平下，OPF 关心的是：</p>
 <ul>
-<li><strong>性质</strong>：Baran &amp; Wu
-提出的典型<strong>中压径向配电网</strong>标准测试系统</li>
-<li><strong>规模与构成</strong>：
+<li><strong>要“调什么”（决策变量）</strong></li>
+<li><strong>要“最优什么”（目标函数）</strong></li>
+<li><strong>要“守哪些规矩”（约束条件）</strong></li>
+</ul>
+<h3 id="决策变量decision-variables">1.1 决策变量（Decision
+Variables）</h3>
+<p>典型的决策变量包括：</p>
 <ul>
-<li>33 个节点（1 个变电站节点 + 32 个中压负荷节点）</li>
-<li>32 条主馈线分段 + 若干联络线（部分版本为 37 支路，其中 32 条常闭，5
-条常开联络开关）</li>
-<li>额定电压通常为 12.66 kV，基准容量多取 100
-MVA，为<strong>中压径向配电馈线</strong></li>
+<li>各发电机有功出力：<br />
+<span class="math display">\[P_{G,i}\]</span></li>
+<li>各发电机无功出力：<br />
+<span class="math display">\[Q_{G,i}\]</span></li>
+<li>各节点电压幅值与相角（尤其是 PV / 平衡母线）：<br />
+<span class="math display">\[|V_i|, \ \theta_i\]</span></li>
+<li>其他可调设备：
+<ul>
+<li>变压器分接头</li>
+<li>并联电容/电抗投入量</li>
+<li>FACTS / 柔性直流控制变量</li>
+<li>可调负荷 / 需求响应功率</li>
+<li>储能有功出力 / 电动汽车充放电功率等</li>
 </ul></li>
-<li><strong>主要用途</strong>：
+</ul>
+<h3 id="目标函数objective-function">1.2 目标函数（Objective
+Function）</h3>
+<p>根据调度需求不同，常见目标包括：</p>
+<ol type="1">
+<li><p><strong>发电成本最小</strong><br />
+设第 <span class="math inline">\(i\)</span> 台机组成本函数为 <span
+class="math inline">\(C_i(P_{G,i})\)</span>，典型 OPF 目标为： <span
+class="math display">\[
+\min \sum_{i} C_i(P_{G,i})
+\]</span></p></li>
+<li><p><strong>有功网损最小</strong> 设系统总有功网损为 <span
+class="math inline">\(P_{\text{loss}}\)</span>，可写成： <span
+class="math display">\[
+\min P_{\text{loss}}
+\]</span> 或按支路求和： <span class="math display">\[
+P_{\text{loss}} = \sum_{\ell} P_{\ell}
+\]</span></p></li>
+<li><p><strong>电压偏差最小</strong> <span class="math display">\[
+\min \sum_{i} \big(|V_i| - V_i^{\text{ref}}\big)^2
+\]</span> 其中 <span class="math inline">\(V_i^{\text{ref}}\)</span>
+为节点电压参考值（如 1.0 p.u.）。</p></li>
+<li><p><strong>多目标综合优化</strong><br />
+例如： <span class="math display">\[
+\min \ \alpha C_{\text{gen}} + \beta P_{\text{loss}} + \gamma
+J_{\text{volt}}
+\]</span> 通过加权系数 <span
+class="math inline">\(\alpha,\beta,\gamma\)</span>
+在成本、网损、电压质量之间折中。</p></li>
+</ol>
+<h3 id="约束条件constraints">1.3 约束条件（Constraints）</h3>
+<p>OPF 的约束大致分三类：</p>
+<h4 id="潮流方程功率平衡">（1）潮流方程（功率平衡）</h4>
+<p>对每个节点 <span class="math inline">\(i\)</span>：</p>
 <ul>
-<li>配电网潮流与电压质量分析
+<li>有功平衡： <span class="math display">\[
+P_{G,i} - P_{L,i} = \sum_{j} f_{ij}(V,\theta)
+\]</span></li>
+<li>无功平衡： <span class="math display">\[
+Q_{G,i} - Q_{L,i} = \sum_{j} h_{ij}(V,\theta)
+\]</span></li>
+</ul>
+<p>其中 <span class="math inline">\(P_{ij}(V,\theta)\)</span>、<span
+class="math inline">\(Q_{ij}(V,\theta)\)</span> 由 AC
+潮流公式给出，是电压幅值与相角的非线性函数。</p>
+<h4 id="设备运行约束operation-limits">（2）设备运行约束（Operation
+Limits）</h4>
 <ul>
-<li>单相/三相潮流，考虑线路电阻占比大、R/X 比高的特点。</li>
-</ul></li>
-<li>网损最小化与网络重构（开关重构）
+<li>机组有功出力上下限： <span class="math display">\[
+P_{G,i}^{\min} \le P_{G,i} \le P_{G,i}^{\max}
+\]</span></li>
+<li>机组无功出力上下限： <span class="math display">\[
+Q_{G,i}^{\min} \le Q_{G,i} \le Q_{G,i}^{\max}
+\]</span></li>
+<li>节点电压约束： <span class="math display">\[
+V_i^{\min} \le |V_i| \le V_i^{\max}
+\]</span></li>
+<li>线路热稳定约束（潮流不超线）： <span class="math display">\[
+|S_{ij}| \le S_{ij}^{\max}
+\]</span></li>
+<li>变压器分接头、有载调压器、并联电容/电抗投切、开关状态等的约束。</li>
+</ul>
+<h4 id="其他系统级约束">（3）其他系统级约束</h4>
+<p>例如：</p>
 <ul>
-<li>通过开关操作改变径向结构，寻优网损、负荷平衡、电压偏差等目标。</li>
-</ul></li>
-<li>分布式电源（DG）、储能接入位置与容量优化
-<ul>
-<li>太阳能、风电、储能、EV 充电站布置问题的首选 benchmark。</li>
-</ul></li>
-<li>主动配电网控制、EV 充电站布置等
-<ul>
-<li>电压/无功优化、FRT 策略、需求响应、分布式调度等。</li>
-</ul></li>
-</ul></li>
-<li><strong>典型场景</strong>：
-<ul>
-<li>中压径向配电系统的
-<strong>网损优化、DG/储能规划与重构研究</strong></li>
-</ul></li>
+<li>区域功率平衡/备用约束</li>
+<li>上下坡率约束（多时段 OPF 中）</li>
+<li>储能 SOC 演化约束</li>
+<li>电动汽车接入/离开时间、SOC 约束等</li>
 </ul>
 <hr />
-<h2 id="其他常见输电网标准测试系统">2.
-其他常见“<strong>输电网</strong>”标准测试系统</h2>
-<h3 id="典型-ieee-输电网系统">2.1 典型 IEEE 输电网系统</h3>
+<h2 id="标准形式下的-opf-数学模型">2. 标准形式下的 OPF 数学模型</h2>
+<p>从优化理论角度看，OPF 可以抽象写成：</p>
 <ul>
-<li><strong>9-bus（WSCC）</strong>
+<li>把<strong>所有决策变量</strong>（发电出力、电压、分接头等）组合成向量：
+<span class="math display">\[
+x = \big(P_G, Q_G, V, \theta, \dots \big)
+\]</span></li>
+<li>则 OPF 的标准形式为：</li>
+</ul>
+<p><span class="math display">\[
+\begin{array}{ll}
+\displaystyle \min\limits_{x} &amp; f(x) \\[0.3em]
+\text{s.t.} &amp; g(x) = 0 \quad \text{（潮流方程、功率平衡方程）} \\
+            &amp; h(x) \le 0 \quad
+\text{（机组出力、电压、线路容量等约束）}
+\end{array}
+\]</span></p>
+<p>其中：</p>
 <ul>
-<li>规模很小，多用于教学、潮流基本概念与敏感度分析。</li>
+<li><span
+class="math inline">\(f(x)\)</span>：代价函数（发电成本、网损、电压偏差、排放，或它们的加权组合）</li>
+<li><span class="math inline">\(g(x)=0\)</span>：AC
+潮流方程，一般是<strong>非线性等式约束</strong></li>
+<li><span class="math inline">\(h(x)\le
+0\)</span>：设备与系统的<strong>不等式约束</strong></li>
+</ul>
+<p>由于 AC 潮流本身是非线性的，OPF 一般是一个
+<strong>非线性约束优化问题</strong>，整体多是
+<strong>非凸问题</strong>，求解难度较大。</p>
+<hr />
+<h2 id="opf-与普通潮流pf的区别">3. OPF 与普通潮流（PF）的区别</h2>
+<p>从工程角度，对比 OPF 与 PF 有助于直观理解：</p>
+<table>
+
+<thead>
+<tr>
+<th>对比项</th>
+<th>PF（潮流计算）</th>
+<th>OPF（最优潮流）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主要目的</td>
+<td>找到一个<strong>可行的运行点</strong>（满足潮流方程、设备约束）</td>
+<td>在所有可行运行点中，找到<strong>目标函数最优</strong>的那一个</td>
+</tr>
+<tr>
+<td>输入已知量</td>
+<td>发电出力、负荷、电压设定、分接头等</td>
+<td>电网结构、负荷、<strong>成本函数/网损模型/电压指标</strong>、以及各项运行约束</td>
+</tr>
+<tr>
+<td>输出结果</td>
+<td>节点电压、电流、支路功率、网损等</td>
+<td>上述结果+“最优”的发电出力/无功出力/分接头/无功补偿等决策</td>
+</tr>
+<tr>
+<td>数学本质</td>
+<td>非线性方程组求解问题</td>
+<td>非线性约束优化问题</td>
+</tr>
+<tr>
+<td>工程语境</td>
+<td>“看看当前运行是不是合格、潮流怎么走”</td>
+<td>“在合格的前提下，怎么调度才最省钱/最安全/电压最好/网损最小”等</td>
+</tr>
+</tbody>
+</table>
+<p>可以用一句话总结：</p>
+<blockquote>
+<p><strong>PF</strong>：给定发电和控制设定，求电网状态。<br />
+<strong>OPF</strong>：在满足潮流和运行约束前提下，顺带<strong>帮你决定最合适的发电和控制设定</strong>。</p>
+</blockquote>
+<hr />
+<h2 id="常见-opf-变体">4. 常见 OPF 变体</h2>
+<p>根据建模精度与应用场景不同，OPF 有很多变体。常见几类如下。</p>
+<h3 id="ac-opf交流最优潮流">4.1 AC OPF（交流最优潮流）</h3>
+<ul>
+<li>完整采用 AC 潮流方程：
+<ul>
+<li>同时考虑有功、无功</li>
+<li>电压幅值、相角都参与</li>
 </ul></li>
-<li><strong>14-bus、30-bus、57-bus、118-bus、300-bus</strong>
+<li>优点：物理精度高，适合评估电压、无功、配电网等细节问题。</li>
+<li>缺点：问题非线性、非凸，求解难度大，算法收敛性/全局最优性不易保证。</li>
+</ul>
+<h3 id="dc-opf直流近似最优潮流">4.2 DC OPF（直流近似最优潮流）</h3>
+<p>在高压输电网中，为了简化计算，经常使用 DC 潮流近似，假设：</p>
 <ul>
-<li><strong>14-bus</strong>：小规模、真实感较强，是输电网入门算例。</li>
-<li><strong>30-bus</strong>：规模稍大，常用于 OPF、无功优化等问题。</li>
-<li><strong>57-bus</strong>：多区域系统，适合电压稳定、OPF、运行分析。</li>
-<li><strong>118-bus</strong>：大型系统，适合测试算法在较大规模下的性能。</li>
-<li><strong>300-bus</strong>：超大规模输电算例，用于评估大系统潮流/OPF
-算法。</li>
-</ul></li>
-<li><strong>New England 39-bus 动态系统</strong>
+<li>电压幅值约为 1 p.u.</li>
+<li>线路电阻忽略（<span class="math inline">\(R \ll X\)</span>）</li>
+<li>相角差较小，<span class="math inline">\(\sin(\theta_i - \theta_j)
+\approx \theta_i - \theta_j\)</span></li>
+</ul>
+<p>此时：</p>
 <ul>
-<li>强调暂态与小干扰稳定仿真，如机电振荡、故障切除等。</li>
-</ul></li>
-<li><strong>IEEE RTS-24 / RTS-96 可靠性测试系统</strong>
+<li>只考虑有功与相角，潮流方程近似为线性</li>
+<li>OPF 可以写成线性规划（LP）或二次规划（QP）</li>
+<li>优点：求解速度快，适合<strong>大规模电力市场出清、调度仿真</strong></li>
+<li>缺点：忽略无功、电压幅值，精度有限</li>
+</ul>
+<h3 id="多时段-opf-动态-opf">4.3 多时段 OPF / 动态 OPF</h3>
+<p>当需要考虑多个时段 <span class="math inline">\(t=1,\cdots,T\)</span>
+的耦合时（如储能 SOC、机组爬坡约束、电动汽车充放电过程等），就得到多时段
+OPF：</p>
 <ul>
-<li>用于研究发电与系统可靠性（失负荷概率、备用容量等）。</li>
+<li>决策变量变为 <span
+class="math inline">\(x_t\)</span>（每个时段的潮流状态与控制量）</li>
+<li>目标函数累加多个时段： <span class="math display">\[
+\min \sum_{t=1}^T f_t(x_t)
+\]</span></li>
+<li>约束包含：
+<ul>
+<li>每个时段的潮流与运行约束</li>
+<li>时段间耦合约束（如 SOC 演化、机组爬坡、负荷跟踪等）</li>
 </ul></li>
 </ul>
-<h3 id="适用场景输电网">2.2 适用场景（输电网）</h3>
+<h3 id="含分布式电源-新能源-ev-的-opf">4.4 含分布式电源 / 新能源 / EV 的
+OPF</h3>
+<p>在配电网和新型电力系统中，OPF 常常要考虑：</p>
 <ul>
-<li>潮流计算、短路分析、无功优化、电压控制。</li>
-<li>最优潮流（OPF）、经济调度、安全约束调度（SCOPF）。</li>
-<li>电压稳定、暂态稳定、小干扰稳定分析。</li>
-<li>继电保护协调、系统可靠性与风险评估等。</li>
+<li>多个分布式电源（DG）的有功/无功可调出力</li>
+<li>光伏出力随机性</li>
+<li>电动汽车（EV）的充放电控制</li>
+<li>储能系统（ESS）的充放电/能量约束</li>
+<li>可中断/可移峰负荷等</li>
+</ul>
+<p>此时，OPF 可以表示为：</p>
+<ul>
+<li>在潮流约束基础上，增加 DG/EV/ESS 的功率与能量约束；</li>
+<li>目标函数可包括：
+<ul>
+<li>网损成本</li>
+<li>节点电压质量指标</li>
+<li>用户充电/放电成本或收益</li>
+<li>决策灵活性、鲁棒性等。</li>
+</ul></li>
+</ul>
+<h3 id="多目标-opfmulti-objective-opf">4.5 多目标 OPF（Multi-Objective
+OPF）</h3>
+<p>当调度目标不止一个时，常见做法包括：</p>
+<ul>
+<li><strong>加权和法</strong>：<br />
+把多个目标加权合并为一个标量函数；</li>
+<li><strong>分层优化</strong>：<br />
+先满足安全约束，再优化经济性（或相反）；</li>
+<li><strong>Pareto 前沿分析</strong>：<br />
+通过参数扫描得到一族折衷解，并进行权衡选择。</li>
 </ul>
 <hr />
-<h2 id="其他常见配电网标准测试系统">3.
-其他常见“<strong>配电网</strong>”标准测试系统</h2>
-<h3 id="ieee-配电测试馈线">3.1 IEEE 配电测试馈线</h3>
+<h2 id="仿真工具中的-opf以-matpower-为例">5. 仿真工具中的 OPF：以
+MATPOWER 为例</h2>
+<p>在常用的电力系统仿真工具中：</p>
 <ul>
-<li><strong>IEEE 4-node、13-node、34-node、37-node、123-node Test
-Feeder</strong>
+<li><strong>MATPOWER（Matlab 环境）</strong>
 <ul>
-<li>包含单相/三相、不平衡负荷、长线路、电压调节器等复杂特性。</li>
+<li><code>runpf(mpc)</code>：求解潮流（PF）</li>
+<li><code>runopf(mpc)</code>：求解最优潮流（OPF）</li>
 </ul></li>
-<li><strong>IEEE 8500-node、9500-node、342-node
-等大规模配电系统</strong>
+<li><strong>PYPOWER（Python 版 MATPOWER）</strong>
 <ul>
-<li>面向大规模中低压配电网的时序仿真与状态估计。</li>
+<li>提供类似的 OPF 接口</li>
 </ul></li>
-<li><strong>Baran &amp; Wu 系列径向配电系统</strong>
+<li><strong>pandapower（Python）</strong>
 <ul>
-<li>如 33-bus、69-bus、119-bus
-等，用于网损优化、网络重构、DG/储能布置等。</li>
+<li>在 <code>net</code> 模型基础上调用 OPF 函数进行最优调度</li>
 </ul></li>
 </ul>
-<h3 id="适用场景配电网">3.2 适用场景（配电网）</h3>
+<p>在这些工具中，一般流程是：</p>
+<ol type="1">
+<li>建立或加载一个网络模型（如 <code>case14</code>,
+<code>case33bw</code> 等）；</li>
+<li>在数据结构中配置：
 <ul>
-<li>配电网（尤其是不平衡配电网）潮流分析。</li>
-<li>网损最小化、网络重构、无功/电压协同控制。</li>
-<li>分布式电源（光伏、风电等）、储能以及 EV 充电站接入与规划。</li>
-<li>主动配电网控制、微电网耦合、配电自动化与时序仿真。</li>
+<li>机组成本函数</li>
+<li>电压上下限</li>
+<li>线路容量</li>
+<li>其他约束等</li>
+</ul></li>
+<li>调用：
+<ul>
+<li><code>runpf</code>：只做潮流计算；</li>
+<li><code>runopf</code>：执行最优潮流，自动调整机组出力、电压等，使设定的目标函数最优。</li>
+</ul></li>
+</ol>
+<p>可以简单记为：</p>
+<ul>
+<li><strong><code>runpf</code></strong>：在给定出力条件下，“算一遍潮流”；</li>
+<li><strong><code>runopf</code></strong>：在设备与安全约束内，“帮你决定怎么发电/怎么调无功/怎么调分接头才更优”。</li>
 </ul>
 <hr />
-<h2 id="如何根据研究场景选择测试系统">4.
-如何根据研究场景选择测试系统？</h2>
-<h3 id="按电压等级与拓扑类型">4.1 按电压等级与拓扑类型</h3>
+<h2 id="小结">6. 小结</h2>
 <ul>
-<li><strong>高压网格输电系统</strong>
-<ul>
-<li>优先选择：9/14/30/57/118/300-bus 等 IEEE 输电系统。</li>
-<li>适用问题：潮流、OPF、AGC、跨区潮流、输电规划、稳定性分析等。</li>
-</ul></li>
-<li><strong>中压/低压径向或弱环网配电系统</strong>
-<ul>
-<li>优先选择：IEEE 13/34/37/123-node feeder，33/69/8500/9500-node
-等。</li>
-<li>适用问题：配电潮流、网损优化、DG 布置、重构、配电自动化等。</li>
-</ul></li>
+<li><strong>OPF（最优潮流）</strong> = 潮流方程 + 运行约束 +
+优化目标。</li>
+<li>它不仅求解“电压、潮流怎么分布”，还<strong>自动“帮你调”发电、无功、分接头、灵活负荷等</strong>，使成本、网损、电压等指标达到最优。</li>
+<li>从数学上看，OPF 是一个以 AC/DC
+潮流方程为约束的非线性（常常是非凸）优化问题。</li>
+<li>工程实践中，OPF
+是机组组合、经济调度、电压/无功优化、含分布式电源/电动汽车调度等问题的<strong>基础工具</strong>，也是
+MATPOWER、PYPOWER、pandapower 等电力仿真平台的重要功能模块。</li>
 </ul>
-<h3 id="按系统规模与算法复杂度">4.2 按系统规模与算法复杂度</h3>
+<blockquote>
+<p>后续可能会在本讲基础上再写：</p>
 <ul>
-<li><strong>小规模（教学 / 原理验证）</strong>
-<ul>
-<li>9-bus、14-bus、IEEE 13-node、33-bus 等。</li>
-</ul></li>
-<li><strong>中等规模（工程可行性 / 算法扩展验证）</strong>
-<ul>
-<li>30/57/69/118-bus、123-node 等。</li>
-</ul></li>
-<li><strong>大规模（性能评估 / 大规模优化 / 时序仿真）</strong>
-<ul>
-<li>300-bus、8500-node、9500-node 等。</li>
-</ul></li>
+<li>“基于 MATPOWER 的 OPF 实例（如
+<code>case33bw + runopf</code>）”<br />
+</li>
+<li>“以电压偏差最小为目标的 OPF 建模与代码”<br />
+</li>
+<li>“含 EV 充放电的配电网 OPF 建模”<br />
+等扩展博文。</li>
 </ul>
-<h3 id="按研究问题类型">4.3 按研究问题类型</h3>
-<ul>
-<li><strong>输电网方向</strong>
-<ul>
-<li>经济调度、AC/DC OPF：14/30/57/118/300-bus。</li>
-<li>暂态、稳定性及保护：39-bus 动态系统等。</li>
-<li>可靠性：RTS-24/RTS-96 等。</li>
-</ul></li>
-<li><strong>配电网方向</strong>
-<ul>
-<li>网损优化、重构：33/69/123-node 等。</li>
-<li>DG/储能/EV 布局与调度：33-bus、69-bus、8500/9500-node 等。</li>
-<li>时序潮流、状态估计、数据驱动分析：含时序负荷与运行数据的大规模配电测试系统。</li>
-</ul></li>
-</ul>
+</blockquote>
 
                 
               </div>
@@ -781,9 +901,7 @@ Feeder</strong>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/IEEE14/" class="print-no-link">#IEEE14</a>
-      
-        <a href="/tags/IEEE33/" class="print-no-link">#IEEE33</a>
+        <a href="/tags/%E7%94%B5%E5%8A%9B%E7%B3%BB%E7%BB%9F-%E6%9C%80%E4%BC%98%E6%BD%AE%E6%B5%81/" class="print-no-link">#电力系统,最优潮流</a>
       
     </div>
   
@@ -795,8 +913,8 @@ Feeder</strong>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>电力系统标准测试系统概述</div>
-      <div>https://nanana-szz.github.io/IEEE14/</div>
+      <div>电力系统中的最优潮流（OPF）基础讲解</div>
+      <div>https://nanana-szz.github.io/OPF/</div>
     </div>
     <div class="license-meta">
       
@@ -808,7 +926,7 @@ Feeder</strong>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年12月1日</div>
+          <div>2025年12月9日</div>
         </div>
       
       
@@ -840,18 +958,12 @@ Feeder</strong>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/hexo_tab/" title="Hexo + Fluid 中使用选项卡（Tabs）踩坑记录">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Hexo + Fluid 中使用选项卡（Tabs）踩坑记录</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/CvxPy/" title="在 Python 中调用 CvxPy 进行凸优化">
-                        <span class="hidden-mobile">在 Python 中调用 CvxPy 进行凸优化</span>
+                      <a href="/pandoc_MathJax/" title="用 Pandoc + MathJax 让 Hexo / Fluid 完整支持 LaTeX 公式">
+                        <span class="hidden-mobile">用 Pandoc + MathJax 让 Hexo / Fluid 完整支持 LaTeX 公式</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -908,6 +1020,12 @@ Feeder</strong>
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -1100,6 +1218,56 @@ Feeder</strong>
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] },
+              displayMath: { '[+]': [['$', '$'], ['$$', '$$'], ['\[', '\]']] },
+              // ★ 关键 1 ：打开 AMS 风格自动编号 + label/eqref 支持
+              tags: 'ams',   // 可选: 'none' | 'ams' | 'all'
+              // ★ 关键 2：确保 AMS 扩展加载（包含 align、cases、	ag 等）
+              packages: { '[+]': ['ams'] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              // 避免在 <code>、<pre> 里误渲染
+              skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
