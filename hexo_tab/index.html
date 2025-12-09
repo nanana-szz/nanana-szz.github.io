@@ -19,12 +19,12 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本文介绍如何在 Hexo + Fluid 主题下，为文章添加选项卡（Tabs）。➡️">
+    <meta name="description" content="本文介绍如何在 Hexo + Fluid 主题下，为文章添加选项卡（Tabs）。➡️">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo + Fluid 中使用选项卡（Tabs）踩坑记录">
 <meta property="og:url" content="https://nanana-szz.github.io/hexo_tab/index.html">
 <meta property="og:site_name" content="远大前程">
-<meta property="og:description" content="本文介绍如何在 Hexo + Fluid 主题下，为文章添加选项卡（Tabs）。➡️">
+<meta property="og:description" content="本文介绍如何在 Hexo + Fluid 主题下，为文章添加选项卡（Tabs）。➡️">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nanana-szz.github.io/img/hexo.png">
 <meta property="article:published_time" content="2025-12-01T06:20:00.000Z">
@@ -417,7 +417,7 @@
         aria-expanded="true"
       >
         编程
-        <span class="list-group-count">(3)</span>
+        <span class="list-group-count">(4)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -517,6 +517,43 @@
       </div>
     </div>
   
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="web"
+        id="heading-2567a5ec9705eb7ac2c984033e06189d" role="tab" data-toggle="collapse" href="#collapse-2567a5ec9705eb7ac2c984033e06189d"
+        aria-expanded="false"
+      >
+        web
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-2567a5ec9705eb7ac2c984033e06189d"
+           role="tabpanel" aria-labelledby="heading-2567a5ec9705eb7ac2c984033e06189d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/pandoc_MathJax/" title="用 Pandoc + MathJax 让 Hexo / Fluid 完整支持 LaTeX 公式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">用 Pandoc + MathJax 让 Hexo / Fluid 完整支持 LaTeX 公式</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
         
       </div>
     </div>
@@ -538,141 +575,157 @@
             
               <div class="markdown-body">
                 
-                <p>本文介绍如何在 Hexo + Fluid 主题下，为文章添加<code>选项卡（Tabs）</code>。➡️</p>
+                <p>本文介绍如何在 Hexo + Fluid
+主题下，为文章添加<code>选项卡（Tabs）</code>。➡️</p>
 <span id="more"></span>
-<h2 id="1-问题背景：想在-Hexo-中实现选项卡效果"><a href="#1-问题背景：想在-Hexo-中实现选项卡效果" class="headerlink" title="1. 问题背景：想在 Hexo 中实现选项卡效果"></a>1. 问题背景：想在 Hexo 中实现选项卡效果</h2><p>在写一篇博客时，我想做一个 <strong>中英文对照的选项卡</strong>，效果是：</p>
+<h2 id="问题背景想在-hexo-中实现选项卡效果">1. 问题背景：想在 Hexo
+中实现选项卡效果</h2>
+<p>在写一篇博客时，我想做一个
+<strong>中英文对照的选项卡</strong>，效果是：</p>
 <div class="tag-common tabs" id="语言切换，1"><ul class="nav-tabs"><li class="tab active"><a data-target="语言切换，1-1">中文</a></li><li class="tab"><a data-target="语言切换，1-2">English</a></li></ul><div class="tab-content"><div class="tab-pane active" id="语言切换，1-1"><p>这里是中文内容。</p></div><div class="tab-pane" id="语言切换，1-2"><p>Here is English content.</p></div></div></div>
-<p>在 <a target="_blank" rel="noopener" href="https://homulilly.com/post/hexo-use-note-and-tabs-block.html">https://homulilly.com/post/hexo-use-note-and-tabs-block.html</a> 给出的教程中，需要在 Hexo 的 Markdown 里写类似如下语法：</p>
+<p>在 <a
+target="_blank" rel="noopener" href="https://homulilly.com/post/hexo-use-note-and-tabs-block.html"
+class="uri">https://homulilly.com/post/hexo-use-note-and-tabs-block.html</a>
+给出的教程中，需要在 Hexo 的 Markdown 里写类似如下语法：</p>
 <figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs md">&#123;% tabs 语言切换，1 %&#125;<br><br>&lt;!-- tab 中文 --&gt;<br>这里是中文内容。<br>&lt;!-- endtab --&gt;<br><br>&lt;!-- tab English --&gt;<br>Here is English content.<br>&lt;!-- endtab --&gt;<br><br>&#123;% endtabs %&#125;<br></code></pre></td></tr></table></figure>
-<p>于是我直接在文章里加上上述 <code>tabs</code> 语法，准备 <code>hexo g</code> 一把梭，结果直接 <code>FATAL</code>。</p>
-<h2 id="2-报错现象：unknown-block-tag-tabs"><a href="#2-报错现象：unknown-block-tag-tabs" class="headerlink" title="2. 报错现象：unknown block tag: tabs"></a>2. 报错现象：<code>unknown block tag: tabs</code></h2><p>在博客根目录下执行：</p>
+<p>于是我直接在文章里加上上述 <code>tabs</code> 语法，准备
+<code>hexo g</code> 一把梭，结果直接 <code>FATAL</code>。</p>
+<h2 id="报错现象unknown-block-tag-tabs">2.
+报错现象：<code>unknown block tag: tabs</code></h2>
+<p>在博客根目录下执行：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo g<br></code></pre></td></tr></table></figure>
 <p>报错如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs bash">FATAL Something<span class="hljs-string">&#x27;s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span><br><span class="hljs-string">Nunjucks Error: _posts/编程/python/CvxPy.md [Line 70, Column 109] unknown block tag: tabs</span><br><span class="hljs-string">    =====               Context Dump               =====</span><br><span class="hljs-string">    === (line number probably different from source) ===</span><br><span class="hljs-string">  65 | &lt;/blockquote&gt;</span><br><span class="hljs-string">  66 | &lt;hr&gt;</span><br><span class="hljs-string">  67 | &lt;h2 id=&quot;2-常见的求解器类型&quot;&gt;&lt;a href=&quot;#2-常见的求解器类型&quot; class=&quot;headerlink&quot; title=&quot;2. 常见的求解器类型&quot;&gt;&lt;/a&gt;2. 常见的求解器类型&lt;/h2&gt;&lt;blockquote&gt;</span><br><span class="hljs-string">  68 | &lt;p&gt;使用方式统一是：&lt;br&gt;&lt;code&gt;prob.solve(solver=cp.XXX, 参数名=...)&lt;/code&gt;&lt;br&gt;下面“常用参数”里提到的名字，都是可以直接写在 &lt;code&gt;solve()&lt;/code&gt; 里的 keyword 参数。&lt;/p&gt;</span><br><span class="hljs-string">  69 | &lt;/blockquote&gt;</span><br><span class="hljs-string">  70 | &lt;h3 id=&quot;2-1-常见开源求解器&quot;&gt;&lt;a href=&quot;#2-1-常见开源求解器&quot; class=&quot;headerlink&quot; title=&quot;2.1. 常见开源求解器&quot;&gt;&lt;/a&gt;2.1. 常见开源求解器&lt;/h3&gt;&#123;% tabs 语言切换 %&#125;</span><br><span class="hljs-string">  71 |</span><br><span class="hljs-string">  72 | &lt;!-- tab 中文 --&gt;</span><br><span class="hljs-string">  73 | 这里是中文内容。</span><br><span class="hljs-string">  74 | &lt;!-- endtab --&gt;</span><br><span class="hljs-string">  75 |</span><br><span class="hljs-string">    =====             Context Dump Ends            =====</span><br></code></pre></td></tr></table></figure>
-<p>关键信息只有一句话：</p>
-<blockquote>
-<p><code>unknown block tag: tabs</code></p>
-</blockquote>
-<p>翻译成人话就是：<strong>模板引擎 <code>Nunjucks</code> 看到了 <code>&#123;% tabs ... %&#125;</code>，但它完全不认识这个标签</strong>，没有任何插件/主题帮它注册过一个叫 <code>tabs</code> 的 block，因此直接抛错。</p>
-<hr>
-<h2 id="3-第一次误解：以为是“插件没装好”"><a href="#3-第一次误解：以为是“插件没装好”" class="headerlink" title="3. 第一次误解：以为是“插件没装好”"></a>3. 第一次误解：以为是“插件没装好”</h2><p>一开始 GPT 给出的解决思路是：</p>
-<ol>
-<li><p>网上很多 <code>tabs</code> 教程都是 配合 <code>Butterfly</code> 主题 使用的；</p>
-</li>
-<li><p>这些教程会提示安装一个插件，比如 <code>hexo-butterfly-tag-plugins-plus</code>；</p>
-</li>
-<li><p>然后在 <code>_config.yml</code> 中加入类似下面的配置：</p>
-</li>
+<p>关键信息只有一句话： &gt; <code>unknown block tag: tabs</code></p>
+<p>翻译成人话就是：<strong>模板引擎 <code>Nunjucks</code> 看到了
+<code>&#123;% tabs ... %&#125;</code>，但它完全不认识这个标签</strong>，没有任何插件/主题帮它注册过一个叫
+<code>tabs</code> 的 block，因此直接抛错。</p>
+<hr />
+<h2 id="第一次误解以为是插件没装好">3.
+第一次误解：以为是“插件没装好”</h2>
+<p>一开始 GPT 给出的解决思路是：</p>
+<ol type="1">
+<li><p>网上很多 <code>tabs</code> 教程都是 配合 <code>Butterfly</code>
+主题 使用的；</p></li>
+<li><p>这些教程会提示安装一个插件，比如
+<code>hexo-butterfly-tag-plugins-plus</code>；</p></li>
+<li><p>然后在 <code>_config.yml</code> 中加入类似下面的配置：</p></li>
 </ol>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># tag-plugins-plus </span><br><span class="hljs-comment"># see https://akilar.top/posts/615e2dec/</span><br><span class="hljs-attr">tag_plugins:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>        <span class="hljs-comment"># 开关</span><br>  <span class="hljs-attr">priority:</span> <span class="hljs-number">5</span>         <span class="hljs-comment"># 过滤器优先级，数值越小越早执行</span><br>  <span class="hljs-attr">issues:</span> <span class="hljs-literal">false</span>       <span class="hljs-comment"># issues 标签开关，不用可以先关掉</span><br>  <span class="hljs-attr">link:</span><br>    <span class="hljs-attr">placeholder:</span> <span class="hljs-string">/img/link.png</span>   <span class="hljs-comment"># link_card 默认图标，可以先随便写个路径</span><br>  <span class="hljs-attr">CDN:</span><br>    <span class="hljs-attr">anima:</span> <span class="hljs-string">https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css</span><br>    <span class="hljs-attr">jquery:</span> <span class="hljs-string">https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js</span><br>    <span class="hljs-attr">issues:</span> <span class="hljs-string">https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js</span><br>    <span class="hljs-attr">iconfont:</span> <span class="hljs-string">//at.alicdn.com/t/font_2032782_8d5kxvn09md.js</span><br>    <span class="hljs-attr">carousel:</span> <span class="hljs-string">https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js</span><br>    <span class="hljs-attr">tag_plugins_css:</span> <span class="hljs-string">https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css</span><br><br></code></pre></td></tr></table></figure>
-<p>结果无论怎么改，<code>hexo g</code> 依然报 <code>unknown block tag: tabs</code>。</p>
-<h2 id="4-关键点：主题不一样，插件语法也未必通用"><a href="#4-关键点：主题不一样，插件语法也未必通用" class="headerlink" title="4. 关键点：主题不一样，插件语法也未必通用"></a>4. 关键点：主题不一样，插件语法也未必通用</h2><p>后来理了一下：</p>
+<p>结果无论怎么改，<code>hexo g</code> 依然报
+<code>unknown block tag: tabs</code>。</p>
+<h2 id="关键点主题不一样插件语法也未必通用">4.
+关键点：主题不一样，插件语法也未必通用</h2>
+<p>后来理了一下：</p>
 <ul>
-<li><p><code>hexo-butterfly-tag-plugins-plus</code> 是 <strong>围绕 Butterfly 主题设计的外挂标签插件</strong>；</p>
-</li>
-<li><p>它依赖 Butterfly 的结构和脚本，虽然理论上可以在别的主题里用，但教程都是基于 Butterfly 编写的；</p>
-</li>
-<li><p>而我当前的主题是 <strong>Fluid</strong>，Fluid 本身并不内置 <code>&#123;% tabs %&#125;</code> 这个标签；</p>
-</li>
-<li><p>我一边用着 Fluid，一边照着 Butterfly 的玩法去装插件、写 <code>&#123;% tabs %&#125;</code>，自然是各种不匹配。</p>
-</li>
+<li><p><code>hexo-butterfly-tag-plugins-plus</code> 是 <strong>围绕
+Butterfly 主题设计的外挂标签插件</strong>；</p></li>
+<li><p>它依赖 Butterfly
+的结构和脚本，虽然理论上可以在别的主题里用，但教程都是基于 Butterfly
+编写的；</p></li>
+<li><p>而我当前的主题是 <strong>Fluid</strong>，Fluid 本身并不内置
+<code>&#123;% tabs %&#125;</code> 这个标签；</p></li>
+<li><p>我一边用着 Fluid，一边照着 Butterfly 的玩法去装插件、写
+<code>&#123;% tabs %&#125;</code>，自然是各种不匹配。</p></li>
 </ul>
 <p><strong>换句话说：</strong></p>
 <ul>
-<li><p>标签语法 <code>&#123;% tabs %&#125;</code> 不是 Hexo 核心功能；</p>
-</li>
-<li><p>是“<strong>主题 + 某个特定插件</strong>”组合出来的；</p>
-</li>
-<li><p>不同主题的 tabs 语法未必一样，有的主题根本就没有 tabs。</p>
-</li>
+<li><p>标签语法 <code>&#123;% tabs %&#125;</code> 不是 Hexo 核心功能；</p></li>
+<li><p>是“<strong>主题 + 某个特定插件</strong>”组合出来的；</p></li>
+<li><p>不同主题的 tabs 语法未必一样，有的主题根本就没有 tabs。</p></li>
 </ul>
 <p>真正的需求其实很简单：</p>
 <blockquote>
-<p>我只需要一个“和主题无关”的通用选项卡插件，让任何主题都能用 <code>&#123;% tabs %&#125;</code>。</p>
+<p>我只需要一个“和主题无关”的通用选项卡插件，让任何主题都能用
+<code>&#123;% tabs %&#125;</code>。</p>
 </blockquote>
-<h2 id="5-真正的解决方案：使用通用插件-hexo-tag-common"><a href="#5-真正的解决方案：使用通用插件-hexo-tag-common" class="headerlink" title="5. 真正的解决方案：使用通用插件 hexo-tag-common"></a>5. 真正的解决方案：使用通用插件 <code>hexo-tag-common</code></h2><p>最后采用的方案是：</p>
+<h2 id="真正的解决方案使用通用插件-hexo-tag-common">5.
+真正的解决方案：使用通用插件 <code>hexo-tag-common</code></h2>
+<p>最后采用的方案是：</p>
 <blockquote>
-<p>使用 <strong>和主题无关的通用标签插件</strong> —— <code>hexo-tag-common</code>，<br>它提供了 tabs 功能，而且不依赖于 Butterfly、Fluid 等特定主题。</p>
+<p>使用 <strong>和主题无关的通用标签插件</strong> ——
+<code>hexo-tag-common</code>， 它提供了 tabs 功能，而且不依赖于
+Butterfly、Fluid 等特定主题。</p>
 </blockquote>
-<h3 id="5-1-安装-hexo-tag-common"><a href="#5-1-安装-hexo-tag-common" class="headerlink" title="5.1 安装 hexo-tag-common"></a>5.1 安装 <code>hexo-tag-common</code></h3><p>在博客根目录下执行：</p>
+<h3 id="安装-hexo-tag-common">5.1 安装 <code>hexo-tag-common</code></h3>
+<p>在博客根目录下执行：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> D:\github\03-blog\myblog<br><br><span class="hljs-comment"># 清理之前装错的 Butterfly 插件（可选）</span><br>npm uninstall hexo-butterfly-tag-plugins-plus --save<br><br><span class="hljs-comment"># 安装通用标签插件</span><br>npm install hexo-tag-common --save<br></code></pre></td></tr></table></figure>
-<h3 id="5-2-修改根-config-yml-配置（注意：不是-config-fluid-yml）"><a href="#5-2-修改根-config-yml-配置（注意：不是-config-fluid-yml）" class="headerlink" title="5.2 修改根 _config.yml 配置（注意：不是 _config.fluid.yml）"></a>5.2 修改根 <code>_config.yml</code> 配置（注意：不是 <code>_config.fluid.yml</code>）</h3><p>在 站点根目录 的 <code>_config.yml</code> 中添加如下配置（可以替换掉之前的 <code>tag_plugins</code> 配置）：</p>
+<h3 id="修改根-_config.yml-配置注意不是-_config.fluid.yml">5.2 修改根
+<code>_config.yml</code> 配置（注意：不是
+<code>_config.fluid.yml</code>）</h3>
+<p>在 站点根目录 的 <code>_config.yml</code>
+中添加如下配置（可以替换掉之前的 <code>tag_plugins</code> 配置）：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># hexo-tag-common 通用标签插件</span><br><span class="hljs-attr">tag_common:</span><br>  <span class="hljs-attr">cdn:</span> <span class="hljs-string">https://fastly.jsdelivr.net/npm/</span>   <span class="hljs-comment"># 默认 CDN，照抄即可</span><br>  <span class="hljs-attr">layout:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">post</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">page</span><br>    <span class="hljs-comment"># - home   # 如果希望首页也启用标签解析，可以把这一行的注释去掉</span><br></code></pre></td></tr></table></figure>
-<h3 id="5-3-在-Markdown-中使用-hexo-tag-common-的-Tabs-语法"><a href="#5-3-在-Markdown-中使用-hexo-tag-common-的-Tabs-语法" class="headerlink" title="5.3 在 Markdown 中使用 hexo-tag-common 的 Tabs 语法"></a>5.3 在 Markdown 中使用 <code>hexo-tag-common</code> 的 Tabs 语法</h3><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs md">&#123;% tabs 语言切换，1 %&#125;      # 语言切换：这一组 tabs 的名字，用来标识一整块选项卡； 1：默认选中第几个 tab（从 1 开始计数）；<br><br>&lt;!-- tab 中文 --&gt;          # Tab 标签标题；每个 tab 用 HTML 注释写<br>这里是中文内容。<br>&lt;!-- endtab --&gt;<br><br>&lt;!-- tab English --&gt;<br>Here is English content.<br>&lt;!-- endtab --&gt;<br>&#123;% endtabs %&#125;              # Tab 结束标记。<br></code></pre></td></tr></table></figure>
-<h3 id="5-4-重新生成博客"><a href="#5-4-重新生成博客" class="headerlink" title="5.4 重新生成博客"></a>5.4 重新生成博客</h3><p>完成上述修改后，在根目录重新生成：</p>
+<h3 id="在-markdown-中使用-hexo-tag-common-的-tabs-语法">5.3 在 Markdown
+中使用 <code>hexo-tag-common</code> 的 Tabs 语法</h3>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs md">&#123;% tabs 语言切换，1 %&#125;      # 语言切换：这一组 tabs 的名字，用来标识一整块选项卡； 1：默认选中第几个 tab（从 1 开始计数）；<br><br>&lt;!-- tab 中文 --&gt;          # Tab 标签标题；每个 tab 用 HTML 注释写<br>这里是中文内容。<br>&lt;!-- endtab --&gt;<br><br>&lt;!-- tab English --&gt;<br>Here is English content.<br>&lt;!-- endtab --&gt;<br>&#123;% endtabs %&#125;              # Tab 结束标记。<br></code></pre></td></tr></table></figure>
+<h3 id="重新生成博客">5.4 重新生成博客</h3>
+<p>完成上述修改后，在根目录重新生成：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo clean<br>hexo g<br>hexo s<br></code></pre></td></tr></table></figure>
-<p>然后浏览器访问： <a target="_blank" rel="noopener" href="http://localhost:4000">http://localhost:4000</a> ，找到对应的文章，就可以看到“语言切换”的选项卡效果了。</p>
-<h2 id="6-顺便说说-VS-Code-预览为什么看不到-tabs-效果"><a href="#6-顺便说说-VS-Code-预览为什么看不到-tabs-效果" class="headerlink" title="6. 顺便说说 VS Code 预览为什么看不到 tabs 效果"></a>6. 顺便说说 VS Code 预览为什么看不到 tabs 效果</h2><ul>
-<li><p>VS Code 的 Markdown 预览只渲染 <strong>标准 Markdown 语法</strong>；</p>
-</li>
-<li><p><code>&#123;% tabs %&#125;</code>、<code>&#123;% xxx %&#125;</code> 这类是 <strong>Hexo 标签插件语法</strong>，属于生成阶段的东西；</p>
-</li>
-<li><p>Hexo 在 <code>hexo g</code> / <code>hexo s</code> 阶段才会把这些标签解析成 <code>HTML + JS + CSS</code>；</p>
-</li>
+<p>然后浏览器访问： <a target="_blank" rel="noopener" href="http://localhost:4000"
+class="uri">http://localhost:4000</a>
+，找到对应的文章，就可以看到“语言切换”的选项卡效果了。</p>
+<h2 id="顺便说说-vs-code-预览为什么看不到-tabs-效果">6. 顺便说说 VS Code
+预览为什么看不到 tabs 效果</h2>
+<ul>
+<li><p>VS Code 的 Markdown 预览只渲染 <strong>标准 Markdown
+语法</strong>；</p></li>
+<li><p><code>&#123;% tabs %&#125;</code>、<code>&#123;% xxx %&#125;</code> 这类是
+<strong>Hexo 标签插件语法</strong>，属于生成阶段的东西；</p></li>
+<li><p>Hexo 在 <code>hexo g</code> / <code>hexo s</code>
+阶段才会把这些标签解析成 <code>HTML + JS + CSS</code>；</p></li>
 <li><p>也就是说：</p>
 <ul>
-<li><p>VS Code 只会显示“源代码”（包含 <code>&#123;% tabs %&#125;</code> 这些标记）；</p>
-</li>
-<li><p>真正的 tabs UI 要看 <strong>Hexo 生成后的网页</strong>。</p>
-</li>
-</ul>
-</li>
+<li><p>VS Code 只会显示“源代码”（包含 <code>&#123;% tabs %&#125;</code>
+这些标记）；</p></li>
+<li><p>真正的 tabs UI 要看 <strong>Hexo 生成后的网页</strong>。</p></li>
+</ul></li>
 </ul>
 <p>所以：</p>
 <ul>
-<li><p>VS Code 中看不到选项卡，是正常现象；</p>
-</li>
-<li><p>真正的效果必须在 <a target="_blank" rel="noopener" href="http://localhost:4000">http://localhost:4000</a> 或部署后的博客站点上查看。</p>
-</li>
+<li><p>VS Code 中看不到选项卡，是正常现象；</p></li>
+<li><p>真正的效果必须在 <a target="_blank" rel="noopener" href="http://localhost:4000"
+class="uri">http://localhost:4000</a>
+或部署后的博客站点上查看。</p></li>
 </ul>
-<h2 id="7-这次踩坑的几个小总结"><a href="#7-这次踩坑的几个小总结" class="headerlink" title="7. 这次踩坑的几个小总结"></a>7. 这次踩坑的几个小总结</h2><ol>
+<h2 id="这次踩坑的几个小总结">7. 这次踩坑的几个小总结</h2>
+<ol type="1">
 <li><p>报错信息要看懂关键字</p>
 <ul>
 <li><p><code>unknown block tag: tabs</code> 的意思就是：</p>
 <blockquote>
 <p>模板引擎压根不认识 <code>tabs</code> 这个标签；</p>
-</blockquote>
-</li>
-<li><p>不是“语法写错一点点”，而是“压根没人注册这个标签”。</p>
-</li>
-</ul>
-</li>
+</blockquote></li>
+<li><p>不是“语法写错一点点”，而是“压根没人注册这个标签”。</p></li>
+</ul></li>
 <li><p>主题 + 插件要匹配</p>
 <ul>
-<li><p>网上很多 tabs 教程都是基于 Butterfly 主题；</p>
-</li>
-<li><p>我实际使用的是 Fluid；</p>
-</li>
-<li><p>盲目照搬 Butterfly + <code>hexo-butterfly-tag-plugins-plus</code> 的配置，基本就是“南辕北辙”。</p>
-</li>
-</ul>
-</li>
+<li><p>网上很多 tabs 教程都是基于 Butterfly 主题；</p></li>
+<li><p>我实际使用的是 Fluid；</p></li>
+<li><p>盲目照搬 Butterfly + <code>hexo-butterfly-tag-plugins-plus</code>
+的配置，基本就是“南辕北辙”。</p></li>
+</ul></li>
 <li><p>通用插件更适合多主题场景</p>
 <ul>
-<li><p>如果不想绑死在某个主题上，可以优先找 和主题无关的通用插件；</p>
-</li>
-<li><p>这次解决方案就是：Fluid + <code>hexo-tag-common</code>。</p>
-</li>
-</ul>
-</li>
+<li><p>如果不想绑死在某个主题上，可以优先找
+和主题无关的通用插件；</p></li>
+<li><p>这次解决方案就是：Fluid + <code>hexo-tag-common</code>。</p></li>
+</ul></li>
 <li><p>配置文件位置要分清楚</p>
 <ul>
-<li><p>Hexo 全局配置：<code>_config.yml</code>（站点根目录）；</p>
-</li>
-<li><p>主题配置：<code>_config.&lt;theme&gt;.yml</code>（例如 <code>_config.fluid.yml</code>）；</p>
-</li>
-<li><p>插件的配置一般写在 根 <code>_config.yml</code> 中，而不是写在主题配置里。</p>
-</li>
-</ul>
-</li>
+<li><p>Hexo 全局配置：<code>_config.yml</code>（站点根目录）；</p></li>
+<li><p>主题配置：<code>_config.&lt;theme&gt;.yml</code>（例如
+<code>_config.fluid.yml</code>）；</p></li>
+<li><p>插件的配置一般写在 根 <code>_config.yml</code>
+中，而不是写在主题配置里。</p></li>
+</ul></li>
 <li><p>VS Code 预览只当“编辑器”，不要拿它当“最终效果”</p>
 <ul>
-<li><p>带 <code>&#123;% xxx %&#125;</code> 的标签插件语法，预览不了是正常的；</p>
-</li>
-<li><p>只要 <code>hexo g</code> 没报错，浏览器里看到的才是最终效果。</p>
-</li>
-</ul>
-</li>
+<li><p>带 <code>&#123;% xxx %&#125;</code>
+的标签插件语法，预览不了是正常的；</p></li>
+<li><p>只要 <code>hexo g</code>
+没报错，浏览器里看到的才是最终效果。</p></li>
+</ul></li>
 </ol>
 
                 
@@ -777,9 +830,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/matpower_pypower/" title="电力系统工具简介：MATPOWER, PYPOWER, pandapower">
+                      <a href="/pandoc_MathJax/" title="用 Pandoc + MathJax 让 Hexo / Fluid 完整支持 LaTeX 公式">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">电力系统工具简介：MATPOWER, PYPOWER, pandapower</span>
+                        <span class="hidden-mobile">用 Pandoc + MathJax 让 Hexo / Fluid 完整支持 LaTeX 公式</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     

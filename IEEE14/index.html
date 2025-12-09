@@ -19,12 +19,12 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本文概括电力系统标准测试系统的基本信息，包括 IEEE 14-bus 和 IEEE 33-bus 系统的特点、用途及适用场景。➡️">
+    <meta name="description" content="本文概括电力系统标准测试系统的基本信息，包括 IEEE 14-bus 和 IEEE 33-bus 系统的特点、用途及适用场景。➡️">
 <meta property="og:type" content="article">
 <meta property="og:title" content="电力系统标准测试系统概述">
 <meta property="og:url" content="https://nanana-szz.github.io/IEEE14/index.html">
 <meta property="og:site_name" content="远大前程">
-<meta property="og:description" content="本文概括电力系统标准测试系统的基本信息，包括 IEEE 14-bus 和 IEEE 33-bus 系统的特点、用途及适用场景。➡️">
+<meta property="og:description" content="本文概括电力系统标准测试系统的基本信息，包括 IEEE 14-bus 和 IEEE 33-bus 系统的特点、用途及适用场景。➡️">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nanana-szz.github.io/img/power_system.jpg">
 <meta property="article:published_time" content="2025-12-01T02:00:00.000Z">
@@ -527,193 +527,210 @@
             
               <div class="markdown-body">
                 
-                <p>本文概括电力系统标准测试系统的基本信息，包括 IEEE 14-bus 和 IEEE 33-bus 系统的特点、用途及适用场景。➡️</p>
+                <p>本文概括电力系统标准测试系统的基本信息，包括 IEEE 14-bus 和 IEEE
+33-bus 系统的特点、用途及适用场景。➡️</p>
 <span id="more"></span>
-<hr>
-<h2 id="1-IEEE-14-与-IEEE-33-是什么？"><a href="#1-IEEE-14-与-IEEE-33-是什么？" class="headerlink" title="1. IEEE 14 与 IEEE 33 是什么？"></a>1. IEEE 14 与 IEEE 33 是什么？</h2><h3 id="1-1-IEEE-14-bus-系统"><a href="#1-1-IEEE-14-bus-系统" class="headerlink" title="1.1 IEEE 14-bus 系统"></a>1.1 IEEE 14-bus 系统</h3><ul>
-<li><strong>性质</strong>：IEEE（Institute of Electrical and Electronics Engineers，电气电子工程师学会） 提供的典型<strong>高压输电网</strong>标准测试系统</li>
-<li><strong>规模与构成</strong>：<ul>
+<hr />
+<h2 id="ieee-14-与-ieee-33-是什么">1. IEEE 14 与 IEEE 33 是什么？</h2>
+<h3 id="ieee-14-bus-系统">1.1 IEEE 14-bus 系统</h3>
+<ul>
+<li><strong>性质</strong>：IEEE（Institute of Electrical and Electronics
+Engineers，电气电子工程师学会）
+提供的典型<strong>高压输电网</strong>标准测试系统</li>
+<li><strong>规模与构成</strong>：
+<ul>
 <li>14 个母线</li>
 <li>5 台发电机（含 1 个平衡母线）</li>
 <li>11 个负荷</li>
 <li>约 20 条线路/变压器支路</li>
 <li>电压等级多区域（典型为 69 kV / 138 kV 等高压侧）</li>
-</ul>
-</li>
-<li><strong>主要用途</strong>：<ul>
-<li>潮流计算算法验证<ul>
+</ul></li>
+<li><strong>主要用途</strong>：
+<ul>
+<li>潮流计算算法验证
+<ul>
 <li>牛顿法、PQ 法、解耦潮流等的基本算例。</li>
-</ul>
-</li>
-<li>最优潮流（OPF，Optimal Power Flow）与经济调度<ul>
-<li>带约束的 AC OPF 问题、线性化 OPF、凸松弛等，都喜欢拿 14、30、57、118、300 等作对比。</li>
-</ul>
-</li>
-<li>电压稳定、暂态稳定分析<ul>
+</ul></li>
+<li>最优潮流（OPF，Optimal Power Flow）与经济调度
+<ul>
+<li>带约束的 AC OPF 问题、线性化 OPF、凸松弛等，都喜欢拿
+14、30、57、118、300 等作对比。</li>
+</ul></li>
+<li>电压稳定、暂态稳定分析
+<ul>
 <li>在 14-bus 上做 PV 曲线、电压失稳、线路切除等仿真，复杂度适中。</li>
-</ul>
-</li>
-<li>FACTS 装置与无功补偿配置、继电保护整定等<ul>
+</ul></li>
+<li>FACTS 装置与无功补偿配置、继电保护整定等
+<ul>
 <li>例如优化配置 SVC/STATCOM、并联补偿，或方向型过流保护整定等。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>典型场景</strong>：<ul>
-<li>小规模高压网格输电系统的 <strong>入门算例</strong> 与 <strong>方法对比平台</strong></li>
-</ul>
-</li>
+</ul></li>
+</ul></li>
+<li><strong>典型场景</strong>：
+<ul>
+<li>小规模高压网格输电系统的 <strong>入门算例</strong> 与
+<strong>方法对比平台</strong></li>
+</ul></li>
 </ul>
 <blockquote>
-<p>在电力系统研究里，“<strong>标准测试系统</strong>”（benchmark / test system）一般有几个特点：</p>
-<ol>
-<li><p><strong>拓扑结构已固定</strong>：给出清晰的单线图（bus-branch 结构）、额定电压、变压器接线、线路参数等。</p>
-</li>
-<li><p><strong>参数公开</strong>：每个节点（母线）的类型（Slack / PV / PQ）、负荷、发电机出力范围，支路的 R、X、B，基准容量 S_base 等全部公开，可直接建模。</p>
-</li>
-<li><p><strong>被广泛引用</strong>：大量文献、教材、软件（MATPOWER、PYPOWER、pandapower、PowerWorld 等）都有相应数据集，用它做算例方便和别人比较。</p>
-</li>
-<li><p><strong>划定使用场景</strong>：有的代表高压输电网，有的代表中低压配电网；有的偏重潮流/OPF，有的偏重动态稳定、暂态仿真等。</p>
-</li>
+<p>在电力系统研究里，“<strong>标准测试系统</strong>”（benchmark / test
+system）一般有几个特点：</p>
+<ol type="1">
+<li><p><strong>拓扑结构已固定</strong>：给出清晰的单线图（bus-branch
+结构）、额定电压、变压器接线、线路参数等。</p></li>
+<li><p><strong>参数公开</strong>：每个节点（母线）的类型（Slack / PV /
+PQ）、负荷、发电机出力范围，支路的 R、X、B，基准容量 S_base
+等全部公开，可直接建模。</p></li>
+<li><p><strong>被广泛引用</strong>：大量文献、教材、软件（MATPOWER、PYPOWER、pandapower、PowerWorld
+等）都有相应数据集，用它做算例方便和别人比较。</p></li>
+<li><p><strong>划定使用场景</strong>：有的代表高压输电网，有的代表中低压配电网；有的偏重潮流/OPF，有的偏重动态稳定、暂态仿真等。</p></li>
 </ol>
 </blockquote>
-<hr>
-<h3 id="1-2-IEEE-33-bus-系统"><a href="#1-2-IEEE-33-bus-系统" class="headerlink" title="1.2 IEEE 33-bus 系统"></a>1.2 IEEE 33-bus 系统</h3><ul>
-<li><strong>性质</strong>：Baran &amp; Wu 提出的典型<strong>中压径向配电网</strong>标准测试系统</li>
-<li><strong>规模与构成</strong>：<ul>
+<hr />
+<h3 id="ieee-33-bus-系统">1.2 IEEE 33-bus 系统</h3>
+<ul>
+<li><strong>性质</strong>：Baran &amp; Wu
+提出的典型<strong>中压径向配电网</strong>标准测试系统</li>
+<li><strong>规模与构成</strong>：
+<ul>
 <li>33 个节点（1 个变电站节点 + 32 个中压负荷节点）</li>
-<li>32 条主馈线分段 + 若干联络线（部分版本为 37 支路，其中 32 条常闭，5 条常开联络开关）</li>
-<li>额定电压通常为 12.66 kV，基准容量多取 100 MVA，为<strong>中压径向配电馈线</strong></li>
-</ul>
-</li>
-<li><strong>主要用途</strong>：<ul>
-<li>配电网潮流与电压质量分析<ul>
+<li>32 条主馈线分段 + 若干联络线（部分版本为 37 支路，其中 32 条常闭，5
+条常开联络开关）</li>
+<li>额定电压通常为 12.66 kV，基准容量多取 100
+MVA，为<strong>中压径向配电馈线</strong></li>
+</ul></li>
+<li><strong>主要用途</strong>：
+<ul>
+<li>配电网潮流与电压质量分析
+<ul>
 <li>单相/三相潮流，考虑线路电阻占比大、R/X 比高的特点。</li>
-</ul>
-</li>
-<li>网损最小化与网络重构（开关重构）<ul>
+</ul></li>
+<li>网损最小化与网络重构（开关重构）
+<ul>
 <li>通过开关操作改变径向结构，寻优网损、负荷平衡、电压偏差等目标。</li>
-</ul>
-</li>
-<li>分布式电源（DG）、储能接入位置与容量优化<ul>
+</ul></li>
+<li>分布式电源（DG）、储能接入位置与容量优化
+<ul>
 <li>太阳能、风电、储能、EV 充电站布置问题的首选 benchmark。</li>
-</ul>
-</li>
-<li>主动配电网控制、EV 充电站布置等<ul>
+</ul></li>
+<li>主动配电网控制、EV 充电站布置等
+<ul>
 <li>电压/无功优化、FRT 策略、需求响应、分布式调度等。</li>
+</ul></li>
+</ul></li>
+<li><strong>典型场景</strong>：
+<ul>
+<li>中压径向配电系统的
+<strong>网损优化、DG/储能规划与重构研究</strong></li>
+</ul></li>
 </ul>
-</li>
-</ul>
-</li>
-<li><strong>典型场景</strong>：<ul>
-<li>中压径向配电系统的 <strong>网损优化、DG/储能规划与重构研究</strong></li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 id="2-其他常见“输电网”标准测试系统"><a href="#2-其他常见“输电网”标准测试系统" class="headerlink" title="2. 其他常见“输电网”标准测试系统"></a>2. 其他常见“<strong>输电网</strong>”标准测试系统</h2><h3 id="2-1-典型-IEEE-输电网系统"><a href="#2-1-典型-IEEE-输电网系统" class="headerlink" title="2.1 典型 IEEE 输电网系统"></a>2.1 典型 IEEE 输电网系统</h3><ul>
-<li><p><strong>9-bus（WSCC）</strong></p>
+<hr />
+<h2 id="其他常见输电网标准测试系统">2.
+其他常见“<strong>输电网</strong>”标准测试系统</h2>
+<h3 id="典型-ieee-输电网系统">2.1 典型 IEEE 输电网系统</h3>
+<ul>
+<li><strong>9-bus（WSCC）</strong>
 <ul>
 <li>规模很小，多用于教学、潮流基本概念与敏感度分析。</li>
-</ul>
-</li>
-<li><p><strong>14-bus、30-bus、57-bus、118-bus、300-bus</strong></p>
+</ul></li>
+<li><strong>14-bus、30-bus、57-bus、118-bus、300-bus</strong>
 <ul>
 <li><strong>14-bus</strong>：小规模、真实感较强，是输电网入门算例。</li>
 <li><strong>30-bus</strong>：规模稍大，常用于 OPF、无功优化等问题。</li>
 <li><strong>57-bus</strong>：多区域系统，适合电压稳定、OPF、运行分析。</li>
 <li><strong>118-bus</strong>：大型系统，适合测试算法在较大规模下的性能。</li>
-<li><strong>300-bus</strong>：超大规模输电算例，用于评估大系统潮流/OPF 算法。</li>
-</ul>
-</li>
-<li><p><strong>New England 39-bus 动态系统</strong></p>
+<li><strong>300-bus</strong>：超大规模输电算例，用于评估大系统潮流/OPF
+算法。</li>
+</ul></li>
+<li><strong>New England 39-bus 动态系统</strong>
 <ul>
 <li>强调暂态与小干扰稳定仿真，如机电振荡、故障切除等。</li>
-</ul>
-</li>
-<li><p><strong>IEEE RTS-24 / RTS-96 可靠性测试系统</strong></p>
+</ul></li>
+<li><strong>IEEE RTS-24 / RTS-96 可靠性测试系统</strong>
 <ul>
 <li>用于研究发电与系统可靠性（失负荷概率、备用容量等）。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="2-2-适用场景（输电网）"><a href="#2-2-适用场景（输电网）" class="headerlink" title="2.2 适用场景（输电网）"></a>2.2 适用场景（输电网）</h3><ul>
+<h3 id="适用场景输电网">2.2 适用场景（输电网）</h3>
+<ul>
 <li>潮流计算、短路分析、无功优化、电压控制。</li>
 <li>最优潮流（OPF）、经济调度、安全约束调度（SCOPF）。</li>
 <li>电压稳定、暂态稳定、小干扰稳定分析。</li>
 <li>继电保护协调、系统可靠性与风险评估等。</li>
 </ul>
-<hr>
-<h2 id="3-其他常见“配电网”标准测试系统"><a href="#3-其他常见“配电网”标准测试系统" class="headerlink" title="3. 其他常见“配电网”标准测试系统"></a>3. 其他常见“<strong>配电网</strong>”标准测试系统</h2><h3 id="3-1-IEEE-配电测试馈线"><a href="#3-1-IEEE-配电测试馈线" class="headerlink" title="3.1 IEEE 配电测试馈线"></a>3.1 IEEE 配电测试馈线</h3><ul>
-<li><p><strong>IEEE 4-node、13-node、34-node、37-node、123-node Test Feeder</strong></p>
+<hr />
+<h2 id="其他常见配电网标准测试系统">3.
+其他常见“<strong>配电网</strong>”标准测试系统</h2>
+<h3 id="ieee-配电测试馈线">3.1 IEEE 配电测试馈线</h3>
+<ul>
+<li><strong>IEEE 4-node、13-node、34-node、37-node、123-node Test
+Feeder</strong>
 <ul>
 <li>包含单相/三相、不平衡负荷、长线路、电压调节器等复杂特性。</li>
-</ul>
-</li>
-<li><p><strong>IEEE 8500-node、9500-node、342-node 等大规模配电系统</strong></p>
+</ul></li>
+<li><strong>IEEE 8500-node、9500-node、342-node
+等大规模配电系统</strong>
 <ul>
 <li>面向大规模中低压配电网的时序仿真与状态估计。</li>
-</ul>
-</li>
-<li><p><strong>Baran &amp; Wu 系列径向配电系统</strong></p>
+</ul></li>
+<li><strong>Baran &amp; Wu 系列径向配电系统</strong>
 <ul>
-<li>如 33-bus、69-bus、119-bus 等，用于网损优化、网络重构、DG/储能布置等。</li>
+<li>如 33-bus、69-bus、119-bus
+等，用于网损优化、网络重构、DG/储能布置等。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="3-2-适用场景（配电网）"><a href="#3-2-适用场景（配电网）" class="headerlink" title="3.2 适用场景（配电网）"></a>3.2 适用场景（配电网）</h3><ul>
+<h3 id="适用场景配电网">3.2 适用场景（配电网）</h3>
+<ul>
 <li>配电网（尤其是不平衡配电网）潮流分析。</li>
 <li>网损最小化、网络重构、无功/电压协同控制。</li>
 <li>分布式电源（光伏、风电等）、储能以及 EV 充电站接入与规划。</li>
 <li>主动配电网控制、微电网耦合、配电自动化与时序仿真。</li>
 </ul>
-<hr>
-<h2 id="4-如何根据研究场景选择测试系统？"><a href="#4-如何根据研究场景选择测试系统？" class="headerlink" title="4. 如何根据研究场景选择测试系统？"></a>4. 如何根据研究场景选择测试系统？</h2><h3 id="4-1-按电压等级与拓扑类型"><a href="#4-1-按电压等级与拓扑类型" class="headerlink" title="4.1 按电压等级与拓扑类型"></a>4.1 按电压等级与拓扑类型</h3><ul>
-<li><p><strong>高压网格输电系统</strong></p>
+<hr />
+<h2 id="如何根据研究场景选择测试系统">4.
+如何根据研究场景选择测试系统？</h2>
+<h3 id="按电压等级与拓扑类型">4.1 按电压等级与拓扑类型</h3>
+<ul>
+<li><strong>高压网格输电系统</strong>
 <ul>
 <li>优先选择：9/14/30/57/118/300-bus 等 IEEE 输电系统。</li>
 <li>适用问题：潮流、OPF、AGC、跨区潮流、输电规划、稳定性分析等。</li>
-</ul>
-</li>
-<li><p><strong>中压/低压径向或弱环网配电系统</strong></p>
+</ul></li>
+<li><strong>中压/低压径向或弱环网配电系统</strong>
 <ul>
-<li>优先选择：IEEE 13/34/37/123-node feeder，33/69/8500/9500-node 等。</li>
+<li>优先选择：IEEE 13/34/37/123-node feeder，33/69/8500/9500-node
+等。</li>
 <li>适用问题：配电潮流、网损优化、DG 布置、重构、配电自动化等。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="4-2-按系统规模与算法复杂度"><a href="#4-2-按系统规模与算法复杂度" class="headerlink" title="4.2 按系统规模与算法复杂度"></a>4.2 按系统规模与算法复杂度</h3><ul>
-<li><p><strong>小规模（教学 / 原理验证）</strong></p>
+<h3 id="按系统规模与算法复杂度">4.2 按系统规模与算法复杂度</h3>
+<ul>
+<li><strong>小规模（教学 / 原理验证）</strong>
 <ul>
 <li>9-bus、14-bus、IEEE 13-node、33-bus 等。</li>
-</ul>
-</li>
-<li><p><strong>中等规模（工程可行性 / 算法扩展验证）</strong></p>
+</ul></li>
+<li><strong>中等规模（工程可行性 / 算法扩展验证）</strong>
 <ul>
 <li>30/57/69/118-bus、123-node 等。</li>
-</ul>
-</li>
-<li><p><strong>大规模（性能评估 / 大规模优化 / 时序仿真）</strong></p>
+</ul></li>
+<li><strong>大规模（性能评估 / 大规模优化 / 时序仿真）</strong>
 <ul>
 <li>300-bus、8500-node、9500-node 等。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="4-3-按研究问题类型"><a href="#4-3-按研究问题类型" class="headerlink" title="4.3 按研究问题类型"></a>4.3 按研究问题类型</h3><ul>
-<li><p><strong>输电网方向</strong></p>
+<h3 id="按研究问题类型">4.3 按研究问题类型</h3>
+<ul>
+<li><strong>输电网方向</strong>
 <ul>
 <li>经济调度、AC/DC OPF：14/30/57/118/300-bus。</li>
 <li>暂态、稳定性及保护：39-bus 动态系统等。</li>
 <li>可靠性：RTS-24/RTS-96 等。</li>
-</ul>
-</li>
-<li><p><strong>配电网方向</strong></p>
+</ul></li>
+<li><strong>配电网方向</strong>
 <ul>
 <li>网损优化、重构：33/69/123-node 等。</li>
 <li>DG/储能/EV 布局与调度：33-bus、69-bus、8500/9500-node 等。</li>
 <li>时序潮流、状态估计、数据驱动分析：含时序负荷与运行数据的大规模配电测试系统。</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 
                 
