@@ -19,26 +19,28 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本文是一个从零开始搭建 Hexo 博客的教程，使用 Fluid 主题并部署到 GitHub Pages。适合初学者和想要快速搭建个人博客的人。➡️">
+    <meta name="description" content="多层感知机（Multi-Layer Perceptron，简称 MLP ）是最基础、最常用的前馈神经网络结构之一。它的核心就是把若干个“线性层（全连接）+ 非线性激活函数”堆叠起来，让网络能够拟合复杂的非线性映射。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="从 0 搭建 Hexo + Fluid + GitHub Pages 博客">
-<meta property="og:url" content="https://nanana-szz.github.io/blog/index.html">
+<meta property="og:title" content="多层感知机：结构、BatchNorm、Dropout，附 PyTorch 代码">
+<meta property="og:url" content="https://nanana-szz.github.io/MLP/index.html">
 <meta property="og:site_name" content="远大前程">
-<meta property="og:description" content="本文是一个从零开始搭建 Hexo 博客的教程，使用 Fluid 主题并部署到 GitHub Pages。适合初学者和想要快速搭建个人博客的人。➡️">
+<meta property="og:description" content="多层感知机（Multi-Layer Perceptron，简称 MLP ）是最基础、最常用的前馈神经网络结构之一。它的核心就是把若干个“线性层（全连接）+ 非线性激活函数”堆叠起来，让网络能够拟合复杂的非线性映射。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://nanana-szz.github.io/img/hexo.png">
-<meta property="article:published_time" content="2025-11-19T05:40:00.000Z">
-<meta property="article:modified_time" content="2025-12-01T01:28:46.886Z">
+<meta property="og:image" content="https://nanana-szz.github.io/img/vscode.png">
+<meta property="article:published_time" content="2026-01-14T08:30:00.000Z">
+<meta property="article:modified_time" content="2026-01-14T14:15:00.571Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="Hexo">
-<meta property="article:tag" content="fluid">
-<meta property="article:tag" content="github pages">
+<meta property="article:tag" content="BatchNorm">
+<meta property="article:tag" content="Dropout">
+<meta property="article:tag" content="MLP">
+<meta property="article:tag" content="PyTorch">
+<meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://nanana-szz.github.io/img/hexo.png">
+<meta name="twitter:image" content="https://nanana-szz.github.io/img/vscode.png">
   
   
   
-  <title>从 0 搭建 Hexo + Fluid + GitHub Pages 博客 - 远大前程</title>
+  <title>多层感知机：结构、BatchNorm、Dropout，附 PyTorch 代码 - 远大前程</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -332,7 +334,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="从 0 搭建 Hexo + Fluid + GitHub Pages 博客"></span>
+            <span id="subtitle" data-typed-text="多层感知机：结构、BatchNorm、Dropout，附 PyTorch 代码"></span>
           
         </div>
 
@@ -343,8 +345,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-11-19 13:40" pubdate>
-          2025年11月19日 下午
+        <time datetime="2026-01-14 16:30" pubdate>
+          2026年1月14日 下午
         </time>
       </span>
     
@@ -474,17 +476,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem 
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Web"
         id="heading-c6e190b284633c48e39e55049da3cce8" role="tab" data-toggle="collapse" href="#collapse-c6e190b284633c48e39e55049da3cce8"
-        aria-expanded="true"
+        aria-expanded="false"
       >
         Web
         <span class="list-group-count">(2)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-c6e190b284633c48e39e55049da3cce8"
+      <div class="category-collapse collapse " id="collapse-c6e190b284633c48e39e55049da3cce8"
            role="tabpanel" aria-labelledby="heading-c6e190b284633c48e39e55049da3cce8">
         
         
@@ -505,7 +507,7 @@
       
         <a href="/blog/" title="从 0 搭建 Hexo + Fluid + GitHub Pages 博客"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">从 0 搭建 Hexo + Fluid + GitHub Pages 博客</span>
         </a>
       
@@ -520,17 +522,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem collapsed
+      <a class="category-subitem 
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="python"
         id="heading-23eeeb4347bdd26bfc6b7ee9a3b755dd" role="tab" data-toggle="collapse" href="#collapse-23eeeb4347bdd26bfc6b7ee9a3b755dd"
-        aria-expanded="false"
+        aria-expanded="true"
       >
         python
         <span class="list-group-count">(1)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse " id="collapse-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      <div class="category-collapse collapse show" id="collapse-23eeeb4347bdd26bfc6b7ee9a3b755dd"
            role="tabpanel" aria-labelledby="heading-23eeeb4347bdd26bfc6b7ee9a3b755dd">
         
         
@@ -542,7 +544,7 @@
       
         <a href="/MLP/" title="多层感知机：结构、BatchNorm、Dropout，附 PyTorch 代码"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">多层感知机：结构、BatchNorm、Dropout，附 PyTorch 代码</span>
         </a>
       
@@ -606,248 +608,210 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">从 0 搭建 Hexo + Fluid + GitHub Pages 博客</h1>
+            <h1 id="seo-header">多层感知机：结构、BatchNorm、Dropout，附 PyTorch 代码</h1>
             
             
               <div class="markdown-body">
                 
-                <p>本文是一个从零开始搭建 Hexo 博客的教程，使用 Fluid 主题并部署到
-GitHub Pages。适合初学者和想要快速搭建个人博客的人。➡️</p>
+                <p>多层感知机（Multi-Layer Perceptron，简称 MLP
+）是最基础、最常用的前馈神经网络结构之一。它的核心就是把若干个“线性层（全连接）+
+非线性激活函数”堆叠起来，让网络能够拟合复杂的非线性映射。</p>
 <span id="more"></span>
-<h2 id="整体思路先有个全局概念">1. 整体思路（先有个全局概念）</h2>
-<p>整体来说，需要做以下几件事：</p>
-<ol type="1">
-<li><p>安装环境：Node.js、Git</p></li>
-<li><p>用 Hexo 生成一个本地博客</p></li>
-<li><p>把主题换成 Fluid</p></li>
-<li><p>写几篇文章、关于页</p></li>
-<li><p>配好 GitHub Pages，一条命令部署到网上</p></li>
-</ol>
 <hr />
-<h2 id="准备环境">2. 准备环境</h2>
+<h2 id="多层感知机的基本结构">1. 多层感知机的基本结构</h2>
+<p>典型的 MLP 由三部分组成：</p>
 <ol type="1">
-<li>安装 Node.js（必须）</li>
-</ol>
+<li>输入层（<span class="math inline">\(l = 0\)</span>）：接收特征 <span
+class="math inline">\(\mathbf{p}_i \in \mathbb{R}^{d_0}\)</span>，其中
+<span class="math inline">\(d_0\)</span> 为特征维度。即 <span
+class="math inline">\(a^{(0)}_i =
+\mathbf{p}_i\)</span>（<strong>单个样本 <span
+class="math inline">\(i\)</span></strong>）。</li>
+<li><strong>若干</strong>隐藏层（<span class="math inline">\(l = 1,
+\cdots, {L-1}\)</span>）：
 <ul>
-<li><p>去 <code>Node.js</code> 官网下载安装 <strong>LTS
-版本</strong>（一般是标着 “LTS” 那个）。</p></li>
-<li><p>装好后，打开
-<code>终端 / PowerShell / Git Bash</code>，检查：</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">node -v<br>npm -v<br></code></pre></td></tr></table></figure></p>
-<p>只要能看到版本号就 OK。</p></li>
-</ul>
-<hr />
-<ol start="2" type="1">
-<li>安装 Git（必须）</li>
-</ol>
+<li>一个典型的“层”包含两步：
 <ul>
-<li><p>去 Git 官网下载安装（一路下一步就行）。</p></li>
-<li><p>装好后检查：</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git --version<br></code></pre></td></tr></table></figure></p>
-<p>看到版本号就说明安装好了。</p></li>
-</ul>
-<hr />
-<ol start="3" type="1">
-<li><p>注册 GitHub 账号（用来放博客）</p>
-<ol type="1">
-<li><p>打开 GitHub，注册账号。</p></li>
-<li><p>记住自己的 用户名（下面会用到，例如：yylustb）。</p></li>
-</ol></li>
+<li><strong>线性变换：</strong> <span class="math display">\[
+   z^{(l)}_i = W^{(l)}a^{(l-1)}_i + b^{(l)},\quad i = 1, \cdots, B
+   \]</span></li>
+<li><strong>非线性激活：</strong> <span class="math display">\[
+   a^{(l)}_i \leftarrow f^{(l)}(z^{(l)}_i)
+   \]</span></li>
+</ul></li>
+<li>其中：
+<ul>
+<li><span class="math inline">\(B\)</span> 为 batch size</li>
+<li><span class="math inline">\(z^{(l)}_i,a^{(l)}_i \in
+\mathbb{R}^{d_l}\)</span></li>
+<li><span class="math inline">\(W^{(l)}\)</span> ：第 <span
+class="math inline">\(l\)</span> 层的权重<strong>矩阵</strong>，<span
+class="math inline">\(W^{(l)} \in \mathbb{R}^{d_l \times
+d_{l-1}}\)</span></li>
+<li><span class="math inline">\(b^{(l)}\)</span> ：偏置向量，<span
+class="math inline">\(b^{(l)} \in \mathbb{R}^{d_l}\)</span></li>
+<li><span class="math inline">\(f^{(l)}(\cdot)\)</span>
+：非线性激活函数，<span class="math inline">\(\mathbb{R}^{d_l}
+\rightarrow \mathbb{R}^{d_l}\)</span></li>
+</ul></li>
+<li>通过多层堆叠<span class="math display">\[a^{(l)}_i =
+f^{(l)}(W^{(l)}a^{(l-1)}_i +
+b^{(l)})\]</span>实现特征变换，通常包含多个全连接层和非线性激活函数。</li>
+<li>隐藏层输出维度为 <span class="math inline">\(d_1, \cdots,
+d_{L-1}\)</span></li>
+</ul></li>
+<li>输出层：
+<ul>
+<li>得到预测 <span class="math inline">\(\hat
+y\)</span>，通常为一个全连接层。</li>
+<li>输出维度为 <span class="math inline">\(d_L\)</span>。</li>
+<li>分类/回归会用不同输出形式。</li>
+</ul></li>
 </ol>
-<hr />
-<h2 id="安装-hexo-并创建博客">3. 安装 Hexo 并创建博客</h2>
-<ol type="1">
-<li><p>全局安装 Hexo CLI</p>
-<p>在终端里执行（任意目录都可以）：</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install -g hexo-cli<br>hexo -v<br></code></pre></td></tr></table></figure></p>
-<p>第二条命令能看到版本信息就说明安装好了。</p></li>
-</ol>
-<hr />
-<ol start="2" type="1">
-<li><p>创建博客项目</p>
-<p>找一个你喜欢放项目的文件夹，比如 D:，在里面打开终端，执行：</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> my-blog<br><span class="hljs-built_in">cd</span> my-blog<br><br><span class="hljs-comment"># 初始化 hexo 项目</span><br>hexo init .<br>npm install<br></code></pre></td></tr></table></figure></p>
-<p>这一步做完后，项目结构大致是这样：</p>
-<p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs text">.<br>├── _config.yml        # 站点主配置<br>├── package.json<br>├── scaffolds<br>├── source<br>│   ├── _drafts<br>│   └── _posts<br>└── themes<br></code></pre></td></tr></table></figure></p></li>
-</ol>
-<hr />
-<ol start="3" type="1">
-<li><p>本地预览一下</p>
-<p>在项目根目录（ <code>my-blog</code> ）执行：</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo g        <span class="hljs-comment"># 生成静态文件</span><br>hexo s        <span class="hljs-comment"># 或 hexo server，启动本地服务</span><br></code></pre></td></tr></table></figure></p>
-<p>浏览器打开：<a target="_blank" rel="noopener" href="http://localhost:4000"
-class="uri">http://localhost:4000</a>，应该能看到 Hexo
-默认主题的博客页面。</p>
+<p>如果没有非线性激活（全是线性层），那再多层也等价于“一层线性变换”，表达能力不会变强；<strong>非线性</strong>是
+MLP 能拟合复杂函数的关键。</p>
 <blockquote>
-<p>先确认这里没问题，再换主题。</p>
-</blockquote></li>
-</ol>
-<hr />
-<h2 id="安装并启用-fluid-主题重点">4. 安装并启用 Fluid 主题（重点）</h2>
-<ol type="1">
-<li><p>安装 Fluid 主题</p>
-<p>在博客根目录执行：</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install --save hexo-theme-fluid<br></code></pre></td></tr></table></figure></p></li>
-</ol>
-<hr />
-<ol start="2" type="1">
-<li><p>指定使用 Fluid 主题</p>
-<p>打开博客根目录的 <code>_config.yml</code>
-，找到（或者自己加上）：</p>
-<p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">theme:</span> <span class="hljs-string">fluid</span><br><span class="hljs-attr">language:</span> <span class="hljs-string">zh-CN</span>   <span class="hljs-comment"># 用中文界面</span><br></code></pre></td></tr></table></figure></p>
-<blockquote>
-<p><code>language</code> 会影响主题的显示语言（菜单文字等）。</p>
-</blockquote></li>
-</ol>
-<hr />
-<ol start="3" type="1">
-<li><p>建议：关闭 Hexo 自带代码高亮（防止和主题冲突）</p>
-<p>仍然是根目录 <code>_config.yml</code> ，找到 <code>highlight:</code>
-这一段，改成：</p>
-<p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">highlight:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">false</span><br></code></pre></td></tr></table></figure></p>
-<p>主题会自己处理代码高亮，否则可能出现双行号等奇怪样式。</p></li>
-</ol>
-<hr />
-<ol start="4" type="1">
-<li><p>新建主题配置文件 _config.fluid.yml</p>
-<p>官方推荐：通过 <code>npm</code> 安装主题时，在站点根目录新建一个
-<code>_config.fluid.yml</code>，把主题默认配置拷贝进来，这样以后升级主题不会丢配置。</p>
-<p>步骤：</p>
-<ol type="1">
-<li><p>在博客根目录新建文件： <code>_config.fluid.yml</code></p></li>
-<li><p>打开
-<code>node_modules/hexo-theme-fluid/_config.yml</code>（这是主题自带的配置模板），</p></li>
-<li><p>把里面的内容全部复制到根目录的 <code>_config.fluid.yml</code>
-中。</p></li>
-</ol>
-<p>之后所有和主题相关的修改，都在 <code>_config.fluid.yml</code>
-改，不去动 <code>node_modules</code> 里的文件。</p></li>
-</ol>
-<hr />
-<ol start="5" type="1">
-<li><p>重新生成 + 启动看看效果</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo clean<br>hexo g<br>hexo s<br></code></pre></td></tr></table></figure></p>
-<p>刷新 <a target="_blank" rel="noopener" href="http://localhost:4000"
-class="uri">http://localhost:4000</a>，已经是 Fluid 的样子了（顶部大
-banner、Material 风格等）。</p></li>
-</ol>
-<hr />
-<h2 id="基本内容文章-关于页">5. 基本内容：文章 + 关于页</h2>
-<ol type="1">
-<li><p>写一篇测试文章</p>
-<p>在博客根目录执行：</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo new <span class="hljs-string">&quot;第一篇文章&quot;</span><br></code></pre></td></tr></table></figure></p>
-<p>Hexo 会在 <code>source/_posts</code> 里生成一个类似：</p>
-<p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">source/_posts/第一篇文章.md<br></code></pre></td></tr></table></figure></p>
-<p>打开它，里面是这样：</p>
-<p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs markdown">---<br>title: 第一篇文章<br>date: 2025-11-19 12:00:00<br><span class="hljs-section">tags:</span><br><span class="hljs-section">---</span><br><br>这里写正文内容，可以用 Markdown。<br></code></pre></td></tr></table></figure></p>
-<p>随便写点内容，再：</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo g<br>hexo s<br></code></pre></td></tr></table></figure></p>
-<p>本地刷新页面就能看到这篇文章。</p></li>
-<li><p>创建「关于」页面（Fluid 推荐）</p>
-<p>Fluid 文档里建议手动创建 <code>about</code> 页：</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo new page about<br></code></pre></td></tr></table></figure></p>
-<p>生成的文件在：<code>source/about/index.md</code>，编辑为：</p>
-<p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs markdown">---<br>title: 关于<br><span class="hljs-section">layout: about</span><br><span class="hljs-section">---</span><br><br>这里写你的自我介绍、联系方式等等。<br></code></pre></td></tr></table></figure></p>
-<p>注意 <code>layout: about</code>
-这一行很重要，它告诉主题用「关于页」的布局来渲染。</p></li>
-</ol>
-<hr />
-<h2 id="简单配置一下主题让它更像你的博客">6.
-简单配置一下主题（让它更像“你的博客”）</h2>
-<p>打开 <code>_config.fluid.yml</code>，重点先改这些：</p>
-<ol type="1">
-<li><p>站点信息</p>
-<p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># 站点基本信息</span><br><span class="hljs-attr">title:</span> <span class="hljs-string">你的博客标题</span><br><span class="hljs-attr">subtitle:</span> <span class="hljs-string">副标题（可选）</span><br><span class="hljs-attr">description:</span> <span class="hljs-string">这是我的个人博客</span><br><span class="hljs-attr">author:</span> <span class="hljs-string">你的名字</span><br></code></pre></td></tr></table></figure></p></li>
-<li><p>头像 / 图标（可选）</p>
-<p>把头像图片放到 <code>source/img/avatar.png</code>，然后在
-<code>_config.fluid.yml</code> 里找：</p>
-<p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">avatar:</span><br><span class="hljs-attr">img:</span> <span class="hljs-string">/img/avatar.png</span><br></code></pre></td></tr></table></figure></p></li>
-<li><p>导航菜单（顶部菜单）</p>
-<p>在 <code>_config.fluid.yml</code>
-中找到导航相关配置（大概长这样）：</p>
-<p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">navbar:</span><br>  <span class="hljs-attr">menu:</span><br>      <span class="hljs-string">首页:</span> <span class="hljs-string">/</span><br>      <span class="hljs-string">归档:</span> <span class="hljs-string">/archives/</span><br>      <span class="hljs-string">关于:</span> <span class="hljs-string">/about/</span><br></code></pre></td></tr></table></figure></p>
-<p>可以按需要增减，比如标签页 <code>/tags/</code>、分类页
-<code>/categories/</code> 等（那些页面可以之后用
-<code>hexo new page</code> 创建）。</p></li>
-</ol>
-<hr />
-<h2 id="部署到-github-pages让别人能访问">7. 部署到 GitHub
-Pages（让别人能访问）</h2>
-<p>有很多部署方式，这里给出一个 相对简单、Hexo 官方推荐的
-<code>hexo-deployer-git</code> 方式。</p>
-<ol type="1">
-<li><p>在 GitHub 创建仓库</p>
-<ol type="1">
-<li><p>登录 GitHub</p></li>
-<li><p>新建一个仓库，名字设置为：</p>
-<p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">你的用户名.github.io<br></code></pre></td></tr></table></figure></p>
-<p>比如用户名是 <code>yylustb</code>，仓库名就叫
-<code>yylustb.github.io</code>。</p></li>
-<li><p>创建完成后暂时不要放东西，让 Hexo 帮你推送。</p></li>
-</ol></li>
-</ol>
-<hr />
-<ol start="2" type="1">
-<li><p>安装部署插件 <code>hexo-deployer-git</code></p>
-<p>在博客根目录执行：</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install hexo-deployer-git --save<br></code></pre></td></tr></table></figure></p></li>
-</ol>
-<hr />
-<ol start="3" type="1">
-<li><p>配置 <code>_config.yml</code> 的 deploy 部分</p>
-<p>打开博客根目录的 <code>_config.yml</code>，加上（或者修改为）：</p>
-<p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">deploy:</span><br><span class="hljs-attr">type:</span> <span class="hljs-string">git</span><br><span class="hljs-attr">repo:</span> <span class="hljs-string">https://github.com/你的用户名/你的用户名.github.io.git</span><br><span class="hljs-attr">branch:</span> <span class="hljs-string">main</span><br></code></pre></td></tr></table></figure></p>
-<blockquote>
-<p>示例： repo: <a
-target="_blank" rel="noopener" href="https://github.com/yylustb/yylustb.github.io.git"
-class="uri">https://github.com/yylustb/yylustb.github.io.git</a></p>
+<p><strong>对一个 batch 输入 <span
+class="math inline">\(\mathbf{a}^{(0)} \in \mathbb{R}^{B \times
+d_0}\)</span></strong>，等价于<strong>同一个 MLP
+被并行地作用在每个样本上。</strong></p>
 </blockquote>
-<p>这表示：</p>
-<ul>
-<li><p>使用 git 部署</p></li>
-<li><p>把生成的静态文件推到 <code>main</code> 分支</p></li>
-</ul></li>
-</ol>
+<figure>
+<img src="../../../../img/NN.png" srcset="/img/loading.gif" lazyload alt="MLP结构示意" />
+<figcaption aria-hidden="true">MLP结构示意</figcaption>
+</figure>
 <hr />
-<ol start="4" type="1">
-<li><p>一键部署命令</p>
-<p>在博客根目录执行：</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo clean<br>hexo g<br>hexo deploy    <span class="hljs-comment"># 简写 hexo d</span><br></code></pre></td></tr></table></figure></p>
-<p>第一次会弹出 GitHub 登录（或要求使用
-Token），按提示登录即可。</p></li>
-</ol>
+<h2 id="常见非线性激活函数">2. 常见非线性激活函数</h2>
+<div class="tag-common tabs" id="常见非线性激活函数，1"><ul class="nav-tabs"><li class="tab active"><a data-target="常见非线性激活函数，1-1">ReLU</a></li><li class="tab"><a data-target="常见非线性激活函数，1-2">Leaky ReLU</a></li><li class="tab"><a data-target="常见非线性激活函数，1-3">Sigmoid</a></li><li class="tab"><a data-target="常见非线性激活函数，1-4">Tanh</a></li><li class="tab"><a data-target="常见非线性激活函数，1-5">GELU（Transformer 常见）</a></li></ul><div class="tab-content"><div class="tab-pane active" id="常见非线性激活函数，1-1"><p><span class="math display">\[
+\mathrm{ReLU}(x)=\max(0,x)
+\]</span> 优点：简单、收敛快、缓解梯度消失（相对 Sigmoid/Tanh）。</p></div><div class="tab-pane" id="常见非线性激活函数，1-2"><p><span class="math display">\[
+\mathrm{LeakyReLU}(x)=\max(\alpha x,x),\quad \alpha\in(0,1)
+\]</span> 特点：负半轴保留小斜率，减少“神经元死亡”。</p></div><div class="tab-pane" id="常见非线性激活函数，1-3"><p><span class="math display">\[
+\sigma(x)=\frac{1}{1+e^{-x}}
+\]</span> 特点：输出在 <span class="math inline">\((0,1)\)</span>
+区间，常用于二分类输出层；隐藏层使用时更容易梯度消失。</p></div><div class="tab-pane" id="常见非线性激活函数，1-4"><p><span class="math display">\[
+\tanh(x)=\frac{e^x-e^{-x}}{e^x+e^{-x}}
+\]</span> 特点：输出在 <span class="math inline">\((-1,1)\)</span>，比
+Sigmoid 零均值，但仍可能梯度消失。</p></div><div class="tab-pane" id="常见非线性激活函数，1-5"><p><span class="math display">\[
+\mathrm{GELU}(x)=x\Phi(x)
+\]</span> 其中 <span class="math inline">\(\Phi(x)\)</span>
+为标准正态分布的累积分布函数。特点：比 ReLU 更“平滑”。</p></div></div></div>
 <hr />
-<ol start="5" type="1">
-<li><p>GitHub Pages 设置</p>
-<ol type="1">
-<li><p>打开 GitHub 上你的仓库 用户名.github.io</p></li>
-<li><p>进入 Settings → Pages</p></li>
-<li><p>Source 选择 <code>main</code> 分支，保存。</p></li>
-<li><p>等一会儿（几十秒到几分钟），访问：</p>
-<p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">https://你的用户名.github.io<br></code></pre></td></tr></table></figure></p>
-<p>能看到你的博客，就成功啦 🎉</p></li>
-</ol>
-<p>之后每次更新文章，只要：</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo clean<br>hexo g<br>hexo d<br></code></pre></td></tr></table></figure></p>
-<p>GitHub Pages 上的内容就会同步更新。</p></li>
-</ol>
-<hr />
-<h2 id="接下来可以玩的东西">8. 接下来可以玩的东西</h2>
-<p>这些就属于「慢慢折腾」的部分了，不一定一次搞完：</p>
+<h2 id="batchnorm">3. BatchNorm</h2>
+<blockquote>
+<p>实现中最常见顺序：<code>Linear -&gt; BN -&gt; ReLU</code></p>
+</blockquote>
+<p>BatchNorm（批归一化）一般作用在每个隐藏层的<strong>线性输出</strong>上
+<span class="math display">\[
+\mathbf{z}^{(l)}
+=
+\begin{bmatrix}
+(z^{(l)}_{1})^\top\\
+\vdots\\
+(z^{(l)}_{B})^\top
+\end{bmatrix}
+=
+\begin{bmatrix}
+\big(W^{(l)} a^{(l-1)}_{1}+b^{(l)}\big)^\top\\
+\vdots\\
+\big(W^{(l)} a^{(l-1)}_{B}+b^{(l)}\big)^\top
+\end{bmatrix}
+\in \mathbb{R}^{B\times d_l}.
+\]</span></p>
+<p>先对每个特征维度 <span
+class="math inline">\(j\)</span>（也就是每个神经元通道）在一个 batch
+上计算均值和方差： <span class="math display">\[
+\mu_j^{(l)}=\frac{1}{B}\sum_{i=1}^B z_{i,j}^{(l)},\qquad
+(\sigma_j^{(l)})^2=\frac{1}{B}\sum_{i=1}^B(z_{i,j}^{(l)}-\mu_j^{(l)})^2
+\]</span> 定义标准化： <span class="math display">\[
+\hat
+z^{(l)}_{i,j}=\frac{z^{(l)}_{i,j}-\mu_j^{(l)}}{\sqrt{(\sigma_j^{(l)})^2+\varepsilon}},
+\]</span> 其中，<span class="math inline">\(\varepsilon\)</span>
+是一个小常数，用于防止除零错误。</p>
+<p>再做可学习缩放平移（<span
+class="math inline">\(\gamma^{(l)},\beta^{(l)} \in
+\mathbb{R}^{d_l}\)</span>）： <span class="math display">\[
+\tilde{z}_{i,j}^{(l)} = \gamma_j^{(l)} \hat z^{(l)}_{i,j}+\beta_j^{(l)},
+\]</span> 然后再激活： <span class="math display">\[
+\tilde{a}_i^{(l)} = f^{(l)}(\tilde{z}_i^{(l)}).
+\]</span></p>
+<p>BatchNorm 的常见作用：</p>
 <ul>
-<li><p>在 <code>_config.fluid.yml</code> 里：</p>
-<ul>
-<li><p>开启/配置评论系统（如 Gitalk、Twikoo 等）</p></li>
-<li><p>配置访问统计、站内搜索、暗色模式等</p></li>
-</ul></li>
-<li><p>增加 <code>tags</code>、 <code>categories</code>
-页面并在导航栏加入口</p></li>
-<li><p>绑定自己的域名（需要买域名 + DNS 设置 + <code>CNAME</code>
-文件）</p></li>
+<li>稳定训练、加速收敛</li>
+<li>对不同 batch 的统计量带来一定“噪声”，具有一定正则化效果</li>
 </ul>
-<p>后面想深度定制可以慢慢看 <a target="_blank" rel="noopener" href="https://fluid.dev/docs/">Fluid
-官方文档</a>。 祝你博客搭建顺利！🚀</p>
+<blockquote>
+<p>BatchNorm 对 batch size 较敏感，batch 太小（甚至为
+1）时效果会明显变差；这时常用 LayerNorm / GroupNorm。</p>
+</blockquote>
+<hr />
+<h2 id="dropout">4. Dropout</h2>
+<blockquote>
+<p>实现中最常见顺序：<code>Linear -&gt; BN -&gt; ReLU -&gt; Dropout</code></p>
+</blockquote>
+<p>Dropout
+在<strong>训练时</strong>随机把<strong>一部分样本</strong>的<strong>一部分神经元激活输出</strong>置零，避免网络过度依赖少数神经元，从而抑制过拟合。</p>
+<p>比如隐藏层激活为： <span class="math display">\[
+\mathbf{a}^{(l)}
+=
+\begin{bmatrix}
+(a_1^{(l)})^\top\\
+\vdots\\
+(a_B^{(l)})^\top
+\end{bmatrix}
+=
+\begin{bmatrix}
+(f(z_1^{(l)}))^\top\\
+\vdots\\
+(f(z_B^{(l)}))^\top
+\end{bmatrix}
+\in\mathbb{R}^{B\times d_l}.
+\]</span></p>
+<p>Dropout 产生 mask <span class="math inline">\(m^{(l)}\in
+\{0,1\}^{B\times d_l}\)</span>，然后 <span class="math display">\[
+h^{(l)}=\frac{m^{(l)}\odot \mathbf{a}^{(l)}}{1-p}.
+\]</span> 也就是说：被 mask 为 0
+的那些元素（某些样本的某些神经元输出）在这一轮前向里直接变成 0。</p>
+<ul>
+<li><span class="math inline">\(m\)</span>（mask）是一个随机 0/1
+矩阵（或向量），和 <span class="math inline">\(\mathbf{a}^{(l)}\)</span>
+同形状。</li>
+<li>其中，<span class="math inline">\(m_{i,j}\sim
+\mathrm{Bernoulli}(1-p)\)</span>： 每个 <span
+class="math inline">\(m_{i,j}\)</span> 独立地取值 <span
+class="math display">\[
+m_{i,j}=\begin{cases}
+1,&amp;\text{概率 }1-p \\
+0,&amp;\text{概率 }p
+\end{cases}
+\]</span> 这就是<strong>伯努利分布</strong>（Bernoulli
+distribution），只有 <span class="math inline">\(0/1\)</span>
+两种结果的最基本随机分布。</li>
+</ul>
+<blockquote>
+<p>为什么要除以 <span class="math inline">\(1-p\)</span>？这是 “inverted
+dropout” 的写法：</p>
+<ul>
+<li>训练时：把保留下来的激活放大，使得期望不变；</li>
+<li>推理时：直接关掉 Dropout（不再随机置零，也不需要缩放，直接使用 <span
+class="math inline">\(\mathbf{a}^{(l)}\)</span>）。</li>
+</ul>
+</blockquote>
+<hr />
+<h2 id="pytorch-三种结构的初始化代码">5. PyTorch
+三种结构的初始化代码</h2>
+<p>下面给出 PyTorch 三种结构的初始化代码。</p>
+<div class="tag-common tabs" id="pytorch，1"><ul class="nav-tabs"><li class="tab active"><a data-target="pytorch，1-1">经典 MLP</a></li><li class="tab"><a data-target="pytorch，1-2">MLP + BatchNorm</a></li><li class="tab"><a data-target="pytorch，1-3">MLP + BatchNorm + Dropout</a></li></ul><div class="tab-content"><div class="tab-pane active" id="pytorch，1-1"><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ClassicMLP</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, hidden_dim=<span class="hljs-number">32</span></span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        <span class="hljs-variable language_">self</span>.net = nn.Sequential(<br>            nn.Linear(<span class="hljs-number">1</span>, hidden_dim),<br>            nn.ReLU(),<br>            nn.Linear(hidden_dim, hidden_dim),<br>            nn.ReLU(),<br>            nn.Linear(hidden_dim, <span class="hljs-number">1</span>),<br>            nn.ReLU(),   <span class="hljs-comment"># 输出也 ReLU（按任务可去掉）</span><br>        )<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.net(x)<br></code></pre></td></tr></table></figure></div><div class="tab-pane" id="pytorch，1-2"><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MLPWithBatchNorm</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, hidden_dim=<span class="hljs-number">32</span></span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        <span class="hljs-variable language_">self</span>.net = nn.Sequential(<br>            nn.Linear(<span class="hljs-number">1</span>, hidden_dim),<br>            nn.BatchNorm1d(hidden_dim),<br>            nn.ReLU(),<br><br>            nn.Linear(hidden_dim, hidden_dim),<br>            nn.BatchNorm1d(hidden_dim),<br>            nn.ReLU(),<br><br>            nn.Linear(hidden_dim, <span class="hljs-number">1</span>),<br>            nn.ReLU(),  <span class="hljs-comment"># 回归任务通常去掉</span><br>        )<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.net(x)<br></code></pre></td></tr></table></figure></div><div class="tab-pane" id="pytorch，1-3"><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MLPWithBNAndDropout</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, hidden_dim=<span class="hljs-number">32</span>, p_drop=<span class="hljs-number">0.2</span></span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        <span class="hljs-variable language_">self</span>.net = nn.Sequential(<br>            nn.Linear(<span class="hljs-number">1</span>, hidden_dim),<br>            nn.BatchNorm1d(hidden_dim),<br>            nn.ReLU(),<br>            nn.Dropout(p=p_drop),<br><br>            nn.Linear(hidden_dim, hidden_dim),<br>            nn.BatchNorm1d(hidden_dim),<br>            nn.ReLU(),<br>            nn.Dropout(p=p_drop),<br><br>            nn.Linear(hidden_dim, <span class="hljs-number">1</span>),<br>            nn.ReLU(),  <span class="hljs-comment"># 按任务决定是否保留</span><br>        )<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.net(x)<br></code></pre></td></tr></table></figure></div></div></div>
+<hr />
+<h2 id="小结三者区别一句话">6. 小结：三者区别一句话</h2>
+<ul>
+<li><strong>经典多层感知机（MLP）</strong>：Linear +
+激活，最基础的非线性拟合器</li>
+<li><strong>MLP +
+BatchNorm</strong>：在层间加入归一化，训练更稳定、收敛更快</li>
+<li><strong>MLP + BatchNorm +
+Dropout</strong>：再加随机丢弃，进一步抑制过拟合（但训练噪声更大）</li>
+</ul>
 
                 
               </div>
@@ -871,7 +835,7 @@ Token），按提示登录即可。</p></li>
   
     <span>></span>
     
-  <a href="/categories/%E7%BC%96%E7%A8%8B/Web/" class="category-chain-item">Web</a>
+  <a href="/categories/%E7%BC%96%E7%A8%8B/python/" class="category-chain-item">python</a>
   
   
 
@@ -888,11 +852,15 @@ Token），按提示登录即可。</p></li>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/github-pages/" class="print-no-link">#github pages</a>
+        <a href="/tags/python/" class="print-no-link">#python</a>
       
-        <a href="/tags/fluid/" class="print-no-link">#fluid</a>
+        <a href="/tags/PyTorch/" class="print-no-link">#PyTorch</a>
       
-        <a href="/tags/Hexo/" class="print-no-link">#Hexo</a>
+        <a href="/tags/MLP/" class="print-no-link">#MLP</a>
+      
+        <a href="/tags/BatchNorm/" class="print-no-link">#BatchNorm</a>
+      
+        <a href="/tags/Dropout/" class="print-no-link">#Dropout</a>
       
     </div>
   
@@ -904,8 +872,8 @@ Token），按提示登录即可。</p></li>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>从 0 搭建 Hexo + Fluid + GitHub Pages 博客</div>
-      <div>https://nanana-szz.github.io/blog/</div>
+      <div>多层感知机：结构、BatchNorm、Dropout，附 PyTorch 代码</div>
+      <div>https://nanana-szz.github.io/MLP/</div>
     </div>
     <div class="license-meta">
       
@@ -917,7 +885,7 @@ Token），按提示登录即可。</p></li>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年11月19日</div>
+          <div>2026年1月14日</div>
         </div>
       
       
@@ -949,15 +917,15 @@ Token），按提示登录即可。</p></li>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/CvxPy/" title="在 Python 中调用 CvxPy 进行凸优化">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">在 Python 中调用 CvxPy 进行凸优化</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/01-cvx-LP-QP/" title="用 MATLAB + CVX 调用 MOSEK/SeDuMi/SDPT3 求解二维 LP 与 QP，并读懂命令行输出">
+                        <span class="hidden-mobile">用 MATLAB + CVX 调用 MOSEK/SeDuMi/SDPT3 求解二维 LP 与 QP，并读懂命令行输出</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
@@ -1011,6 +979,12 @@ Token），按提示登录即可。</p></li>
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -1203,6 +1177,56 @@ Token），按提示登录即可。</p></li>
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] },
+              displayMath: { '[+]': [['$', '$'], ['$$', '$$'], ['\[', '\]']] },
+              // ★ 关键 1 ：打开 AMS 风格自动编号 + label/eqref 支持
+              tags: 'ams',   // 可选: 'none' | 'ams' | 'all'
+              // ★ 关键 2：确保 AMS 扩展加载（包含 align、cases、	ag 等）
+              packages: { '[+]': ['ams'] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              // 避免在 <code>、<pre> 里误渲染
+              skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
