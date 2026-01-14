@@ -19,25 +19,24 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本文概括电力系统标准测试系统的基本信息，包括 IEEE 14-bus 和 IEEE 33-bus 系统的特点、用途及适用场景。➡️">
+    <meta name="description" content="本文围绕一个简单的线性规划例子，说明：  怎么“仅根据约束”给目标函数找上界； 怎么用多个约束的线性组合得到更紧的上界； 这些上界怎么自然地变成一个新的线性规划——对偶问题； 最后给出 弱对偶定理 及其证明。➡️">
 <meta property="og:type" content="article">
-<meta property="og:title" content="电力系统标准测试系统概述">
-<meta property="og:url" content="https://nanana-szz.github.io/IEEE14/index.html">
+<meta property="og:title" content="线性规划对偶性的直观理解：从上界到对偶定理">
+<meta property="og:url" content="https://nanana-szz.github.io/02-duality_in_LP/index.html">
 <meta property="og:site_name" content="远大前程">
-<meta property="og:description" content="本文概括电力系统标准测试系统的基本信息，包括 IEEE 14-bus 和 IEEE 33-bus 系统的特点、用途及适用场景。➡️">
+<meta property="og:description" content="本文围绕一个简单的线性规划例子，说明：  怎么“仅根据约束”给目标函数找上界； 怎么用多个约束的线性组合得到更紧的上界； 这些上界怎么自然地变成一个新的线性规划——对偶问题； 最后给出 弱对偶定理 及其证明。➡️">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://nanana-szz.github.io/img/power_system.jpg">
-<meta property="article:published_time" content="2025-12-01T02:00:00.000Z">
-<meta property="article:modified_time" content="2025-12-12T15:32:24.183Z">
+<meta property="og:image" content="https://nanana-szz.github.io/img/CO.png">
+<meta property="article:published_time" content="2025-12-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-01-08T03:29:38.034Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="IEEE14">
-<meta property="article:tag" content="IEEE33">
+<meta property="article:tag" content="linear programming,duality,对偶理论">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://nanana-szz.github.io/img/power_system.jpg">
+<meta name="twitter:image" content="https://nanana-szz.github.io/img/CO.png">
   
   
   
-  <title>电力系统标准测试系统概述 - 远大前程</title>
+  <title>线性规划对偶性的直观理解：从上界到对偶定理 - 远大前程</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -331,7 +330,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="电力系统标准测试系统概述"></span>
+            <span id="subtitle" data-typed-text="线性规划对偶性的直观理解：从上界到对偶定理"></span>
           
         </div>
 
@@ -342,8 +341,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-12-01 10:00" pubdate>
-          2025年12月1日 上午
+        <time datetime="2025-12-11 00:00" pubdate>
+          2025年12月11日 凌晨
         </time>
       </span>
     
@@ -354,7 +353,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k 字
+          2.1k 字
         
       </span>
     
@@ -365,7 +364,7 @@
         
         
         
-          14 分钟
+          18 分钟
         
       </span>
     
@@ -410,17 +409,17 @@
     
     <div class="category row nomargin-x">
       <a class="category-item 
-          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="电力系统"
-        id="heading-9af22176100bfa1e4a53b65a65b06697" role="tab" data-toggle="collapse" href="#collapse-9af22176100bfa1e4a53b65a65b06697"
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="优化方法"
+        id="heading-d979d8e15a10839b4daa56bc522acb82" role="tab" data-toggle="collapse" href="#collapse-d979d8e15a10839b4daa56bc522acb82"
         aria-expanded="true"
       >
-        电力系统
-        <span class="list-group-count">(3)</span>
+        优化方法
+        <span class="list-group-count">(2)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-9af22176100bfa1e4a53b65a65b06697"
-           role="tabpanel" aria-labelledby="heading-9af22176100bfa1e4a53b65a65b06697">
+      <div class="category-collapse collapse show" id="collapse-d979d8e15a10839b4daa56bc522acb82"
+           role="tabpanel" aria-labelledby="heading-d979d8e15a10839b4daa56bc522acb82">
         
         
           
@@ -431,60 +430,23 @@
   </div>
 
           
-  
-    
-    
-    
-    <div class="category-sub row nomargin-x">
-      <a class="category-subitem collapsed
-          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="仿真工具"
-        id="heading-b33e246906162edd1791c6338dd0db8b" role="tab" data-toggle="collapse" href="#collapse-b33e246906162edd1791c6338dd0db8b"
-        aria-expanded="false"
-      >
-        仿真工具
-        <span class="list-group-count">(1)</span>
-        <i class="iconfont icon-arrowright"></i>
-      </a>
-      
-      <div class="category-collapse collapse " id="collapse-b33e246906162edd1791c6338dd0db8b"
-           role="tabpanel" aria-labelledby="heading-b33e246906162edd1791c6338dd0db8b">
-        
-        
-          
-  <div class="category-post-list">
-    
-    
-      
-      
-        <a href="/matpower_pypower/" title="电力系统工具简介：MATPOWER, PYPOWER, pandapower"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">电力系统工具简介：MATPOWER, PYPOWER, pandapower</span>
-        </a>
-      
-    
-  </div>
-
-        
-      </div>
-    </div>
   
     
     
     
     <div class="category-sub row nomargin-x">
       <a class="category-subitem 
-          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="基础理论"
-        id="heading-711643e656588b4a4b03ad8b5b3ccaac" role="tab" data-toggle="collapse" href="#collapse-711643e656588b4a4b03ad8b5b3ccaac"
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="优化基础"
+        id="heading-a1bdf455a9b82743446f16b48a768e9e" role="tab" data-toggle="collapse" href="#collapse-a1bdf455a9b82743446f16b48a768e9e"
         aria-expanded="true"
       >
-        基础理论
+        优化基础
         <span class="list-group-count">(2)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-711643e656588b4a4b03ad8b5b3ccaac"
-           role="tabpanel" aria-labelledby="heading-711643e656588b4a4b03ad8b5b3ccaac">
+      <div class="category-collapse collapse show" id="collapse-a1bdf455a9b82743446f16b48a768e9e"
+           role="tabpanel" aria-labelledby="heading-a1bdf455a9b82743446f16b48a768e9e">
         
         
           
@@ -493,19 +455,19 @@
     
       
       
-        <a href="/OPF/" title="电力系统中的最优潮流（OPF）基础讲解"
+        <a href="/01-cvx-LP-QP/" title="用 MATLAB + CVX 调用 MOSEK/SeDuMi/SDPT3 求解二维 LP 与 QP，并读懂命令行输出"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">电力系统中的最优潮流（OPF）基础讲解</span>
+          <span class="category-post">用 MATLAB + CVX 调用 MOSEK/SeDuMi/SDPT3 求解二维 LP 与 QP，并读懂命令行输出</span>
         </a>
       
     
       
       
-        <a href="/IEEE14/" title="电力系统标准测试系统概述"
+        <a href="/02-duality_in_LP/" title="线性规划对偶性的直观理解：从上界到对偶定理"
            class="list-group-item list-group-item-action
            active">
-          <span class="category-post">电力系统标准测试系统概述</span>
+          <span class="category-post">线性规划对偶性的直观理解：从上界到对偶定理</span>
         </a>
       
     
@@ -531,221 +493,340 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">电力系统标准测试系统概述</h1>
+            <h1 id="seo-header">线性规划对偶性的直观理解：从上界到对偶定理</h1>
             
             
               <div class="markdown-body">
                 
-                <p>本文概括电力系统标准测试系统的基本信息，包括 IEEE 14-bus 和 IEEE
-33-bus 系统的特点、用途及适用场景。➡️</p>
+                <p>本文围绕一个简单的线性规划例子，说明：</p>
+<ul>
+<li>怎么“仅根据约束”给目标函数找上界；</li>
+<li>怎么用<strong>多个约束的线性组合</strong>得到更紧的上界；</li>
+<li>这些上界怎么自然地变成一个新的线性规划——<strong>对偶问题</strong>；</li>
+<li>最后给出 <strong>弱对偶定理</strong> 及其证明。➡️</li>
+</ul>
 <span id="more"></span>
 <hr />
-<h2 id="ieee-14-与-ieee-33-是什么">1. IEEE 14 与 IEEE 33 是什么？</h2>
-<h3 id="ieee-14-bus-系统">1.1 IEEE 14-bus 系统</h3>
+<p>考虑下面的线性规划（Linear Programming）问题（原问题 / Primal
+LP）：</p>
+<p><span class="math display">\[\begin{eqnarray}
+\max _{x_1,x_2} &amp;\quad&amp; 2x_1 + 3x_2
+\nonumber\\
+\text{s.t.}
+&amp;&amp; 4x_1 + 8x_2 \le 12,
+\nonumber\\
+&amp;&amp; 2x_1 +   x_2 \le 3,
+\nonumber\\
+&amp;&amp; 3x_1 + 2x_2 \le 4,
+\nonumber\\
+&amp;&amp; x_1, x_2 \ge 0.
+\end{eqnarray}\]</span></p>
+<p>下面给出其对偶线性规划（Dual LP）的直观推导过程。</p>
+<hr />
+<h2 id="例子从最大化问题出发">1. 例子：从最大化问题出发</h2>
 <ul>
-<li><strong>性质</strong>：IEEE（Institute of Electrical and Electronics
-Engineers，电气电子工程师学会）
-提供的典型<strong>高压输电网</strong>标准测试系统</li>
-<li><strong>规模与构成</strong>：
+<li><p>如果将 <span class="math inline">\(\max _{x_1,x_2} 2x_1 +
+3x_2\)</span> 理解为找目标函数 <span class="math inline">\(2x_1 +
+3x_2\)</span> 的<strong>上界</strong>，则可以将这个 LP 问题描述为：</p>
 <ul>
-<li>14 个母线</li>
-<li>5 台发电机（含 1 个平衡母线）</li>
-<li>11 个负荷</li>
-<li>约 20 条线路/变压器支路</li>
-<li>电压等级多区域（典型为 69 kV / 138 kV 等高压侧）</li>
-</ul></li>
-<li><strong>主要用途</strong>：
-<ul>
-<li>潮流计算算法验证
-<ul>
-<li>牛顿法、PQ 法、解耦潮流等的基本算例。</li>
-</ul></li>
-<li>最优潮流（OPF，Optimal Power Flow）与经济调度
-<ul>
-<li>带约束的 AC OPF 问题、线性化 OPF、凸松弛等，都喜欢拿
-14、30、57、118、300 等作对比。</li>
-</ul></li>
-<li>电压稳定、暂态稳定分析
-<ul>
-<li>在 14-bus 上做 PV 曲线、电压失稳、线路切除等仿真，复杂度适中。</li>
-</ul></li>
-<li>FACTS 装置与无功补偿配置、继电保护整定等
-<ul>
-<li>例如优化配置 SVC/STATCOM、并联补偿，或方向型过流保护整定等。</li>
-</ul></li>
-</ul></li>
-<li><strong>典型场景</strong>：
-<ul>
-<li>小规模高压网格输电系统的 <strong>入门算例</strong> 与
-<strong>方法对比平台</strong></li>
+<li>找一个常数 <span
+class="math inline">\(U\)</span>，使得对所有满足约束的 <span
+class="math inline">\((x_1,x_2)\)</span> 都有： <span
+class="math display">\[\begin{equation}
+2x_1 + 3x_2 \le U.
+\end{equation}\]</span></li>
 </ul></li>
 </ul>
+<p>考虑如下问题：</p>
 <blockquote>
-<p>在电力系统研究里，“<strong>标准测试系统</strong>”（benchmark / test
-system）一般有几个特点：</p>
-<ol type="1">
-<li><p><strong>拓扑结构已固定</strong>：给出清晰的单线图（bus-branch
-结构）、额定电压、变压器接线、线路参数等。</p></li>
-<li><p><strong>参数公开</strong>：每个节点（母线）的类型（Slack / PV /
-PQ）、负荷、发电机出力范围，支路的 R、X、B，基准容量 S_base
-等全部公开，可直接建模。</p></li>
-<li><p><strong>被广泛引用</strong>：大量文献、教材、软件（MATPOWER、PYPOWER、pandapower、PowerWorld
-等）都有相应数据集，用它做算例方便和别人比较。</p></li>
-<li><p><strong>划定使用场景</strong>：有的代表高压输电网，有的代表中低压配电网；有的偏重潮流/OPF，有的偏重动态稳定、暂态仿真等。</p></li>
-</ol>
+<p>能不能<strong>不求解这个最优化问题本身</strong>，只利用这些约束，
+就推导出一个<strong>上界</strong>？</p>
 </blockquote>
 <hr />
-<h3 id="ieee-33-bus-系统">1.2 IEEE 33-bus 系统</h3>
+<h3 id="只用第一个约束得到一个粗上界">1.1
+只用第一个约束得到一个粗上界</h3>
+<p>先看第一个约束： <span class="math display">\[\begin{equation}
+  4x_1 + 8x_2 \le 12,
+\end{equation}\]</span> 又因为 <span class="math inline">\(x_1,x_2 \ge
+0\)</span>，系数都是正数，显然： <span
+class="math display">\[\begin{equation}
+  2x_1 + 3x_2 \le 4x_1 + 8x_2 \le 12,
+\end{equation}\]</span></p>
+<p>于是我们得到了 <span class="math inline">\(2x_1 + 3x_2\)</span>
+的一个上界。</p>
+<p><strong>但是：</strong></p>
 <ul>
-<li><strong>性质</strong>：Baran &amp; Wu
-提出的典型<strong>中压径向配电网</strong>标准测试系统</li>
-<li><strong>规模与构成</strong>：
-<ul>
-<li>33 个节点（1 个变电站节点 + 32 个中压负荷节点）</li>
-<li>32 条主馈线分段 + 若干联络线（部分版本为 37 支路，其中 32 条常闭，5
-条常开联络开关）</li>
-<li>额定电压通常为 12.66 kV，基准容量多取 100
-MVA，为<strong>中压径向配电馈线</strong></li>
-</ul></li>
-<li><strong>主要用途</strong>：
-<ul>
-<li>配电网潮流与电压质量分析
-<ul>
-<li>单相/三相潮流，考虑线路电阻占比大、R/X 比高的特点。</li>
-</ul></li>
-<li>网损最小化与网络重构（开关重构）
-<ul>
-<li>通过开关操作改变径向结构，寻优网损、负荷平衡、电压偏差等目标。</li>
-</ul></li>
-<li>分布式电源（DG）、储能接入位置与容量优化
-<ul>
-<li>太阳能、风电、储能、EV 充电站布置问题的首选 benchmark。</li>
-</ul></li>
-<li>主动配电网控制、EV 充电站布置等
-<ul>
-<li>电压/无功优化、FRT 策略、需求响应、分布式调度等。</li>
-</ul></li>
-</ul></li>
-<li><strong>典型场景</strong>：
-<ul>
-<li>中压径向配电系统的
-<strong>网损优化、DG/储能规划与重构研究</strong></li>
-</ul></li>
-<li>Matlab/MATPOWER 数据文件下载地址：
-<ul>
-<li><a target="_blank" rel="noopener" href="https://matpower.org/docs/ref/matpower5.1/case33bw/">IEEE
-33-bus Test Feeder Data : case33bw 算例</a></li>
-</ul></li>
+<li>这个上界只用了第一个约束；</li>
+<li>实际上很可能在可行域内根本取不到这么大的值，</li>
+<li>因为还要同时满足另外两个约束。</li>
 </ul>
+<p>自然的想法是：</p>
+<blockquote>
+<p>能不能在这个上界的基础上，<strong>利用其他约束</strong>，
+找到一个更小、更紧的上界？</p>
+</blockquote>
 <hr />
-<h2 id="其他常见输电网标准测试系统">2.
-其他常见“<strong>输电网</strong>”标准测试系统</h2>
-<h3 id="典型-ieee-输电网系统">2.1 典型 IEEE 输电网系统</h3>
-<ul>
-<li><strong>9-bus（WSCC）</strong>
-<ul>
-<li>规模很小，多用于教学、潮流基本概念与敏感度分析。</li>
-</ul></li>
-<li><strong>14-bus、30-bus、57-bus、118-bus、300-bus</strong>
-<ul>
-<li><strong>14-bus</strong>：小规模、真实感较强，是输电网入门算例。</li>
-<li><strong>30-bus</strong>：规模稍大，常用于 OPF、无功优化等问题。</li>
-<li><strong>57-bus</strong>：多区域系统，适合电压稳定、OPF、运行分析。</li>
-<li><strong>118-bus</strong>：大型系统，适合测试算法在较大规模下的性能。</li>
-<li><strong>300-bus</strong>：超大规模输电算例，用于评估大系统潮流/OPF
-算法。</li>
-</ul></li>
-<li><strong>New England 39-bus 动态系统</strong>
-<ul>
-<li>强调暂态与小干扰稳定仿真，如机电振荡、故障切除等。</li>
-</ul></li>
-<li><strong>IEEE RTS-24 / RTS-96 可靠性测试系统</strong>
-<ul>
-<li>用于研究发电与系统可靠性（失负荷概率、备用容量等）。</li>
-</ul></li>
-</ul>
-<h3 id="适用场景输电网">2.2 适用场景（输电网）</h3>
-<ul>
-<li>潮流计算、短路分析、无功优化、电压控制。</li>
-<li>最优潮流（OPF）、经济调度、安全约束调度（SCOPF）。</li>
-<li>电压稳定、暂态稳定、小干扰稳定分析。</li>
-<li>继电保护协调、系统可靠性与风险评估等。</li>
-</ul>
+<h3 id="利用缩放第一个约束">1.2 利用缩放第一个约束</h3>
+<p>注意到： <span class="math display">\[\begin{equation}
+  2x_1 + 3x_2 \le 2x_1 + 4x_2 = \tfrac12(4x_1 + 8x_2) ,
+\end{equation}\]</span></p>
+<p>于是 <span class="math display">\[\begin{align}
+2x_1 + 3x_2
+&amp;\le \tfrac12(4x_1 + 8x_2)
+\nonumber\\
+&amp;= 6.
+\end{align}\]</span></p>
+<p>这给出了一个<strong>更小的上界</strong>。</p>
 <hr />
-<h2 id="其他常见配电网标准测试系统">3.
-其他常见“<strong>配电网</strong>”标准测试系统</h2>
-<h3 id="ieee-配电测试馈线">3.1 IEEE 配电测试馈线</h3>
-<ul>
-<li><strong>IEEE 4-node、13-node、34-node、37-node、123-node Test
-Feeder</strong>
-<ul>
-<li>包含单相/三相、不平衡负荷、长线路、电压调节器等复杂特性。</li>
-</ul></li>
-<li><strong>IEEE 8500-node、9500-node、342-node
-等大规模配电系统</strong>
-<ul>
-<li>面向大规模中低压配电网的时序仿真与状态估计。</li>
-</ul></li>
-<li><strong>Baran &amp; Wu 系列径向配电系统</strong>
-<ul>
-<li>如 33-bus、69-bus、119-bus
-等，用于网损优化、网络重构、DG/储能布置等。</li>
-</ul></li>
-</ul>
-<h3 id="适用场景配电网">3.2 适用场景（配电网）</h3>
-<ul>
-<li>配电网（尤其是不平衡配电网）潮流分析。</li>
-<li>网损最小化、网络重构、无功/电压协同控制。</li>
-<li>分布式电源（光伏、风电等）、储能以及 EV 充电站接入与规划。</li>
-<li>主动配电网控制、微电网耦合、配电自动化与时序仿真。</li>
-</ul>
+<h3 id="再利用第二个约束得到更紧的上界">1.3
+再利用第二个约束得到更紧的上界</h3>
+<p>现在试着把<strong>第一个约束和第二个约束加在一起</strong>：</p>
+<p><span class="math display">\[\begin{equation}
+  \left\{ {\begin{array}{*{20}{l}}
+  {4{x_1} + 8{x_2} \le 12,}\\
+  {2{x_1} + {x_2} \le 3.}
+  \end{array}} \right. \Rightarrow 6{x_1} + 9{x_2} \le 15.
+\end{equation}\]</span></p>
+<p>于是： <span class="math display">\[\begin{align}
+2x_1 + 3x_2
+&amp;= \tfrac13(6x_1 + 9x_2)
+\nonumber\\
+&amp;\le \tfrac13 \cdot 15
+\nonumber\\
+&amp;= 5.
+\end{align}\]</span></p>
+<p>这就得到一个<strong>更紧的上界</strong>。</p>
+<blockquote>
+<p>小结：通过对约束做“<strong>缩放</strong> +
+<strong>加法</strong>”，我们把上界从 12 压到了 6，再压到了 5。</p>
+</blockquote>
+<p>自然继续追问：</p>
+<blockquote>
+<p>用这样“对约束做非负线性组合”的办法，<br />
+<strong>最多</strong>能把目标函数 <span class="math inline">\(2x_1 +
+3x_2\)</span> 的上界压到多小？</p>
+</blockquote>
+<p>换句话说：</p>
+<blockquote>
+<p>在所有可以由约束推得的上界中，<strong>最小的那个上界是多少？</strong></p>
+</blockquote>
+<p>这个问题可以用另一个 LP 问题来描述。</p>
 <hr />
-<h2 id="如何根据研究场景选择测试系统">4.
-如何根据研究场景选择测试系统？</h2>
-<h3 id="按电压等级与拓扑类型">4.1 按电压等级与拓扑类型</h3>
+<h3 id="问题重述">1.4 问题重述</h3>
+<p>我们想做的是从原来的约束中，推导出一个不等式：</p>
+<p><span class="math display">\[\begin{equation}
+  d_1 x_1 + d_2 x_2 \le h,
+\end{equation}\]</span></p>
+<p>满足：</p>
 <ul>
-<li><strong>高压网格输电系统</strong>
-<ul>
-<li>优先选择：9/14/30/57/118/300-bus 等 IEEE 输电系统。</li>
-<li>适用问题：潮流、OPF、AGC、跨区潮流、输电规划、稳定性分析等。</li>
-</ul></li>
-<li><strong>中压/低压径向或弱环网配电系统</strong>
-<ul>
-<li>优先选择：IEEE 13/34/37/123-node feeder，33/69/8500/9500-node
-等。</li>
-<li>适用问题：配电潮流、网损优化、DG 布置、重构、配电自动化等。</li>
-</ul></li>
+<li><p>对所有可行 <span class="math inline">\((x_1,x_2)\)</span>
+都成立（也就是这个不等式是<strong>由所有约束推得的</strong>）；</p></li>
+<li><p>系数满足：</p>
+<p><span class="math display">\[\begin{equation}
+  d_1 \ge 2, \quad d_2 \ge 3,
+\end{equation}\]</span> 这样才能保证： <span
+class="math display">\[\begin{equation}
+  2x_1 + 3x_2 \le d_1 x_1 + d_2 x_2;
+\end{equation}\]</span></p></li>
+<li><p>而 <strong><span class="math inline">\(h\)</span>
+要尽量小</strong>，这样得到的上界越紧、越接近真实最优值。</p></li>
 </ul>
-<h3 id="按系统规模与算法复杂度">4.2 按系统规模与算法复杂度</h3>
+<p>原来的 LP 问题就变成：</p>
+<blockquote>
+<p>如何系统地构造这样的 <span class="math inline">\(d_1,d_2,h\)</span>
+？</p>
+</blockquote>
+<hr />
+<p>确保每个约束都满足的关键是：</p>
+<blockquote>
+<p><strong>将原问题的所有约束进行非负线性组合，来推导需要的不等式。</strong></p>
+</blockquote>
+<p>具体到我们的例子，给三个约束分别乘 <span
+class="math inline">\(y_1,y_2,y_3 \ge 0\)</span> 然后再相加，并把左边按
+<span class="math inline">\(x_1,x_2\)</span> 合并：</p>
+<p><span class="math display">\[\begin{equation}
+  \left\{ \begin{array}{l}
+  {y_1}\left( {4{x_1} + 8{x_2} \le 12} \right),\\
+  {y_2}\left( {2{x_1} + {x_2} \le 3} \right),\\
+  {y_3}\left( {3{x_1} + 2{x_2} \le 4} \right).
+  \end{array} \right. \Rightarrow \left( {4{y_1} + 2{y_2} + 3{y_3}}
+\right){x_1} + \left( {8{y_1} + {y_2} + 2{y_3}} \right){x_2} \le 12{y_1}
++ 3{y_2} + 4{y_3}
+\end{equation}\]</span></p>
+<p>于是，我们得到了一个形如 <strong><span class="math inline">\(d_1 x_1
++ d_2 x_2 \le h\)</span></strong> 的不等式，其中，</p>
+<p><span class="math display">\[\begin{equation}
+  d_1 = 4y_1 + 2y_2 + 3y_3,\quad
+  d_2 = 8y_1 +   y_2 + 2y_3,\quad
+  h   = 12y_1 + 3y_2 + 4y_3.
+  \nonumber
+\end{equation}\]</span></p>
+<p>为了让 <span class="math inline">\(h\)</span>
+成为目标函数的上界，还要要求： <span
+class="math display">\[\begin{equation}
+  d_1 \ge 2,\quad d_2 \ge 3.
+\end{equation}\]</span></p>
+<p>把 <span class="math inline">\(d_1,d_2\)</span>
+的表达式代进去，得到对 <span class="math inline">\(y\)</span>
+的约束：</p>
+<p><span class="math display">\[\begin{eqnarray}
+&amp;&amp;4y_1 + 2y_2 + 3y_3 \ge 2,
+\nonumber\\
+&amp;&amp;8y_1 +   y_2 + 2y_3 \ge 3,
+\nonumber\\
+&amp;&amp;y_1, y_2, y_3 \ge 0.
+\label{eq:dual_constraints}
+\end{eqnarray}\]</span></p>
+<p>此时，对任意可行的 <span class="math inline">\(x_1,x_2\)</span>
+都有：</p>
+<p><span class="math display">\[\begin{equation}
+  2x_1 + 3x_2 \le d_1 x_1 + d_2 x_2 \le h = 12y_1 + 3y_2 + 4y_3.
+\end{equation}\]</span></p>
+<p>也就是说：</p>
+<blockquote>
+<p>如果能够找到满足上述不等式的 <span
+class="math inline">\((y_1,y_2,y_3)\)</span> ，就能给出原目标函数 <span
+class="math inline">\(2x_1+3x_2\)</span> 相应的一个<strong>上界 <span
+class="math inline">\(h\)</span></strong>。
+我们希望的是这个上界尽可能地小，这样才能逼近原问题的最优值。</p>
+</blockquote>
+<hr />
+<h2 id="从找最好上界到对偶线性规划">6.
+从“找最好上界”到“对偶线性规划”</h2>
+<p>要做的事可以总结为：</p>
+<blockquote>
+<p>在所有满足 <span
+class="math inline">\(\eqref{eq:dual_constraints}\)</span> 中约束的
+<span class="math inline">\((y_1,y_2,y_3)\)</span> 里，<br />
+让 <span class="math inline">\(h = 12y_1 + 3y_2 + 4y_3\)</span>
+尽可能小。</p>
+</blockquote>
+<p>这本身就是一个线性规划：</p>
+<span class="math display">\[\begin{aligned}
+\min_{y_1,y_2,y_3}\quad &amp; 12y_1 + 3y_2 + 4y_3 \\
+\text{s.t.}\quad
+&amp; 4y_1 + 2y_2 + 3y_3 \ge 2, \\
+&amp; 8y_1 +   y_2 + 2y_3 \ge 3, \\
+&amp; y_1, y_2, y_3 \ge 0.
+\end{aligned}\]</span>
+<p>这个线性规划就是原问题的 <strong>对偶问题（Dual LP）</strong>。</p>
+<blockquote>
+<p>最大化优化问题的对偶问题在做的事就是——<br />
+在所有“由约束线性组合得到的上界”当中，<br />
+找一个<strong>最小</strong>的上界。</p>
+</blockquote>
+<hr />
+<h2 id="一般形式矩阵-向量写法的对偶">7.
+一般形式：矩阵-向量写法的对偶</h2>
+<p>考虑标准型线性规划：</p>
+<span class="math display">\[\begin{aligned}
+\text{(P)}\quad
+\max\quad &amp; c^\top x \\
+\text{s.t.}\quad
+&amp; Ax \le b, \\
+&amp; x \ge 0.
+\end{aligned}\]</span>
+<p>其中</p>
 <ul>
-<li><strong>小规模（教学 / 原理验证）</strong>
-<ul>
-<li>9-bus、14-bus、IEEE 13-node、33-bus 等。</li>
-</ul></li>
-<li><strong>中等规模（工程可行性 / 算法扩展验证）</strong>
-<ul>
-<li>30/57/69/118-bus、123-node 等。</li>
-</ul></li>
-<li><strong>大规模（性能评估 / 大规模优化 / 时序仿真）</strong>
-<ul>
-<li>300-bus、8500-node、9500-node 等。</li>
-</ul></li>
+<li><span class="math inline">\(x \in
+\mathbb{R}^n\)</span>：原问题变量；</li>
+<li><span class="math inline">\(c \in
+\mathbb{R}^n\)</span>：目标函数系数；</li>
+<li><span class="math inline">\(A \in \mathbb{R}^{m\times
+n}\)</span>：约束系数矩阵；</li>
+<li><span class="math inline">\(b \in
+\mathbb{R}^m\)</span>：约束右端项。</li>
 </ul>
-<h3 id="按研究问题类型">4.3 按研究问题类型</h3>
+<p>给每个约束乘上一个非负系数 <span class="math inline">\(y_i \ge
+0\)</span>，把它们写成向量形式：</p>
 <ul>
-<li><strong>输电网方向</strong>
-<ul>
-<li>经济调度、AC/DC OPF：14/30/57/118/300-bus。</li>
-<li>暂态、稳定性及保护：39-bus 动态系统等。</li>
-<li>可靠性：RTS-24/RTS-96 等。</li>
-</ul></li>
-<li><strong>配电网方向</strong>
-<ul>
-<li>网损优化、重构：33/69/123-node 等。</li>
-<li>DG/储能/EV 布局与调度：33-bus、69-bus、8500/9500-node 等。</li>
-<li>时序潮流、状态估计、数据驱动分析：含时序负荷与运行数据的大规模配电测试系统。</li>
-</ul></li>
+<li><span class="math inline">\(y \in
+\mathbb{R}^m\)</span>：对偶变量（每个分量对应一条约束）。</li>
 </ul>
+<p>把 <span class="math inline">\(Ax \le b\)</span> 左右同时左乘 <span
+class="math inline">\(y^\top\)</span>，得到</p>
+<p><span class="math display">\[
+y^\top A x \le y^\top b = b^\top y.
+\]</span></p>
+<p>另一方面，若要求</p>
+<p>[ A^T y c, ]</p>
+<p>那就有</p>
+<p>[ c^T x y^T A x. ]</p>
+<p>两者合并得到</p>
+<p>[ c^T x y^T A x b^T y. ]</p>
+<p>只要</p>
+[
+<span class="math display">\[\begin{cases}
+Ax \le b,\ x \ge 0, &amp;(\text{原问题可行}) \\
+A^T y \ge c,\ y \ge 0, &amp;(\text{对偶可行})
+\end{cases}\]</span>
+<p>]</p>
+<p>就必然有</p>
+<p>[ c^T x b^T y. ]</p>
+<p>这说明：</p>
+<ul>
+<li><strong>任意一个对偶可行的 (y)</strong>，都会给出原问题目标函数
+(c^Tx) 的一个<strong>上界</strong> (b^Ty)；</li>
+<li>如果我们想要<strong>最紧</strong>的上界，就要让 (b^Ty) 尽量小。</li>
+</ul>
+<p>于是得到一般形式的对偶问题：</p>
+[
+<span class="math display">\[\begin{aligned}
+\text{(D)}\quad
+\min\quad &amp; b^T y \\
+\text{s.t.}\quad
+&amp; A^T y \ge c, \\
+&amp; y \ge 0.
+\end{aligned}\]</span>
+<p>]</p>
+<p>这就是图里蓝底部分写的那句话：</p>
+<blockquote>
+<p>“更一般地，<br />
+(c^T x Axb, x) 的对偶是<br />
+(b^T y A^T yc, y)。”</p>
+</blockquote>
+<hr />
+<h2 id="弱对偶定理weak-duality">8. 弱对偶定理（Weak Duality）</h2>
+<p>到这里，可以正式写出 <strong>弱对偶定理</strong>。</p>
+<blockquote>
+<p><strong>定理（弱对偶）</strong><br />
+设 (x) 是原问题 (P) 的任意可行解，(y) 是对偶问题 (D) 的任意可行解，则有
+[ c^T x ;; b^T y. ] 换句话说： - 对“最大化”的原问题来说，
+<strong>任意对偶可行解的目标值都是原问题最优值的上界</strong>； -
+对“最小化”的对偶问题来说，
+<strong>任意原问题可行解的目标值都是对偶最优值的下界</strong>。</p>
+</blockquote>
+<h3 id="证明">证明</h3>
+<p>由原问题可行性 (Ax b) 和对偶变量非负 (y )，有</p>
+<p>[ y^T A x y^T b = b^T y. ]</p>
+<p>由对偶问题可行性 (A^T y c)，对任意 (x ) 有</p>
+<p>[ c^T x (A^T y)^T x = y^T A x. ]</p>
+<p>把两条不等式连起来：</p>
+<p>[ c^T x y^T A x b^T y. ]</p>
+<p>证毕。</p>
+<hr />
+<h2 id="小结从上界到对偶">9. 小结：从“上界”到“对偶”</h2>
+<ol type="1">
+<li><p>从一个具体的线性规划出发，我们先问： &gt;
+能否只用约束给目标函数找一个上界？</p></li>
+<li><p>先用一个约束，得到一个粗上界；</p></li>
+<li><p>再用多个约束的缩放与加法，得到更紧的上界；</p></li>
+<li><p>把“给每个约束乘一个非负系数再相加”的方法<strong>参数化</strong>为对偶变量
+(y)；</p></li>
+<li><p>发现对任意对偶可行 (y)，(b^Ty)
+都是原问题目标函数的一个上界；</p></li>
+<li><p>于是自然得到一个新的线性规划——对偶问题
+(D)：在这些上界中找一个最小的；</p></li>
+<li><p>弱对偶定理则形式化地说明：</p>
+<blockquote>
+<p>对任意原问题可行解 (x) 和任意对偶可行解 (y)，<br />
+总有 (c^Tx b^Ty)。</p>
+</blockquote></li>
+</ol>
+<p>在后续，如果再引入<strong>强对偶定理</strong>，可以解释为什么在适当条件下，<br />
+原问题和对偶问题的最优值实际上是<strong>相等</strong>的——<br />
+这就是“对偶线性规划对原问题的估计是 <strong>perfectly tight</strong>”
+的含义。</p>
 
                 
               </div>
@@ -764,12 +845,12 @@ Feeder</strong>
     
       <span class="category-chain">
         
-  <a href="/categories/%E7%94%B5%E5%8A%9B%E7%B3%BB%E7%BB%9F/" class="category-chain-item">电力系统</a>
+  <a href="/categories/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/" class="category-chain-item">优化方法</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E7%94%B5%E5%8A%9B%E7%B3%BB%E7%BB%9F/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/" class="category-chain-item">基础理论</a>
+  <a href="/categories/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/" class="category-chain-item">优化基础</a>
   
   
 
@@ -786,9 +867,7 @@ Feeder</strong>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/IEEE14/" class="print-no-link">#IEEE14</a>
-      
-        <a href="/tags/IEEE33/" class="print-no-link">#IEEE33</a>
+        <a href="/tags/linear-programming-duality-%E5%AF%B9%E5%81%B6%E7%90%86%E8%AE%BA/" class="print-no-link">#linear programming,duality,对偶理论</a>
       
     </div>
   
@@ -800,8 +879,8 @@ Feeder</strong>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>电力系统标准测试系统概述</div>
-      <div>https://nanana-szz.github.io/IEEE14/</div>
+      <div>线性规划对偶性的直观理解：从上界到对偶定理</div>
+      <div>https://nanana-szz.github.io/02-duality_in_LP/</div>
     </div>
     <div class="license-meta">
       
@@ -813,7 +892,7 @@ Feeder</strong>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年12月1日</div>
+          <div>2025年12月11日</div>
         </div>
       
       
@@ -845,9 +924,9 @@ Feeder</strong>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/hexo_tab/" title="Hexo + Fluid 中使用选项卡（Tabs）踩坑记录">
+                      <a href="/01-cvx-LP-QP/" title="用 MATLAB + CVX 调用 MOSEK/SeDuMi/SDPT3 求解二维 LP 与 QP，并读懂命令行输出">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Hexo + Fluid 中使用选项卡（Tabs）踩坑记录</span>
+                        <span class="hidden-mobile">用 MATLAB + CVX 调用 MOSEK/SeDuMi/SDPT3 求解二维 LP 与 QP，并读懂命令行输出</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -855,8 +934,8 @@ Feeder</strong>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/CvxPy/" title="在 Python 中调用 CvxPy 进行凸优化">
-                        <span class="hidden-mobile">在 Python 中调用 CvxPy 进行凸优化</span>
+                      <a href="/pandoc_MathJax/" title="用 Pandoc + MathJax 让 Hexo / Fluid 完整支持 LaTeX 公式">
+                        <span class="hidden-mobile">用 Pandoc + MathJax 让 Hexo / Fluid 完整支持 LaTeX 公式</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -913,6 +992,12 @@ Feeder</strong>
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -1105,6 +1190,56 @@ Feeder</strong>
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] },
+              displayMath: { '[+]': [['$', '$'], ['$$', '$$'], ['\[', '\]']] },
+              // ★ 关键 1 ：打开 AMS 风格自动编号 + label/eqref 支持
+              tags: 'ams',   // 可选: 'none' | 'ams' | 'all'
+              // ★ 关键 2：确保 AMS 扩展加载（包含 align、cases、	ag 等）
+              packages: { '[+]': ['ams'] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              // 避免在 <code>、<pre> 里误渲染
+              skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
