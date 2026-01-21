@@ -19,27 +19,25 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本文介绍如何在 Hexo + Fluid 主题下，为文章添加选项卡（Tabs）。➡️">
+    <meta name="description" content="在写 Python 脚本时，经常会遇到这些需求：  想在运行脚本时传入不同参数（比如 --lr 0.001 --epochs 20） 希望用户输入错误时能有清晰提示 希望自动生成 --help 帮助文档 想批量对比多组参数的运行结果（用 .sh 一键跑一堆实验）  argparse 就是 Python 标准库中专门解决这些问题的命令行参数解析工具。➡️">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo + Fluid 中使用选项卡（Tabs）踩坑记录">
-<meta property="og:url" content="https://nanana-szz.github.io/hexo_tab/index.html">
+<meta property="og:title" content="Python argparse 入门：把脚本变成“命令行工具”，并用 .sh 批量跑实验">
+<meta property="og:url" content="https://nanana-szz.github.io/argparse/index.html">
 <meta property="og:site_name" content="远大前程">
-<meta property="og:description" content="本文介绍如何在 Hexo + Fluid 主题下，为文章添加选项卡（Tabs）。➡️">
+<meta property="og:description" content="在写 Python 脚本时，经常会遇到这些需求：  想在运行脚本时传入不同参数（比如 --lr 0.001 --epochs 20） 希望用户输入错误时能有清晰提示 希望自动生成 --help 帮助文档 想批量对比多组参数的运行结果（用 .sh 一键跑一堆实验）  argparse 就是 Python 标准库中专门解决这些问题的命令行参数解析工具。➡️">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://nanana-szz.github.io/img/hexo.png">
-<meta property="article:published_time" content="2025-12-01T06:20:00.000Z">
-<meta property="article:modified_time" content="2025-12-10T01:20:43.890Z">
+<meta property="og:image" content="https://nanana-szz.github.io/img/vscode.png">
+<meta property="article:published_time" content="2025-11-19T14:10:00.000Z">
+<meta property="article:modified_time" content="2026-01-21T03:19:42.538Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="Hexo">
-<meta property="article:tag" content="fluid">
-<meta property="article:tag" content="github pages">
-<meta property="article:tag" content="tabs">
+<meta property="article:tag" content="CvxPy">
+<meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://nanana-szz.github.io/img/hexo.png">
+<meta name="twitter:image" content="https://nanana-szz.github.io/img/vscode.png">
   
   
   
-  <title>Hexo + Fluid 中使用选项卡（Tabs）踩坑记录 - 远大前程</title>
+  <title>Python argparse 入门：把脚本变成“命令行工具”，并用 .sh 批量跑实验 - 远大前程</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -333,7 +331,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Hexo + Fluid 中使用选项卡（Tabs）踩坑记录"></span>
+            <span id="subtitle" data-typed-text="Python argparse 入门：把脚本变成“命令行工具”，并用 .sh 批量跑实验"></span>
           
         </div>
 
@@ -344,8 +342,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-12-01 14:20" pubdate>
-          2025年12月1日 下午
+        <time datetime="2025-11-19 22:10" pubdate>
+          2025年11月19日 晚上
         </time>
       </span>
     
@@ -356,7 +354,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.8k 字
+          1.6k 字
         
       </span>
     
@@ -367,7 +365,7 @@
         
         
         
-          16 分钟
+          13 分钟
         
       </span>
     
@@ -438,17 +436,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem collapsed
+      <a class="category-subitem 
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Python"
         id="heading-a7f5f35426b927411fc9231b56382173" role="tab" data-toggle="collapse" href="#collapse-a7f5f35426b927411fc9231b56382173"
-        aria-expanded="false"
+        aria-expanded="true"
       >
         Python
         <span class="list-group-count">(2)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse " id="collapse-a7f5f35426b927411fc9231b56382173"
+      <div class="category-collapse collapse show" id="collapse-a7f5f35426b927411fc9231b56382173"
            role="tabpanel" aria-labelledby="heading-a7f5f35426b927411fc9231b56382173">
         
         
@@ -460,7 +458,7 @@
       
         <a href="/argparse/" title="Python argparse 入门：把脚本变成“命令行工具”，并用 .sh 批量跑实验"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">Python argparse 入门：把脚本变成“命令行工具”，并用 .sh 批量跑实验</span>
         </a>
       
@@ -484,17 +482,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem 
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Web"
         id="heading-c6e190b284633c48e39e55049da3cce8" role="tab" data-toggle="collapse" href="#collapse-c6e190b284633c48e39e55049da3cce8"
-        aria-expanded="true"
+        aria-expanded="false"
       >
         Web
         <span class="list-group-count">(2)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-c6e190b284633c48e39e55049da3cce8"
+      <div class="category-collapse collapse " id="collapse-c6e190b284633c48e39e55049da3cce8"
            role="tabpanel" aria-labelledby="heading-c6e190b284633c48e39e55049da3cce8">
         
         
@@ -506,7 +504,7 @@
       
         <a href="/hexo_tab/" title="Hexo + Fluid 中使用选项卡（Tabs）踩坑记录"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">Hexo + Fluid 中使用选项卡（Tabs）踩坑记录</span>
         </a>
       
@@ -616,170 +614,188 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Hexo + Fluid 中使用选项卡（Tabs）踩坑记录</h1>
+            <h1 id="seo-header">Python argparse 入门：把脚本变成“命令行工具”，并用 .sh 批量跑实验</h1>
             
             
               <div class="markdown-body">
                 
-                <p>本文介绍如何在 Hexo + Fluid
-主题下，为文章添加<code>选项卡（Tabs）</code>。➡️</p>
+                <p>在写 Python 脚本时，经常会遇到这些需求：</p>
+<ul>
+<li>想在运行脚本时传入不同参数（比如
+<code>--lr 0.001 --epochs 20</code>）</li>
+<li>希望用户输入错误时能有清晰提示</li>
+<li>希望自动生成 <code>--help</code> 帮助文档</li>
+<li>想批量对比多组参数的运行结果（用 <code>.sh</code>
+一键跑一堆实验）</li>
+</ul>
+<p><code>argparse</code> 就是 Python
+标准库中专门解决这些问题的<strong>命令行参数解析工具</strong>。➡️</p>
 <span id="more"></span>
-<h2 id="问题背景想在-hexo-中实现选项卡效果">1. 问题背景：想在 Hexo
-中实现选项卡效果</h2>
-<p>在写一篇博客时，我想做一个
-<strong>中英文对照的选项卡</strong>，效果是：</p>
-<div class="tag-common tabs" id="语言切换，1"><ul class="nav-tabs"><li class="tab active"><a data-target="语言切换，1-1">中文</a></li><li class="tab"><a data-target="语言切换，1-2">English</a></li></ul><div class="tab-content"><div class="tab-pane active" id="语言切换，1-1"><p>这里是中文内容。</p></div><div class="tab-pane" id="语言切换，1-2"><p>Here is English content.</p></div></div></div>
-<p>在 <a
-target="_blank" rel="noopener" href="https://homulilly.com/post/hexo-use-note-and-tabs-block.html"
-class="uri">https://homulilly.com/post/hexo-use-note-and-tabs-block.html</a>
-给出的教程中，需要在 Hexo 的 Markdown 里写类似如下语法：</p>
-<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs md">&#123;% tabs 语言切换，1 %&#125;<br><br>&lt;!-- tab 中文 --&gt;<br>这里是中文内容。<br>&lt;!-- endtab --&gt;<br><br>&lt;!-- tab English --&gt;<br>Here is English content.<br>&lt;!-- endtab --&gt;<br><br>&#123;% endtabs %&#125;<br></code></pre></td></tr></table></figure>
-<p>于是我直接在文章里加上上述 <code>tabs</code> 语法，准备
-<code>hexo g</code> 一把梭，结果直接 <code>FATAL</code>。</p>
-<h2 id="报错现象unknown-block-tag-tabs">2.
-报错现象：<code>unknown block tag: tabs</code></h2>
-<p>在博客根目录下执行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo g<br></code></pre></td></tr></table></figure>
-<p>报错如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs bash">FATAL Something<span class="hljs-string">&#x27;s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span><br><span class="hljs-string">Nunjucks Error: _posts/编程/python/CvxPy.md [Line 70, Column 109] unknown block tag: tabs</span><br><span class="hljs-string">    =====               Context Dump               =====</span><br><span class="hljs-string">    === (line number probably different from source) ===</span><br><span class="hljs-string">  65 | &lt;/blockquote&gt;</span><br><span class="hljs-string">  66 | &lt;hr&gt;</span><br><span class="hljs-string">  67 | &lt;h2 id=&quot;2-常见的求解器类型&quot;&gt;&lt;a href=&quot;#2-常见的求解器类型&quot; class=&quot;headerlink&quot; title=&quot;2. 常见的求解器类型&quot;&gt;&lt;/a&gt;2. 常见的求解器类型&lt;/h2&gt;&lt;blockquote&gt;</span><br><span class="hljs-string">  68 | &lt;p&gt;使用方式统一是：&lt;br&gt;&lt;code&gt;prob.solve(solver=cp.XXX, 参数名=...)&lt;/code&gt;&lt;br&gt;下面“常用参数”里提到的名字，都是可以直接写在 &lt;code&gt;solve()&lt;/code&gt; 里的 keyword 参数。&lt;/p&gt;</span><br><span class="hljs-string">  69 | &lt;/blockquote&gt;</span><br><span class="hljs-string">  70 | &lt;h3 id=&quot;2-1-常见开源求解器&quot;&gt;&lt;a href=&quot;#2-1-常见开源求解器&quot; class=&quot;headerlink&quot; title=&quot;2.1. 常见开源求解器&quot;&gt;&lt;/a&gt;2.1. 常见开源求解器&lt;/h3&gt;&#123;% tabs 语言切换 %&#125;</span><br><span class="hljs-string">  71 |</span><br><span class="hljs-string">  72 | &lt;!-- tab 中文 --&gt;</span><br><span class="hljs-string">  73 | 这里是中文内容。</span><br><span class="hljs-string">  74 | &lt;!-- endtab --&gt;</span><br><span class="hljs-string">  75 |</span><br><span class="hljs-string">    =====             Context Dump Ends            =====</span><br></code></pre></td></tr></table></figure>
-<p>关键信息只有一句话： &gt; <code>unknown block tag: tabs</code></p>
-<p>翻译成人话就是：<strong>模板引擎 <code>Nunjucks</code> 看到了
-<code>&#123;% tabs ... %&#125;</code>，但它完全不认识这个标签</strong>，没有任何插件/主题帮它注册过一个叫
-<code>tabs</code> 的 block，因此直接抛错。</p>
 <hr />
-<h2 id="第一次误解以为是插件没装好">3.
-第一次误解：以为是“插件没装好”</h2>
-<p>一开始 GPT 给出的解决思路是：</p>
-<ol type="1">
-<li><p>网上很多 <code>tabs</code> 教程都是 配合 <code>Butterfly</code>
-主题 使用的；</p></li>
-<li><p>这些教程会提示安装一个插件，比如
-<code>hexo-butterfly-tag-plugins-plus</code>；</p></li>
-<li><p>然后在 <code>_config.yml</code> 中加入类似下面的配置：</p></li>
-</ol>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># tag-plugins-plus </span><br><span class="hljs-comment"># see https://akilar.top/posts/615e2dec/</span><br><span class="hljs-attr">tag_plugins:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>        <span class="hljs-comment"># 开关</span><br>  <span class="hljs-attr">priority:</span> <span class="hljs-number">5</span>         <span class="hljs-comment"># 过滤器优先级，数值越小越早执行</span><br>  <span class="hljs-attr">issues:</span> <span class="hljs-literal">false</span>       <span class="hljs-comment"># issues 标签开关，不用可以先关掉</span><br>  <span class="hljs-attr">link:</span><br>    <span class="hljs-attr">placeholder:</span> <span class="hljs-string">/img/link.png</span>   <span class="hljs-comment"># link_card 默认图标，可以先随便写个路径</span><br>  <span class="hljs-attr">CDN:</span><br>    <span class="hljs-attr">anima:</span> <span class="hljs-string">https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css</span><br>    <span class="hljs-attr">jquery:</span> <span class="hljs-string">https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js</span><br>    <span class="hljs-attr">issues:</span> <span class="hljs-string">https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js</span><br>    <span class="hljs-attr">iconfont:</span> <span class="hljs-string">//at.alicdn.com/t/font_2032782_8d5kxvn09md.js</span><br>    <span class="hljs-attr">carousel:</span> <span class="hljs-string">https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js</span><br>    <span class="hljs-attr">tag_plugins_css:</span> <span class="hljs-string">https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css</span><br><br></code></pre></td></tr></table></figure>
-<p>结果无论怎么改，<code>hexo g</code> 依然报
-<code>unknown block tag: tabs</code>。</p>
-<h2 id="关键点主题不一样插件语法也未必通用">4.
-关键点：主题不一样，插件语法也未必通用</h2>
-<p>后来理了一下：</p>
-<ul>
-<li><p><code>hexo-butterfly-tag-plugins-plus</code> 是 <strong>围绕
-Butterfly 主题设计的外挂标签插件</strong>；</p></li>
-<li><p>它依赖 Butterfly
-的结构和脚本，虽然理论上可以在别的主题里用，但教程都是基于 Butterfly
-编写的；</p></li>
-<li><p>而我当前的主题是 <strong>Fluid</strong>，Fluid 本身并不内置
-<code>&#123;% tabs %&#125;</code> 这个标签；</p></li>
-<li><p>我一边用着 Fluid，一边照着 Butterfly 的玩法去装插件、写
-<code>&#123;% tabs %&#125;</code>，自然是各种不匹配。</p></li>
-</ul>
-<p><strong>换句话说：</strong></p>
-<ul>
-<li><p>标签语法 <code>&#123;% tabs %&#125;</code> 不是 Hexo 核心功能；</p></li>
-<li><p>是“<strong>主题 + 某个特定插件</strong>”组合出来的；</p></li>
-<li><p>不同主题的 tabs 语法未必一样，有的主题根本就没有 tabs。</p></li>
-</ul>
-<p>真正的需求其实很简单：</p>
+<h2 id="argparse-是干什么的">1. argparse 是干什么的？</h2>
+<p><code>argparse</code> 的作用可以概括为一句话：</p>
 <blockquote>
-<p>我只需要一个“和主题无关”的通用选项卡插件，让任何主题都能用
-<code>&#123;% tabs %&#125;</code>。</p>
+<p>把命令行里的一串字符串参数，解析成 Python
+里可直接使用的变量，并自动提供帮助信息和输入校验。</p>
 </blockquote>
-<h2 id="真正的解决方案使用通用插件-hexo-tag-common">5.
-真正的解决方案：使用通用插件 <code>hexo-tag-common</code></h2>
-<p>最后采用的方案是：</p>
-<blockquote>
-<p>使用 <strong>和主题无关的通用标签插件</strong> ——
-<code>hexo-tag-common</code>， 它提供了 tabs 功能，而且不依赖于
-Butterfly、Fluid 等特定主题。</p>
-</blockquote>
-<h3 id="安装-hexo-tag-common">5.1 安装 <code>hexo-tag-common</code></h3>
-<p>在博客根目录下执行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> D:\github\03-blog\myblog<br><br><span class="hljs-comment"># 清理之前装错的 Butterfly 插件（可选）</span><br>npm uninstall hexo-butterfly-tag-plugins-plus --save<br><br><span class="hljs-comment"># 安装通用标签插件</span><br>npm install hexo-tag-common --save<br></code></pre></td></tr></table></figure>
-<h3 id="修改根-_config.yml-配置注意不是-_config.fluid.yml">5.2 修改根
-<code>_config.yml</code> 配置（注意：不是
-<code>_config.fluid.yml</code>）</h3>
-<p>在 站点根目录 的 <code>_config.yml</code>
-中添加如下配置（可以替换掉之前的 <code>tag_plugins</code> 配置）：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># hexo-tag-common 通用标签插件</span><br><span class="hljs-attr">tag_common:</span><br>  <span class="hljs-attr">cdn:</span> <span class="hljs-string">https://fastly.jsdelivr.net/npm/</span>   <span class="hljs-comment"># 默认 CDN，照抄即可</span><br>  <span class="hljs-attr">layout:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">post</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">page</span><br>    <span class="hljs-comment"># - home   # 如果希望首页也启用标签解析，可以把这一行的注释去掉</span><br></code></pre></td></tr></table></figure>
-<h3 id="在-markdown-中使用-hexo-tag-common-的-tabs-语法">5.3 在 Markdown
-中使用 <code>hexo-tag-common</code> 的 Tabs 语法</h3>
-<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs md">&#123;% tabs 语言切换，1 %&#125;      # 语言切换：这一组 tabs 的名字，用来标识一整块选项卡； 1：默认选中第几个 tab（从 1 开始计数）；<br><br>&lt;!-- tab 中文 --&gt;          # Tab 标签标题；每个 tab 用 HTML 注释写<br>这里是中文内容。<br>&lt;!-- endtab --&gt;<br><br>&lt;!-- tab English --&gt;<br>Here is English content.<br>&lt;!-- endtab --&gt;<br>&#123;% endtabs %&#125;              # Tab 结束标记。<br></code></pre></td></tr></table></figure>
-<h3 id="重新生成博客">5.4 重新生成博客</h3>
-<p>完成上述修改后，在根目录重新生成：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo clean<br>hexo g<br>hexo s<br></code></pre></td></tr></table></figure>
-<p>然后浏览器访问： <a target="_blank" rel="noopener" href="http://localhost:4000"
-class="uri">http://localhost:4000</a>
-，找到对应的文章，就可以看到“语言切换”的选项卡效果了。</p>
-<h2 id="顺便说说-vs-code-预览为什么看不到-tabs-效果">6. 顺便说说 VS Code
-预览为什么看不到 tabs 效果</h2>
+<p>例如你希望这样运行脚本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python train.py --epochs 20 --lr 0.001 --device cuda<br></code></pre></td></tr></table></figure>
+<p><code>argparse</code> 会把
+<code>--epochs 20</code>、<code>--lr 0.001</code> 等解析成：</p>
 <ul>
-<li><p>VS Code 的 Markdown 预览只渲染 <strong>标准 Markdown
-语法</strong>；</p></li>
-<li><p><code>&#123;% tabs %&#125;</code>、<code>&#123;% xxx %&#125;</code> 这类是
-<strong>Hexo 标签插件语法</strong>，属于生成阶段的东西；</p></li>
-<li><p>Hexo 在 <code>hexo g</code> / <code>hexo s</code>
-阶段才会把这些标签解析成 <code>HTML + JS + CSS</code>；</p></li>
-<li><p>也就是说：</p>
-<ul>
-<li><p>VS Code 只会显示“源代码”（包含 <code>&#123;% tabs %&#125;</code>
-这些标记）；</p></li>
-<li><p>真正的 tabs UI 要看 <strong>Hexo 生成后的网页</strong>。</p></li>
-</ul></li>
+<li><code>args.epochs == 20</code>（整数）</li>
+<li><code>args.lr == 0.001</code>（浮点数）</li>
+<li><code>args.device == "cuda"</code>（字符串，并可限制范围）</li>
 </ul>
-<p>所以：</p>
+<p>并且自动支持：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python train.py --<span class="hljs-built_in">help</span><br></code></pre></td></tr></table></figure>
+<p>自动生成用法说明和参数解释。</p>
+<hr />
+<h2 id="最小例子位置参数必须提供">2. 最小例子：位置参数（必须提供）</h2>
+<p>下面的脚本要求你必须提供一个名字：</p>
+<h3 id="hello.py">hello.py</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> argparse<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    parser = argparse.ArgumentParser(description=<span class="hljs-string">&quot;Say hello to someone.&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;The person&#x27;s name&quot;</span>)<br>    args = parser.parse_args()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Hello, <span class="hljs-subst">&#123;args.name&#125;</span>!&quot;</span>)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    main()<br></code></pre></td></tr></table></figure>
+<p>运行方式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python hello.py Alice<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">Hello, Alice!<br></code></pre></td></tr></table></figure>
+<p>如果你只运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python hello.py<br></code></pre></td></tr></table></figure>
+<p>会报错并提示缺少参数，这正是 <code>argparse</code>
+的“强约束+友好提示”。</p>
+<hr />
+<h2 id="让脚本无参也能跑给参数默认值">3.
+让脚本“无参也能跑”：给参数默认值</h2>
+<p>很多人以为 argparse 的目标是“只写 <code>python hello.py</code>
+就能跑”。实际上关键在于：<strong>你怎么设计参数</strong>。</p>
+<h3 id="位置参数变为可选nargs-default">3.1 位置参数变为“可选”（nargs +
+default）</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> argparse<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    parser = argparse.ArgumentParser(description=<span class="hljs-string">&quot;Say hello to someone.&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;name&quot;</span>, nargs=<span class="hljs-string">&quot;?&quot;</span>, default=<span class="hljs-string">&quot;World&quot;</span>,<br>                        <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;Name (default: World)&quot;</span>)<br>    args = parser.parse_args()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Hello, <span class="hljs-subst">&#123;args.name&#125;</span>!&quot;</span>)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    main()<br></code></pre></td></tr></table></figure>
+<p>现在：</p>
 <ul>
-<li><p>VS Code 中看不到选项卡，是正常现象；</p></li>
-<li><p>真正的效果必须在 <a target="_blank" rel="noopener" href="http://localhost:4000"
-class="uri">http://localhost:4000</a>
-或部署后的博客站点上查看。</p></li>
+<li><code>python hello.py</code> → <code>Hello, World!</code></li>
+<li><code>python hello.py Alice</code> → <code>Hello, Alice!</code></li>
 </ul>
-<h2 id="这次踩坑的几个小总结">7. 这次踩坑的几个小总结</h2>
-<ol type="1">
-<li><p>报错信息要看懂关键字</p>
+<h3 id="使用可选参数---name">3.2 使用可选参数 <code>--name</code></h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> argparse<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    parser = argparse.ArgumentParser(description=<span class="hljs-string">&quot;Say hello to someone.&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;--name&quot;</span>, default=<span class="hljs-string">&quot;World&quot;</span>,<br>                        <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;Name (default: World)&quot;</span>)<br>    args = parser.parse_args()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Hello, <span class="hljs-subst">&#123;args.name&#125;</span>!&quot;</span>)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    main()<br></code></pre></td></tr></table></figure>
+<p>现在：</p>
 <ul>
-<li><p><code>unknown block tag: tabs</code> 的意思就是：</p>
-<blockquote>
-<p>模板引擎压根不认识 <code>tabs</code> 这个标签；</p>
-</blockquote></li>
-<li><p>不是“语法写错一点点”，而是“压根没人注册这个标签”。</p></li>
-</ul></li>
-<li><p>主题 + 插件要匹配</p>
+<li><code>python hello.py</code> → <code>Hello, World!</code></li>
+<li><code>python hello.py --name Alice</code> →
+<code>Hello, Alice!</code></li>
+</ul>
+<hr />
+<h2 id="help-自动帮助信息为什么有用help-能写中文吗">4.
+<code>--help</code> 自动帮助信息：为什么有用？help 能写中文吗？</h2>
+<h3 id="help-是为了让用户快速知道怎么用">4.1 <code>--help</code>
+是为了让用户快速知道怎么用</h3>
+<p>你只要写了 <code>add_argument(..., help="...")</code>，用户运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python hello.py --<span class="hljs-built_in">help</span><br></code></pre></td></tr></table></figure>
+<p>就能看到自动生成的参数说明，避免“必须看源码才能知道怎么传参”。</p>
+<h3 id="help-可以写中文">4.2 <code>help=</code> 可以写中文</h3>
+<p>完全可以：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">parser.add_argument(<span class="hljs-string">&quot;--epochs&quot;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">int</span>, default=<span class="hljs-number">10</span>,<br>                    <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;训练轮数（默认：10）&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>只要你的终端支持 UTF-8（Linux/macOS 一般没问题；Windows 建议用
+Windows Terminal / PowerShell）。</p>
+<hr />
+<h2 id="核心三行argumentparseradd_argumentparse_args-到底在做什么">5.
+核心三行：ArgumentParser、add_argument、parse_args 到底在做什么？</h2>
+<h3 id="argumentparser...创建解析器parser">5.1
+<code>ArgumentParser(...)</code>：创建“解析器”（parser）</h3>
+<p>你可以把 <code>parser</code> 理解成“命令行参数解析器对象”。</p>
+<p>常见写法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">parser = argparse.ArgumentParser(description=<span class="hljs-string">&quot;xxx&quot;</span>)<br></code></pre></td></tr></table></figure>
 <ul>
-<li><p>网上很多 tabs 教程都是基于 Butterfly 主题；</p></li>
-<li><p>我实际使用的是 Fluid；</p></li>
-<li><p>盲目照搬 Butterfly + <code>hexo-butterfly-tag-plugins-plus</code>
-的配置，基本就是“南辕北辙”。</p></li>
-</ul></li>
-<li><p>通用插件更适合多主题场景</p>
+<li><code>ArgumentParser</code> 是 argparse 提供的核心类</li>
+<li><code>description</code> 会显示在 <code>--help</code> 的顶部</li>
+</ul>
+<p>单双引号 <code>""</code> 或 <code>''</code> 都可以，Python
+中几乎等价。</p>
+<h3 id="add_argument...声明一个参数的规则">5.2
+<code>add_argument(...)</code>：声明一个参数的“规则”</h3>
+<p>你在这里定义参数名、类型、默认值、是否必填、帮助说明等。</p>
+<p>位置参数（不带 <code>--</code>）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">parser.add_argument(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;名字&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>可选参数（带 <code>--</code>）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">parser.add_argument(<span class="hljs-string">&quot;--name&quot;</span>, default=<span class="hljs-string">&quot;World&quot;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;名字&quot;</span>)<br></code></pre></td></tr></table></figure>
+<h3 id="parse_args真正去读取并解析命令行">5.3
+<code>parse_args()</code>：真正去“读取并解析命令行”</h3>
+<p>这一行会从命令行读取输入并解析：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">args = parser.parse_args()<br></code></pre></td></tr></table></figure>
+<p>解析结果 <code>args</code> 是一个对象，你用 <code>args.xxx</code>
+访问对应参数。</p>
+<p>没有这行，前面只是“定义规则”，脚本并不知道用户传了什么参数。</p>
+<hr />
+<h2 id="经典参数能力typedefaultrequiredchoicesflag">6.
+经典参数能力：type、default、required、choices、flag</h2>
+<p>下面给一个更像“真实工程脚本”的例子。</p>
+<h3 id="train.py">train.py</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> argparse<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    parser = argparse.ArgumentParser(description=<span class="hljs-string">&quot;A toy training script.&quot;</span>)<br><br>    parser.add_argument(<span class="hljs-string">&quot;--epochs&quot;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">int</span>, default=<span class="hljs-number">10</span>,<br>                        <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;训练轮数（默认：10）&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;--lr&quot;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">float</span>, default=<span class="hljs-number">1e-3</span>,<br>                        <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;学习率（默认：1e-3）&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;--device&quot;</span>, choices=[<span class="hljs-string">&quot;cpu&quot;</span>, <span class="hljs-string">&quot;cuda&quot;</span>], default=<span class="hljs-string">&quot;cpu&quot;</span>,<br>                        <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;运行设备：cpu/cuda（默认：cpu）&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;--verbose&quot;</span>, action=<span class="hljs-string">&quot;store_true&quot;</span>,<br>                        <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;是否输出详细日志（加上该参数即为True）&quot;</span>)<br><br>    args = parser.parse_args()<br><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;epochs =&quot;</span>, args.epochs)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;lr     =&quot;</span>, args.lr)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;device =&quot;</span>, args.device)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;verbose=&quot;</span>, args.verbose)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    main()<br></code></pre></td></tr></table></figure>
+<p>运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python train.py --epochs 20 --lr 0.001 --device cuda --verbose<br></code></pre></td></tr></table></figure>
+<p>要点总结：</p>
 <ul>
-<li><p>如果不想绑死在某个主题上，可以优先找
-和主题无关的通用插件；</p></li>
-<li><p>这次解决方案就是：Fluid + <code>hexo-tag-common</code>。</p></li>
-</ul></li>
-<li><p>配置文件位置要分清楚</p>
+<li><code>type=int/float</code>：自动类型转换</li>
+<li><code>default=...</code>：不提供就用默认值</li>
+<li><code>choices=[...]</code>：限制合法取值</li>
+<li><code>action="store_true"</code>：布尔开关参数（出现即 True）</li>
+</ul>
+<hr />
+<h2 id="用-.sh-脚本批量运行多组参数做实验对比非常常用">7. 用
+<code>.sh</code> 脚本批量运行多组参数（做实验对比非常常用）</h2>
+<p><code>.sh</code> 是 Shell 脚本文件，通常在 Linux/macOS（或 Windows 的
+WSL/Git Bash）中使用，用来把一堆命令写进文件，一键执行。</p>
+<h3 id="最简单运行一次">7.1 最简单：运行一次</h3>
+<p>创建 <code>run_once.sh</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/usr/bin/env bash</span><br>python train.py --epochs 20 --lr 0.001 --device cpu<br></code></pre></td></tr></table></figure>
+<p>运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">bash run_once.sh<br></code></pre></td></tr></table></figure>
+<h3 id="批量对比循环跑多个参数组合">7.2
+批量对比：循环跑多个参数组合</h3>
+<p>创建 <code>grid_search.sh</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/usr/bin/env bash</span><br><br><span class="hljs-keyword">for</span> epochs <span class="hljs-keyword">in</span> 10 20 50; <span class="hljs-keyword">do</span><br>  <span class="hljs-keyword">for</span> lr <span class="hljs-keyword">in</span> 0.001 0.0005; <span class="hljs-keyword">do</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Running: epochs=<span class="hljs-variable">$epochs</span> lr=<span class="hljs-variable">$lr</span>&quot;</span><br>    python train.py --epochs <span class="hljs-string">&quot;<span class="hljs-variable">$epochs</span>&quot;</span> --lr <span class="hljs-string">&quot;<span class="hljs-variable">$lr</span>&quot;</span> --device cpu<br>  <span class="hljs-keyword">done</span><br><span class="hljs-keyword">done</span><br></code></pre></td></tr></table></figure>
+<p>运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">bash grid_search.sh<br></code></pre></td></tr></table></figure>
+<p>说明：</p>
 <ul>
-<li><p>Hexo 全局配置：<code>_config.yml</code>（站点根目录）；</p></li>
-<li><p>主题配置：<code>_config.&lt;theme&gt;.yml</code>（例如
-<code>_config.fluid.yml</code>）；</p></li>
-<li><p>插件的配置一般写在 根 <code>_config.yml</code>
-中，而不是写在主题配置里。</p></li>
-</ul></li>
-<li><p>VS Code 预览只当“编辑器”，不要拿它当“最终效果”</p>
+<li><code>epochs</code> 和 <code>lr</code> 是 bash 变量</li>
+<li><code>"$epochs"</code> 代表取出变量值并安全传入（推荐加引号）</li>
+</ul>
+<h3 id="python-hello.py---name-name-是什么意思">7.3
+<code>python hello.py --name $name</code> 是什么意思？</h3>
+<p>这是 bash 语法：<code>$name</code> 会被替换为变量 <code>name</code>
+的值。</p>
+<p>例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">name=Alice<br>python hello.py --name <span class="hljs-string">&quot;<span class="hljs-variable">$name</span>&quot;</span><br></code></pre></td></tr></table></figure>
+<p>等价于：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python hello.py --name Alice<br></code></pre></td></tr></table></figure>
+<h3 id="多个可选参数怎么写">7.4 多个可选参数怎么写？</h3>
+<p>直接串起来即可：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python train.py --epochs 20 --lr 0.001 --device cuda --verbose<br></code></pre></td></tr></table></figure>
+<hr />
+<h2 id="最佳实践让-argparse-结构更清晰">8. 最佳实践：让 argparse
+结构更清晰</h2>
+<p>当参数变多时，推荐把 parser 单独封装：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> argparse<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">build_parser</span>():<br>    parser = argparse.ArgumentParser(description=<span class="hljs-string">&quot;My script.&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;--seed&quot;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">int</span>, default=<span class="hljs-number">0</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;随机种子&quot;</span>)<br>    <span class="hljs-keyword">return</span> parser<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    parser = build_parser()<br>    args = parser.parse_args()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;seed =&quot;</span>, args.seed)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    main()<br></code></pre></td></tr></table></figure>
+<p>这样主逻辑更干净、便于维护。</p>
+<hr />
+<h2 id="你学会了什么">9. 你学会了什么？</h2>
 <ul>
-<li><p>带 <code>&#123;% xxx %&#125;</code>
-的标签插件语法，预览不了是正常的；</p></li>
-<li><p>只要 <code>hexo g</code>
-没报错，浏览器里看到的才是最终效果。</p></li>
-</ul></li>
-</ol>
-<h2 id="用-tab-的其他踩坑经验总结">8. 用 tab 的其他踩坑经验总结</h2>
-<ol type="1">
-<li>如果在一篇博客中使用多组 tabs，每组 tabs
-的名字（<code>&#123;% tabs 页面内不重复的ID，1 %&#125;</code>
-中的“页面内不重复的ID”）要不一样，否则插件会把它们当成同一个选项卡组来处理，导致后面的
-tab 内容识别不完整。</li>
-</ol>
+<li><code>ArgumentParser(...)</code>：创建命令行解析器</li>
+<li><code>add_argument(...)</code>：定义参数规则（位置参数/可选参数）</li>
+<li><code>parse_args()</code>：读取命令行并解析成
+<code>args.xxx</code></li>
+<li><code>--help</code> 自动生成帮助信息，<code>help=</code>
+可以写中文</li>
+<li><code>.sh</code>
+脚本可以一键批量跑多组参数，适合实验对比与复现实验</li>
+</ul>
+<hr />
+<p>如果你把你当前项目里“想从命令行传入的参数清单”（例如
+probType、simpleVar、simpleIneq、device、seed、save_dir
+等）贴出来，我可以直接帮你写一份更贴近你工程的 argparse
+模板，并配套一个用于批量跑实验的 <code>.sh</code>
+脚本模板（含参数网格、日志重定向、结果文件命名规则）。</p>
 
                 
               </div>
@@ -803,7 +819,7 @@ tab 内容识别不完整。</li>
   
     <span>></span>
     
-  <a href="/categories/%E7%BC%96%E7%A8%8B/Web/" class="category-chain-item">Web</a>
+  <a href="/categories/%E7%BC%96%E7%A8%8B/Python/" class="category-chain-item">Python</a>
   
   
 
@@ -820,13 +836,9 @@ tab 内容识别不完整。</li>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/github-pages/" class="print-no-link">#github pages</a>
+        <a href="/tags/Python/" class="print-no-link">#Python</a>
       
-        <a href="/tags/fluid/" class="print-no-link">#fluid</a>
-      
-        <a href="/tags/Hexo/" class="print-no-link">#Hexo</a>
-      
-        <a href="/tags/tabs/" class="print-no-link">#tabs</a>
+        <a href="/tags/CvxPy/" class="print-no-link">#CvxPy</a>
       
     </div>
   
@@ -838,8 +850,8 @@ tab 内容识别不完整。</li>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Hexo + Fluid 中使用选项卡（Tabs）踩坑记录</div>
-      <div>https://nanana-szz.github.io/hexo_tab/</div>
+      <div>Python argparse 入门：把脚本变成“命令行工具”，并用 .sh 批量跑实验</div>
+      <div>https://nanana-szz.github.io/argparse/</div>
     </div>
     <div class="license-meta">
       
@@ -851,7 +863,7 @@ tab 内容识别不完整。</li>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年12月1日</div>
+          <div>2025年11月19日</div>
         </div>
       
       
@@ -883,9 +895,9 @@ tab 内容识别不完整。</li>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/OPF/" title="电力系统中的最优潮流（OPF）基础讲解">
+                      <a href="/CvxPy/" title="在 Python 中调用 CvxPy 进行凸优化">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">电力系统中的最优潮流（OPF）基础讲解</span>
+                        <span class="hidden-mobile">在 Python 中调用 CvxPy 进行凸优化</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -893,8 +905,8 @@ tab 内容识别不完整。</li>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/IEEE14/" title="电力系统标准测试系统概述">
-                        <span class="hidden-mobile">电力系统标准测试系统概述</span>
+                      <a href="/blog/" title="从 0 搭建 Hexo + Fluid + GitHub Pages 博客">
+                        <span class="hidden-mobile">从 0 搭建 Hexo + Fluid + GitHub Pages 博客</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

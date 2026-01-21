@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nanana-szz.github.io/img/CO.png">
 <meta property="article:published_time" content="2025-12-10T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-01-08T03:29:38.034Z">
+<meta property="article:modified_time" content="2026-01-20T14:57:31.256Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="linear programming,duality,对偶理论">
 <meta name="twitter:card" content="summary_large_image">
@@ -537,10 +537,9 @@ class="math display">\[\begin{equation}
 \end{equation}\]</span></li>
 </ul></li>
 </ul>
-<p>考虑如下问题：</p>
 <blockquote>
-<p>能不能<strong>不求解这个最优化问题本身</strong>，只利用这些约束，
-就推导出一个<strong>上界</strong>？</p>
+<p>能不能<strong>不求解这个最优化问题本身</strong>，只利用约束条件，
+就推导出目标函数的一个<strong>上界</strong>？</p>
 </blockquote>
 <hr />
 <h3 id="只用第一个约束得到一个粗上界">1.1
@@ -554,6 +553,16 @@ class="math display">\[\begin{equation}
 \end{equation}\]</span></p>
 <p>于是我们得到了 <span class="math inline">\(2x_1 + 3x_2\)</span>
 的一个上界。</p>
+<p>进一步： <span class="math display">\[\begin{equation}
+  2x_1 + 3x_2 \le 2x_1 + 4x_2 = \tfrac12(4x_1 + 8x_2) ,
+\end{equation}\]</span></p>
+<p>于是 <span class="math display">\[\begin{align}
+2x_1 + 3x_2
+&amp;\le \tfrac12(4x_1 + 8x_2)
+\nonumber\\
+&amp;= 6.
+\end{align}\]</span></p>
+<p>这给出了一个<strong>更小的上界</strong>。</p>
 <p><strong>但是：</strong></p>
 <ul>
 <li>这个上界只用了第一个约束；</li>
@@ -566,19 +575,7 @@ class="math display">\[\begin{equation}
 找到一个更小、更紧的上界？</p>
 </blockquote>
 <hr />
-<h3 id="利用缩放第一个约束">1.2 利用缩放第一个约束</h3>
-<p>注意到： <span class="math display">\[\begin{equation}
-  2x_1 + 3x_2 \le 2x_1 + 4x_2 = \tfrac12(4x_1 + 8x_2) ,
-\end{equation}\]</span></p>
-<p>于是 <span class="math display">\[\begin{align}
-2x_1 + 3x_2
-&amp;\le \tfrac12(4x_1 + 8x_2)
-\nonumber\\
-&amp;= 6.
-\end{align}\]</span></p>
-<p>这给出了一个<strong>更小的上界</strong>。</p>
-<hr />
-<h3 id="再利用第二个约束得到更紧的上界">1.3
+<h3 id="再利用第二个约束得到更紧的上界">1.2
 再利用第二个约束得到更紧的上界</h3>
 <p>现在试着把<strong>第一个约束和第二个约束加在一起</strong>：</p>
 <p><span class="math display">\[\begin{equation}
@@ -612,25 +609,27 @@ class="math display">\[\begin{equation}
 </blockquote>
 <p>这个问题可以用另一个 LP 问题来描述。</p>
 <hr />
-<h3 id="问题重述">1.4 问题重述</h3>
+<h3 id="问题重述">1.3 问题重述</h3>
 <p>我们想做的是从原来的约束中，推导出一个不等式：</p>
 <p><span class="math display">\[\begin{equation}
   d_1 x_1 + d_2 x_2 \le h,
 \end{equation}\]</span></p>
 <p>满足：</p>
-<ul>
-<li><p>对所有可行 <span class="math inline">\((x_1,x_2)\)</span>
-都成立（也就是这个不等式是<strong>由所有约束推得的</strong>）；</p></li>
-<li><p>系数满足：</p>
+<ol type="1">
+<li>对所有可行 <span class="math inline">\((x_1,x_2)\)</span>
+都成立（也就是这个不等式是<strong>由所有约束条件推得的</strong>）；</li>
+<li>系数满足：</li>
+</ol>
 <p><span class="math display">\[\begin{equation}
-  d_1 \ge 2, \quad d_2 \ge 3,
-\end{equation}\]</span> 这样才能保证： <span
+    d_1 \ge 2, \quad d_2 \ge 3,
+  \end{equation}\]</span> 这样才能保证： <span
 class="math display">\[\begin{equation}
-  2x_1 + 3x_2 \le d_1 x_1 + d_2 x_2;
-\end{equation}\]</span></p></li>
-<li><p>而 <strong><span class="math inline">\(h\)</span>
-要尽量小</strong>，这样得到的上界越紧、越接近真实最优值。</p></li>
-</ul>
+    2x_1 + 3x_2 \le d_1 x_1 + d_2 x_2;
+  \end{equation}\]</span></p>
+<ol start="3" type="1">
+<li>而 <strong><span class="math inline">\(h\)</span>
+要尽量小</strong>，这样得到的上界越紧、越接近真实最优值。</li>
+</ol>
 <p>原来的 LP 问题就变成：</p>
 <blockquote>
 <p>如何系统地构造这样的 <span class="math inline">\(d_1,d_2,h\)</span>
@@ -934,8 +933,8 @@ A^T y \ge c,\ y \ge 0, &amp;(\text{对偶可行})
                   <article class="post-next col-6">
                     
                     
-                      <a href="/matpower_pypower/" title="电力系统工具简介：MATPOWER, PYPOWER, pandapower">
-                        <span class="hidden-mobile">电力系统工具简介：MATPOWER, PYPOWER, pandapower</span>
+                      <a href="/pandoc_MathJax/" title="用 Pandoc + MathJax 让 Hexo / Fluid 完整支持 LaTeX 公式">
+                        <span class="hidden-mobile">用 Pandoc + MathJax 让 Hexo / Fluid 完整支持 LaTeX 公式</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
