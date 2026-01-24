@@ -19,28 +19,27 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="多层感知机（Multi-Layer Perceptron，简称 MLP ）是最基础、最常用的前馈神经网络结构之一。它的核心就是把若干个“线性层（全连接）+ 非线性激活函数”堆叠起来，让网络能够拟合复杂的非线性映射。">
+    <meta name="description" content="本文通过 before_post_render 过滤器实现 Markdown include。➡️">
 <meta property="og:type" content="article">
-<meta property="og:title" content="多层感知机：结构、BatchNorm、Dropout，附 PyTorch 代码">
-<meta property="og:url" content="https://nanana-szz.github.io/MLP/index.html">
+<meta property="og:title" content="在 Hexo 中实现 Markdown 的“文件包含”：用 before_post_render 过滤器零依赖 include">
+<meta property="og:url" content="https://nanana-szz.github.io/04-insertmd/index.html">
 <meta property="og:site_name" content="远大前程">
-<meta property="og:description" content="多层感知机（Multi-Layer Perceptron，简称 MLP ）是最基础、最常用的前馈神经网络结构之一。它的核心就是把若干个“线性层（全连接）+ 非线性激活函数”堆叠起来，让网络能够拟合复杂的非线性映射。">
+<meta property="og:description" content="本文通过 before_post_render 过滤器实现 Markdown include。➡️">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://nanana-szz.github.io/img/vscode.png">
-<meta property="article:published_time" content="2026-01-14T08:30:00.000Z">
-<meta property="article:modified_time" content="2026-01-14T14:15:00.571Z">
+<meta property="og:image" content="https://nanana-szz.github.io/img/hexo.png">
+<meta property="article:published_time" content="2026-01-23T12:30:00.000Z">
+<meta property="article:modified_time" content="2026-01-23T13:35:39.708Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="BatchNorm">
-<meta property="article:tag" content="Dropout">
-<meta property="article:tag" content="MLP">
-<meta property="article:tag" content="PyTorch">
-<meta property="article:tag" content="python">
+<meta property="article:tag" content="github pages">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="include">
+<meta property="article:tag" content="markdown">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://nanana-szz.github.io/img/vscode.png">
+<meta name="twitter:image" content="https://nanana-szz.github.io/img/hexo.png">
   
   
   
-  <title>多层感知机：结构、BatchNorm、Dropout，附 PyTorch 代码 - 远大前程</title>
+  <title>在 Hexo 中实现 Markdown 的“文件包含”：用 before_post_render 过滤器零依赖 include - 远大前程</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -338,7 +337,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="多层感知机：结构、BatchNorm、Dropout，附 PyTorch 代码"></span>
+            <span id="subtitle" data-typed-text="在 Hexo 中实现 Markdown 的“文件包含”：用 before_post_render 过滤器零依赖 include"></span>
           
         </div>
 
@@ -349,8 +348,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2026-01-14 16:30" pubdate>
-          2026年1月14日 下午
+        <time datetime="2026-01-23 20:30" pubdate>
+          2026年1月23日 晚上
         </time>
       </span>
     
@@ -361,7 +360,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          1.2k 字
         
       </span>
     
@@ -372,7 +371,7 @@
         
         
         
-          13 分钟
+          10 分钟
         
       </span>
     
@@ -535,17 +534,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem 
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="python"
         id="heading-23eeeb4347bdd26bfc6b7ee9a3b755dd" role="tab" data-toggle="collapse" href="#collapse-23eeeb4347bdd26bfc6b7ee9a3b755dd"
-        aria-expanded="true"
+        aria-expanded="false"
       >
         python
         <span class="list-group-count">(1)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      <div class="category-collapse collapse " id="collapse-23eeeb4347bdd26bfc6b7ee9a3b755dd"
            role="tabpanel" aria-labelledby="heading-23eeeb4347bdd26bfc6b7ee9a3b755dd">
         
         
@@ -557,7 +556,7 @@
       
         <a href="/MLP/" title="多层感知机：结构、BatchNorm、Dropout，附 PyTorch 代码"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">多层感知机：结构、BatchNorm、Dropout，附 PyTorch 代码</span>
         </a>
       
@@ -572,17 +571,17 @@
     
     
     <div class="category-sub row nomargin-x">
-      <a class="category-subitem collapsed
+      <a class="category-subitem 
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="web"
         id="heading-2567a5ec9705eb7ac2c984033e06189d" role="tab" data-toggle="collapse" href="#collapse-2567a5ec9705eb7ac2c984033e06189d"
-        aria-expanded="false"
+        aria-expanded="true"
       >
         web
         <span class="list-group-count">(3)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse " id="collapse-2567a5ec9705eb7ac2c984033e06189d"
+      <div class="category-collapse collapse show" id="collapse-2567a5ec9705eb7ac2c984033e06189d"
            role="tabpanel" aria-labelledby="heading-2567a5ec9705eb7ac2c984033e06189d">
         
         
@@ -603,7 +602,7 @@
       
         <a href="/04-insertmd/" title="在 Hexo 中实现 Markdown 的“文件包含”：用 before_post_render 过滤器零依赖 include"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">在 Hexo 中实现 Markdown 的“文件包含”：用 before_post_render 过滤器零依赖 include</span>
         </a>
       
@@ -639,209 +638,114 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">多层感知机：结构、BatchNorm、Dropout，附 PyTorch 代码</h1>
+            <h1 id="seo-header">在 Hexo 中实现 Markdown 的“文件包含”：用 before_post_render 过滤器零依赖 include</h1>
             
             
               <div class="markdown-body">
                 
-                <p>多层感知机（Multi-Layer Perceptron，简称 MLP
-）是最基础、最常用的前馈神经网络结构之一。它的核心就是把若干个“线性层（全连接）+
-非线性激活函数”堆叠起来，让网络能够拟合复杂的非线性映射。</p>
+                <p>本文通过 <code>before_post_render</code> 过滤器实现 Markdown
+include。➡️</p>
 <span id="more"></span>
 <hr />
-<h2 id="多层感知机的基本结构">1. 多层感知机的基本结构</h2>
-<p>典型的 MLP 由三部分组成：</p>
+<p>在写长文档时，经常会遇到这样的需求：</p>
+<ul>
+<li>主文档 <code>main.md</code> 只做目录/总览，</li>
+<li>具体内容拆到 <code>main1.md</code>（记录 a）与
+<code>main2.md</code>（记录 b）里维护，</li>
+<li>但发布到 Hexo + GitHub Pages 后，希望 <code>main.md</code>
+页面里能直接插入两个子文件的内容。</li>
+</ul>
+<p>问题在于：</p>
+<ul>
+<li><strong>Markdown 本身没有标准的 include 语法</strong>。</li>
+<li>很多 include 方案依赖第三方插件，</li>
+<li>但在较新版本 Hexo（例如 Hexo 8.x）环境下，插件的 peer dependency
+可能与 Hexo 版本冲突，导致 npm 安装失败或兼容性不确定。</li>
+</ul>
+<p>本文给出一个更稳妥的方案：<strong>不依赖任何第三方插件</strong>，使用
+Hexo 的 <code>before_post_render</code>
+过滤器在渲染前“拼接文件内容”，从而实现 Markdown include。</p>
+<hr />
+<h2 id="目标效果">目标效果</h2>
+<ul>
+<li><code>source/_posts/main.md</code>：主文档，仅维护结构与少量说明</li>
+<li><code>source/_posts/_fragments/main1.md</code>：A 部分</li>
+<li><code>source/_posts/_fragments/main2.md</code>：B 部分</li>
+<li>生成的 <code>main</code> 页面中，会在指定位置插入
+<code>main1.md</code> 与 <code>main2.md</code> 的正文内容</li>
+</ul>
+<hr />
+<h2 id="目录组织推荐">目录组织（推荐）</h2>
+<p>将片段放到 <code>_posts</code>
+下的下划线目录中，使其不被当作独立文章生成：</p>
+<ul>
+<li>Hexo 配置文档说明：<code>source/_posts</code>
+下任何以下划线开头的文件/文件夹会被忽略（避免被当作文章处理）。</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">source/</span><br>    <span class="hljs-string">_posts/</span><br>        <span class="hljs-string">main.md</span><br>        <span class="hljs-string">_fragments/</span><br>            <span class="hljs-string">main1.md</span><br>            <span class="hljs-string">main2.md</span><br></code></pre></td></tr></table></figure>
+<hr />
+<h2 id="step-1在-main.md-中写插入标记">Step 1：在 <code>main.md</code>
+中写插入标记</h2>
+<p>在 <code>source/_posts/main.md</code> 中，用 HTML
+注释写插入标记（该标记将被脚本识别并替换为目标文件内容）：</p>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs md">---<br>title: main<br><span class="hljs-section">date: 2026-01-23 10:00:00</span><br><span class="hljs-section">---</span><br><br>这里是 main 的开头说明。<br><br>&lt;!-- insertmd: <span class="hljs-emphasis">_posts/_</span>fragments/main1.md | --- --&gt;<br><br>&lt;!-- insertmd: <span class="hljs-emphasis">_posts/_</span>fragments/main2.md --&gt;<br></code></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li><code>insertmd:</code> 后面跟 <strong>相对 <code>source/</code>
+的路径</strong></li>
+<li>可选分隔符：<code>| ---</code>
+表示插入后追加一段分隔内容（如水平线）</li>
+<li>标记本身是注释，不会在最终页面显示（会被脚本替换掉）</li>
+</ul>
+<hr />
+<h2 id="step-2编写-before_post_render-过滤器脚本">Step 2：编写
+<code>before_post_render</code> 过滤器脚本</h2>
+<p>在 Hexo 根目录创建文件：<code>scripts/insertmd-filter.js</code>
+（若没有 <code>scripts/</code> 目录则新建）</p>
+<p>粘贴以下代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-meta">&#x27;use strict&#x27;</span>;<br><br><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>);<br><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>);<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">stripQuotes</span>(<span class="hljs-params">s</span>) &#123;<br>  <span class="hljs-keyword">return</span> s.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/^[&#x27;&quot;]|[&#x27;&quot;]$/g</span>, <span class="hljs-string">&#x27;&#x27;</span>);<br>&#125;<br><br>hexo.<span class="hljs-property">extend</span>.<span class="hljs-property">filter</span>.<span class="hljs-title function_">register</span>(<span class="hljs-string">&#x27;before_post_render&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) &#123;<br>  <span class="hljs-keyword">if</span> (!data || <span class="hljs-keyword">typeof</span> data.<span class="hljs-property">content</span> !== <span class="hljs-string">&#x27;string&#x27;</span>) <span class="hljs-keyword">return</span> data;<br><br>  <span class="hljs-comment">// 语法：&lt;!-- insertmd: path/to/file.md | --- --&gt;</span><br>  <span class="hljs-keyword">const</span> re = <span class="hljs-regexp">/&lt;!--\s*insertmd:\s*([^|]+?)(?:\s*\|\s*([^&gt;]+?))?\s*--&gt;/g</span>;<br><br>  <span class="hljs-keyword">if</span> (!re.<span class="hljs-title function_">test</span>(data.<span class="hljs-property">content</span>)) <span class="hljs-keyword">return</span> data;<br>  re.<span class="hljs-property">lastIndex</span> = <span class="hljs-number">0</span>;<br><br>  <span class="hljs-keyword">const</span> sourceDir = hexo.<span class="hljs-property">source_dir</span>;<br><br>  data.<span class="hljs-property">content</span> = data.<span class="hljs-property">content</span>.<span class="hljs-title function_">replace</span>(re, <span class="hljs-function">(<span class="hljs-params">full, p1, p2</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">const</span> rel = <span class="hljs-title function_">stripQuotes</span>(<span class="hljs-title class_">String</span>(p1).<span class="hljs-title function_">trim</span>()).<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/\\/g</span>, <span class="hljs-string">&#x27;/&#x27;</span>);<br>    <span class="hljs-keyword">const</span> abs = path.<span class="hljs-title function_">join</span>(sourceDir, rel);<br><br>    <span class="hljs-keyword">if</span> (!fs.<span class="hljs-title function_">existsSync</span>(abs) || !fs.<span class="hljs-title function_">statSync</span>(abs).<span class="hljs-title function_">isFile</span>()) &#123;<br>      hexo.<span class="hljs-property">log</span>.<span class="hljs-title function_">warn</span>(<span class="hljs-string">`[insertmd] not found: <span class="hljs-subst">$&#123;rel&#125;</span>`</span>);<br>      <span class="hljs-keyword">return</span> <span class="hljs-string">`\n\n&gt; [insertmd] not found: <span class="hljs-subst">$&#123;rel&#125;</span>\n\n`</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">const</span> text = fs.<span class="hljs-title function_">readFileSync</span>(abs, <span class="hljs-string">&#x27;utf8&#x27;</span>);<br>    <span class="hljs-keyword">const</span> sep = p2 ? <span class="hljs-string">`\n\n<span class="hljs-subst">$&#123;stripQuotes(<span class="hljs-built_in">String</span>(p2).trim())&#125;</span>\n\n`</span> : <span class="hljs-string">&#x27;\n\n&#x27;</span>;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-string">`\n\n&lt;!-- begin insertmd: <span class="hljs-subst">$&#123;rel&#125;</span> --&gt;\n\n<span class="hljs-subst">$&#123;text&#125;</span>\n\n&lt;!-- end insertmd: <span class="hljs-subst">$&#123;rel&#125;</span> --&gt;<span class="hljs-subst">$&#123;sep&#125;</span>`</span>;<br>  &#125;);<br><br>  <span class="hljs-keyword">return</span> data;<br>&#125;);<br></code></pre></td></tr></table></figure>
+<p>工作机制简述：</p>
 <ol type="1">
-<li>输入层（<span class="math inline">\(l = 0\)</span>）：接收特征 <span
-class="math inline">\(\mathbf{p}_i \in \mathbb{R}^{d_0}\)</span>，其中
-<span class="math inline">\(d_0\)</span> 为特征维度。即 <span
-class="math inline">\(a^{(0)}_i =
-\mathbf{p}_i\)</span>（<strong>单个样本 <span
-class="math inline">\(i\)</span></strong>）。</li>
-<li><strong>若干</strong>隐藏层（<span class="math inline">\(l = 1,
-\cdots, {L-1}\)</span>）：
-<ul>
-<li>一个典型的“层”包含两步：
-<ul>
-<li><strong>线性变换：</strong> <span class="math display">\[
-   z^{(l)}_i = W^{(l)}a^{(l-1)}_i + b^{(l)},\quad i = 1, \cdots, B
-   \]</span></li>
-<li><strong>非线性激活：</strong> <span class="math display">\[
-   a^{(l)}_i \leftarrow f^{(l)}(z^{(l)}_i)
-   \]</span></li>
-</ul></li>
-<li>其中：
-<ul>
-<li><span class="math inline">\(B\)</span> 为 batch size</li>
-<li><span class="math inline">\(z^{(l)}_i,a^{(l)}_i \in
-\mathbb{R}^{d_l}\)</span></li>
-<li><span class="math inline">\(W^{(l)}\)</span> ：第 <span
-class="math inline">\(l\)</span> 层的权重<strong>矩阵</strong>，<span
-class="math inline">\(W^{(l)} \in \mathbb{R}^{d_l \times
-d_{l-1}}\)</span></li>
-<li><span class="math inline">\(b^{(l)}\)</span> ：偏置向量，<span
-class="math inline">\(b^{(l)} \in \mathbb{R}^{d_l}\)</span></li>
-<li><span class="math inline">\(f^{(l)}(\cdot)\)</span>
-：非线性激活函数，<span class="math inline">\(\mathbb{R}^{d_l}
-\rightarrow \mathbb{R}^{d_l}\)</span></li>
-</ul></li>
-<li>通过多层堆叠<span class="math display">\[a^{(l)}_i =
-f^{(l)}(W^{(l)}a^{(l-1)}_i +
-b^{(l)})\]</span>实现特征变换，通常包含多个全连接层和非线性激活函数。</li>
-<li>隐藏层输出维度为 <span class="math inline">\(d_1, \cdots,
-d_{L-1}\)</span></li>
-</ul></li>
-<li>输出层：
-<ul>
-<li>得到预测 <span class="math inline">\(\hat
-y\)</span>，通常为一个全连接层。</li>
-<li>输出维度为 <span class="math inline">\(d_L\)</span>。</li>
-<li>分类/回归会用不同输出形式。</li>
-</ul></li>
+<li>Hexo 在渲染文章前会触发 <code>before_post_render</code></li>
+<li>脚本扫描文章内容，匹配 <code>insertmd</code> 后面写的相对路径</li>
+<li>读取对应 Markdown 文件内容，直接替换插入点</li>
+<li>后续照常走 Markdown 渲染流程，所以片段中的标题、列表、公式（如开启
+math）都能正常渲染</li>
 </ol>
-<p>如果没有非线性激活（全是线性层），那再多层也等价于“一层线性变换”，表达能力不会变强；<strong>非线性</strong>是
-MLP 能拟合复杂函数的关键。</p>
-<blockquote>
-<p><strong>对一个 batch 输入 <span
-class="math inline">\(\mathbf{a}^{(0)} \in \mathbb{R}^{B \times
-d_0}\)</span></strong>，等价于<strong>同一个 MLP
-被并行地作用在每个样本上。</strong></p>
-</blockquote>
-<figure>
-<img src="../../../../img/NN.png" srcset="/img/loading.gif" lazyload alt="MLP结构示意" />
-<figcaption aria-hidden="true">MLP结构示意</figcaption>
-</figure>
 <hr />
-<h2 id="常见非线性激活函数">2. 常见非线性激活函数</h2>
-<div class="tag-common tabs" id="常见非线性激活函数，1"><ul class="nav-tabs"><li class="tab active"><a data-target="常见非线性激活函数，1-1">ReLU</a></li><li class="tab"><a data-target="常见非线性激活函数，1-2">Leaky ReLU</a></li><li class="tab"><a data-target="常见非线性激活函数，1-3">Sigmoid</a></li><li class="tab"><a data-target="常见非线性激活函数，1-4">Tanh</a></li><li class="tab"><a data-target="常见非线性激活函数，1-5">GELU（Transformer 常见）</a></li></ul><div class="tab-content"><div class="tab-pane active" id="常见非线性激活函数，1-1"><p><span class="math display">\[
-\mathrm{ReLU}(x)=\max(0,x)
-\]</span> 优点：简单、收敛快、缓解梯度消失（相对 Sigmoid/Tanh）。</p></div><div class="tab-pane" id="常见非线性激活函数，1-2"><p><span class="math display">\[
-\mathrm{LeakyReLU}(x)=\max(\alpha x,x),\quad \alpha\in(0,1)
-\]</span> 特点：负半轴保留小斜率，减少“神经元死亡”。</p></div><div class="tab-pane" id="常见非线性激活函数，1-3"><p><span class="math display">\[
-\sigma(x)=\frac{1}{1+e^{-x}}
-\]</span> 特点：输出在 <span class="math inline">\((0,1)\)</span>
-区间，常用于二分类输出层；隐藏层使用时更容易梯度消失。</p></div><div class="tab-pane" id="常见非线性激活函数，1-4"><p><span class="math display">\[
-\tanh(x)=\frac{e^x-e^{-x}}{e^x+e^{-x}}
-\]</span> 特点：输出在 <span class="math inline">\((-1,1)\)</span>，比
-Sigmoid 零均值，但仍可能梯度消失。</p></div><div class="tab-pane" id="常见非线性激活函数，1-5"><p><span class="math display">\[
-\mathrm{GELU}(x)=x\Phi(x)
-\]</span> 其中 <span class="math inline">\(\Phi(x)\)</span>
-为标准正态分布的累积分布函数。特点：比 ReLU 更“平滑”。</p></div></div></div>
+<h2 id="step-3编写片段文件">Step 3：编写片段文件</h2>
+<h3
+id="source_posts_fragmentsmain1.md"><code>source/_posts/_fragments/main1.md</code></h3>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs md"><span class="hljs-section">## A 部分（a）</span><br><br><span class="hljs-bullet">-</span> a1<br><span class="hljs-bullet">-</span> a2<br></code></pre></td></tr></table></figure>
+<h3
+id="source_posts_fragmentsmain2.md"><code>source/_posts/_fragments/main2.md</code></h3>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs md"><span class="hljs-section">## B 部分（b）</span><br><br><span class="hljs-bullet">1.</span> b1<br><span class="hljs-bullet">2.</span> b2<br></code></pre></td></tr></table></figure>
 <hr />
-<h2 id="batchnorm">3. BatchNorm</h2>
-<blockquote>
-<p>实现中最常见顺序：<code>Linear -&gt; BN -&gt; ReLU</code></p>
-</blockquote>
-<p>BatchNorm（批归一化）一般作用在每个隐藏层的<strong>线性输出</strong>上
-<span class="math display">\[
-\mathbf{z}^{(l)}
-=
-\begin{bmatrix}
-(z^{(l)}_{1})^\top\\
-\vdots\\
-(z^{(l)}_{B})^\top
-\end{bmatrix}
-=
-\begin{bmatrix}
-\big(W^{(l)} a^{(l-1)}_{1}+b^{(l)}\big)^\top\\
-\vdots\\
-\big(W^{(l)} a^{(l-1)}_{B}+b^{(l)}\big)^\top
-\end{bmatrix}
-\in \mathbb{R}^{B\times d_l}.
-\]</span></p>
-<p>先对每个特征维度 <span
-class="math inline">\(j\)</span>（也就是每个神经元通道）在一个 batch
-上计算均值和方差： <span class="math display">\[
-\mu_j^{(l)}=\frac{1}{B}\sum_{i=1}^B z_{i,j}^{(l)},\qquad
-(\sigma_j^{(l)})^2=\frac{1}{B}\sum_{i=1}^B(z_{i,j}^{(l)}-\mu_j^{(l)})^2
-\]</span> 定义标准化： <span class="math display">\[
-\hat
-z^{(l)}_{i,j}=\frac{z^{(l)}_{i,j}-\mu_j^{(l)}}{\sqrt{(\sigma_j^{(l)})^2+\varepsilon}},
-\]</span> 其中，<span class="math inline">\(\varepsilon\)</span>
-是一个小常数，用于防止除零错误。</p>
-<p>再做可学习缩放平移（<span
-class="math inline">\(\gamma^{(l)},\beta^{(l)} \in
-\mathbb{R}^{d_l}\)</span>）： <span class="math display">\[
-\tilde{z}_{i,j}^{(l)} = \gamma_j^{(l)} \hat z^{(l)}_{i,j}+\beta_j^{(l)},
-\]</span> 然后再激活： <span class="math display">\[
-\tilde{a}_i^{(l)} = f^{(l)}(\tilde{z}_i^{(l)}).
-\]</span></p>
-<p>BatchNorm 的常见作用：</p>
+<h2 id="step-4本地验证与发布">Step 4：本地验证与发布</h2>
+<p>本地预览：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo clean<br>hexo s<br></code></pre></td></tr></table></figure>
+<p>若页面正常显示插入内容，再通过 <code>hexo d</code> 部署到 GitHub
+Pages。</p>
+<hr />
+<h2 id="注意事项">注意事项</h2>
+<div class="note note-warning">
+            <ol type="1"><li><p><strong>片段文件不要写 Front-matter</strong></p><ul><li>片段里不要以 <code>---</code> 开头写 <code>title/date</code>等，</li><li>否则会被当作普通文本插入正文，页面会出现多余 YAML。</li></ul></li><li><p><strong>建议片段标题从 <code>##</code> 开始</strong></p><ul><li>主文章本身通常由 front-matter 的 <code>title</code>作为页面主标题。</li><li>片段再用 <code>#</code> 容易造成多个一级标题，影响 TOC 与样式。</li></ul></li><li><p><strong>相对路径按“最终页面位置”来检验</strong></p><p>因为是“插入后统一渲染”，片段里的图片/链接相对路径在最终页面中解析。建议：</p><ul><li>使用站点根路径（如 <code>/img/...</code>），或</li><li>统一把资源放到固定目录，避免路径漂移。</li></ul></li><li><p><strong>文件不存在时的降级行为</strong></p><p>脚本找不到文件会输出警告，并在正文插入一行提示，便于快速定位路径问题。</p></li></ol>
+          </div>
+<hr />
+<h2 id="适用场景">适用场景</h2>
 <ul>
-<li>稳定训练、加速收敛</li>
-<li>对不同 batch 的统计量带来一定“噪声”，具有一定正则化效果</li>
+<li>长文拆分维护（章节/附录/读书笔记分文件）</li>
+<li>多篇文章复用同一段内容（比如统一的“实验设置”“参考实现说明”）</li>
+<li>不希望引入第三方插件、避免 npm 依赖冲突</li>
 </ul>
-<blockquote>
-<p>BatchNorm 对 batch size 较敏感，batch 太小（甚至为
-1）时效果会明显变差；这时常用 LayerNorm / GroupNorm。</p>
-</blockquote>
 <hr />
-<h2 id="dropout">4. Dropout</h2>
-<blockquote>
-<p>实现中最常见顺序：<code>Linear -&gt; BN -&gt; ReLU -&gt; Dropout</code></p>
-</blockquote>
-<p>Dropout
-在<strong>训练时</strong>随机把<strong>一部分样本</strong>的<strong>一部分神经元激活输出</strong>置零，避免网络过度依赖少数神经元，从而抑制过拟合。</p>
-<p>比如隐藏层激活为： <span class="math display">\[
-\mathbf{a}^{(l)}
-=
-\begin{bmatrix}
-(a_1^{(l)})^\top\\
-\vdots\\
-(a_B^{(l)})^\top
-\end{bmatrix}
-=
-\begin{bmatrix}
-(f(z_1^{(l)}))^\top\\
-\vdots\\
-(f(z_B^{(l)}))^\top
-\end{bmatrix}
-\in\mathbb{R}^{B\times d_l}.
-\]</span></p>
-<p>Dropout 产生 mask <span class="math inline">\(m^{(l)}\in
-\{0,1\}^{B\times d_l}\)</span>，然后 <span class="math display">\[
-h^{(l)}=\frac{m^{(l)}\odot \mathbf{a}^{(l)}}{1-p}.
-\]</span> 也就是说：被 mask 为 0
-的那些元素（某些样本的某些神经元输出）在这一轮前向里直接变成 0。</p>
+<h2 id="小结">小结</h2>
+<p>通过 Hexo 的 <code>before_post_render</code>
+过滤器，可以用极低成本实现 Markdown include：</p>
 <ul>
-<li><span class="math inline">\(m\)</span>（mask）是一个随机 0/1
-矩阵（或向量），和 <span class="math inline">\(\mathbf{a}^{(l)}\)</span>
-同形状。</li>
-<li>其中，<span class="math inline">\(m_{i,j}\sim
-\mathrm{Bernoulli}(1-p)\)</span>： 每个 <span
-class="math inline">\(m_{i,j}\)</span> 独立地取值 <span
-class="math display">\[
-m_{i,j}=\begin{cases}
-1,&amp;\text{概率 }1-p \\
-0,&amp;\text{概率 }p
-\end{cases}
-\]</span> 这就是<strong>伯努利分布</strong>（Bernoulli
-distribution），只有 <span class="math inline">\(0/1\)</span>
-两种结果的最基本随机分布。</li>
-</ul>
-<blockquote>
-<p>为什么要除以 <span class="math inline">\(1-p\)</span>？这是 “inverted
-dropout” 的写法：</p>
-<ul>
-<li>训练时：把保留下来的激活放大，使得期望不变；</li>
-<li>推理时：直接关掉 Dropout（不再随机置零，也不需要缩放，直接使用 <span
-class="math inline">\(\mathbf{a}^{(l)}\)</span>）。</li>
-</ul>
-</blockquote>
-<hr />
-<h2 id="pytorch-三种结构的初始化代码">5. PyTorch
-三种结构的初始化代码</h2>
-<p>下面给出 PyTorch 三种结构的初始化代码。</p>
-<div class="tag-common tabs" id="pytorch，1"><ul class="nav-tabs"><li class="tab active"><a data-target="pytorch，1-1">经典 MLP</a></li><li class="tab"><a data-target="pytorch，1-2">MLP + BatchNorm</a></li><li class="tab"><a data-target="pytorch，1-3">MLP + BatchNorm + Dropout</a></li></ul><div class="tab-content"><div class="tab-pane active" id="pytorch，1-1"><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ClassicMLP</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, hidden_dim=<span class="hljs-number">32</span></span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        <span class="hljs-variable language_">self</span>.net = nn.Sequential(<br>            nn.Linear(<span class="hljs-number">1</span>, hidden_dim),<br>            nn.ReLU(),<br>            nn.Linear(hidden_dim, hidden_dim),<br>            nn.ReLU(),<br>            nn.Linear(hidden_dim, <span class="hljs-number">1</span>),<br>            nn.ReLU(),   <span class="hljs-comment"># 输出也 ReLU（按任务可去掉）</span><br>        )<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.net(x)<br></code></pre></td></tr></table></figure></div><div class="tab-pane" id="pytorch，1-2"><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MLPWithBatchNorm</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, hidden_dim=<span class="hljs-number">32</span></span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        <span class="hljs-variable language_">self</span>.net = nn.Sequential(<br>            nn.Linear(<span class="hljs-number">1</span>, hidden_dim),<br>            nn.BatchNorm1d(hidden_dim),<br>            nn.ReLU(),<br><br>            nn.Linear(hidden_dim, hidden_dim),<br>            nn.BatchNorm1d(hidden_dim),<br>            nn.ReLU(),<br><br>            nn.Linear(hidden_dim, <span class="hljs-number">1</span>),<br>            nn.ReLU(),  <span class="hljs-comment"># 回归任务通常去掉</span><br>        )<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.net(x)<br></code></pre></td></tr></table></figure></div><div class="tab-pane" id="pytorch，1-3"><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MLPWithBNAndDropout</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, hidden_dim=<span class="hljs-number">32</span>, p_drop=<span class="hljs-number">0.2</span></span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        <span class="hljs-variable language_">self</span>.net = nn.Sequential(<br>            nn.Linear(<span class="hljs-number">1</span>, hidden_dim),<br>            nn.BatchNorm1d(hidden_dim),<br>            nn.ReLU(),<br>            nn.Dropout(p=p_drop),<br><br>            nn.Linear(hidden_dim, hidden_dim),<br>            nn.BatchNorm1d(hidden_dim),<br>            nn.ReLU(),<br>            nn.Dropout(p=p_drop),<br><br>            nn.Linear(hidden_dim, <span class="hljs-number">1</span>),<br>            nn.ReLU(),  <span class="hljs-comment"># 按任务决定是否保留</span><br>        )<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.net(x)<br></code></pre></td></tr></table></figure></div></div></div>
-<hr />
-<h2 id="小结三者区别一句话">6. 小结：三者区别一句话</h2>
-<ul>
-<li><strong>经典多层感知机（MLP）</strong>：Linear +
-激活，最基础的非线性拟合器</li>
-<li><strong>MLP +
-BatchNorm</strong>：在层间加入归一化，训练更稳定、收敛更快</li>
-<li><strong>MLP + BatchNorm +
-Dropout</strong>：再加随机丢弃，进一步抑制过拟合（但训练噪声更大）</li>
+<li><strong>片段分文件维护，主文档负责结构，总体渲染输出仍是一篇文章</strong>。</li>
+<li>相比依赖第三方 include 插件，这种做法更稳定、可控，尤其适合 Hexo
+版本较新或希望降低依赖风险的场景。 祝大家写作愉快！🚀</li>
 </ul>
 
                 
@@ -866,7 +770,7 @@ Dropout</strong>：再加随机丢弃，进一步抑制过拟合（但训练噪�
   
     <span>></span>
     
-  <a href="/categories/%E7%BC%96%E7%A8%8B/python/" class="category-chain-item">python</a>
+  <a href="/categories/%E7%BC%96%E7%A8%8B/web/" class="category-chain-item">web</a>
   
   
 
@@ -883,15 +787,13 @@ Dropout</strong>：再加随机丢弃，进一步抑制过拟合（但训练噪�
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/python/" class="print-no-link">#python</a>
+        <a href="/tags/github-pages/" class="print-no-link">#github pages</a>
       
-        <a href="/tags/PyTorch/" class="print-no-link">#PyTorch</a>
+        <a href="/tags/hexo/" class="print-no-link">#hexo</a>
       
-        <a href="/tags/MLP/" class="print-no-link">#MLP</a>
+        <a href="/tags/markdown/" class="print-no-link">#markdown</a>
       
-        <a href="/tags/BatchNorm/" class="print-no-link">#BatchNorm</a>
-      
-        <a href="/tags/Dropout/" class="print-no-link">#Dropout</a>
+        <a href="/tags/include/" class="print-no-link">#include</a>
       
     </div>
   
@@ -903,8 +805,8 @@ Dropout</strong>：再加随机丢弃，进一步抑制过拟合（但训练噪�
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>多层感知机：结构、BatchNorm、Dropout，附 PyTorch 代码</div>
-      <div>https://nanana-szz.github.io/MLP/</div>
+      <div>在 Hexo 中实现 Markdown 的“文件包含”：用 before_post_render 过滤器零依赖 include</div>
+      <div>https://nanana-szz.github.io/04-insertmd/</div>
     </div>
     <div class="license-meta">
       
@@ -916,7 +818,7 @@ Dropout</strong>：再加随机丢弃，进一步抑制过拟合（但训练噪�
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2026年1月14日</div>
+          <div>2026年1月23日</div>
         </div>
       
       
@@ -948,9 +850,9 @@ Dropout</strong>：再加随机丢弃，进一步抑制过拟合（但训练噪�
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/argparse/" title="Python argparse 入门：把脚本变成“命令行工具”，并用 .sh 批量跑实验">
+                      <a href="/05-python-interaction/" title="在 Hexo + Fluid 博客中实现可复用的 Python 交互运行组件（Pyodide + PJAX）">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Python argparse 入门：把脚本变成“命令行工具”，并用 .sh 批量跑实验</span>
+                        <span class="hidden-mobile">在 Hexo + Fluid 博客中实现可复用的 Python 交互运行组件（Pyodide + PJAX）</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -958,8 +860,8 @@ Dropout</strong>：再加随机丢弃，进一步抑制过拟合（但训练噪�
                   <article class="post-next col-6">
                     
                     
-                      <a href="/01-cvx-LP-QP/" title="用 MATLAB + CVX 调用 MOSEK/SeDuMi/SDPT3 求解二维 LP 与 QP，并读懂命令行输出">
-                        <span class="hidden-mobile">用 MATLAB + CVX 调用 MOSEK/SeDuMi/SDPT3 求解二维 LP 与 QP，并读懂命令行输出</span>
+                      <a href="/03-gradient_descent/" title="重新审视 Gradient Descent 算法：原问题的逐次逼近求解">
+                        <span class="hidden-mobile">重新审视 Gradient Descent 算法：原问题的逐次逼近求解</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -1016,12 +918,6 @@ Dropout</strong>：再加随机丢弃，进一步抑制过拟合（但训练噪�
 
 
   
-
-
-  
-  
-
-
 
 
 
@@ -1214,56 +1110,6 @@ Dropout</strong>：再加随机丢弃，进一步抑制过拟合（但训练噪�
 
 
   <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] },
-              displayMath: { '[+]': [['$', '$'], ['$$', '$$'], ['\[', '\]']] },
-              // ★ 关键 1 ：打开 AMS 风格自动编号 + label/eqref 支持
-              tags: 'ams',   // 可选: 'none' | 'ams' | 'all'
-              // ★ 关键 2：确保 AMS 扩展加载（包含 align、cases、	ag 等）
-              packages: { '[+]': ['ams'] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              // 避免在 <code>、<pre> 里误渲染
-              skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

@@ -1,0 +1,49 @@
+/* 作用域隔离：只影响 .py-demo 内部 */
+.py-demo {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Noto Sans";
+  margin: 16px 0;
+}
+
+.py-demo .py-demo__grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.py-demo .py-demo__card { border: 1px solid #ddd; border-radius: 10px; padding: 12px; background: #fff; }
+.py-demo .py-demo__label { font-weight: 600; display: block; margin-bottom: 6px; }
+.py-demo .py-demo__hint { color: #666; font-size: 13px; line-height: 1.5; }
+
+.py-demo textarea,
+.py-demo input {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.py-demo textarea { height: 240px; padding: 10px; }
+.py-demo input { padding: 10px; }
+
+.py-demo .py-demo__bar { display: flex; gap: 10px; margin-top: 10px; align-items: center; flex-wrap: wrap; }
+
+.py-demo button {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: #111;
+  color: #fff;
+  cursor: pointer;
+}
+.py-demo button:disabled { opacity: .6; cursor: not-allowed; }
+
+.py-demo pre.py-demo__out {
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #fafafa;
+  min-height: 90px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+}
+
+/* 如果你用“从上一篇代码块取源码”的方式，不需要隐藏代码块；
+   若你未来改成把源码放进容器里的隐藏节点，可用这条 */
+.py-demo .py-demo__source { display: none; }

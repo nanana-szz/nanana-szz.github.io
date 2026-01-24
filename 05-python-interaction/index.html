@@ -1,0 +1,1161 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><link href="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="写 Python 包用法博客时，常见的困扰是：为了展示命令行输出效果，需要额外贴一堆终端截图或手写输出。 更理想的方式是：在文章内嵌一个“运行按钮”，让读者直接在网页里运行示例代码并看到输出。➡️">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 Hexo + Fluid 博客中实现可复用的 Python 交互运行组件（Pyodide + PJAX）">
+<meta property="og:url" content="https://nanana-szz.github.io/05-python-interaction/index.html">
+<meta property="og:site_name" content="远大前程">
+<meta property="og:description" content="写 Python 包用法博客时，常见的困扰是：为了展示命令行输出效果，需要额外贴一堆终端截图或手写输出。 更理想的方式是：在文章内嵌一个“运行按钮”，让读者直接在网页里运行示例代码并看到输出。➡️">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nanana-szz.github.io/img/hexo.png">
+<meta property="article:published_time" content="2026-01-24T08:30:00.000Z">
+<meta property="article:modified_time" content="2026-01-24T09:10:29.144Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="编程,Hexo,Pyodide">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nanana-szz.github.io/img/hexo.png">
+  
+  
+  
+  <title>在 Hexo + Fluid 博客中实现可复用的 Python 交互运行组件（Pyodide + PJAX） - 远大前程</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/py-demo.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"nanana-szz.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Shan Z.Z.</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>优化方法</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/" target="_self">
+                    
+                    <span>优化基础</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/%E5%87%B8%E4%BC%98%E5%8C%96/" target="_self">
+                    
+                    <span>凸优化</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/%E8%87%AA%E9%80%82%E5%BA%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" target="_self">
+                    
+                    <span>自适应动态规划</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/%E6%9C%80%E4%BC%98%E6%8E%A7%E5%88%B6/" target="_self">
+                    
+                    <span>最优控制</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>编程</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E7%BC%96%E7%A8%8B/Python/" target="_self">
+                    
+                    <span>Python</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E7%BC%96%E7%A8%8B/VS%20Code/" target="_self">
+                    
+                    <span>VS Code</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E7%BC%96%E7%A8%8B/Git/" target="_self">
+                    
+                    <span>Git</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E7%BC%96%E7%A8%8B/Web/" target="_self">
+                    
+                    <span>Web</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>电力系统</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E7%94%B5%E5%8A%9B%E7%B3%BB%E7%BB%9F/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/" target="_self">
+                    
+                    <span>基础理论</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E7%94%B5%E5%8A%9B%E7%B3%BB%E7%BB%9F/%E4%BB%BF%E7%9C%9F%E5%B7%A5%E5%85%B7/" target="_self">
+                    
+                    <span>仿真工具</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="在 Hexo + Fluid 博客中实现可复用的 Python 交互运行组件（Pyodide + PJAX）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-01-24 16:30" pubdate>
+          2026年1月24日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          26 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="编程"
+        id="heading-41282bf95e43c64d579757573a03cdde" role="tab" data-toggle="collapse" href="#collapse-41282bf95e43c64d579757573a03cdde"
+        aria-expanded="true"
+      >
+        编程
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-41282bf95e43c64d579757573a03cdde"
+           role="tabpanel" aria-labelledby="heading-41282bf95e43c64d579757573a03cdde">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Python"
+        id="heading-a7f5f35426b927411fc9231b56382173" role="tab" data-toggle="collapse" href="#collapse-a7f5f35426b927411fc9231b56382173"
+        aria-expanded="false"
+      >
+        Python
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a7f5f35426b927411fc9231b56382173"
+           role="tabpanel" aria-labelledby="heading-a7f5f35426b927411fc9231b56382173">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/argparse/" title="Python argparse 入门：把脚本变成“命令行工具”，并用 .sh 批量跑实验"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python argparse 入门：把脚本变成“命令行工具”，并用 .sh 批量跑实验</span>
+        </a>
+      
+    
+      
+      
+        <a href="/CvxPy/" title="在 Python 中调用 CvxPy 进行凸优化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">在 Python 中调用 CvxPy 进行凸优化</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Web"
+        id="heading-c6e190b284633c48e39e55049da3cce8" role="tab" data-toggle="collapse" href="#collapse-c6e190b284633c48e39e55049da3cce8"
+        aria-expanded="false"
+      >
+        Web
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-c6e190b284633c48e39e55049da3cce8"
+           role="tabpanel" aria-labelledby="heading-c6e190b284633c48e39e55049da3cce8">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/02-hexo_tab/" title="Hexo + Fluid 中使用选项卡（Tabs）踩坑记录"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Hexo + Fluid 中使用选项卡（Tabs）踩坑记录</span>
+        </a>
+      
+    
+      
+      
+        <a href="/01-blog/" title="从 0 搭建 Hexo + Fluid + GitHub Pages 博客"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">从 0 搭建 Hexo + Fluid + GitHub Pages 博客</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="python"
+        id="heading-23eeeb4347bdd26bfc6b7ee9a3b755dd" role="tab" data-toggle="collapse" href="#collapse-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+        aria-expanded="false"
+      >
+        python
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+           role="tabpanel" aria-labelledby="heading-23eeeb4347bdd26bfc6b7ee9a3b755dd">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/MLP/" title="多层感知机：结构、BatchNorm、Dropout，附 PyTorch 代码"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">多层感知机：结构、BatchNorm、Dropout，附 PyTorch 代码</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="web"
+        id="heading-2567a5ec9705eb7ac2c984033e06189d" role="tab" data-toggle="collapse" href="#collapse-2567a5ec9705eb7ac2c984033e06189d"
+        aria-expanded="true"
+      >
+        web
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-2567a5ec9705eb7ac2c984033e06189d"
+           role="tabpanel" aria-labelledby="heading-2567a5ec9705eb7ac2c984033e06189d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/05-python-interaction/" title="在 Hexo + Fluid 博客中实现可复用的 Python 交互运行组件（Pyodide + PJAX）"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">在 Hexo + Fluid 博客中实现可复用的 Python 交互运行组件（Pyodide + PJAX）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/04-insertmd/" title="在 Hexo 中实现 Markdown 的“文件包含”：用 before_post_render 过滤器零依赖 include"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">在 Hexo 中实现 Markdown 的“文件包含”：用 before_post_render 过滤器零依赖 include</span>
+        </a>
+      
+    
+      
+      
+        <a href="/03-pandoc_MathJax/" title="用 Pandoc + MathJax 让 Hexo / Fluid 完整支持 LaTeX 公式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">用 Pandoc + MathJax 让 Hexo / Fluid 完整支持 LaTeX 公式</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">在 Hexo + Fluid 博客中实现可复用的 Python 交互运行组件（Pyodide + PJAX）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>写 Python
+包用法博客时，常见的困扰是：为了展示命令行输出效果，需要额外贴一堆终端截图或手写输出。</p>
+<p>更理想的方式是：在文章内嵌一个“运行按钮”，让读者直接在网页里运行示例代码并看到输出。➡️</p>
+<span id="more"></span>
+<hr />
+<p>本文给出一套可复用的工程化方案：</p>
+<ul>
+<li><strong>每篇文章只写一个容器（一行 HTML）</strong></li>
+<li>所有 UI/CSS/逻辑集中在站点级 <code>CSS/JS</code>
+文件中，可在多篇文章复用</li>
+<li><strong>Pyodide
+按需加载</strong>：只有点击“运行”才加载运行时，首次慢、后续浏览器缓存</li>
+<li><strong>兼容 Fluid PJAX</strong>：站点开启 PJAX
+时，页面切换后组件仍可正常初始化</li>
+</ul>
+<hr />
+<h2 id="效果概览">效果概览</h2>
+<p>组件包含四块内容：</p>
+<ol type="1">
+<li>说明（首次加载较慢、后续缓存）</li>
+<li>Python 代码（可编辑）</li>
+<li>模拟命令行参数输入（相当于 <code>python main.py ...</code>）</li>
+<li>输出窗口</li>
+</ol>
+<p>读者修改代码或参数后点击运行，即可看到输出。</p>
+<hr />
+<h2 id="方案设计要点">方案设计要点</h2>
+<h3 id="全站只初始化一次-pyodide">1. 全站只初始化一次 Pyodide</h3>
+<ul>
+<li>通过全局变量缓存 <code>loadPyodide()</code> 的 Promise 与 pyodide
+实例</li>
+<li>同一页多个 demo 不会重复下载运行时</li>
+<li>只有用户点击“运行”时才触发下载，避免首屏变慢</li>
+</ul>
+<h3 id="代码提取的两种模式">2. 代码提取的两种模式</h3>
+<p>组件支持两种模式：</p>
+<ul>
+<li><code>data-from="prev"</code>：自动截取容器前一个代码块作为初始代码（文章侧最省事）</li>
+<li><code>data-from="inline"</code>：容器内部提供隐藏源码（更稳，避免高亮结构导致换行丢失）</li>
+</ul>
+<blockquote>
+<p>实践建议：</p>
+<ul>
+<li>大多数文章用 <code>prev</code> 够用；</li>
+<li>若你的主题/高亮器把换行做成 <code>span.line + CSS</code>（DOM 无真实
+<code>\n</code>），建议用 <code>inline</code> 强保证。</li>
+</ul>
+</blockquote>
+<h3 id="处理高亮器伪换行和末尾-python">3. 处理高亮器伪换行和末尾
+<code>PYTHON</code></h3>
+<p>很多 Hexo 高亮输出是“每行一个 span”，靠 CSS 换行，DOM 里没有
+<code>\n</code>。直接 <code>textContent</code>
+会把整段代码粘成一行，造成语法/缩进错误。本文方案会：</p>
+<ul>
+<li>优先检测 <code>span.line / hljs-ln-line</code> 等行元素，手动
+<code>join("\n")</code> 恢复真实换行</li>
+<li>过滤某些主题在代码块末尾追加的语言标签（例如
+<code>PYTHON</code>）</li>
+</ul>
+<hr />
+<h2 id="实现步骤">实现步骤</h2>
+<h3 id="step-1添加全站-css可复用">Step 1：添加全站 CSS（可复用）</h3>
+<p>在 Hexo 根目录创建：</p>
+<p><strong><code>source/css/py-demo.css</code></strong></p>
+<details>
+<summary>
+点击展开：<code>py-demo.css</code> 的代码
+</summary>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* 仅影响组件内部：.py-demo */</span><br><span class="hljs-selector-class">.py-demo</span> &#123;<br>  <span class="hljs-attribute">font-family</span>: system-ui, -apple-system, <span class="hljs-string">&quot;Segoe UI&quot;</span>, Roboto, Helvetica, Arial, <span class="hljs-string">&quot;Noto Sans&quot;</span>;<br>  <span class="hljs-attribute">margin</span>: <span class="hljs-number">16px</span> <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-selector-class">.py-demo</span> <span class="hljs-selector-class">.py-demo__grid</span> &#123; <span class="hljs-attribute">display</span>: grid; <span class="hljs-attribute">grid-template-columns</span>: <span class="hljs-number">1</span>fr; <span class="hljs-attribute">gap</span>: <span class="hljs-number">12px</span>; &#125;<br><span class="hljs-selector-class">.py-demo</span> <span class="hljs-selector-class">.py-demo__card</span> &#123; <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#ddd</span>; <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">10px</span>; <span class="hljs-attribute">padding</span>: <span class="hljs-number">12px</span>; <span class="hljs-attribute">background</span>: <span class="hljs-number">#fff</span>; &#125;<br><span class="hljs-selector-class">.py-demo</span> <span class="hljs-selector-class">.py-demo__label</span> &#123; <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">600</span>; <span class="hljs-attribute">display</span>: block; <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">6px</span>; &#125;<br><span class="hljs-selector-class">.py-demo</span> <span class="hljs-selector-class">.py-demo__hint</span> &#123; <span class="hljs-attribute">color</span>: <span class="hljs-number">#666</span>; <span class="hljs-attribute">font-size</span>: <span class="hljs-number">13px</span>; <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.5</span>; &#125;<br><br><span class="hljs-selector-class">.py-demo</span> <span class="hljs-selector-tag">textarea</span>,<br><span class="hljs-selector-class">.py-demo</span> <span class="hljs-selector-tag">input</span> &#123;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;<br>  <span class="hljs-attribute">box-sizing</span>: border-box;<br>  <span class="hljs-attribute">font-family</span>: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, <span class="hljs-string">&quot;Liberation Mono&quot;</span>,<span class="hljs-string">&quot;Courier New&quot;</span>, monospace;<br>  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#ccc</span>;<br>  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">8px</span>;<br>&#125;<br><br><span class="hljs-selector-class">.py-demo</span> <span class="hljs-selector-tag">textarea</span> &#123; <span class="hljs-attribute">height</span>: <span class="hljs-number">240px</span>; <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span>; &#125;<br><span class="hljs-selector-class">.py-demo</span> <span class="hljs-selector-tag">input</span> &#123; <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span>; &#125;<br><br><span class="hljs-selector-class">.py-demo</span> <span class="hljs-selector-class">.py-demo__bar</span> &#123; <span class="hljs-attribute">display</span>: flex; <span class="hljs-attribute">gap</span>: <span class="hljs-number">10px</span>; <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">10px</span>; <span class="hljs-attribute">align-items</span>: center; <span class="hljs-attribute">flex-wrap</span>: wrap; &#125;<br><br><span class="hljs-selector-class">.py-demo</span> <span class="hljs-selector-tag">button</span> &#123;<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span> <span class="hljs-number">14px</span>;<br>  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">8px</span>;<br>  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#333</span>;<br>  <span class="hljs-attribute">background</span>: <span class="hljs-number">#111</span>;<br>  <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;<br>  <span class="hljs-attribute">cursor</span>: pointer;<br>&#125;<br><span class="hljs-selector-class">.py-demo</span> <span class="hljs-selector-tag">button</span><span class="hljs-selector-pseudo">:disabled</span> &#123; <span class="hljs-attribute">opacity</span>: .<span class="hljs-number">6</span>; <span class="hljs-attribute">cursor</span>: not-allowed; &#125;<br><br><span class="hljs-selector-class">.py-demo</span> pre<span class="hljs-selector-class">.py-demo__out</span> &#123;<br>  <span class="hljs-attribute">white-space</span>: pre-wrap;<br>  <span class="hljs-attribute">word-break</span>: break-word;<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span>;<br>  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">8px</span>;<br>  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#ccc</span>;<br>  <span class="hljs-attribute">background</span>: <span class="hljs-number">#fafafa</span>;<br>  <span class="hljs-attribute">min-height</span>: <span class="hljs-number">90px</span>;<br>  <span class="hljs-attribute">font-family</span>: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, <span class="hljs-string">&quot;Liberation Mono&quot;</span>,<span class="hljs-string">&quot;Courier New&quot;</span>, monospace;<br>&#125;<br><br><span class="hljs-comment">/* inline 源码容器可隐藏 */</span><br><span class="hljs-selector-class">.py-demo</span> <span class="hljs-selector-class">.py-demo__source</span> &#123; <span class="hljs-attribute">display</span>: none; &#125;<br></code></pre></td></tr></table></figure>
+</details>
+<hr />
+<h3 id="step-2添加全站-js">Step 2：添加全站 JS</h3>
+<p>在 Hexo 根目录创建：</p>
+<p><strong><code>source/js/py-demo.js</code></strong></p>
+<details>
+<summary>
+点击展开：<code>py-demo.js</code> 的代码
+</summary>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br></pre></td><td class="code"><pre><code class="hljs js">(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-comment">// Pyodide 版本统一在此管理</span><br>  <span class="hljs-keyword">const</span> <span class="hljs-variable constant_">PYODIDE_BASE</span> = <span class="hljs-string">&quot;https://cdn.jsdelivr.net/pyodide/v0.29.2/full/&quot;</span>;<br>  <span class="hljs-keyword">const</span> <span class="hljs-variable constant_">PYODIDE_JS</span> = <span class="hljs-variable constant_">PYODIDE_BASE</span> + <span class="hljs-string">&quot;pyodide.js&quot;</span>;<br><br>  <span class="hljs-keyword">function</span> <span class="hljs-title function_">injectPyodideScriptOnce</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">window</span>.<span class="hljs-property">__pyDemoPyodideScriptPromise</span>) <span class="hljs-keyword">return</span> <span class="hljs-variable language_">window</span>.<span class="hljs-property">__pyDemoPyodideScriptPromise</span>;<br><br>    <span class="hljs-variable language_">window</span>.<span class="hljs-property">__pyDemoPyodideScriptPromise</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;<br>      <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">window</span>.<span class="hljs-property">loadPyodide</span>) <span class="hljs-keyword">return</span> <span class="hljs-title function_">resolve</span>();<br><br>      <span class="hljs-keyword">const</span> s = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;script&quot;</span>);<br>      s.<span class="hljs-property">src</span> = <span class="hljs-variable constant_">PYODIDE_JS</span>;<br>      s.<span class="hljs-property">async</span> = <span class="hljs-literal">true</span>;<br>      s.<span class="hljs-property">onload</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">resolve</span>();<br>      s.<span class="hljs-property">onerror</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">reject</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;Failed to load pyodide.js&quot;</span>));<br>      <span class="hljs-variable language_">document</span>.<span class="hljs-property">head</span>.<span class="hljs-title function_">appendChild</span>(s);<br>    &#125;);<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">window</span>.<span class="hljs-property">__pyDemoPyodideScriptPromise</span>;<br>  &#125;<br><br>  <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">getPyodideOnce</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">window</span>.<span class="hljs-property">__pyDemoPyodide</span>) <span class="hljs-keyword">return</span> <span class="hljs-variable language_">window</span>.<span class="hljs-property">__pyDemoPyodide</span>;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">window</span>.<span class="hljs-property">__pyDemoPyodidePromise</span>) <span class="hljs-keyword">return</span> <span class="hljs-variable language_">window</span>.<span class="hljs-property">__pyDemoPyodidePromise</span>;<br><br>    <span class="hljs-variable language_">window</span>.<span class="hljs-property">__pyDemoPyodidePromise</span> = (<span class="hljs-title function_">async</span> () =&gt; &#123;<br>      <span class="hljs-keyword">await</span> <span class="hljs-title function_">injectPyodideScriptOnce</span>();<br>      <span class="hljs-keyword">const</span> pyodide = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">window</span>.<span class="hljs-title function_">loadPyodide</span>(&#123; <span class="hljs-attr">indexURL</span>: <span class="hljs-variable constant_">PYODIDE_BASE</span> &#125;);<br>      <span class="hljs-variable language_">window</span>.<span class="hljs-property">__pyDemoPyodide</span> = pyodide;<br>      <span class="hljs-keyword">return</span> pyodide;<br>    &#125;)();<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">window</span>.<span class="hljs-property">__pyDemoPyodidePromise</span>;<br>  &#125;<br><br>  <span class="hljs-comment">// -------------------------------</span><br>  <span class="hljs-comment">// Code extraction &amp; sanitation</span><br>  <span class="hljs-comment">// -------------------------------</span><br><br>  <span class="hljs-comment">// B 方案：容器内 inline 源码（强保证）</span><br>  <span class="hljs-comment">// 支持：</span><br>  <span class="hljs-comment">// 1) &lt;textarea class=&quot;py-demo__source&quot;&gt; ... &lt;/textarea&gt;</span><br>  <span class="hljs-comment">// 2) &lt;script type=&quot;text/plain&quot; class=&quot;py-demo__source&quot;&gt; ... &lt;/script&gt;</span><br>  <span class="hljs-keyword">function</span> <span class="hljs-title function_">getInlineSource</span>(<span class="hljs-params">root</span>) &#123;<br>    <span class="hljs-keyword">const</span> ta = root.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;textarea.py-demo__source&quot;</span>);<br>    <span class="hljs-keyword">if</span> (ta) <span class="hljs-keyword">return</span> ta.<span class="hljs-property">value</span> || ta.<span class="hljs-property">textContent</span> || <span class="hljs-string">&quot;&quot;</span>;<br>    <span class="hljs-keyword">const</span> scr = root.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;script.py-demo__source&quot;</span>);<br>    <span class="hljs-keyword">if</span> (scr) <span class="hljs-keyword">return</span> scr.<span class="hljs-property">textContent</span> || <span class="hljs-string">&quot;&quot;</span>;<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;<br>  &#125;<br><br>  <span class="hljs-comment">// 把“高亮器用 CSS 换行”的 DOM 恢复成包含真实 \n 的源码字符串</span><br>  <span class="hljs-keyword">function</span> <span class="hljs-title function_">extractCodeWithNewlines</span>(<span class="hljs-params">node</span>) &#123;<br>    <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;<br><br>    <span class="hljs-keyword">const</span> lineEls = node.<span class="hljs-title function_">querySelectorAll</span>(<br>      <span class="hljs-string">&quot;span.line, span.hljs-ln-line, div.line, div.hljs-ln-line&quot;</span><br>    );<br><br>    <span class="hljs-keyword">if</span> (lineEls &amp;&amp; lineEls.<span class="hljs-property">length</span>) &#123;<br>      <span class="hljs-keyword">const</span> lines = <span class="hljs-title class_">Array</span>.<span class="hljs-title function_">from</span>(lineEls).<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">el</span> =&gt;</span> el.<span class="hljs-property">textContent</span>);<br><br>      <span class="hljs-comment">// 去掉末尾空行</span><br>      <span class="hljs-keyword">while</span> (lines.<span class="hljs-property">length</span> &amp;&amp; !lines[lines.<span class="hljs-property">length</span> - <span class="hljs-number">1</span>].<span class="hljs-title function_">trim</span>()) lines.<span class="hljs-title function_">pop</span>();<br><br>      <span class="hljs-comment">// 去掉某些主题在代码块末尾附加的语言标签（例如：PYTHON）</span><br>      <span class="hljs-keyword">if</span> (lines.<span class="hljs-property">length</span> &amp;&amp; lines[lines.<span class="hljs-property">length</span> - <span class="hljs-number">1</span>].<span class="hljs-title function_">trim</span>().<span class="hljs-title function_">toUpperCase</span>() === <span class="hljs-string">&quot;PYTHON&quot;</span>) &#123;<br>        lines.<span class="hljs-title function_">pop</span>();<br>      &#125;<br><br>      <span class="hljs-keyword">return</span> lines.<span class="hljs-title function_">join</span>(<span class="hljs-string">&quot;\n&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">// 处理 &lt;br&gt; 换行的情况</span><br>    <span class="hljs-keyword">const</span> clone = node.<span class="hljs-title function_">cloneNode</span>(<span class="hljs-literal">true</span>);<br>    clone.<span class="hljs-title function_">querySelectorAll</span>(<span class="hljs-string">&quot;br&quot;</span>).<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">br</span> =&gt;</span> br.<span class="hljs-title function_">replaceWith</span>(<span class="hljs-string">&quot;\n&quot;</span>));<br>    <span class="hljs-keyword">let</span> s = clone.<span class="hljs-property">textContent</span> || <span class="hljs-string">&quot;&quot;</span>;<br><br>    <span class="hljs-comment">// 兜底清理末尾语言标签</span><br>    s = s.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/\n[ \t]*PYTHON[ \t]*\n?$/i</span>, <span class="hljs-string">&quot;\n&quot;</span>);<br>    <span class="hljs-keyword">return</span> s;<br>  &#125;<br><br>  <span class="hljs-comment">// 统一净化：换行、NBSP、零宽字符、Tab 等</span><br>  <span class="hljs-keyword">function</span> <span class="hljs-title function_">normalizePythonCode</span>(<span class="hljs-params">raw</span>) &#123;<br>    <span class="hljs-keyword">if</span> (!raw) <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;<br>    <span class="hljs-keyword">let</span> s = <span class="hljs-title class_">String</span>(raw);<br><br>    <span class="hljs-comment">// 统一换行</span><br>    s = s.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/\r\n?/g</span>, <span class="hljs-string">&quot;\n&quot;</span>);<br><br>    <span class="hljs-comment">// NBSP -&gt; 普通空格（避免 IndentationError）</span><br>    s = s.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/\u00A0/g</span>, <span class="hljs-string">&quot; &quot;</span>);<br><br>    <span class="hljs-comment">// 去除零宽字符 / BOM</span><br>    s = s.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/[\u200B-\u200D\uFEFF]/g</span>, <span class="hljs-string">&quot;&quot;</span>);<br><br>    <span class="hljs-comment">// Tab 统一为 4 空格（避免 tab/space 混用）</span><br>    s = s.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/\t/g</span>, <span class="hljs-string">&quot;    &quot;</span>);<br><br>    <span class="hljs-comment">// 去掉首尾多余空行</span><br>    s = s.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/^\s*\n+/</span>, <span class="hljs-string">&quot;&quot;</span>).<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/\n+\s*$/</span>, <span class="hljs-string">&quot;\n&quot;</span>);<br><br>    <span class="hljs-keyword">return</span> s;<br>  &#125;<br><br>  <span class="hljs-comment">// 去“公共缩进”，不破坏内部相对缩进</span><br>  <span class="hljs-keyword">function</span> <span class="hljs-title function_">dedent</span>(<span class="hljs-params">s</span>) &#123;<br>    <span class="hljs-keyword">const</span> lines = <span class="hljs-title class_">String</span>(s || <span class="hljs-string">&quot;&quot;</span>).<span class="hljs-title function_">split</span>(<span class="hljs-string">&quot;\n&quot;</span>);<br>    <span class="hljs-keyword">let</span> minIndent = <span class="hljs-literal">null</span>;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> line <span class="hljs-keyword">of</span> lines) &#123;<br>      <span class="hljs-keyword">if</span> (!line.<span class="hljs-title function_">trim</span>()) <span class="hljs-keyword">continue</span>;<br>      <span class="hljs-keyword">const</span> m = line.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/^ +/</span>);<br>      <span class="hljs-keyword">const</span> indent = m ? m[<span class="hljs-number">0</span>].<span class="hljs-property">length</span> : <span class="hljs-number">0</span>;<br>      minIndent = (minIndent === <span class="hljs-literal">null</span>) ? indent : <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">min</span>(minIndent, indent);<br>      <span class="hljs-keyword">if</span> (minIndent === <span class="hljs-number">0</span>) <span class="hljs-keyword">break</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">if</span> (!minIndent) <span class="hljs-keyword">return</span> lines.<span class="hljs-title function_">join</span>(<span class="hljs-string">&quot;\n&quot;</span>);<br><br>    <span class="hljs-keyword">const</span> pad = <span class="hljs-string">&quot; &quot;</span>.<span class="hljs-title function_">repeat</span>(minIndent);<br>    <span class="hljs-keyword">return</span> lines.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">l</span> =&gt;</span> (l.<span class="hljs-title function_">startsWith</span>(pad) ? l.<span class="hljs-title function_">slice</span>(minIndent) : l)).<span class="hljs-title function_">join</span>(<span class="hljs-string">&quot;\n&quot;</span>);<br>  &#125;<br><br>  <span class="hljs-comment">// 从“容器前一个代码块”提取 Python 源码（兼容 Hexo 常见高亮结构）</span><br>  <span class="hljs-keyword">function</span> <span class="hljs-title function_">findPrevCodeText</span>(<span class="hljs-params">root</span>) &#123;<br>    <span class="hljs-keyword">let</span> el = root.<span class="hljs-property">previousElementSibling</span>;<br>    <span class="hljs-keyword">while</span> (el) &#123;<br>      <span class="hljs-comment">// 1) Hexo highlight：figure.highlight &gt; table &gt; td.code &gt; pre</span><br>      <span class="hljs-keyword">if</span> (el.<span class="hljs-property">matches</span> &amp;&amp; el.<span class="hljs-title function_">matches</span>(<span class="hljs-string">&quot;figure.highlight&quot;</span>)) &#123;<br>        <span class="hljs-keyword">const</span> pre = el.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;td.code pre&quot;</span>);<br>        <span class="hljs-keyword">const</span> code = <span class="hljs-title function_">extractCodeWithNewlines</span>(pre);<br>        <span class="hljs-keyword">if</span> (code &amp;&amp; code.<span class="hljs-title function_">trim</span>()) <span class="hljs-keyword">return</span> code;<br>      &#125;<br><br>      <span class="hljs-comment">// 2) 普通 fenced：&lt;pre&gt;&lt;code&gt;...&lt;/code&gt;&lt;/pre&gt;</span><br>      <span class="hljs-keyword">const</span> preCode = el.<span class="hljs-property">querySelector</span> &amp;&amp; el.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;pre code&quot;</span>);<br>      <span class="hljs-keyword">if</span> (preCode) &#123;<br>        <span class="hljs-keyword">const</span> code = <span class="hljs-title function_">extractCodeWithNewlines</span>(preCode);<br>        <span class="hljs-keyword">if</span> (code &amp;&amp; code.<span class="hljs-title function_">trim</span>()) <span class="hljs-keyword">return</span> code;<br>      &#125;<br><br>      <span class="hljs-comment">// 3) 兜底：直接 pre</span><br>      <span class="hljs-keyword">if</span> (el.<span class="hljs-property">matches</span> &amp;&amp; el.<span class="hljs-title function_">matches</span>(<span class="hljs-string">&quot;pre&quot;</span>)) &#123;<br>        <span class="hljs-keyword">const</span> code = <span class="hljs-title function_">extractCodeWithNewlines</span>(el);<br>        <span class="hljs-keyword">if</span> (code &amp;&amp; code.<span class="hljs-title function_">trim</span>()) <span class="hljs-keyword">return</span> code;<br>      &#125;<br><br>      el = el.<span class="hljs-property">previousElementSibling</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;<br>  &#125;<br><br>  <span class="hljs-comment">// -------------------------------</span><br>  <span class="hljs-comment">// UI</span><br>  <span class="hljs-comment">// -------------------------------</span><br><br>  <span class="hljs-keyword">function</span> <span class="hljs-title function_">buildUI</span>(<span class="hljs-params">root, defaultCode, defaultArgv</span>) &#123;<br>    root.<span class="hljs-property">innerHTML</span> = <span class="hljs-string">`</span><br><span class="hljs-string">      &lt;div class=&quot;py-demo__grid&quot;&gt;</span><br><span class="hljs-string">        &lt;div class=&quot;py-demo__card&quot;&gt;</span><br><span class="hljs-string">          &lt;div class=&quot;py-demo__hint&quot;&gt;</span><br><span class="hljs-string">            说明：点击运行后才会加载 Pyodide。首次加载会下载运行时，之后通常会被浏览器缓存。</span><br><span class="hljs-string">          &lt;/div&gt;</span><br><span class="hljs-string">        &lt;/div&gt;</span><br><span class="hljs-string"></span><br><span class="hljs-string">        &lt;div class=&quot;py-demo__card&quot;&gt;</span><br><span class="hljs-string">          &lt;label class=&quot;py-demo__label&quot;&gt;Python 代码（可编辑）&lt;/label&gt;</span><br><span class="hljs-string">          &lt;textarea class=&quot;py-demo__code&quot;&gt;&lt;/textarea&gt;</span><br><span class="hljs-string">        &lt;/div&gt;</span><br><span class="hljs-string"></span><br><span class="hljs-string">        &lt;div class=&quot;py-demo__card&quot;&gt;</span><br><span class="hljs-string">          &lt;label class=&quot;py-demo__label&quot;&gt;模拟命令行参数（相当于：python hello.py ...）&lt;/label&gt;</span><br><span class="hljs-string">          &lt;input class=&quot;py-demo__argv&quot; placeholder=&quot;例如：Alice 或：--help&quot; /&gt;</span><br><span class="hljs-string">          &lt;div class=&quot;py-demo__bar&quot;&gt;</span><br><span class="hljs-string">            &lt;button class=&quot;py-demo__run&quot;&gt;运行&lt;/button&gt;</span><br><span class="hljs-string">            &lt;span class=&quot;py-demo__status py-demo__hint&quot;&gt;&lt;/span&gt;</span><br><span class="hljs-string">          &lt;/div&gt;</span><br><span class="hljs-string">        &lt;/div&gt;</span><br><span class="hljs-string"></span><br><span class="hljs-string">        &lt;div class=&quot;py-demo__card&quot;&gt;</span><br><span class="hljs-string">          &lt;label class=&quot;py-demo__label&quot;&gt;输出&lt;/label&gt;</span><br><span class="hljs-string">          &lt;pre class=&quot;py-demo__out&quot;&gt;&lt;/pre&gt;</span><br><span class="hljs-string">        &lt;/div&gt;</span><br><span class="hljs-string">      &lt;/div&gt;</span><br><span class="hljs-string">    `</span>;<br><br>    <span class="hljs-keyword">const</span> codeEl = root.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;.py-demo__code&quot;</span>);<br>    <span class="hljs-keyword">const</span> argvEl = root.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;.py-demo__argv&quot;</span>);<br>    codeEl.<span class="hljs-property">value</span> = defaultCode || <span class="hljs-string">&quot;&quot;</span>;<br>    argvEl.<span class="hljs-property">value</span> = defaultArgv || <span class="hljs-string">&quot;&quot;</span>;<br>  &#125;<br><br>  <span class="hljs-comment">// 用 Python 内部 redirect_stdout/redirect_stderr 捕获输出（避免 setStdout 全局污染）</span><br>  <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">runCode</span>(<span class="hljs-params">&#123; code, argv, statusEl &#125;</span>) &#123;<br>    statusEl.<span class="hljs-property">textContent</span> = <span class="hljs-string">&quot;正在加载 Pyodide…（首次可能较慢）&quot;</span>;<br><br>    <span class="hljs-keyword">const</span> pyodide = <span class="hljs-keyword">await</span> <span class="hljs-title function_">getPyodideOnce</span>();<br><br>    <span class="hljs-comment">// 可选：根据 imports 自动加载 Pyodide 自带包（对 stdlib 一般不需要）</span><br>    <span class="hljs-keyword">try</span> &#123;<br>      statusEl.<span class="hljs-property">textContent</span> = <span class="hljs-string">&quot;解析依赖并准备运行…&quot;</span>;<br>      <span class="hljs-keyword">await</span> pyodide.<span class="hljs-title function_">loadPackagesFromImports</span>(code);<br>    &#125; <span class="hljs-keyword">catch</span> (_) &#123;&#125;<br><br>    statusEl.<span class="hljs-property">textContent</span> = <span class="hljs-string">&quot;运行中…&quot;</span>;<br><br>    <span class="hljs-keyword">const</span> runner =<br><span class="hljs-string">`import sys, shlex, traceback, io, contextlib</span><br><span class="hljs-string">argv_str = <span class="hljs-subst">$&#123;<span class="hljs-built_in">JSON</span>.stringify(argv || <span class="hljs-string">&quot;&quot;</span>)&#125;</span></span><br><span class="hljs-string">sys.argv = [&quot;hello.py&quot;] + shlex.split(argv_str)</span><br><span class="hljs-string"></span><br><span class="hljs-string">_code = <span class="hljs-subst">$&#123;<span class="hljs-built_in">JSON</span>.stringify(code || <span class="hljs-string">&quot;&quot;</span>)&#125;</span></span><br><span class="hljs-string"></span><br><span class="hljs-string">_stdout = io.StringIO()</span><br><span class="hljs-string">_stderr = io.StringIO()</span><br><span class="hljs-string"></span><br><span class="hljs-string">try:</span><br><span class="hljs-string">    with contextlib.redirect_stdout(_stdout), contextlib.redirect_stderr(_stderr):</span><br><span class="hljs-string">        exec(_code, &#123;&quot;__name__&quot;: &quot;__main__&quot;&#125;)</span><br><span class="hljs-string">except SystemExit:</span><br><span class="hljs-string">    # argparse 的 --help / 参数错误通常会触发 SystemExit</span><br><span class="hljs-string">    pass</span><br><span class="hljs-string">except Exception:</span><br><span class="hljs-string">    traceback.print_exc(file=_stderr)</span><br><span class="hljs-string"></span><br><span class="hljs-string">_out = _stdout.getvalue()</span><br><span class="hljs-string">_err = _stderr.getvalue()</span><br><span class="hljs-string">_result = _out + ((&quot;\\n&quot; if _out and _err else &quot;&quot;) + _err)</span><br><span class="hljs-string">_result</span><br><span class="hljs-string">`</span>;<br>    <span class="hljs-keyword">const</span> out = <span class="hljs-keyword">await</span> pyodide.<span class="hljs-title function_">runPythonAsync</span>(runner);<br>    statusEl.<span class="hljs-property">textContent</span> = <span class="hljs-string">&quot;完成。&quot;</span>;<br>    <span class="hljs-keyword">return</span> <span class="hljs-title class_">String</span>(out ?? <span class="hljs-string">&quot;&quot;</span>);<br>  &#125;<br><br>  <span class="hljs-comment">// -------------------------------</span><br>  <span class="hljs-comment">// Init</span><br>  <span class="hljs-comment">// -------------------------------</span><br><br>  <span class="hljs-keyword">function</span> <span class="hljs-title function_">initOne</span>(<span class="hljs-params">root</span>) &#123;<br>    <span class="hljs-keyword">if</span> (root.<span class="hljs-property">dataset</span>.<span class="hljs-property">pyDemoInited</span> === <span class="hljs-string">&quot;1&quot;</span>) <span class="hljs-keyword">return</span>;<br>    root.<span class="hljs-property">dataset</span>.<span class="hljs-property">pyDemoInited</span> = <span class="hljs-string">&quot;1&quot;</span>;<br><br>    <span class="hljs-keyword">const</span> <span class="hljs-keyword">from</span> = root.<span class="hljs-property">dataset</span>.<span class="hljs-property">from</span> || <span class="hljs-string">&quot;prev&quot;</span>;     <span class="hljs-comment">// prev | inline</span><br>    <span class="hljs-keyword">const</span> defaultArgv = root.<span class="hljs-property">dataset</span>.<span class="hljs-property">argv</span> || <span class="hljs-string">&quot;&quot;</span>;<br><br>    <span class="hljs-comment">// 关键：先取源码（buildUI 会覆盖 root.innerHTML）</span><br>    <span class="hljs-keyword">let</span> defaultCode = <span class="hljs-string">&quot;&quot;</span>;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">from</span> === <span class="hljs-string">&quot;inline&quot;</span>) &#123;<br>      defaultCode = <span class="hljs-title function_">getInlineSource</span>(root);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      defaultCode = <span class="hljs-title function_">findPrevCodeText</span>(root);<br>    &#125;<br><br>    defaultCode = <span class="hljs-title function_">dedent</span>(<span class="hljs-title function_">normalizePythonCode</span>(defaultCode));<br><br>    <span class="hljs-title function_">buildUI</span>(root, defaultCode, defaultArgv);<br><br>    <span class="hljs-keyword">const</span> outEl = root.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;.py-demo__out&quot;</span>);<br>    <span class="hljs-keyword">const</span> statusEl = root.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;.py-demo__status&quot;</span>);<br>    <span class="hljs-keyword">const</span> runBtn = root.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;.py-demo__run&quot;</span>);<br>    <span class="hljs-keyword">const</span> codeEl = root.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;.py-demo__code&quot;</span>);<br>    <span class="hljs-keyword">const</span> argvEl = root.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;.py-demo__argv&quot;</span>);<br><br>    <span class="hljs-keyword">if</span> (!defaultCode.<span class="hljs-title function_">trim</span>()) &#123;<br>      statusEl.<span class="hljs-property">textContent</span> = (<span class="hljs-keyword">from</span> === <span class="hljs-string">&quot;inline&quot;</span>)<br>        ? <span class="hljs-string">&quot;未找到容器内的源码（.py-demo__source）。&quot;</span><br>        : <span class="hljs-string">&quot;未找到上一段代码块，请确认容器紧跟在 Python 代码块后面。&quot;</span>;<br>    &#125;<br><br>    <span class="hljs-comment">// 串行队列，避免同一页并发运行</span><br>    <span class="hljs-keyword">if</span> (!<span class="hljs-variable language_">window</span>.<span class="hljs-property">__pyDemoQueue</span>) <span class="hljs-variable language_">window</span>.<span class="hljs-property">__pyDemoQueue</span> = <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>();<br><br>    runBtn.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;click&quot;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>      outEl.<span class="hljs-property">textContent</span> = <span class="hljs-string">&quot;&quot;</span>;<br>      runBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">true</span>;<br><br>      <span class="hljs-variable language_">window</span>.<span class="hljs-property">__pyDemoQueue</span> = <span class="hljs-variable language_">window</span>.<span class="hljs-property">__pyDemoQueue</span>.<span class="hljs-title function_">then</span>(<span class="hljs-title function_">async</span> () =&gt; &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>          <span class="hljs-keyword">const</span> output = <span class="hljs-keyword">await</span> <span class="hljs-title function_">runCode</span>(&#123;<br>            <span class="hljs-attr">code</span>: codeEl.<span class="hljs-property">value</span>,<br>            <span class="hljs-attr">argv</span>: argvEl.<span class="hljs-property">value</span>,<br>            statusEl<br>          &#125;);<br>          outEl.<span class="hljs-property">textContent</span> = output;<br>        &#125; <span class="hljs-keyword">catch</span> (e) &#123;<br>          outEl.<span class="hljs-property">textContent</span> = <span class="hljs-string">&quot;[JS Error]\n&quot;</span> + (e &amp;&amp; e.<span class="hljs-property">stack</span> ? e.<span class="hljs-property">stack</span> : <span class="hljs-title class_">String</span>(e));<br>          statusEl.<span class="hljs-property">textContent</span> = <span class="hljs-string">&quot;运行失败。&quot;</span>;<br>        &#125; <span class="hljs-keyword">finally</span> &#123;<br>          runBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">false</span>;<br>        &#125;<br>      &#125;);<br>    &#125;);<br>  &#125;<br><br>  <span class="hljs-keyword">function</span> <span class="hljs-title function_">initAll</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelectorAll</span>(<span class="hljs-string">&quot;[data-py-demo]&quot;</span>).<span class="hljs-title function_">forEach</span>(initOne);<br>  &#125;<br><br>  <span class="hljs-comment">// 首次加载</span><br>  <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">document</span>.<span class="hljs-property">readyState</span> === <span class="hljs-string">&quot;loading&quot;</span>) &#123;<br>    <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;DOMContentLoaded&quot;</span>, initAll);<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-title function_">initAll</span>();<br>  &#125;<br><br>  <span class="hljs-comment">// 兼容 Fluid PJAX：页面局部刷新后重新扫描并初始化</span><br>  <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;pjax:complete&quot;</span>, initAll);<br>&#125;)();<br></code></pre></td></tr></table></figure>
+</details>
+<hr />
+<h3 id="step-3在-fluid-配置中全站引入-cssjs">Step 3：在 Fluid
+配置中全站引入 CSS/JS</h3>
+<p>在 Fluid 主题配置（通常是 <code>themes/fluid/_config.yml</code> 或
+<code>_config.fluid.yml</code>）中加入：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">custom_css:</span> <span class="hljs-string">/css/py-demo.css</span><br><span class="hljs-attr">custom_js:</span> <span class="hljs-string">/js/py-demo.js</span><br></code></pre></td></tr></table></figure>
+<hr />
+<h3 id="step-4文章里只放一行容器">Step 4：文章里只放“一行容器”</h3>
+<h4 id="方式-a自动读取上一段代码块最省事">方式
+A：自动读取“上一段代码块”（最省事）</h4>
+<p>在 <code>.md</code> 文件中写代码块：</p>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs md"><span class="hljs-code">```python</span><br><span class="hljs-code">import argparse</span><br><span class="hljs-code"></span><br><span class="hljs-code">def main():</span><br><span class="hljs-code">    parser = argparse.ArgumentParser(description=&quot;Say hello to someone.&quot;)</span><br><span class="hljs-code">    parser.add_argument(&quot;name&quot;, help=&quot;The person&#x27;s name&quot;)</span><br><span class="hljs-code">    args = parser.parse_args()</span><br><span class="hljs-code">    print(f&quot;Hello, &#123;args.name&#125;!&quot;)</span><br><span class="hljs-code"></span><br><span class="hljs-code">if __name__ == &quot;__main__&quot;:</span><br><span class="hljs-code">    main()</span><br><span class="hljs-code">```</span><br></code></pre></td></tr></table></figure>
+<p>下面紧跟着写：</p>
+<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs django"><span class="hljs-template-tag">&#123;% <span class="hljs-name">raw</span> %&#125;</span><span class="language-xml"></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;py-demo&quot;</span> <span class="hljs-attr">data-py-demo</span> <span class="hljs-attr">data-from</span>=<span class="hljs-string">&quot;prev&quot;</span> <span class="hljs-attr">data-argv</span>=<span class="hljs-string">&quot;Alice&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml"></span><span class="hljs-template-tag">&#123;% <span class="hljs-name">endraw</span> %&#125;</span><br></code></pre></td></tr></table></figure>
+<p>要求：容器必须紧跟在代码块后面（中间不要插入太多其他元素）。</p>
+<h4 id="方式-b容器内自带源码更稳强保证">方式
+B：容器内自带源码（更稳，强保证）</h4>
+<p>当你的高亮器结构非常复杂、或你希望不依赖“上一段代码块”时，使用 inline
+模式：</p>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs md">&#123;% raw %&#125;<br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;py-demo&quot;</span> <span class="hljs-attr">data-py-demo</span> <span class="hljs-attr">data-from</span>=<span class="hljs-string">&quot;inline&quot;</span> <span class="hljs-attr">data-argv</span>=<span class="hljs-string">&quot;Alice&quot;</span>&gt;</span></span><br>  <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;py-demo__source&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;display:none;&quot;</span>&gt;</span></span><br>import argparse<br><br>def main():<br><span class="hljs-code">    parser = argparse.ArgumentParser(description=&quot;Say hello to someone.&quot;)</span><br><span class="hljs-code">    parser.add_argument(&quot;name&quot;, help=&quot;The person&#x27;s name&quot;)</span><br><span class="hljs-code">    args = parser.parse_args()</span><br><span class="hljs-code">    print(f&quot;Hello, &#123;args.name&#125;!&quot;)</span><br><span class="hljs-code"></span><br>if <span class="hljs-strong">__name__</span> == &quot;<span class="hljs-strong">__main__</span>&quot;:<br><span class="hljs-code">    main()</span><br><span class="hljs-code">  &lt;/textarea&gt;</span><br><span class="hljs-code">&lt;/div&gt;</span><br><span class="hljs-code">&#123;% endraw %&#125;</span><br></code></pre></td></tr></table></figure>
+<hr />
+<h2 id="注意事项与常见坑">注意事项与常见坑</h2>
+<ol type="1">
+<li><p><strong>强烈建议按需加载（本文默认）</strong></p>
+<p>不要在页面加载时就初始化
+Pyodide，否则首屏会变慢；按需加载只在点击运行时触发下载。</p></li>
+<li><p><strong><code>buildUI</code> 会覆盖容器内部内容</strong></p>
+<p>所以 <code>inline</code> 模式下必须在 <code>buildUI()</code>
+之前先读取 <code>py-demo__source</code>，本文 JS 已处理。</p></li>
+<li><p><strong>高亮器“换行不是 ”是最常见坑</strong></p>
+<p>若你发现提取出来粘成一行，说明高亮器用 <code>span.line</code> + CSS
+换行，必须像本文一样 join <code>\n</code>。</p></li>
+<li><p><strong>末尾出现 <code>PYTHON</code> 等语言标签</strong></p>
+<p>这是主题/插件把语言名塞进了代码块 DOM，提取时要过滤。本文已对末尾
+<code>PYTHON</code>
+做了精确过滤（只删最后一行完全等于标签的情况）。</p></li>
+<li><p><strong>缩进/不可见字符导致 Python 报错</strong></p>
+<ul>
+<li><code>NBSP(\u00A0)</code> 可能引发
+<code>IndentationError</code></li>
+<li>零宽字符可能引发 <code>SyntaxError</code> 本文在
+<code>normalizePythonCode()</code> 中已做净化。</li>
+</ul></li>
+<li><p><strong>PJAX 场景必须在 <code>pjax:complete</code>
+重新扫描初始化</strong></p>
+<p>否则切换页面后组件 DOM 出现但脚本不再执行。本文已监听
+<code>pjax:complete</code>。</p></li>
+<li><p><strong>安全边界（重要）</strong></p>
+<ul>
+<li>Pyodide 代码运行在浏览器沙箱内，但仍可能造成长时间占用
+CPU（死循环）。</li>
+<li>读者有可能误操作，可以加一个“超时”机制（例如把运行放进 Web Worker
+或在 Python
+侧加入简单的超时保护）。可以在本文基础上进一步设置，这里不再展开。</li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="总结">总结</h2>
+<ul>
+<li>通过把 UI 与逻辑抽到全站的 <code>py-demo.css</code> +
+<code>py-demo.js</code>，可以在任意文章中用“一行容器”快速嵌入 Python
+交互演示，同时兼顾加载性能与 PJAX 兼容性。</li>
+<li>后续只需维护这两个文件，就能在所有文章中统一升级样式与功能。</li>
+</ul>
+<p>祝你玩得开心！🚀</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BC%96%E7%A8%8B/" class="category-chain-item">编程</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BC%96%E7%A8%8B/web/" class="category-chain-item">web</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%BC%96%E7%A8%8B-Hexo-Pyodide/" class="print-no-link">#编程,Hexo,Pyodide</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>在 Hexo + Fluid 博客中实现可复用的 Python 交互运行组件（Pyodide + PJAX）</div>
+      <div>https://nanana-szz.github.io/05-python-interaction/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年1月24日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/04-insertmd/" title="在 Hexo 中实现 Markdown 的“文件包含”：用 before_post_render 过滤器零依赖 include">
+                        <span class="hidden-mobile">在 Hexo 中实现 Markdown 的“文件包含”：用 before_post_render 过滤器零依赖 include</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/py-demo.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/js/index.js"></script><!-- hexo injector body_end end --></body>
+</html>
