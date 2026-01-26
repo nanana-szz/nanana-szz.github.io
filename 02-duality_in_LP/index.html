@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nanana-szz.github.io/img/CO.png">
 <meta property="article:published_time" content="2025-12-11T02:00:00.000Z">
-<meta property="article:modified_time" content="2026-01-24T09:12:18.639Z">
+<meta property="article:modified_time" content="2026-01-26T11:26:06.021Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="linear programming,duality,对偶理论">
 <meta name="twitter:card" content="summary_large_image">
@@ -418,7 +418,7 @@
         aria-expanded="true"
       >
         优化方法
-        <span class="list-group-count">(2)</span>
+        <span class="list-group-count">(3)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -445,7 +445,7 @@
         aria-expanded="true"
       >
         优化基础
-        <span class="list-group-count">(2)</span>
+        <span class="list-group-count">(3)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -472,6 +472,15 @@
            class="list-group-item list-group-item-action
            active">
           <span class="category-post">线性规划对偶性的直观理解：从上界到对偶定理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/03-gradient_descent/" title="重新审视 Gradient Descent 算法：原问题的逐次逼近求解"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">重新审视 Gradient Descent 算法：原问题的逐次逼近求解</span>
         </a>
       
     
@@ -511,8 +520,7 @@
 </ul>
 <span id="more"></span>
 <hr />
-<p>考虑下面的线性规划（Linear Programming）问题（原问题 / Primal
-LP）：</p>
+<p>考虑下面的线性规划（Linear Programming）问题（原问题 / Primal LP）：</p>
 <p><span class="math display">\[\begin{eqnarray}
 \max _{x_1,x_2} &amp;\quad&amp; 2x_1 + 3x_2
 \nonumber\\
@@ -529,34 +537,24 @@ LP）：</p>
 <hr />
 <h2 id="例子从最大化问题出发">1. 例子：从最大化问题出发</h2>
 <ul>
-<li><p>如果将 <span class="math inline">\(\max _{x_1,x_2} 2x_1 +
-3x_2\)</span> 理解为找目标函数 <span class="math inline">\(2x_1 +
-3x_2\)</span> 的<strong>上界</strong>，则可以将这个 LP 问题描述为：</p>
+<li><p>如果将 <span class="math inline">\(\max _{x_1,x_2} 2x_1 + 3x_2\)</span> 理解为找目标函数 <span class="math inline">\(2x_1 + 3x_2\)</span> 的<strong>上界</strong>，则可以将这个 LP 问题描述为：</p>
 <ul>
-<li>找一个常数 <span
-class="math inline">\(U\)</span>，使得对所有满足约束的 <span
-class="math inline">\((x_1,x_2)\)</span> 都有： <span
-class="math display">\[\begin{equation}
+<li>找一个常数 <span class="math inline">\(U\)</span>，使得对所有满足约束的 <span class="math inline">\((x_1,x_2)\)</span> 都有： <span class="math display">\[\begin{equation}
 2x_1 + 3x_2 \le U.
 \end{equation}\]</span></li>
 </ul></li>
 </ul>
 <blockquote>
-<p>能不能<strong>不求解这个最优化问题本身</strong>，只利用约束条件，
-就推导出目标函数的一个<strong>上界</strong>？</p>
+<p>能不能<strong>不求解这个最优化问题本身</strong>，只利用约束条件， 就推导出目标函数的一个<strong>上界</strong>？</p>
 </blockquote>
 <hr />
-<h3 id="只用第一个约束得到一个粗上界">1.1
-只用第一个约束得到一个粗上界</h3>
+<h3 id="只用第一个约束得到一个粗上界">1.1 只用第一个约束得到一个粗上界</h3>
 <p>先看第一个约束： <span class="math display">\[\begin{equation}
   4x_1 + 8x_2 \le 12,
-\end{equation}\]</span> 又因为 <span class="math inline">\(x_1,x_2 \ge
-0\)</span>，系数都是正数，显然： <span
-class="math display">\[\begin{equation}
+\end{equation}\]</span> 又因为 <span class="math inline">\(x_1,x_2 \ge 0\)</span>，系数都是正数，显然： <span class="math display">\[\begin{equation}
   2x_1 + 3x_2 \le 4x_1 + 8x_2 \le 12,
 \end{equation}\]</span></p>
-<p>于是我们得到了 <span class="math inline">\(2x_1 + 3x_2\)</span>
-的一个上界。</p>
+<p>于是我们得到了 <span class="math inline">\(2x_1 + 3x_2\)</span> 的一个上界。</p>
 <p>进一步： <span class="math display">\[\begin{equation}
   2x_1 + 3x_2 \le 2x_1 + 4x_2 = \tfrac12(4x_1 + 8x_2) ,
 \end{equation}\]</span></p>
@@ -575,12 +573,10 @@ class="math display">\[\begin{equation}
 </ul>
 <p>自然的想法是：</p>
 <blockquote>
-<p>能不能在这个上界的基础上，<strong>利用其他约束</strong>，
-找到一个更小、更紧的上界？</p>
+<p>能不能在这个上界的基础上，<strong>利用其他约束</strong>， 找到一个更小、更紧的上界？</p>
 </blockquote>
 <hr />
-<h3 id="再利用第二个约束得到更紧的上界">1.2
-再利用第二个约束得到更紧的上界</h3>
+<h3 id="再利用第二个约束得到更紧的上界">1.2 再利用第二个约束得到更紧的上界</h3>
 <p>现在试着把<strong>第一个约束和第二个约束加在一起</strong>：</p>
 <p><span class="math display">\[\begin{equation}
   \left\{ {\begin{array}{*{20}{l}}
@@ -598,14 +594,12 @@ class="math display">\[\begin{equation}
 \end{align}\]</span></p>
 <p>这就得到一个<strong>更紧的上界</strong>。</p>
 <blockquote>
-<p>小结：通过对约束做“<strong>缩放</strong> +
-<strong>加法</strong>”，我们把上界从 12 压到了 6，再压到了 5。</p>
+<p>小结：通过对约束做“<strong>缩放</strong> + <strong>加法</strong>”，我们把上界从 12 压到了 6，再压到了 5。</p>
 </blockquote>
 <p>自然继续追问：</p>
 <blockquote>
 <p>用这样“对约束做非负线性组合”的办法，<br />
-<strong>最多</strong>能把目标函数 <span class="math inline">\(2x_1 +
-3x_2\)</span> 的上界压到多小？</p>
+<strong>最多</strong>能把目标函数 <span class="math inline">\(2x_1 + 3x_2\)</span> 的上界压到多小？</p>
 </blockquote>
 <p>换句话说：</p>
 <blockquote>
@@ -614,64 +608,53 @@ class="math display">\[\begin{equation}
 <p>这个问题可以用另一个 LP 问题来描述。</p>
 <hr />
 <h3 id="问题重述">1.3 问题重述</h3>
+<h4 id="不等式推导">1.3.1 不等式推导</h4>
 <p>我们想做的是从原来的约束中，推导出一个不等式：</p>
-<p><span class="math display">\[\begin{equation}
+<p><span class="math display">\[\begin{align}
+\label{eq:dual_inequality}
   d_1 x_1 + d_2 x_2 \le h,
-\end{equation}\]</span></p>
+\end{align}\]</span></p>
 <p>满足：</p>
 <ol type="1">
-<li>对所有可行 <span class="math inline">\((x_1,x_2)\)</span>
-都成立（也就是这个不等式是<strong>由所有约束条件推得的</strong>）；</li>
+<li>对所有可行 <span class="math inline">\((x_1,x_2)\)</span> 都成立（也就是不等式  是<strong>由所有约束条件推得的</strong>）；</li>
 <li>系数满足：</li>
 </ol>
 <p><span class="math display">\[\begin{equation}
     d_1 \ge 2, \quad d_2 \ge 3,
-  \end{equation}\]</span> 这样才能保证： <span
-class="math display">\[\begin{equation}
+  \end{equation}\]</span> 这样才能保证： <span class="math display">\[\begin{equation}
     2x_1 + 3x_2 \le d_1 x_1 + d_2 x_2;
   \end{equation}\]</span></p>
 <ol start="3" type="1">
-<li>而 <strong><span class="math inline">\(h\)</span>
-要尽量小</strong>，这样得到的上界越紧、越接近真实最优值。</li>
+<li>而 <strong><span class="math inline">\(h\)</span> 要尽量小</strong>，这样得到的上界越紧、越接近真实最优值。</li>
 </ol>
 <p>原来的 LP 问题就变成：</p>
 <blockquote>
-<p>如何系统地构造这样的 <span class="math inline">\(d_1,d_2,h\)</span>
-？</p>
+<p>如何系统地构造这样的 <span class="math inline">\(d_1,d_2,h\)</span> ？</p>
 </blockquote>
 <hr />
 <p>确保每个约束都满足的关键是：</p>
 <blockquote>
 <p><strong>将原问题的所有约束进行非负线性组合，来推导需要的不等式。</strong></p>
 </blockquote>
-<p>具体到我们的例子，给三个约束分别乘 <span
-class="math inline">\(y_1,y_2,y_3 \ge 0\)</span> 然后再相加，并把左边按
-<span class="math inline">\(x_1,x_2\)</span> 合并：</p>
+<p>具体到我们的例子，给三个约束分别乘 <span class="math inline">\(y_1,y_2,y_3 \ge 0\)</span> 然后再相加，并把左边按 <span class="math inline">\(x_1,x_2\)</span> 合并：</p>
 <p><span class="math display">\[\begin{equation}
   \left\{ \begin{array}{l}
   {y_1}\left( {4{x_1} + 8{x_2} \le 12} \right),\\
   {y_2}\left( {2{x_1} + {x_2} \le 3} \right),\\
   {y_3}\left( {3{x_1} + 2{x_2} \le 4} \right).
-  \end{array} \right. \Rightarrow \left( {4{y_1} + 2{y_2} + 3{y_3}}
-\right){x_1} + \left( {8{y_1} + {y_2} + 2{y_3}} \right){x_2} \le 12{y_1}
-+ 3{y_2} + 4{y_3}
+  \end{array} \right. \Rightarrow \left( {4{y_1} + 2{y_2} + 3{y_3}} \right){x_1} + \left( {8{y_1} + {y_2} + 2{y_3}} \right){x_2} \le 12{y_1} + 3{y_2} + 4{y_3}
 \end{equation}\]</span></p>
-<p>于是，我们得到了一个形如 <strong><span class="math inline">\(d_1 x_1
-+ d_2 x_2 \le h\)</span></strong> 的不等式，其中，</p>
+<p>于是，我们得到了一个形如 <strong><span class="math inline">\(d_1 x_1 + d_2 x_2 \le h\)</span></strong> 的不等式，其中，</p>
 <p><span class="math display">\[\begin{equation}
   d_1 = 4y_1 + 2y_2 + 3y_3,\quad
   d_2 = 8y_1 +   y_2 + 2y_3,\quad
   h   = 12y_1 + 3y_2 + 4y_3.
   \nonumber
 \end{equation}\]</span></p>
-<p>为了让 <span class="math inline">\(h\)</span>
-成为目标函数的上界，还要要求： <span
-class="math display">\[\begin{equation}
+<p>为了让 <span class="math inline">\(h\)</span> 成为目标函数的上界，还要要求： <span class="math display">\[\begin{equation}
   d_1 \ge 2,\quad d_2 \ge 3.
 \end{equation}\]</span></p>
-<p>把 <span class="math inline">\(d_1,d_2\)</span>
-的表达式代进去，得到对 <span class="math inline">\(y\)</span>
-的约束：</p>
+<p>把 <span class="math inline">\(d_1,d_2\)</span> 的表达式代进去，得到对 <span class="math inline">\(y\)</span> 的约束：</p>
 <p><span class="math display">\[\begin{eqnarray}
 &amp;&amp;4y_1 + 2y_2 + 3y_3 \ge 2,
 \nonumber\\
@@ -680,29 +663,20 @@ class="math display">\[\begin{equation}
 &amp;&amp;y_1, y_2, y_3 \ge 0.
 \label{eq:dual_constraints}
 \end{eqnarray}\]</span></p>
-<p>此时，对任意可行的 <span class="math inline">\(x_1,x_2\)</span>
-都有：</p>
+<p>此时，对任意可行的 <span class="math inline">\(x_1,x_2\)</span> 都有：</p>
 <p><span class="math display">\[\begin{equation}
   2x_1 + 3x_2 \le d_1 x_1 + d_2 x_2 \le h = 12y_1 + 3y_2 + 4y_3.
 \end{equation}\]</span></p>
 <p>也就是说：</p>
 <blockquote>
-<p>如果能够找到满足上述不等式的 <span
-class="math inline">\((y_1,y_2,y_3)\)</span> ，就能给出原目标函数 <span
-class="math inline">\(2x_1+3x_2\)</span> 相应的一个<strong>上界 <span
-class="math inline">\(h\)</span></strong>。
-我们希望的是这个上界尽可能地小，这样才能逼近原问题的最优值。</p>
+<p>如果能够找到满足上述不等式的 <span class="math inline">\((y_1,y_2,y_3)\)</span> ，就能给出原目标函数 <span class="math inline">\(2x_1+3x_2\)</span> 相应的一个<strong>上界 <span class="math inline">\(h\)</span></strong>。 我们希望的是这个上界尽可能地小，这样才能逼近原问题的最优值。</p>
 </blockquote>
 <hr />
-<h2 id="从找最好上界到对偶线性规划">6.
-从“找最好上界”到“对偶线性规划”</h2>
+<h4 id="从找最好上界到对偶线性规划">1.3.2 从“找最好上界”到“对偶线性规划”</h4>
 <p>要做的事可以总结为：</p>
 <blockquote>
-<p>在所有满足 <span
-class="math inline">\(\eqref{eq:dual_constraints}\)</span> 中约束的
-<span class="math inline">\((y_1,y_2,y_3)\)</span> 里，<br />
-让 <span class="math inline">\(h = 12y_1 + 3y_2 + 4y_3\)</span>
-尽可能小。</p>
+<p>在所有满足  中约束的 <span class="math inline">\((y_1,y_2,y_3)\)</span> 里，<br />
+让 <span class="math inline">\(h = 12y_1 + 3y_2 + 4y_3\)</span> 尽可能小。</p>
 </blockquote>
 <p>这本身就是一个线性规划：</p>
 <span class="math display">\[\begin{aligned}
@@ -719,8 +693,7 @@ class="math inline">\(\eqref{eq:dual_constraints}\)</span> 中约束的
 找一个<strong>最小</strong>的上界。</p>
 </blockquote>
 <hr />
-<h2 id="一般形式矩阵-向量写法的对偶">7.
-一般形式：矩阵-向量写法的对偶</h2>
+<h2 id="一般形式矩阵-向量写法的对偶">7. 一般形式：矩阵-向量写法的对偶</h2>
 <p>考虑标准型线性规划：</p>
 <span class="math display">\[\begin{aligned}
 \text{(P)}\quad
@@ -731,23 +704,16 @@ class="math inline">\(\eqref{eq:dual_constraints}\)</span> 中约束的
 \end{aligned}\]</span>
 <p>其中</p>
 <ul>
-<li><span class="math inline">\(x \in
-\mathbb{R}^n\)</span>：原问题变量；</li>
-<li><span class="math inline">\(c \in
-\mathbb{R}^n\)</span>：目标函数系数；</li>
-<li><span class="math inline">\(A \in \mathbb{R}^{m\times
-n}\)</span>：约束系数矩阵；</li>
-<li><span class="math inline">\(b \in
-\mathbb{R}^m\)</span>：约束右端项。</li>
+<li><span class="math inline">\(x \in \mathbb{R}^n\)</span>：原问题变量；</li>
+<li><span class="math inline">\(c \in \mathbb{R}^n\)</span>：目标函数系数；</li>
+<li><span class="math inline">\(A \in \mathbb{R}^{m\times n}\)</span>：约束系数矩阵；</li>
+<li><span class="math inline">\(b \in \mathbb{R}^m\)</span>：约束右端项。</li>
 </ul>
-<p>给每个约束乘上一个非负系数 <span class="math inline">\(y_i \ge
-0\)</span>，把它们写成向量形式：</p>
+<p>给每个约束乘上一个非负系数 <span class="math inline">\(y_i \ge 0\)</span>，把它们写成向量形式：</p>
 <ul>
-<li><span class="math inline">\(y \in
-\mathbb{R}^m\)</span>：对偶变量（每个分量对应一条约束）。</li>
+<li><span class="math inline">\(y \in \mathbb{R}^m\)</span>：对偶变量（每个分量对应一条约束）。</li>
 </ul>
-<p>把 <span class="math inline">\(Ax \le b\)</span> 左右同时左乘 <span
-class="math inline">\(y^\top\)</span>，得到</p>
+<p>把 <span class="math inline">\(Ax \le b\)</span> 左右同时左乘 <span class="math inline">\(y^\top\)</span>，得到</p>
 <p><span class="math display">\[
 y^\top A x \le y^\top b = b^\top y.
 \]</span></p>
@@ -768,8 +734,7 @@ A^T y \ge c,\ y \ge 0, &amp;(\text{对偶可行})
 <p>[ c^T x b^T y. ]</p>
 <p>这说明：</p>
 <ul>
-<li><strong>任意一个对偶可行的 (y)</strong>，都会给出原问题目标函数
-(c^Tx) 的一个<strong>上界</strong> (b^Ty)；</li>
+<li><strong>任意一个对偶可行的 (y)</strong>，都会给出原问题目标函数 (c^Tx) 的一个<strong>上界</strong> (b^Ty)；</li>
 <li>如果我们想要<strong>最紧</strong>的上界，就要让 (b^Ty) 尽量小。</li>
 </ul>
 <p>于是得到一般形式的对偶问题：</p>
@@ -785,19 +750,15 @@ A^T y \ge c,\ y \ge 0, &amp;(\text{对偶可行})
 <p>这就是图里蓝底部分写的那句话：</p>
 <blockquote>
 <p>“更一般地，<br />
-(c^T x Axb, x) 的对偶是<br />
-(b^T y A^T yc, y)。”</p>
+(c^T x  Axb, x) 的对偶是<br />
+(b^T y  A^T yc, y)。”</p>
 </blockquote>
 <hr />
 <h2 id="弱对偶定理weak-duality">8. 弱对偶定理（Weak Duality）</h2>
 <p>到这里，可以正式写出 <strong>弱对偶定理</strong>。</p>
 <blockquote>
 <p><strong>定理（弱对偶）</strong><br />
-设 (x) 是原问题 (P) 的任意可行解，(y) 是对偶问题 (D) 的任意可行解，则有
-[ c^T x ;; b^T y. ] 换句话说： - 对“最大化”的原问题来说，
-<strong>任意对偶可行解的目标值都是原问题最优值的上界</strong>； -
-对“最小化”的对偶问题来说，
-<strong>任意原问题可行解的目标值都是对偶最优值的下界</strong>。</p>
+设 (x) 是原问题 (P) 的任意可行解，(y) 是对偶问题 (D) 的任意可行解，则有 [ c^T x ;; b^T y. ] 换句话说： - 对“最大化”的原问题来说， <strong>任意对偶可行解的目标值都是原问题最优值的上界</strong>； - 对“最小化”的对偶问题来说， <strong>任意原问题可行解的目标值都是对偶最优值的下界</strong>。</p>
 </blockquote>
 <h3 id="证明">证明</h3>
 <p>由原问题可行性 (Ax b) 和对偶变量非负 (y )，有</p>
@@ -810,16 +771,12 @@ A^T y \ge c,\ y \ge 0, &amp;(\text{对偶可行})
 <hr />
 <h2 id="小结从上界到对偶">9. 小结：从“上界”到“对偶”</h2>
 <ol type="1">
-<li><p>从一个具体的线性规划出发，我们先问： &gt;
-能否只用约束给目标函数找一个上界？</p></li>
+<li><p>从一个具体的线性规划出发，我们先问： &gt; 能否只用约束给目标函数找一个上界？</p></li>
 <li><p>先用一个约束，得到一个粗上界；</p></li>
 <li><p>再用多个约束的缩放与加法，得到更紧的上界；</p></li>
-<li><p>把“给每个约束乘一个非负系数再相加”的方法<strong>参数化</strong>为对偶变量
-(y)；</p></li>
-<li><p>发现对任意对偶可行 (y)，(b^Ty)
-都是原问题目标函数的一个上界；</p></li>
-<li><p>于是自然得到一个新的线性规划——对偶问题
-(D)：在这些上界中找一个最小的；</p></li>
+<li><p>把“给每个约束乘一个非负系数再相加”的方法<strong>参数化</strong>为对偶变量 (y)；</p></li>
+<li><p>发现对任意对偶可行 (y)，(b^Ty) 都是原问题目标函数的一个上界；</p></li>
+<li><p>于是自然得到一个新的线性规划——对偶问题 (D)：在这些上界中找一个最小的；</p></li>
 <li><p>弱对偶定理则形式化地说明：</p>
 <blockquote>
 <p>对任意原问题可行解 (x) 和任意对偶可行解 (y)，<br />
@@ -828,8 +785,7 @@ A^T y \ge c,\ y \ge 0, &amp;(\text{对偶可行})
 </ol>
 <p>在后续，如果再引入<strong>强对偶定理</strong>，可以解释为什么在适当条件下，<br />
 原问题和对偶问题的最优值实际上是<strong>相等</strong>的——<br />
-这就是“对偶线性规划对原问题的估计是 <strong>perfectly tight</strong>”
-的含义。</p>
+这就是“对偶线性规划对原问题的估计是 <strong>perfectly tight</strong>” 的含义。</p>
 
                 
               </div>
@@ -937,8 +893,8 @@ A^T y \ge c,\ y \ge 0, &amp;(\text{对偶可行})
                   <article class="post-next col-6">
                     
                     
-                      <a href="/OPF/" title="电力系统中的最优潮流（OPF）基础讲解">
-                        <span class="hidden-mobile">电力系统中的最优潮流（OPF）基础讲解</span>
+                      <a href="/matpower_pypower/" title="电力系统工具简介：MATPOWER, PYPOWER, pandapower">
+                        <span class="hidden-mobile">电力系统工具简介：MATPOWER, PYPOWER, pandapower</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -19,12 +19,12 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本文通过在 Python 中调用 CvxPy 进行凸优化时遇到的问题，介绍使用 CvxPy 进行凸优化的基本步骤和注意事项。➡️">
+    <meta name="description" content="本文通过在 Python 中调用 CvxPy 进行凸优化时遇到的问题，介绍使用 CvxPy 进行凸优化的基本步骤和注意事项。➡️">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在 Python 中调用 CvxPy 进行凸优化">
 <meta property="og:url" content="https://nanana-szz.github.io/CvxPy/index.html">
 <meta property="og:site_name" content="远大前程">
-<meta property="og:description" content="本文通过在 Python 中调用 CvxPy 进行凸优化时遇到的问题，介绍使用 CvxPy 进行凸优化的基本步骤和注意事项。➡️">
+<meta property="og:description" content="本文通过在 Python 中调用 CvxPy 进行凸优化时遇到的问题，介绍使用 CvxPy 进行凸优化的基本步骤和注意事项。➡️">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nanana-szz.github.io/img/vscode.png">
 <meta property="article:published_time" content="2025-11-19T14:10:00.000Z">
@@ -641,49 +641,38 @@
             
               <div class="markdown-body">
                 
-                <p>本文通过在 Python 中调用 CvxPy 进行凸优化时遇到的问题，介绍使用 CvxPy
-进行凸优化的基本步骤和注意事项。➡️</p>
+                <p>本文通过在 Python 中调用 CvxPy 进行凸优化时遇到的问题，介绍使用 CvxPy 进行凸优化的基本步骤和注意事项。➡️</p>
 <span id="more"></span>
 <hr />
 <h2 id="问题引出">❓ 问题引出</h2>
 <blockquote>
 <p>💭 <strong>问题：什么是 <code>CvxPy</code>？</strong></p>
 </blockquote>
-<p><code>CvxPy</code> 是一个基于 <code>Python</code> 的
-<strong>凸优化建模库</strong>。可以把它理解成：</p>
+<p><code>CvxPy</code> 是一个基于 <code>Python</code> 的 <strong>凸优化建模库</strong>。可以把它理解成：</p>
 <ul>
 <li>用类似数学公式的方式，在 Python 里写优化问题；</li>
-<li>把 <code>变量</code> <code>目标函数</code> <code>约束条件</code>
-写清楚；</li>
-<li>然后交给 <code>CvxPy</code> 调用底层求解器
-<code>solver</code>，自动算出最优解。</li>
+<li>把 <code>变量</code> <code>目标函数</code> <code>约束条件</code> 写清楚；</li>
+<li>然后交给 <code>CvxPy</code> 调用底层求解器 <code>solver</code>，自动算出最优解。</li>
 </ul>
 <hr />
 <h3 id="一个简单的小例子">🔧 一个简单的小例子</h3>
 <p>下面是一个“让 (x) 尽量接近 2，同时要求 (x )”的最小化问题：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cvxpy <span class="hljs-keyword">as</span> cp<br><br><span class="hljs-comment"># 定义变量</span><br>x = cp.Variable()<br><br><span class="hljs-comment"># 定义目标函数：minimize (x - 2)^2</span><br>objective = cp.Minimize((x - <span class="hljs-number">2</span>)**<span class="hljs-number">2</span>)<br><br><span class="hljs-comment"># 定义约束：x ≥ 0</span><br>constraints = [x &gt;= <span class="hljs-number">0</span>]<br><br><span class="hljs-comment"># 组合成一个问题并求解</span><br>prob = cp.Problem(objective, constraints)<br>prob.solve()<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;最优目标值:&quot;</span>, prob.value)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;最优解 x:&quot;</span>, x.value)<br></code></pre></td></tr></table></figure>
 <blockquote>
-<p><strong>上面提到 <code>CvxPy</code> 需要调用
-<code>solver</code>，为什么示例代码中没有体现？怎么调用求解器
-<code>solver</code>？选择求解器时需要注意什么？</strong></p>
+<p><strong>上面提到 <code>CvxPy</code> 需要调用 <code>solver</code>，为什么示例代码中没有体现？怎么调用求解器 <code>solver</code>？选择求解器时需要注意什么？</strong></p>
 </blockquote>
 <p>下面将详细介绍 <code>solver</code> 的调用和选择。</p>
 <hr />
-<h2 id="cvxpy-中的求解器调用时的设置">1. CvxPy
-中的求解器调用时的设置</h2>
+<h2 id="cvxpy-中的求解器调用时的设置">1. CvxPy 中的求解器调用时的设置</h2>
 <ul>
-<li>在 <code>CvxPy</code> 中，使用 <code>prob.solve()</code>
-调用求解器。
+<li>在 <code>CvxPy</code> 中，使用 <code>prob.solve()</code> 调用求解器。
 <ul>
 <li><strong>当前调用方法将会自动选择 <code>solver</code>。</strong></li>
-<li><strong><code>CvxPy</code>
-会根据问题的特性和定义的约束条件，自动选择一个合适的求解器来求解优化问题。</strong></li>
+<li><strong><code>CvxPy</code> 会根据问题的特性和定义的约束条件，自动选择一个合适的求解器来求解优化问题。</strong></li>
 </ul></li>
 </ul>
 <blockquote>
-<p><strong>CvxPy 自动选择的所谓的 </strong>“合适的求解器”**
-真的就合适吗？CvxPy 是从哪些 solver 中选择的？<strong>
-</strong>如果想手动指定求解器，应该怎么做？选择求解器时需要注意什么？**</p>
+<p><strong>CvxPy 自动选择的所谓的 </strong>“合适的求解器”** 真的就合适吗？CvxPy 是从哪些 solver 中选择的？<strong> </strong>如果想手动指定求解器，应该怎么做？选择求解器时需要注意什么？**</p>
 </blockquote>
 <p>关于上述问题，下面将展开叙述。</p>
 <hr />
@@ -692,76 +681,52 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python">prob.solve(<br>    solver=<span class="hljs-literal">None</span>,<br>    verbose=<span class="hljs-literal">False</span>,<br>    gp=<span class="hljs-literal">False</span>,<br>    qcp=<span class="hljs-literal">False</span>,<br>    requires_grad=<span class="hljs-literal">False</span>,<br>    enforce_dpp=<span class="hljs-literal">False</span>,<br>    ignore_dpp=<span class="hljs-literal">False</span>,<br>    **kwargs<br>)<br></code></pre></td></tr></table></figure>
 <p>其中，</p>
 <ul>
-<li><p>当 <code>solver=None</code> 时，<code>CvxPy</code>
-会<strong>自动根据问题类型和机器上安装的求解器选择一个“最合适”的
-solver</strong>。比如：</p>
+<li><p>当 <code>solver=None</code> 时，<code>CvxPy</code> 会<strong>自动根据问题类型和机器上安装的求解器选择一个“最合适”的 solver</strong>。比如：</p>
 <ul>
 <li>QP（二次规划）问题 → 优先用 <code>OSQP</code><br />
 </li>
-<li>二阶锥问题（SOCP） → 会选 <code>CLARABEL</code>
-这类锥规划求解器<br />
+<li>二阶锥问题（SOCP） → 会选 <code>CLARABEL</code> 这类锥规划求解器<br />
 </li>
-<li>更通用的凸问题 → 可以用 <code>SCS</code>
-兜底（几乎所有凸问题都能解）</li>
+<li>更通用的凸问题 → 可以用 <code>SCS</code> 兜底（几乎所有凸问题都能解）</li>
 </ul>
 <p>也就是说：</p>
 <ul>
-<li>如果想手动指定调用哪个 <code>solver</code>，可以通过
-<code>prob.solve( solver = cp.SOLVER_NAME )</code> 来实现。</li>
-<li>如果<strong>不写 <code>solver=</code>，CVXPY 一样会帮你选一个 solver
-并调用，只是被“藏”在内部了。</strong></li>
+<li>如果想手动指定调用哪个 <code>solver</code>，可以通过 <code>prob.solve( solver = cp.SOLVER_NAME )</code> 来实现。</li>
+<li>如果<strong>不写 <code>solver=</code>，CVXPY 一样会帮你选一个 solver 并调用，只是被“藏”在内部了。</strong></li>
 </ul>
 <p>想知道它到底选了谁，可以在求解后查看：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">prob.solve()<br><span class="hljs-built_in">print</span>(prob.solver_stats.solver_name)   <span class="hljs-comment"># 比如 &#x27;OSQP&#x27;、&#x27;CLARABEL&#x27;、&#x27;SCS&#x27; 等</span><br><span class="hljs-built_in">print</span>(prob.solver_stats.solve_time)    <span class="hljs-comment"># 求解耗时</span><br></code></pre></td></tr></table></figure></li>
-<li><p><code>verbose=False</code>：表示不输出求解器的详细日志信息。如果想查看求解过程中的日志，可以将其设置为
-<code>True</code>。</p></li>
-<li><p><code>gp=False</code>：表示问题不是几何规划（Geometric
-Programming）。如果问题是几何规划，可以将其设置为
-<code>True</code>。</p></li>
-<li><p><code>qcp=False</code>：表示问题不是二次锥规划（Quadratically
-Constrained Programming）。如果问题是二次锥规划，可以将其设置为
-<code>True</code>。</p></li>
-<li><p><code>requires_grad=False</code>：表示不需要计算梯度信息。如果需要梯度信息，可以将其设置为
-<code>True</code>。</p></li>
-<li><p><code>enforce_dpp=False</code>：表示不强制执行 DPP（Disciplined
-Parametrized Programming）规则。如果需要强制执行，可以将其设置为
-<code>True</code>。</p></li>
-<li><p><code>ignore_dpp=False</code>：表示不忽略 DPP
-规则。如果需要忽略，可以将其设置为 <code>True</code>。</p></li>
-<li><p><code>**kwargs</code>：<code>keyword arguments</code>，可以传递给求解器的其他参数，例如
-<code>max_iters</code>、<code>abstol</code>、<code>reltol</code>
-等，具体参数取决于所使用的求解器。</p></li>
+<li><p><code>verbose=False</code>：表示不输出求解器的详细日志信息。如果想查看求解过程中的日志，可以将其设置为 <code>True</code>。</p></li>
+<li><p><code>gp=False</code>：表示问题不是几何规划（Geometric Programming）。如果问题是几何规划，可以将其设置为 <code>True</code>。</p></li>
+<li><p><code>qcp=False</code>：表示问题不是二次锥规划（Quadratically Constrained Programming）。如果问题是二次锥规划，可以将其设置为 <code>True</code>。</p></li>
+<li><p><code>requires_grad=False</code>：表示不需要计算梯度信息。如果需要梯度信息，可以将其设置为 <code>True</code>。</p></li>
+<li><p><code>enforce_dpp=False</code>：表示不强制执行 DPP（Disciplined Parametrized Programming）规则。如果需要强制执行，可以将其设置为 <code>True</code>。</p></li>
+<li><p><code>ignore_dpp=False</code>：表示不忽略 DPP 规则。如果需要忽略，可以将其设置为 <code>True</code>。</p></li>
+<li><p><code>**kwargs</code>：<code>keyword arguments</code>，可以传递给求解器的其他参数，例如 <code>max_iters</code>、<code>abstol</code>、<code>reltol</code> 等，具体参数取决于所使用的求解器。</p></li>
 </ul></li>
 </ul>
 <blockquote>
-<p>经过查验，自动选择的求解器确实是“合适的”，但有时也可能不是最优的选择。
-而且，如果求解器的参数不进行设置，求解时就会采用默认的配置，导致求解效果不理想（比如收敛慢、精度不够等）。
-因此，了解常见求解器的类型和特点，并根据具体问题手动选择和配置求解器是很有必要的。</p>
+<p>经过查验，自动选择的求解器确实是“合适的”，但有时也可能不是最优的选择。 而且，如果求解器的参数不进行设置，求解时就会采用默认的配置，导致求解效果不理想（比如收敛慢、精度不够等）。 因此，了解常见求解器的类型和特点，并根据具体问题手动选择和配置求解器是很有必要的。</p>
 </blockquote>
 <hr />
 <h2 id="常见的求解器类型">2. 常见的求解器类型</h2>
 <blockquote>
 <p>使用方式统一是：<br />
 <code>prob.solve(solver=cp.XXX, 参数名=...)</code><br />
-下面“常用参数”里提到的名字，都是可以直接写在 <code>solve()</code> 里的
-keyword 参数。</p>
+下面“常用参数”里提到的名字，都是可以直接写在 <code>solve()</code> 里的 keyword 参数。</p>
 </blockquote>
 <h3 id="常见开源求解器">2.1. 常见开源求解器</h3>
 <div class="tag-common tabs" id="常见开源求解器"><ul class="nav-tabs"><li class="tab active"><a data-target="常见开源求解器-1">OSQP</a></li><li class="tab"><a data-target="常见开源求解器-2">SCS</a></li><li class="tab"><a data-target="常见开源求解器-3">ECOS</a></li><li class="tab"><a data-target="常见开源求解器-4">ECOS_BB</a></li><li class="tab"><a data-target="常见开源求解器-5">CLARABEL</a></li><li class="tab"><a data-target="常见开源求解器-6">CVXOPT</a></li><li class="tab"><a data-target="常见开源求解器-7">GLPK</a></li><li class="tab"><a data-target="常见开源求解器-8">CBC</a></li></ul><div class="tab-content"><div class="tab-pane active" id="常见开源求解器-1"><ul>
-<li><strong>OSQP（Operator Splitting Quadratic
-Program，算子分裂二次规划求解器）</strong>
+<li><strong>OSQP（Operator Splitting Quadratic Program，算子分裂二次规划求解器）</strong>
 <ul>
 <li>问题类型：<br />
-主要用于 <strong>二次规划（Quadratic Programming,
-QP，二次规划）</strong>：二次目标 + 线性约束的凸问题。<br />
-对大规模、稀疏的 QP
-特别合适，比如最小二乘带约束、组合优化中的连续松弛等。</li>
+主要用于 <strong>二次规划（Quadratic Programming, QP，二次规划）</strong>：二次目标 + 线性约束的凸问题。<br />
+对大规模、稀疏的 QP 特别合适，比如最小二乘带约束、组合优化中的连续松弛等。</li>
 <li>优点：
 <ul>
 <li>专门针对 QP，一阶迭代算法，对大型、稀疏问题很高效；<br />
 </li>
-<li>支持 <strong>warm
-start（热启动）</strong>，适合滚动优化、模型预测控制等需要频繁重复求解的场景；<br />
+<li>支持 <strong>warm start（热启动）</strong>，适合滚动优化、模型预测控制等需要频繁重复求解的场景；<br />
 </li>
 <li>内存占用低，更适合在嵌入式或实时系统里用；<br />
 </li>
@@ -769,8 +734,7 @@ start（热启动）</strong>，适合滚动优化、模型预测控制等需要
 </ul></li>
 <li>常用参数：
 <ul>
-<li><code>eps_abs</code>：absolute
-tolerance，绝对容忍度（原/对偶残差在这个量级内就算收敛）；<br />
+<li><code>eps_abs</code>：absolute tolerance，绝对容忍度（原/对偶残差在这个量级内就算收敛）；<br />
 </li>
 <li><code>eps_rel</code>：relative tolerance，相对容忍度；<br />
 </li>
@@ -805,8 +769,7 @@ tolerance，绝对容忍度（原/对偶残差在这个量级内就算收敛）�
 <ul>
 <li><code>max_iters</code>：最大迭代次数；<br />
 </li>
-<li><code>eps</code> 或 <code>eps_abs</code> /
-<code>eps_rel</code>：收敛容忍度（整体或绝对/相对）；<br />
+<li><code>eps</code> 或 <code>eps_abs</code> / <code>eps_rel</code>：收敛容忍度（整体或绝对/相对）；<br />
 </li>
 <li><code>alpha</code>：松弛参数，调整算法收敛行为；<br />
 </li>
@@ -821,8 +784,7 @@ tolerance，绝对容忍度（原/对偶残差在这个量级内就算收敛）�
 <li><strong>ECOS（Embedded Conic Solver，嵌入式锥求解器）</strong>
 <ul>
 <li>问题类型：<br />
-主要用于 <strong>LP（线性规划）</strong> 和
-<strong>SOCP（二阶锥规划）</strong>，支持一部分指数锥约束。<br />
+主要用于 <strong>LP（线性规划）</strong> 和 <strong>SOCP（二阶锥规划）</strong>，支持一部分指数锥约束。<br />
 典型场景：二阶锥约束的凸优化，比如稳健优化、部分控制问题等。</li>
 <li>优点：
 <ul>
@@ -846,28 +808,20 @@ tolerance，绝对容忍度（原/对偶残差在这个量级内就算收敛）�
 </ul></li>
 </ul></li>
 </ul></div><div class="tab-pane" id="常见开源求解器-4"><ul>
-<li><strong>ECOS_BB（ECOS Branch-and-Bound，ECOS
-分支定界整数扩展）</strong>
+<li><strong>ECOS_BB（ECOS Branch-and-Bound，ECOS 分支定界整数扩展）</strong>
 <ul>
 <li>问题类型：<br />
-在 ECOS 的基础上，通过 <strong>Branch-and-Bound（分支定界）</strong>
-处理整数变量，<br />
-用于带整数变量的 <strong>MISOCP（Mixed-Integer
-SOCP，混合整数二阶锥规划）</strong> 和部分
-<strong>MILP（混合整数线性规划）</strong> 问题。</li>
+在 ECOS 的基础上，通过 <strong>Branch-and-Bound（分支定界）</strong> 处理整数变量，<br />
+用于带整数变量的 <strong>MISOCP（Mixed-Integer SOCP，混合整数二阶锥规划）</strong> 和部分 <strong>MILP（混合整数线性规划）</strong> 问题。</li>
 <li>优点：
 <ul>
-<li>完全开源，和 ECOS
-一起安装好用，对于小中等规模的混合整数锥规划很方便；<br />
+<li>完全开源，和 ECOS 一起安装好用，对于小中等规模的混合整数锥规划很方便；<br />
 </li>
-<li>和 CVXPY 集成紧密，声明整数变量后，直接选
-<code>solver=cp.ECOS_BB</code> 即可求解。</li>
+<li>和 CVXPY 集成紧密，声明整数变量后，直接选 <code>solver=cp.ECOS_BB</code> 即可求解。</li>
 </ul></li>
 <li>常用参数：
 <ul>
-<li>继承了 ECOS
-的一些精度参数：<code>abstol</code>、<code>reltol</code>、<code>feastol</code>
-等；<br />
+<li>继承了 ECOS 的一些精度参数：<code>abstol</code>、<code>reltol</code>、<code>feastol</code> 等；<br />
 </li>
 <li>一些整数求解相关参数（不同版本名字不完全一样），例如：
 <ul>
@@ -876,13 +830,11 @@ SOCP，混合整数二阶锥规划）</strong> 和部分
 <li><code>verbose</code>：是否打印整数求解过程。<br />
 </li>
 </ul></li>
-<li>整体上更适合作为“免费教学/原型工具”，大规模或高难整数问题建议考虑更强的
-MIP 求解器。</li>
+<li>整体上更适合作为“免费教学/原型工具”，大规模或高难整数问题建议考虑更强的 MIP 求解器。</li>
 </ul></li>
 </ul></li>
 </ul></div><div class="tab-pane" id="常见开源求解器-5"><ul>
-<li><strong>CLARABEL（Clarabel Conic Interior-Point
-Solver，通用锥内点法求解器）</strong>
+<li><strong>CLARABEL（Clarabel Conic Interior-Point Solver，通用锥内点法求解器）</strong>
 <ul>
 <li>问题类型：<br />
 支持广义锥规划：
@@ -913,8 +865,7 @@ Solver，通用锥内点法求解器）</strong>
 </ul></li>
 </ul></li>
 </ul></div><div class="tab-pane" id="常见开源求解器-6"><ul>
-<li><strong>CVXOPT（CVXOPT Convex Optimization
-Library，凸优化库）</strong>
+<li><strong>CVXOPT（CVXOPT Convex Optimization Library，凸优化库）</strong>
 <ul>
 <li>问题类型：<br />
 通用凸优化库，支持：
@@ -928,13 +879,11 @@ Library，凸优化库）</strong>
 <ul>
 <li>历史较久，文档和示例较多；<br />
 </li>
-<li>本身就是一个 Python
-的凸优化库，用来理解“底层怎么解”的也很合适；<br />
+<li>本身就是一个 Python 的凸优化库，用来理解“底层怎么解”的也很合适；<br />
 </li>
 <li>可以和 GLPK 等结合，扩展线性规划和整数规划能力。</li>
 </ul></li>
-<li>常用参数（通常通过 <code>solvers.options</code> 或在 CVXPY
-里传下去）：
+<li>常用参数（通常通过 <code>solvers.options</code> 或在 CVXPY 里传下去）：
 <ul>
 <li><code>maxiters</code>：最大迭代次数；<br />
 </li>
@@ -950,19 +899,16 @@ Library，凸优化库）</strong>
 </ul></li>
 </ul></li>
 </ul></div><div class="tab-pane" id="常见开源求解器-7"><ul>
-<li><strong>GLPK（GNU Linear Programming Kit，GNU
-线性规划工具包）</strong>
+<li><strong>GLPK（GNU Linear Programming Kit，GNU 线性规划工具包）</strong>
 <ul>
 <li>问题类型：<br />
-专注于 <strong>LP（线性规划）</strong> 和
-<strong>MILP（混合整数线性规划）</strong>。<br />
+专注于 <strong>LP（线性规划）</strong> 和 <strong>MILP（混合整数线性规划）</strong>。<br />
 不支持一般的二阶锥或半定约束，更适合纯线性问题。</li>
 <li>优点：
 <ul>
 <li>完全开源，GPL 许可证，社区非常成熟；<br />
 </li>
-<li>对纯 LP / MILP 的性能和鲁棒性都不错，是免费 MIP
-求解器中的常见选择；<br />
+<li>对纯 LP / MILP 的性能和鲁棒性都不错，是免费 MIP 求解器中的常见选择；<br />
 </li>
 <li>可以通过 CVXPY 间接使用。</li>
 </ul></li>
@@ -972,8 +918,7 @@ Library，凸优化库）</strong>
 </li>
 <li><code>max_iters</code> 或类似迭代上限参数：控制迭代次数；<br />
 </li>
-<li><code>mip_gap</code> 或
-<code>allowableGap</code>：最优间隙容忍度（控制整数优化精度与时间）；<br />
+<li><code>mip_gap</code> 或 <code>allowableGap</code>：最优间隙容忍度（控制整数优化精度与时间）；<br />
 </li>
 <li><code>verbose</code>：日志输出开关。</li>
 </ul></li>
@@ -982,8 +927,7 @@ Library，凸优化库）</strong>
 <li><strong>CBC（COIN-OR Branch and Cut，COIN-OR 分支割求解器）</strong>
 <ul>
 <li>问题类型：<br />
-专门做 <strong>MILP（混合整数线性规划）</strong> 和部分
-<strong>MIQP（混合整数二次规划）</strong>，<br />
+专门做 <strong>MILP（混合整数线性规划）</strong> 和部分 <strong>MIQP（混合整数二次规划）</strong>，<br />
 适合有整数变量、约束主要为线性的优化问题。</li>
 <li>优点：
 <ul>
@@ -995,48 +939,38 @@ Library，凸优化库）</strong>
 </ul></li>
 <li>常用参数：
 <ul>
-<li><code>time_limit</code> 或
-<code>maximumSeconds</code>：求解时间上限；<br />
+<li><code>time_limit</code> 或 <code>maximumSeconds</code>：求解时间上限；<br />
 </li>
 <li><code>maxNodes</code>：搜索的最大节点数，用来控制分支树规模；<br />
 </li>
-<li><code>mip_gap</code> 或
-<code>allowableGap</code>：最优间隙容忍度（控制精度和时间的权衡）；<br />
+<li><code>mip_gap</code> 或 <code>allowableGap</code>：最优间隙容忍度（控制精度和时间的权衡）；<br />
 </li>
 <li><code>verbose</code>：是否输出详细的 MIP 求解过程。</li>
 </ul></li>
 </ul></li>
 </ul></div></div></div>
 <hr />
-<h3 id="常见商业高性能求解器通常需要许可证">2.2.
-常见商业/高性能求解器（通常需要许可证）</h3>
+<h3 id="常见商业高性能求解器通常需要许可证">2.2. 常见商业/高性能求解器（通常需要许可证）</h3>
 <div class="tag-common tabs" id="语言切换"><ul class="nav-tabs"><li class="tab active"><a data-target="语言切换-1">MOSEK</a></li><li class="tab"><a data-target="语言切换-2">GUROBI</a></li><li class="tab"><a data-target="语言切换-3">CPLEX</a></li></ul><div class="tab-content"><div class="tab-pane active" id="语言切换-1"><ul>
-<li><strong>MOSEK（MOSEK Optimization
-Suite，大规模凸优化与混合整数优化求解器）</strong>
+<li><strong>MOSEK（MOSEK Optimization Suite，大规模凸优化与混合整数优化求解器）</strong>
 <ul>
 <li>问题类型：<br />
 支持大规模的 <strong>LP（Linear Programming，线性规划）</strong>、<br />
 <strong>QP（Quadratic Programming，二次规划）</strong>、<br />
-<strong>SOCP（Second-Order Cone
-Programming，二阶锥规划）</strong>、<br />
+<strong>SOCP（Second-Order Cone Programming，二阶锥规划）</strong>、<br />
 <strong>SDP（Semidefinite Programming，半定规划）</strong>、<br />
-指数锥/幂锥问题以及 <strong>MIP（Mixed-Integer
-Programming，混合整数规划）</strong> 等。<br />
+指数锥/幂锥问题以及 <strong>MIP（Mixed-Integer Programming，混合整数规划）</strong> 等。<br />
 对于连续凸优化（尤其是锥规划和半定规划）以及含少量整数变量的凸模型非常强。<br />
 </li>
 <li>优点：
 <ul>
-<li>专注于 <strong>凸优化 +
-混合整数凸优化</strong>，内点法实现成熟、数值稳定性好；<br />
+<li>专注于 <strong>凸优化 + 混合整数凸优化</strong>，内点法实现成熟、数值稳定性好；<br />
 </li>
-<li>在 SOCP / SDP /
-指数锥等复杂锥问题上性能很突出，工业界和学术界都有大量应用；<br />
+<li>在 SOCP / SDP / 指数锥等复杂锥问题上性能很突出，工业界和学术界都有大量应用；<br />
 </li>
-<li>提供丰富的接口（C / C++ / Java / .NET / Python / Julia / Rust / R /
-MATLAB 等）和建模工具；<br />
+<li>提供丰富的接口（C / C++ / Java / .NET / Python / Julia / Rust / R / MATLAB 等）和建模工具；<br />
 </li>
-<li>和 CVXPY 集成良好，可以直接作为高精度锥规划/半定规划的首选
-solver。<br />
+<li>和 CVXPY 集成良好，可以直接作为高精度锥规划/半定规划的首选 solver。<br />
 </li>
 </ul></li>
 <li>常用参数（在 CVXPY 中）：
@@ -1047,31 +981,24 @@ solver。<br />
 </li>
 <li><code>"MSK_DPAR_INTPNT_CO_TOL_REL_GAP"</code>：内点法的相对间隙容忍度；<br />
 </li>
-<li><code>"MSK_DPAR_INTPNT_TOL_REL_GAP"</code>
-等其他精度/收敛相关参数；<br />
+<li><code>"MSK_DPAR_INTPNT_TOL_REL_GAP"</code> 等其他精度/收敛相关参数；<br />
 </li>
 </ul></li>
-<li><code>save_file</code>：让 MOSEK
-在优化前把问题写入一个文件（方便调试）。</li>
+<li><code>save_file</code>：让 MOSEK 在优化前把问题写入一个文件（方便调试）。</li>
 </ul></li>
 </ul></li>
 </ul></div><div class="tab-pane" id="语言切换-2"><ul>
 <li><strong>GUROBI（Gurobi Optimizer，高性能数学规划求解器）</strong>
 <ul>
 <li>问题类型：<br />
-支持
-<strong>LP（线性规划）</strong>、<strong>QP（二次规划）</strong>、<br />
-<strong>QCP（Quadratically Constrained
-Programming，二次约束规划）</strong>、<br />
+支持 <strong>LP（线性规划）</strong>、<strong>QP（二次规划）</strong>、<br />
+<strong>QCP（Quadratically Constrained Programming，二次约束规划）</strong>、<br />
 <strong>MIP（混合整数规划）</strong>、<strong>MIQP（混合整数二次规划）</strong>、<strong>MIQCP（混合整数二次约束规划）</strong>，<br />
-以及 SOCP 等多种凸/非凸问题，特别擅长大规模
-<strong>混合整数模型</strong>。<br />
+以及 SOCP 等多种凸/非凸问题，特别擅长大规模 <strong>混合整数模型</strong>。<br />
 </li>
 <li>优点：
 <ul>
-<li>在 <strong>MILP（Mixed-Integer Linear
-Programming，混合整数线性规划）</strong>、MIQP、MIQCP
-等离散优化问题上业界公认的顶级性能；<br />
+<li>在 <strong>MILP（Mixed-Integer Linear Programming，混合整数线性规划）</strong>、MIQP、MIQCP 等离散优化问题上业界公认的顶级性能；<br />
 </li>
 <li>内置多种算法：单纯形法、障碍法、并行分支定界/分支切平面等，支持多线程并行计算；<br />
 </li>
@@ -1084,36 +1011,30 @@ Programming，混合整数线性规划）</strong>、MIQP、MIQCP
 <ul>
 <li><code>TimeLimit</code>：<strong>时间上限</strong>（秒），到达该时间即停止求解；<br />
 </li>
-<li><code>MIPGap</code>：<strong>混合整数最优间隙</strong>（relative
-gap），用来控制整数问题的精度/时间权衡；<br />
+<li><code>MIPGap</code>：<strong>混合整数最优间隙</strong>（relative gap），用来控制整数问题的精度/时间权衡；<br />
 </li>
 <li><code>Threads</code>：求解时使用的线程数；<br />
 </li>
 <li><code>Presolve</code>：预处理级别（0/1/2）；<br />
 </li>
-<li><code>MIPFocus</code>：MIP 求解策略倾向（更快找可行解 / 更快收窄 gap
-等）；<br />
+<li><code>MIPFocus</code>：MIP 求解策略倾向（更快找可行解 / 更快收窄 gap 等）；<br />
 </li>
 <li><code>OutputFlag</code>：是否输出详细日志（0 关 / 1 开）。</li>
 </ul></li>
 </ul></li>
 </ul></div><div class="tab-pane" id="语言切换-3"><ul>
-<li><strong>CPLEX（IBM ILOG CPLEX
-Optimizer，高性能数学规划求解器）</strong>
+<li><strong>CPLEX（IBM ILOG CPLEX Optimizer，高性能数学规划求解器）</strong>
 <ul>
 <li>问题类型：<br />
-支持
-<strong>LP（线性规划）</strong>、<strong>QP（二次规划）</strong>、<br />
-<strong>QCP（二次约束规划）</strong> 以及上述的 <strong>MIP / MIQP /
-MIQCP</strong> 等混合整数扩展。<br />
+支持 <strong>LP（线性规划）</strong>、<strong>QP（二次规划）</strong>、<br />
+<strong>QCP（二次约束规划）</strong> 以及上述的 <strong>MIP / MIQP / MIQCP</strong> 等混合整数扩展。<br />
 在传统工业运筹优化领域（排产、选址、网络设计等）应用非常广泛。<br />
 </li>
 <li>优点：
 <ul>
 <li>在 LP / MIP / QP 等经典数学规划问题上的性能和鲁棒性都非常好；<br />
 </li>
-<li>提供丰富的建模接口（C / C++ / Java / .NET / Python / OPL 等），与
-IBM 的决策优化生态配套完善；<br />
+<li>提供丰富的建模接口（C / C++ / Java / .NET / Python / OPL 等），与 IBM 的决策优化生态配套完善；<br />
 </li>
 <li>支持并行求解、网络流特化算法等许多高级特性；<br />
 </li>
@@ -1140,9 +1061,7 @@ IBM 的决策优化生态配套完善；<br />
 <ul>
 <li>若是 QP（你目前的情况：二次目标 + 线性约束）：
 <ul>
-<li>首选 OSQP（稀疏、支持 warm
-start）。若对精度或数值稳定性有更高要求，尝试 Gurobi 或
-MOSEK（商业）。</li>
+<li>首选 OSQP（稀疏、支持 warm start）。若对精度或数值稳定性有更高要求，尝试 Gurobi 或 MOSEK（商业）。</li>
 </ul></li>
 <li>若是大型近似解／第一阶方法可接受：
 <ul>
@@ -1159,19 +1078,15 @@ MOSEK（商业）。</li>
 </ul>
 <hr />
 <h2 id="求解器状态">3. 求解器状态</h2>
-<p>求解完成后，可以通过 <code>prob.status</code> 查看求解状态。常见
-<code>Problem.status</code> 值包括：</p>
+<p>求解完成后，可以通过 <code>prob.status</code> 查看求解状态。常见 <code>Problem.status</code> 值包括：</p>
 <ul>
-<li><code>optimal</code>：求解成功，发现了满足
-KKT（或可接受精度）的最优解。</li>
-<li><code>optimal_inaccurate</code>：找到了可用解但精度/数值不完全满足严格标准（solver
-仍返回次优/不精确的最优）。</li>
+<li><code>optimal</code>：求解成功，发现了满足 KKT（或可接受精度）的最优解。</li>
+<li><code>optimal_inaccurate</code>：找到了可用解但精度/数值不完全满足严格标准（solver 仍返回次优/不精确的最优）。</li>
 <li><code>infeasible</code>：问题无可行解（硬约束冲突）。</li>
 <li><code>infeasible_inaccurate</code>：认为可能不可行，但结论不完全可靠（数值不稳定）。</li>
 <li><code>unbounded</code>：目标可无限改进（问题无界）。</li>
 <li><code>unbounded_inaccurate</code>：可能无界，但结论不完全可靠。</li>
-<li><code>infeasible_or_unbounded</code> /
-<code>unbounded_or_infeasible</code> (solver 有时给出这种模糊结论)
+<li><code>infeasible_or_unbounded</code> / <code>unbounded_or_infeasible</code> (solver 有时给出这种模糊结论)
 <ul>
 <li>solver 无法区分无界和不可行的情况。</li>
 </ul></li>
@@ -1183,39 +1098,27 @@ KKT（或可接受精度）的最优解。</li>
 </ul></li>
 </ul>
 <blockquote>
-<p><strong>我在求解时就遇到返回 <code>user_limit</code>
-的情况，具体是什么原因？</strong></p>
+<p><strong>我在求解时就遇到返回 <code>user_limit</code> 的情况，具体是什么原因？</strong></p>
 </blockquote>
 <p>可能原因如下：</p>
 <ul>
-<li>达到用户/调用传入的资源上限（如
-<code>time limit</code>、<code>max iterations</code>、<code>node limit</code>
-等）。</li>
+<li>达到用户/调用传入的资源上限（如 <code>time limit</code>、<code>max iterations</code>、<code>node limit</code> 等）。</li>
 <li>用户在外部中断了程序（比如手动停止进程）。</li>
-<li>有些求解器在内部把“达到最大迭代/时间”映射为
-<code>user limit</code>。</li>
+<li>有些求解器在内部把“达到最大迭代/时间”映射为 <code>user limit</code>。</li>
 </ul>
 <p>排查步骤：</p>
 <ol type="1">
-<li>打印并查看
-<code>problem.solver_stats</code>（包含迭代次数、实际用时等）。</li>
-<li>在 <code>problem.solve(...)</code> 中开启
-<code>verbose</code>：<code>problem.solve(solver=cp.OSQP, verbose=True)</code>，观察
-<code>solver</code> 的终止消息。</li>
-<li>检查传给 <code>solver</code> 的选项（是否设置了
-<code>max_iter</code>, <code>time_limit</code> 等）。</li>
+<li>打印并查看 <code>problem.solver_stats</code>（包含迭代次数、实际用时等）。</li>
+<li>在 <code>problem.solve(...)</code> 中开启 <code>verbose</code>：<code>problem.solve(solver=cp.OSQP, verbose=True)</code>，观察 <code>solver</code> 的终止消息。</li>
+<li>检查传给 <code>solver</code> 的选项（是否设置了 <code>max_iter</code>, <code>time_limit</code> 等）。</li>
 <li>检查是否有外部中断（脚本被杀、环境限制、IDE 停止等）。</li>
-<li>查看 <code>x.value</code> 与
-<code>problem.value</code>：有时即使被中断，<code>solver</code>
-也返回了“当前最优候选解”，你可以选择使用它而不是返回全零。</li>
+<li>查看 <code>x.value</code> 与 <code>problem.value</code>：有时即使被中断，<code>solver</code> 也返回了“当前最优候选解”，你可以选择使用它而不是返回全零。</li>
 </ol>
 <p>应对建议：</p>
 <ul>
 <li>如果是迭代/时间限制导致：
 <ul>
-<li><p>增加 <code>solver</code> 的迭代或时间上限（例如 OSQP 的
-<code>max_iter</code>，或其他 <code>solver</code> 的
-<code>time_limit</code>/<code>max_iters</code>），例如：</p>
+<li><p>增加 <code>solver</code> 的迭代或时间上限（例如 OSQP 的 <code>max_iter</code>，或其他 <code>solver</code> 的 <code>time_limit</code>/<code>max_iters</code>），例如：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">problem.solve(solver=cp.OSQP, max_iter=<span class="hljs-number">200000</span>, verbose=<span class="hljs-literal">True</span>)<br></code></pre></td></tr></table></figure></li>
 <li><p>改用更适合该问题类型的 <code>solver</code>。</p></li>
 </ul></li>
@@ -1226,15 +1129,11 @@ KKT（或可接受精度）的最优解。</li>
 </ul></li>
 <li>实用处理策略：
 <ul>
-<li>对 <code>user_limit</code> 情况，不要直接返回全零；改为：若
-<code>x.value</code>
-可用则返回当前解并记录警告/提高后续求解资源；示例逻辑：
+<li>对 <code>user_limit</code> 情况，不要直接返回全零；改为：若 <code>x.value</code> 可用则返回当前解并记录警告/提高后续求解资源；示例逻辑：
 <ul>
-<li>if problem.status == “user_limit” and x.value is not None: use
-x.value as solution (并把 status 写日志)</li>
+<li>if problem.status == “user_limit” and x.value is not None: use x.value as solution (并把 status 写日志)</li>
 </ul></li>
-<li>记录 <code>problem.solver_stats</code> 并基于统计调整
-<code>solver</code> 参数或改成软约束。</li>
+<li>记录 <code>problem.solver_stats</code> 并基于统计调整 <code>solver</code> 参数或改成软约束。</li>
 </ul></li>
 </ul>
 

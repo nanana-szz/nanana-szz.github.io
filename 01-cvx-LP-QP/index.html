@@ -19,12 +19,12 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="CVX 是 MATLAB 里的建模层：用接近数学形式的语句写出目标函数和约束，CVX 会把它转换成求解器（MOSEK &#x2F; SeDuMi &#x2F; SDPT3 等）能处理的标准形式，然后调用底层求解器求解。 这篇博客用两个二维决策变量的小例子串起来：  线性规划（LP，Linear Programming）：如何在 MATLAB 中用 CVX 调用 MOSEK（也给出如何切换到 SeDuM">
+    <meta name="description" content="CVX 是 MATLAB 里的建模层：用接近数学形式的语句写出目标函数和约束，CVX 会把它转换成求解器（MOSEK &#x2F; SeDuMi &#x2F; SDPT3 等）能处理的标准形式，然后调用底层求解器求解。 这篇博客用两个二维决策变量的小例子串起来：  线性规划（LP，Linear Programming）：如何在 MATLAB 中用 CVX 调用 MOSEK（也给出如何切换到 SeDuMi &#x2F; SD">
 <meta property="og:type" content="article">
 <meta property="og:title" content="用 MATLAB + CVX 调用 MOSEK&#x2F;SeDuMi&#x2F;SDPT3 求解二维 LP 与 QP，并读懂命令行输出">
 <meta property="og:url" content="https://nanana-szz.github.io/01-cvx-LP-QP/index.html">
 <meta property="og:site_name" content="远大前程">
-<meta property="og:description" content="CVX 是 MATLAB 里的建模层：用接近数学形式的语句写出目标函数和约束，CVX 会把它转换成求解器（MOSEK &#x2F; SeDuMi &#x2F; SDPT3 等）能处理的标准形式，然后调用底层求解器求解。 这篇博客用两个二维决策变量的小例子串起来：  线性规划（LP，Linear Programming）：如何在 MATLAB 中用 CVX 调用 MOSEK（也给出如何切换到 SeDuM">
+<meta property="og:description" content="CVX 是 MATLAB 里的建模层：用接近数学形式的语句写出目标函数和约束，CVX 会把它转换成求解器（MOSEK &#x2F; SeDuMi &#x2F; SDPT3 等）能处理的标准形式，然后调用底层求解器求解。 这篇博客用两个二维决策变量的小例子串起来：  线性规划（LP，Linear Programming）：如何在 MATLAB 中用 CVX 调用 MOSEK（也给出如何切换到 SeDuMi &#x2F; SD">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nanana-szz.github.io/img/CO.png">
 <meta property="article:published_time" content="2026-01-08T01:00:00.000Z">
@@ -422,7 +422,7 @@
         aria-expanded="true"
       >
         优化方法
-        <span class="list-group-count">(2)</span>
+        <span class="list-group-count">(3)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -449,7 +449,7 @@
         aria-expanded="true"
       >
         优化基础
-        <span class="list-group-count">(2)</span>
+        <span class="list-group-count">(3)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -476,6 +476,15 @@
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">线性规划对偶性的直观理解：从上界到对偶定理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/03-gradient_descent/" title="重新审视 Gradient Descent 算法：原问题的逐次逼近求解"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">重新审视 Gradient Descent 算法：原问题的逐次逼近求解</span>
         </a>
       
     
@@ -506,17 +515,10 @@
             
               <div class="markdown-body">
                 
-                <p><code>CVX</code> 是 <code>MATLAB</code>
-里的<strong>建模层</strong>：用接近数学形式的语句写出目标函数和约束，<code>CVX</code>
-会把它转换成求解器（<code>MOSEK</code> / <code>SeDuMi</code> /
-<code>SDPT3</code> 等）能处理的标准形式，然后调用底层求解器求解。
-这篇博客用两个<strong>二维决策变量</strong>的小例子串起来：</p>
+                <p><code>CVX</code> 是 <code>MATLAB</code> 里的<strong>建模层</strong>：用接近数学形式的语句写出目标函数和约束，<code>CVX</code> 会把它转换成求解器（<code>MOSEK</code> / <code>SeDuMi</code> / <code>SDPT3</code> 等）能处理的标准形式，然后调用底层求解器求解。 这篇博客用两个<strong>二维决策变量</strong>的小例子串起来：</p>
 <ol type="1">
-<li>线性规划（LP，Linear Programming）：如何在 <code>MATLAB</code> 中用
-<code>CVX</code> 调用 <strong>MOSEK</strong>（也给出如何切换到
-<code>SeDuMi</code> / <code>SDPT3</code>）。</li>
-<li>二次规划（QP，Quadratic Programming）：如何用 <code>CVX</code>
-求解<strong>凸 QP</strong>。</li>
+<li>线性规划（LP，Linear Programming）：如何在 <code>MATLAB</code> 中用 <code>CVX</code> 调用 <strong>MOSEK</strong>（也给出如何切换到 <code>SeDuMi</code> / <code>SDPT3</code>）。</li>
+<li>二次规划（QP，Quadratic Programming）：如何用 <code>CVX</code> 求解<strong>凸 QP</strong>。</li>
 </ol>
 <hr />
 <h2 id="环境准备与基本流程">0. 环境准备与基本流程</h2>
@@ -527,19 +529,13 @@
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs matlab">cvx_begin<br>  cvx_solver mosek      <span class="hljs-comment">% 或 sdpt3 / sedumi ...</span><br>  variable x(<span class="hljs-number">2</span>)<br>  minimize( ... )<br>  subject to<br>      ...<br>cvx_end<br></code></pre></td></tr></table></figure>
 <ul>
 <li>想看求解器命令行输出：不要写 <code>cvx_begin quiet</code></li>
-<li>切换求解器：改 <code>cvx_solver mosek</code> /
-<code>cvx_solver sdpt3</code> / <code>cvx_solver sedumi</code>
+<li>切换求解器：改 <code>cvx_solver mosek</code> / <code>cvx_solver sdpt3</code> / <code>cvx_solver sedumi</code>
 <ul>
 <li>CVX 会在每个模型开始时读取当时的设置/或使用块内设置</li>
-<li>可以像上面这样写在 <code>cvx_begin ... cvx_end</code>
-里面，<strong>也可以在 <code>cvx_begin</code> 之前设置</strong>
+<li>可以像上面这样写在 <code>cvx_begin ... cvx_end</code> 里面，<strong>也可以在 <code>cvx_begin</code> 之前设置</strong>
 <ul>
-<li>写在 <code>cvx_begin ... cvx_end</code>
-里面：本次模型专用的设置，通常不会影响后面其他 <code>cvx_begin</code> 的
-<code>solver</code></li>
-<li>写在 <code>cvx_begin</code> 之前：全局设置，后面所有的
-<code>CVX</code> 模型默认都用它，直到再次 <code>cvx_solver xxx</code>
-改掉</li>
+<li>写在 <code>cvx_begin ... cvx_end</code> 里面：本次模型专用的设置，通常不会影响后面其他 <code>cvx_begin</code> 的 <code>solver</code></li>
+<li>写在 <code>cvx_begin</code> 之前：全局设置，后面所有的 <code>CVX</code> 模型默认都用它，直到再次 <code>cvx_solver xxx</code> 改掉</li>
 </ul></li>
 </ul></li>
 </ul></li>
@@ -547,8 +543,7 @@
 <hr />
 <h2 id="二维-lp-示例">1 二维 LP 示例</h2>
 <h3 id="问题定义">1.1 问题定义</h3>
-<p>令 <span class="math inline">\(x=[x_1,x_2]^\top \in
-\mathbb{R}^2\)</span>，考虑线性规划：</p>
+<p>令 <span class="math inline">\(x=[x_1,x_2]^\top \in \mathbb{R}^2\)</span>，考虑线性规划：</p>
 <p><span class="math display">\[\begin{eqnarray}
   \min_{x\in\mathbb{R}^2} \quad &amp;&amp;f(x)=x_1+2x_2
   \nonumber\\
@@ -595,12 +590,9 @@ b=
 <h3 id="matlabcvx-代码lp">1.2 MATLAB/CVX 代码（LP）</h3>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs matlab"><span class="hljs-comment">%% LP: minimize c&#x27;*x  s.t. A*x &lt;= b</span><br>clear; clc;<br><br>c = [<span class="hljs-number">1</span>;<span class="hljs-number">2</span>];<br>A = [ <span class="hljs-number">-1</span>  <span class="hljs-number">0</span>;<br>       <span class="hljs-number">0</span> <span class="hljs-number">-1</span>;<br>       <span class="hljs-number">1</span>  <span class="hljs-number">0</span>;<br>       <span class="hljs-number">0</span>  <span class="hljs-number">1</span>;<br>      <span class="hljs-number">-1</span> <span class="hljs-number">-1</span>;<br>       <span class="hljs-number">2</span>  <span class="hljs-number">1</span>;<br>       <span class="hljs-number">1</span>  <span class="hljs-number">2</span>];<br>b = [<span class="hljs-number">0</span>;<span class="hljs-number">0</span>;<span class="hljs-number">2</span>;<span class="hljs-number">2</span>;<span class="hljs-number">-1</span>;<span class="hljs-number">3</span>;<span class="hljs-number">3.5</span>];<br><br><span class="hljs-comment">% 选择求解器（可改成 sedumi / sdpt3）</span><br>cvx_solver mosek<br><br>cvx_begin<br>    variable x(<span class="hljs-number">2</span>)<br>    minimize( c&#x27; * x )<br>    subject to<br>        A*x &lt;= b<br>cvx_end<br><br>fprintf(<span class="hljs-string">&#x27;CVX optimum: x = [%.8f, %.8f]^T, f = %.8f\n&#x27;</span>, x(<span class="hljs-number">1</span>), x(<span class="hljs-number">2</span>), cvx_optval);<br></code></pre></td></tr></table></figure>
 <hr />
-<h2 id="二维-qp-示例cvx-求解凸二次规划">2 二维 QP 示例：CVX
-求解凸二次规划</h2>
+<h2 id="二维-qp-示例cvx-求解凸二次规划">2 二维 QP 示例：CVX 求解凸二次规划</h2>
 <h3 id="问题定义-1">2.1 问题定义</h3>
-<p>这里给一个<strong>凸</strong>二次目标（<span
-class="math inline">\(Q\succeq
-0\)</span>），线性约束与上面类似，方便对比：</p>
+<p>这里给一个<strong>凸</strong>二次目标（<span class="math inline">\(Q\succeq 0\)</span>），线性约束与上面类似，方便对比：</p>
 <p><span class="math display">\[\begin{equation}
   \min_{x\in\mathbb{R}^2} \quad \frac{1}{2}x^\top Qx + q^\top x
 \end{equation}\]</span></p>
@@ -616,11 +608,9 @@ q=
 -6
 \end{bmatrix}.
 \end{equation}\]</span></p>
-<p>约束仍取一个有界可行域（线性约束）： <span
-class="math display">\[\begin{equation}
+<p>约束仍取一个有界可行域（线性约束）： <span class="math display">\[\begin{equation}
   Ax\le b,
-\end{equation}\]</span> 其中， <span
-class="math display">\[\begin{equation}
+\end{equation}\]</span> 其中， <span class="math display">\[\begin{equation}
   A =\begin{bmatrix}
   -1&amp;0\\
   0&amp;-1\\
@@ -646,16 +636,12 @@ class="math display">\[\begin{equation}
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs matlab"><span class="hljs-comment">%% QP: minimize 0.5*x&#x27;*Q*x + q&#x27;*x  s.t. A*x &lt;= b</span><br>clear; clc;<br><br>Q = [<span class="hljs-number">2</span> <span class="hljs-number">0</span>; <span class="hljs-number">0</span> <span class="hljs-number">4</span>];   <span class="hljs-comment">% 正定 -&gt; 凸</span><br>q = [<span class="hljs-number">-2</span>; <span class="hljs-number">-6</span>];<br><br>A = [ <span class="hljs-number">-1</span>  <span class="hljs-number">0</span>;<br>       <span class="hljs-number">0</span> <span class="hljs-number">-1</span>;<br>       <span class="hljs-number">1</span>  <span class="hljs-number">0</span>;<br>       <span class="hljs-number">0</span>  <span class="hljs-number">1</span>;<br>      <span class="hljs-number">-1</span> <span class="hljs-number">-1</span>;<br>       <span class="hljs-number">2</span>  <span class="hljs-number">1</span>;<br>       <span class="hljs-number">1</span>  <span class="hljs-number">2</span>];<br>b = [<span class="hljs-number">0</span>;<span class="hljs-number">0</span>;<span class="hljs-number">2</span>;<span class="hljs-number">2</span>;<span class="hljs-number">-1</span>;<span class="hljs-number">3</span>;<span class="hljs-number">3.5</span>];<br><br><span class="hljs-comment">% 你可以试：mosek / sedumi / sdpt3</span><br>cvx_solver mosek<br><br>cvx_begin<br>    variable x(<span class="hljs-number">2</span>)<br>    minimize( <span class="hljs-number">0.5</span>*quad_form(x,Q) + q&#x27;*x )<br>    subject to<br>        A*x &lt;= b<br>cvx_end<br><br>fprintf(<span class="hljs-string">&#x27;CVX optimum (QP): x = [%.8f, %.8f]^T, f = %.8f\n&#x27;</span>, x(<span class="hljs-number">1</span>), x(<span class="hljs-number">2</span>), cvx_optval);<br></code></pre></td></tr></table></figure>
 <hr />
 <h2 id="不同求解器命令行输出">3 不同求解器命令行输出</h2>
-<p>用 <code>Matlab</code> 的 <code>CVX</code> 工具箱求解该 <strong>LP
-问题</strong>之后命令行输出的前两行结构类似，均为：</p>
+<p>用 <code>Matlab</code> 的 <code>CVX</code> 工具箱求解该 <strong>LP 问题</strong>之后命令行输出的前两行结构类似，均为：</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">Calling (MOSEK / SeDuMi / SDPT3) (版本号): 7 variables, 2 equality constraints<br>   For improved efficiency, (MOSEK / SeDuMi / SDPT3) is solving the dual problem.<br>------------------------------------------------------------<br></code></pre></td></tr></table></figure>
 <ul>
 <li><p>这两行：<code>CVX</code> 打印的（不是求解器）</p></li>
-<li><p><strong>为什么会出现
-<code>7 variables, 2 equality constraints</code>，而原问题只有 2
-个变量？</strong></p></li>
-<li><p>因为 <code>CVX</code> 会把你写的形式 <span
-class="math inline">\(Ax ≤ b\)</span> 做等价变换后再交给求解器</p></li>
+<li><p><strong>为什么会出现 <code>7 variables, 2 equality constraints</code>，而原问题只有 2 个变量？</strong></p></li>
+<li><p>因为 <code>CVX</code> 会把你写的形式 <span class="math inline">\(Ax ≤ b\)</span> 做等价变换后再交给求解器</p></li>
 <li><p>对 LP 来说，最典型的是交给求解器的是对偶问题：</p>
 <ul>
 <li>原问题（primal）：</li>
@@ -668,17 +654,12 @@ class="math inline">\(Ax ≤ b\)</span> 做等价变换后再交给求解器</p>
 \max\ -b^\top y\quad \text{s.t.}\ A^\top y + c = 0,\ y\ge 0
 \]</span>
 <ul>
-<li>这里 <span class="math inline">\(y \in
-\mathbb{R}^7\)</span>：<strong>每条不等式约束对应一个对偶变量</strong>
-<span class="math inline">\(\to\)</span> <code>7 variables</code></li>
-<li>约束 <span class="math inline">\(A^\top y + c = 0\)</span> 是 2
-维向量等式 <span class="math inline">\(\to\)</span>
-<code>2 equality constraints</code></li>
+<li>这里 <span class="math inline">\(y \in \mathbb{R}^7\)</span>：<strong>每条不等式约束对应一个对偶变量</strong> <span class="math inline">\(\to\)</span> <code>7 variables</code></li>
+<li>约束 <span class="math inline">\(A^\top y + c = 0\)</span> 是 2 维向量等式 <span class="math inline">\(\to\)</span> <code>2 equality constraints</code></li>
 </ul></li>
 </ul></li>
 </ul>
-<p>下面贴出三种不同求解器（<code>MOSEK</code> / <code>SeDuMi</code> /
-<code>SDPT3</code>）其余行的输出，再逐块进行解释。</p>
+<p>下面贴出三种不同求解器（<code>MOSEK</code> / <code>SeDuMi</code> / <code>SDPT3</code>）其余行的输出，再逐块进行解释。</p>
 <div class="tag-common tabs" id="命令行输出含义解释"><ul class="nav-tabs"><li class="tab active"><a data-target="命令行输出含义解释-1">A. MOSEK 输出</a></li><li class="tab"><a data-target="命令行输出含义解释-2">B. SeDuMi 输出</a></li><li class="tab"><a data-target="命令行输出含义解释-3">C. SDPT3 输出</a></li></ul><div class="tab-content"><div class="tab-pane active" id="命令行输出含义解释-1"><details>
 <summary>
 点击展开：MOSEK 求解 LP 的命令行输出
@@ -695,26 +676,19 @@ class="math inline">\(Ax ≤ b\)</span> 做等价变换后再交给求解器</p>
 </ul></li>
 <li><p>Presolve 块</p>
 <ul>
-<li><code>Presolve / Linear dependency checker / Eliminator</code>：预处理（去冗余、检查线性相关、尝试消去变量等）。这个问题很小，所以时间基本是
-0。</li>
+<li><code>Presolve / Linear dependency checker / Eliminator</code>：预处理（去冗余、检查线性相关、尝试消去变量等）。这个问题很小，所以时间基本是 0。</li>
 </ul></li>
 <li><p>Optimizer / Factor</p>
 <ul>
-<li><p><code>Optimizer - threads : 16</code>：MOSEK 使用的
-<code>CPU</code> 线程数（并行数）</p></li>
-<li><p><code>Optimizer - solved problem : the primal</code>：MOSEK
-在内部选择以 primal 形式驱动内点法</p>
+<li><p><code>Optimizer - threads : 16</code>：MOSEK 使用的 <code>CPU</code> 线程数（并行数）</p></li>
+<li><p><code>Optimizer - solved problem : the primal</code>：MOSEK 在内部选择以 primal 形式驱动内点法</p>
 <ul>
-<li>这说的是<strong>MOSEK 当前拿到的模型</strong>的 primal/dual
-选择；不等同于<strong>原始建模问题</strong>的 primal/dual</li>
+<li>这说的是<strong>MOSEK 当前拿到的模型</strong>的 primal/dual 选择；不等同于<strong>原始建模问题</strong>的 primal/dual</li>
 </ul></li>
 <li><p><code>Optimizer - Constraints / Scalar variables / Cones ...</code>：再次汇总求解阶段实际处理的模型规模</p></li>
-<li><p><code>Factor - setup time ...</code> /
-<code>order time ...</code>：内点法每次迭代都需要解一组 <strong>KKT
-线性方程组</strong>（一阶最优条件线性化后的方程）</p>
+<li><p><code>Factor - setup time ...</code> / <code>order time ...</code>：内点法每次迭代都需要解一组 <strong>KKT 线性方程组</strong>（一阶最优条件线性化后的方程）</p>
 <ul>
-<li>MOSEK 会对该线性系统做稀疏分解，<code>setup/order time</code>
-是分解准备和排序（重排以减少填充）的时间统计</li>
+<li>MOSEK 会对该线性系统做稀疏分解，<code>setup/order time</code> 是分解准备和排序（重排以减少填充）的时间统计</li>
 </ul></li>
 <li><p><code>Factor - nonzeros before factor : 3  after factor : 3</code>：分解前/后的非零元数量统计（体现稀疏结构与“填充”程度）</p>
 <ul>
@@ -725,40 +699,30 @@ class="math inline">\(Ax ≤ b\)</span> 做等价变换后再交给求解器</p>
 <li><p>迭代表</p>
 <ul>
 <li><p><strong><code>ITE</code></strong>：内点法迭代步</p></li>
-<li><p><strong><code>PFEAS / DFEAS</code></strong>：原始/对偶可行性残差（越接近
-<span class="math inline">\(0\)</span> 越好）</p></li>
-<li><p><strong><code>GFEAS</code></strong>：与互补性/间隙相关的残差指标（越接近
-<span class="math inline">\(0\)</span> 越好）</p></li>
-<li><p><strong><code>PRSTATUS</code></strong>：一个“状态指标”，如果问题有最优解它会趋近于
-1；否则可能趋近 -1</p></li>
+<li><p><strong><code>PFEAS / DFEAS</code></strong>：原始/对偶可行性残差（越接近 <span class="math inline">\(0\)</span> 越好）</p></li>
+<li><p><strong><code>GFEAS</code></strong>：与互补性/间隙相关的残差指标（越接近 <span class="math inline">\(0\)</span> 越好）</p></li>
+<li><p><strong><code>PRSTATUS</code></strong>：一个“状态指标”，如果问题有最优解它会趋近于 1；否则可能趋近 -1</p></li>
 <li><p><strong><code>POBJ / DOBJ</code></strong>：原始/对偶目标值估计（收敛时两者几乎相等）</p></li>
-<li><p><strong><code>MU</code></strong>：障碍参数/互补性量级（应趋近
-0）</p>
+<li><p><strong><code>MU</code></strong>：障碍参数/互补性量级（应趋近 0）</p>
 <ul>
 <li>上面这段输出中，迭代到第 5 步：
 <ul>
-<li><strong><code>PFEAS/DFEAS/GFEAS</code></strong> 都到 <span
-class="math inline">\(10^{-11}\sim10^{-12}\)</span></li>
-<li><strong><code>POBJ</code></strong> =
-<strong><code>DOBJ</code></strong> = <span
-class="math inline">\(1.0\)</span>
-说明<strong>收敛到最优</strong>。</li>
+<li><strong><code>PFEAS/DFEAS/GFEAS</code></strong> 都到 <span class="math inline">\(10^{-11}\sim10^{-12}\)</span></li>
+<li><strong><code>POBJ</code></strong> = <strong><code>DOBJ</code></strong> = <span class="math inline">\(1.0\)</span> 说明<strong>收敛到最优</strong>。</li>
 </ul></li>
 </ul></li>
 </ul></li>
 <li><p>Basis identification</p>
 <ul>
 <li>这是一段<strong>后处理</strong>：内点法解出来的解不一定是<strong>基解</strong></li>
-<li><code>MOSEK</code> 会尝试构造一个最优基（方便 simplex
-热启动/敏感性分析等）</li>
+<li><code>MOSEK</code> 会尝试构造一个最优基（方便 simplex 热启动/敏感性分析等）</li>
 </ul></li>
 <li><p>Solution summary</p>
 <ul>
 <li><code>Problem status : PRIMAL_AND_DUAL_FEASIBLE</code>：原始和对偶都可行</li>
 <li><code>Solution status : OPTIMAL</code>：最优</li>
 <li><code>Primal/Dual obj</code>：原始/对偶目标值（两者应一致或非常接近）</li>
-<li><code>nrm</code>：解向量的无穷范数（MOSEK
-用它作为“规模量级”参考）</li>
+<li><code>nrm</code>：解向量的无穷范数（MOSEK 用它作为“规模量级”参考）</li>
 <li><code>Viol. con / var</code>：约束/变量违反量（应接近 0）</li>
 </ul></li>
 </ol></div><div class="tab-pane" id="命令行输出含义解释-2"><details>
@@ -773,8 +737,7 @@ class="math inline">\(1.0\)</span>
 <ul>
 <li><code>Alg = 2: xz-corrector, Adaptive Step-Differentiation, theta = 0.250, beta = 0.500</code>：
 <ul>
-<li><code>Alg=2</code>：使用 <strong>内点法</strong> 的一种实现（带
-<strong>预测-校正/纠正器</strong>，这里标成 <em>xz-corrector</em>）</li>
+<li><code>Alg=2</code>：使用 <strong>内点法</strong> 的一种实现（带 <strong>预测-校正/纠正器</strong>，这里标成 <em>xz-corrector</em>）</li>
 <li><code>Adaptive Step-Differentiation</code>：步长/更新策略是自适应的（更稳、更快收敛）</li>
 <li><code>theta, beta</code>：算法内部的参数（影响步长与中心化程度），通常用户不需要改</li>
 </ul></li>
@@ -785,22 +748,16 @@ class="math inline">\(1.0\)</span>
 <ul>
 <li><code>m=2</code>：等式约束数量（求解器标准化后形式里的等式条数）</li>
 <li><code>n=8 / dim=8</code>：标准化后变量（或锥变量）维度规模</li>
-<li><code>blocks=1</code>：锥/块结构只有 1
-个块（例如一个线性锥块或合并成一个块）</li>
+<li><code>blocks=1</code>：锥/块结构只有 1 个块（例如一个线性锥块或合并成一个块）</li>
 </ul></li>
 </ul></li>
 <li>稀疏性与线性代数工作量提示
 <ul>
 <li><code>nnz(A) = 10 + 0, nnz(ADA) = 4, nnz(L) = 3</code>：
 <ul>
-<li><code>nnz(A)</code>：约束矩阵 <strong>A
-的非零元素个数</strong>（<code>10+0</code>
-常见表示主块+附加块/修正块，关键是稀疏度级别）</li>
-<li><code>nnz(ADA)</code>：形成/使用的 <strong>正规方程/Schur
-补矩阵</strong>（常记作 (A D
-A^)）的非零数，反映求解线性系统的“密度”</li>
-<li><code>nnz(L)</code>：Cholesky 分解得到的 <strong>下三角因子 L
-的非零数</strong>（越小越省时省内存）</li>
+<li><code>nnz(A)</code>：约束矩阵 <strong>A 的非零元素个数</strong>（<code>10+0</code> 常见表示主块+附加块/修正块，关键是稀疏度级别）</li>
+<li><code>nnz(ADA)</code>：形成/使用的 <strong>正规方程/Schur 补矩阵</strong>（常记作 (A D A^)）的非零数，反映求解线性系统的“密度”</li>
+<li><code>nnz(L)</code>：Cholesky 分解得到的 <strong>下三角因子 L 的非零数</strong>（越小越省时省内存）</li>
 </ul></li>
 </ul></li>
 <li>迭代表
@@ -808,20 +765,13 @@ A^)）的非零数，反映求解线性系统的“密度”</li>
 <li><code>it : b*y gap delta rate t/tP* t/tD* feas cg cg prec</code>：
 <ul>
 <li><code>it</code>：迭代次数</li>
-<li><code>b*y</code>：对偶目标值（通常是 <span
-class="math inline">\(b^\top y\)</span> 的当前值）</li>
-<li><code>gap</code>：原始-对偶
-<strong>对偶间隙</strong>（衡量离最优还有多远，越接近 0 越好）</li>
-<li><code>delta</code>：当前迭代的某种残差/扰动指标（很多时候显示为 0
-表示无需额外修正或已很小）</li>
-<li><code>rate</code>：gap
-等量的收敛比率/下降速度指标（越小通常代表下降更快）</li>
-<li><code>t/tP*</code>、<code>t/tD*</code>：原始/对偶方向的步长比例（接近
-1 通常表示可以走较大步，进展顺利）</li>
-<li><code>feas</code>：可行性/残差的量级指标（越接近 1
-或越小越好，取决于 SeDuMi 的定义；结合最后的残差行看最可靠）</li>
-<li><code>cg cg</code>：是否使用/以及共轭梯度(CG)相关信息（这里基本一直是
-1，表示该步的线性系统解法状态正常）</li>
+<li><code>b*y</code>：对偶目标值（通常是 <span class="math inline">\(b^\top y\)</span> 的当前值）</li>
+<li><code>gap</code>：原始-对偶 <strong>对偶间隙</strong>（衡量离最优还有多远，越接近 0 越好）</li>
+<li><code>delta</code>：当前迭代的某种残差/扰动指标（很多时候显示为 0 表示无需额外修正或已很小）</li>
+<li><code>rate</code>：gap 等量的收敛比率/下降速度指标（越小通常代表下降更快）</li>
+<li><code>t/tP*</code>、<code>t/tD*</code>：原始/对偶方向的步长比例（接近 1 通常表示可以走较大步，进展顺利）</li>
+<li><code>feas</code>：可行性/残差的量级指标（越接近 1 或越小越好，取决于 SeDuMi 的定义；结合最后的残差行看最可靠）</li>
+<li><code>cg cg</code>：是否使用/以及共轭梯度(CG)相关信息（这里基本一直是 1，表示该步的线性系统解法状态正常）</li>
 <li><code>prec</code>：预条件/精度相关指标（数值越小通常表示更精）</li>
 </ul></li>
 </ul></li>
@@ -829,19 +779,14 @@ class="math inline">\(b^\top y\)</span> 的当前值）</li>
 <ul>
 <li><code>iter=3</code>：用了 3 次内点迭代</li>
 <li><code>digits=Inf</code>：达到非常高的数值精度/收敛判据（可理解为<em>收敛很好</em>）</li>
-<li><code>c*x 与 b*y 相等</code>：原始目标 <span
-class="math inline">\(c^\top x\)</span> 和对偶目标 <span
-class="math inline">\(b^\top y\)</span> 一致（强收敛信号，对偶间隙基本为
-0）</li>
+<li><code>c*x 与 b*y 相等</code>：原始目标 <span class="math inline">\(c^\top x\)</span> 和对偶目标 <span class="math inline">\(b^\top y\)</span> 一致（强收敛信号，对偶间隙基本为 0）</li>
 </ul></li>
 <li>残差与解的规模检查
 <ul>
 <li><code>|Ax-b| = 2.3e-16, [Ay-c]_+ = 0.0E+00, |x|=1.4e+00, |y|=1.0e+00</code>：
 <ul>
-<li><code>|Ax-b|</code>：<strong>原始等式残差</strong>，越近似
-0，越说明原始可行性极好</li>
-<li><code>[Ay-c]_+</code>：对偶不等式的<strong>正部违反量</strong>（常用于衡量对偶可行性），为
-0 表示对偶可行</li>
+<li><code>|Ax-b|</code>：<strong>原始等式残差</strong>，越近似 0，越说明原始可行性极好</li>
+<li><code>[Ay-c]_+</code>：对偶不等式的<strong>正部违反量</strong>（常用于衡量对偶可行性），为 0 表示对偶可行</li>
 <li><code>|x|, |y|</code>：解向量的范数大小，主要用于观察解是否<em>爆炸/异常大</em></li>
 </ul></li>
 </ul></li>
@@ -851,21 +796,18 @@ class="math inline">\(b^\top y\)</span> 一致（强收敛信号，对偶间隙�
 <ul>
 <li><code>Pre</code>：预处理/建模转换、消元、缩放等耗时</li>
 <li><code>IPM</code>：内点法主迭代耗时（解线性系统是大头）</li>
-<li><code>Post</code>：后处理/恢复原变量、输出整理耗时 &gt;
-这块用于判断时间花在哪：建模预处理 vs 主求解</li>
+<li><code>Post</code>：后处理/恢复原变量、输出整理耗时 &gt; 这块用于判断时间花在哪：建模预处理 vs 主求解</li>
 </ul></li>
 </ul></li>
 <li>规模与分解信息（数值线性代数提示）
 <ul>
 <li><code>Max-norms: ||b||=2, ||c|| = 2,</code>：
 <ul>
-<li>(b, c)
-的最大范数规模，用于判断数值尺度是否正常（过大/过小可能导致病态）</li>
+<li>(b, c) 的最大范数规模，用于判断数值尺度是否正常（过大/过小可能导致病态）</li>
 </ul></li>
 <li><code>Cholesky |add|=0, |skip| = 0, ||L.L|| = 1.</code>：
 <ul>
-<li>Cholesky 分解时 <strong>没有额外填充(add)</strong>、也没有跳过(skip)
-—— 说明分解过程顺利稳定</li>
+<li>Cholesky 分解时 <strong>没有额外填充(add)</strong>、也没有跳过(skip) —— 说明分解过程顺利稳定</li>
 <li><code>||L.L||</code>：分解因子的量级提示（这里为 1，尺度正常）</li>
 </ul></li>
 </ul></li>
@@ -878,20 +820,15 @@ class="math inline">\(b^\top y\)</span> 一致（强收敛信号，对偶间隙�
 <ol type="1">
 <li>规模概览
 <ul>
-<li><code>num. of constraints =  2</code>：SDPT3
-接收到的<strong>等式约束数量</strong>（通常是 CVX 标准化后的形式）</li>
-<li><code>dim. of linear var  =  7</code>：SDPT3
-标准形式中的<strong>线性锥/线性部分变量维度</strong>（不一定等于原始 LP
-的变量个数，是 CVX 转换后的维度）</li>
+<li><code>num. of constraints =  2</code>：SDPT3 接收到的<strong>等式约束数量</strong>（通常是 CVX 标准化后的形式）</li>
+<li><code>dim. of linear var  =  7</code>：SDPT3 标准形式中的<strong>线性锥/线性部分变量维度</strong>（不一定等于原始 LP 的变量个数，是 CVX 转换后的维度）</li>
 </ul></li>
 <li>求解器与算法类型提示（横幅）
 <ul>
 <li><code>SDPT3: Infeasible path-following algorithms</code>：
 <ul>
-<li>说明 SDPT3 使用的是一类<strong>内点法（路径跟随,
-path-following）</strong>实现</li>
-<li>这里的 <strong>“Infeasible”
-是算法名</strong>（允许从不可行初始点出发并逐步逼近可行/最优），<strong>不表示该问题不可行</strong></li>
+<li>说明 SDPT3 使用的是一类<strong>内点法（路径跟随, path-following）</strong>实现</li>
+<li>这里的 <strong>“Infeasible” 是算法名</strong>（允许从不可行初始点出发并逐步逼近可行/最优），<strong>不表示该问题不可行</strong></li>
 </ul></li>
 </ul></li>
 <li>关键算法开关/参数
@@ -908,15 +845,12 @@ path-following）</strong>实现</li>
 <li><code>it pstep dstep pinfeas dinfeas gap prim-obj dual-obj cputime ... chol 1 1</code>：
 <ul>
 <li><code>it</code>：迭代次数</li>
-<li><code>pstep / dstep</code>：本次迭代的<strong>原始/对偶步长</strong>（越接近
-1 通常越顺利）</li>
+<li><code>pstep / dstep</code>：本次迭代的<strong>原始/对偶步长</strong>（越接近 1 通常越顺利）</li>
 <li><code>pinfeas / dinfeas</code>：原始/对偶<strong>不可行度（残差）</strong>，越小越好</li>
 <li><code>gap</code>：<strong>对偶间隙</strong>（离最优的差距），越小越好</li>
-<li><code>prim-obj / dual-obj</code>：当前<strong>原始目标值 /
-对偶目标值</strong>（收敛时应非常接近）</li>
+<li><code>prim-obj / dual-obj</code>：当前<strong>原始目标值 / 对偶目标值</strong>（收敛时应非常接近）</li>
 <li><code>cputime</code>：累计耗时</li>
-<li><code>chol 1 1</code>：该迭代主要线性代数步骤采用 <strong>Cholesky
-分解</strong>（后面的数字是内部状态/标记）</li>
+<li><code>chol 1 1</code>：该迭代主要线性代数步骤采用 <strong>Cholesky 分解</strong>（后面的数字是内部状态/标记）</li>
 </ul></li>
 <li>迭代过程主要看三件事是否<strong>单调变好</strong>：
 <ol type="1">
@@ -924,28 +858,21 @@ path-following）</strong>实现</li>
 <li><code>gap</code> 快速变小到很小（逼近最优）</li>
 <li><code>prim-obj 与 dual-obj</code> 越来越接近（原始/对偶一致性）</li>
 </ol></li>
-<li>停止条件
-<code>stop: max(relative gap, infeasibilities) &lt; 1.49e-08</code>：
+<li>停止条件 <code>stop: max(relative gap, infeasibilities) &lt; 1.49e-08</code>：
 <ul>
-<li>停止判据：<strong>相对 gap</strong> 和 <strong>不可行度</strong>
-的最大值已经小于阈值 <span class="math inline">\(1.49\times
-10^{-8}\)</span>，所以认为收敛</li>
+<li>停止判据：<strong>相对 gap</strong> 和 <strong>不可行度</strong> 的最大值已经小于阈值 <span class="math inline">\(1.49\times 10^{-8}\)</span>，所以认为收敛</li>
 </ul></li>
 </ul></li>
 <li>收敛总结
 <ul>
 <li><code>primal / dual objective value = ...</code>：<strong>原始/对偶目标值</strong>，最终非常接近（说明解已稳定）</li>
-<li><code>gap = trace(XZ)</code>：SDP/锥规划语境下的互补性度量（对 LP
-的锥形式也适用），<strong>越接近 <span class="math inline">\(0\)</span>
-越好</strong></li>
-<li><code>relative gap / actual relative gap</code>：gap
-的相对指标（越接近 <span class="math inline">\(0\)</span> 越好）</li>
+<li><code>gap = trace(XZ)</code>：SDP/锥规划语境下的互补性度量（对 LP 的锥形式也适用），<strong>越接近 <span class="math inline">\(0\)</span> 越好</strong></li>
+<li><code>relative gap / actual relative gap</code>：gap 的相对指标（越接近 <span class="math inline">\(0\)</span> 越好）</li>
 </ul></li>
 <li>可行性指标（scaled / unscaled）
 <ul>
 <li><code>rel. primal(dual) infeas (scaled problem)</code>：若内部做了缩放/等价变换，给出在该尺度下的残差</li>
-<li><code>rel. primal(dual) infeas (unscaled problem)</code>：对应原尺度（或恢复后）的残差；这为
-0 表示恢复到原问题尺度后可行性很好</li>
+<li><code>rel. primal(dual) infeas (unscaled problem)</code>：对应原尺度（或恢复后）的残差；这为 0 表示恢复到原问题尺度后可行性很好</li>
 </ul></li>
 <li>范数信息（量级检查）
 <ul>
@@ -958,56 +885,40 @@ path-following）</strong>实现</li>
 <li>时间与退出码
 <ul>
 <li><code>Total CPU time ... / per iteration ...</code>：<strong>总耗时/每步耗时</strong></li>
-<li><code>termination code = 0</code>：正常收敛结束（一般 0
-表示成功）</li>
+<li><code>termination code = 0</code>：正常收敛结束（一般 0 表示成功）</li>
 </ul></li>
 <li>DIMACS 误差向量
 <ul>
-<li>一组标准化的<strong>误差/残差度量</strong>（DIMACS
-指标），用于统一评价原始可行、对偶可行、互补性等。</li>
+<li>一组标准化的<strong>误差/残差度量</strong>（DIMACS 指标），用于统一评价原始可行、对偶可行、互补性等。</li>
 <li><strong>数值越小越好</strong></li>
 </ul></li>
 </ol></div></div></div>
-<p>用 <code>Matlab</code> 的 <code>CVX</code> 工具箱求解该 <strong>LP
-问题</strong>之后命令行输出的最后两行均为：</p>
+<p>用 <code>Matlab</code> 的 <code>CVX</code> 工具箱求解该 <strong>LP 问题</strong>之后命令行输出的最后两行均为：</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs matlab">------------------------------------------------------------<br>Status: Solved<br>Optimal value (cvx_optval): +<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
 <ul>
-<li><p><code>Status: Solved</code>：CVX
-的最终状态，问题已被成功求解并满足其收敛/可行性判据（不是“尝试过”，而是认为已找到可接受的最优解）。</p></li>
-<li><p><code>Optimal value (cvx_optval): +1</code>：CVX
-记录的最优目标函数值，存放在变量 <code>cvx_optval</code> 里。 这里等于
-+1，即定义的目标函数在最优解处的值为 1（符号 “+”
-只是显示格式）。</p></li>
+<li><p><code>Status: Solved</code>：CVX 的最终状态，问题已被成功求解并满足其收敛/可行性判据（不是“尝试过”，而是认为已找到可接受的最优解）。</p></li>
+<li><p><code>Optimal value (cvx_optval): +1</code>：CVX 记录的最优目标函数值，存放在变量 <code>cvx_optval</code> 里。 这里等于 +1，即定义的目标函数在最优解处的值为 1（符号 “+” 只是显示格式）。</p></li>
 </ul>
 <hr />
-<h2 id="求解-qp二次规划时命令行输出会有什么变化">4 求解
-QP（二次规划）时，命令行输出会有什么变化？</h2>
+<h2 id="求解-qp二次规划时命令行输出会有什么变化">4 求解 QP（二次规划）时，命令行输出会有什么变化？</h2>
 <p><strong>通常</strong>会有如下变化：</p>
 <ol type="1">
 <li><p><strong>MOSEK</strong></p>
 <ul>
-<li><code>Type</code> 往往不再是
-<code>LO</code>，而会显示为<code>CONIC (conic optimization problem)</code>。</li>
-<li>迭代表依然会有 PFEAS/DFEAS/POBJ/DOBJ/MU
-这类列（内点法风格非常像）。</li>
+<li><code>Type</code> 往往不再是 <code>LO</code>，而会显示为<code>CONIC (conic optimization problem)</code>。</li>
+<li>迭代表依然会有 PFEAS/DFEAS/POBJ/DOBJ/MU 这类列（内点法风格非常像）。</li>
 </ul></li>
 <li><p><strong>SeDuMi / SDPT3</strong></p>
 <ul>
-<li>由于它们本质上解的是<strong>锥规划</strong>，CVX 会把 QP
-的二次目标转成等价的锥形式（常见是 SOC/旋转二次锥）。</li>
-<li>因此日志里经常能看到：锥维度/块结构发生变化（例如 cone
-blocks、dim/order
-等统计改变），迭代列名依旧类似（gap、feas、pinfeas、dinfeas 等）。</li>
+<li>由于它们本质上解的是<strong>锥规划</strong>，CVX 会把 QP 的二次目标转成等价的锥形式（常见是 SOC/旋转二次锥）。</li>
+<li>因此日志里经常能看到：锥维度/块结构发生变化（例如 cone blocks、dim/order 等统计改变），迭代列名依旧类似（gap、feas、pinfeas、dinfeas 等）。</li>
 </ul></li>
 </ol>
 <hr />
-<h2 id="在使用-mosek-求解器时遇到的问题">5 在使用 MOSEK
-求解器时遇到的问题</h2>
-<h3 id="检测到线性相关但-presolve-后约束数仍显示不变">检测到线性相关，但
-Presolve 后约束数仍显示不变</h3>
+<h2 id="在使用-mosek-求解器时遇到的问题">5 在使用 MOSEK 求解器时遇到的问题</h2>
+<h3 id="检测到线性相关但-presolve-后约束数仍显示不变">检测到线性相关，但 Presolve 后约束数仍显示不变</h3>
 <h4 id="现象">现象</h4>
-<p>在用 CVX + MOSEK 求解某个 LP
-的对偶问题时，命令行输出中会出现类似信息：</p>
+<p>在用 CVX + MOSEK 求解某个 LP 的对偶问题时，命令行输出中会出现类似信息：</p>
 <ul>
 <li><p><code>Linear dependency checker started/terminated</code></p></li>
 <li><p><code>Lin. dep. - number : 1</code></p></li>
@@ -1017,48 +928,34 @@ Presolve 后约束数仍显示不变</h3>
 <li>并且 <code>Freed constraints in eliminator : 0</code></li>
 </ul></li>
 </ul>
-<p>与此同时，从数学形式上看，该对偶模型的三条不等式约束中，第 3
-条确实可由前两条线性组合得到，例如：</p>
+<p>与此同时，从数学形式上看，该对偶模型的三条不等式约束中，第 3 条确实可由前两条线性组合得到，例如：</p>
 <ul>
-<li>(c1) 形如：<span class="math display">\[ a^\top y \le 1
-\]</span></li>
-<li>(c2) 形如：<span class="math display">\[ b^\top y \le 2
-\]</span></li>
-<li>(c3) 形如：<span class="math display">\[ (a+b)^\top y \le 3
-\]</span></li>
+<li>(c1) 形如：<span class="math display">\[ a^\top y \le 1 \]</span></li>
+<li>(c2) 形如：<span class="math display">\[ b^\top y \le 2 \]</span></li>
+<li>(c3) 形如：<span class="math display">\[ (a+b)^\top y \le 3 \]</span></li>
 </ul>
 <p>显然 (c3) = (c1)+(c2)，因此 <strong>(c3) 是冗余不等式</strong>。</p>
 <hr />
 <h4 id="为什么会这样">为什么会这样？</h4>
-<p><strong>MOSEK 日志里的 <code>Constraints : 3</code>
-表示模型里线性约束的“行数”，并不等价于“线性无关约束的数量/约束矩阵的秩”。</strong></p>
+<p><strong>MOSEK 日志里的 <code>Constraints : 3</code> 表示模型里线性约束的“行数”，并不等价于“线性无关约束的数量/约束矩阵的秩”。</strong></p>
 <ul>
 <li>即便存在冗余或线性相关，日志摘要仍可能显示原来的约束条数。</li>
 </ul>
-<p>更重要的是： MOSEK 的 <strong>linear dependency checker</strong>
-主要针对的是<strong>线性等式</strong>（或能导致 KKT
-系统奇异的那类依赖）去做秩相关的处理；而这里的相关性发生在
-<strong>不等式</strong> 之间。对于不等式来说：</p>
+<p>更重要的是： MOSEK 的 <strong>linear dependency checker</strong> 主要针对的是<strong>线性等式</strong>（或能导致 KKT 系统奇异的那类依赖）去做秩相关的处理；而这里的相关性发生在 <strong>不等式</strong> 之间。对于不等式来说：</p>
 <ul>
 <li>证明“某条不等式被其它不等式蕴含（冗余）”往往更复杂（本质上属于冗余约束检测），求解器通常会做得比较保守；</li>
 <li>即使检测到“系数行层面”的线性相关，也不一定会把它安全删除（尤其涉及数值容差、边界可行域是否完全等价等问题）；</li>
-<li>因此会出现：<strong>检测到依赖（Lin. dep. number = 1），但 presolve
-不删除约束（freed constraints = 0），约束数仍显示为 3</strong>。</li>
+<li>因此会出现：<strong>检测到依赖（Lin. dep. number = 1），但 presolve 不删除约束（freed constraints = 0），约束数仍显示为 3</strong>。</li>
 </ul>
 <hr />
-<h4
-id="实战建议对建模求解速度更友好">实战建议（对建模/求解速度更友好）</h4>
+<h4 id="实战建议对建模求解速度更友好">实战建议（对建模/求解速度更友好）</h4>
 <ul>
-<li><strong>能人工识别的明显冗余不等式，建议在建模阶段直接删掉</strong>。
-冗余约束往往会引入退化、增加内点法 KKT
-系统的规模或数值负担，删掉通常不会影响结果，反而更稳更快。</li>
-<li>不要仅根据日志里 <code>Constraints</code>
-的数值判断<strong>求解器是否做了冗余消除</strong>，那只是<strong>行数统计</strong>，不是<strong>独立约束数</strong>。</li>
+<li><strong>能人工识别的明显冗余不等式，建议在建模阶段直接删掉</strong>。 冗余约束往往会引入退化、增加内点法 KKT 系统的规模或数值负担，删掉通常不会影响结果，反而更稳更快。</li>
+<li>不要仅根据日志里 <code>Constraints</code> 的数值判断<strong>求解器是否做了冗余消除</strong>，那只是<strong>行数统计</strong>，不是<strong>独立约束数</strong>。</li>
 </ul>
 <hr />
 <h2 id="结语">结语</h2>
-<p>用 CVX 写 LP/QP
-的体验是统一的：<strong>写数学模型，CVX负责转换，求解器负责迭代</strong>。命令行输出里最“承重”的信息其实就三类：</p>
+<p>用 CVX 写 LP/QP 的体验是统一的：<strong>写数学模型，CVX负责转换，求解器负责迭代</strong>。命令行输出里最“承重”的信息其实就三类：</p>
 <ul>
 <li><strong>模型规模统计</strong>（变量 / 约束 / 锥结构）</li>
 <li><strong>迭代表</strong>（feasibility + gap + objective）</li>

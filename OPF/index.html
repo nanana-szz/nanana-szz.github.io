@@ -542,8 +542,7 @@
                 <p>本文给出电力系统中的最优潮流（OPF）的基础讲解。➡️</p>
 <span id="more"></span>
 <hr />
-<p>在电力系统中，<strong>OPF</strong> 是 <strong>Optimal Power
-Flow（最优潮流）</strong> 的缩写。</p>
+<p>在电力系统中，<strong>OPF</strong> 是 <strong>Optimal Power Flow（最优潮流）</strong> 的缩写。</p>
 <blockquote>
 <p>粗略对比可以这样记：</p>
 <ul>
@@ -561,8 +560,7 @@ Flow（最优潮流）</strong> 的缩写。</p>
 <li><strong>要“最优什么”（目标函数）</strong></li>
 <li><strong>要“守哪些规矩”（约束条件）</strong></li>
 </ul>
-<h3 id="决策变量decision-variables">1.1 决策变量（Decision
-Variables）</h3>
+<h3 id="决策变量decision-variables">1.1 决策变量（Decision Variables）</h3>
 <p>典型的决策变量包括：</p>
 <ul>
 <li>各发电机有功出力：<br />
@@ -580,34 +578,25 @@ Variables）</h3>
 <li>储能有功出力 / 电动汽车充放电功率等</li>
 </ul></li>
 </ul>
-<h3 id="目标函数objective-function">1.2 目标函数（Objective
-Function）</h3>
+<h3 id="目标函数objective-function">1.2 目标函数（Objective Function）</h3>
 <p>根据调度需求不同，常见目标包括：</p>
 <ol type="1">
 <li><p><strong>发电成本最小</strong><br />
-设第 <span class="math inline">\(i\)</span> 台机组成本函数为 <span
-class="math inline">\(C_i(P_{G,i})\)</span>，典型 OPF 目标为： <span
-class="math display">\[
+设第 <span class="math inline">\(i\)</span> 台机组成本函数为 <span class="math inline">\(C_i(P_{G,i})\)</span>，典型 OPF 目标为： <span class="math display">\[
 \min \sum_{i} C_i(P_{G,i})
 \]</span></p></li>
-<li><p><strong>有功网损最小</strong> 设系统总有功网损为 <span
-class="math inline">\(P_{\text{loss}}\)</span>，可写成： <span
-class="math display">\[
+<li><p><strong>有功网损最小</strong> 设系统总有功网损为 <span class="math inline">\(P_{\text{loss}}\)</span>，可写成： <span class="math display">\[
 \min P_{\text{loss}}
 \]</span> 或按支路求和： <span class="math display">\[
 P_{\text{loss}} = \sum_{\ell} P_{\ell}
 \]</span></p></li>
 <li><p><strong>电压偏差最小</strong> <span class="math display">\[
 \min \sum_{i} \big(|V_i| - V_i^{\text{ref}}\big)^2
-\]</span> 其中 <span class="math inline">\(V_i^{\text{ref}}\)</span>
-为节点电压参考值（如 1.0 p.u.）。</p></li>
+\]</span> 其中 <span class="math inline">\(V_i^{\text{ref}}\)</span> 为节点电压参考值（如 1.0 p.u.）。</p></li>
 <li><p><strong>多目标综合优化</strong><br />
 例如： <span class="math display">\[
-\min \ \alpha C_{\text{gen}} + \beta P_{\text{loss}} + \gamma
-J_{\text{volt}}
-\]</span> 通过加权系数 <span
-class="math inline">\(\alpha,\beta,\gamma\)</span>
-在成本、网损、电压质量之间折中。</p></li>
+\min \ \alpha C_{\text{gen}} + \beta P_{\text{loss}} + \gamma J_{\text{volt}}
+\]</span> 通过加权系数 <span class="math inline">\(\alpha,\beta,\gamma\)</span> 在成本、网损、电压质量之间折中。</p></li>
 </ol>
 <h3 id="约束条件constraints">1.3 约束条件（Constraints）</h3>
 <p>OPF 的约束大致分三类：</p>
@@ -621,11 +610,8 @@ P_{G,i} - P_{L,i} = \sum_{j} f_{ij}(V,\theta)
 Q_{G,i} - Q_{L,i} = \sum_{j} h_{ij}(V,\theta)
 \]</span></li>
 </ul>
-<p>其中 <span class="math inline">\(P_{ij}(V,\theta)\)</span>、<span
-class="math inline">\(Q_{ij}(V,\theta)\)</span> 由 AC
-潮流公式给出，是电压幅值与相角的非线性函数。</p>
-<h4 id="设备运行约束operation-limits">（2）设备运行约束（Operation
-Limits）</h4>
+<p>其中 <span class="math inline">\(P_{ij}(V,\theta)\)</span>、<span class="math inline">\(Q_{ij}(V,\theta)\)</span> 由 AC 潮流公式给出，是电压幅值与相角的非线性函数。</p>
+<h4 id="设备运行约束operation-limits">（2）设备运行约束（Operation Limits）</h4>
 <ul>
 <li>机组有功出力上下限： <span class="math display">\[
 P_{G,i}^{\min} \le P_{G,i} \le P_{G,i}^{\max}
@@ -653,8 +639,7 @@ V_i^{\min} \le |V_i| \le V_i^{\max}
 <h2 id="标准形式下的-opf-数学模型">2. 标准形式下的 OPF 数学模型</h2>
 <p>从优化理论角度看，OPF 可以抽象写成：</p>
 <ul>
-<li>把<strong>所有决策变量</strong>（发电出力、电压、分接头等）组合成向量：
-<span class="math display">\[
+<li>把<strong>所有决策变量</strong>（发电出力、电压、分接头等）组合成向量： <span class="math display">\[
 x = \big(P_G, Q_G, V, \theta, \dots \big)
 \]</span></li>
 <li>则 OPF 的标准形式为：</li>
@@ -663,56 +648,49 @@ x = \big(P_G, Q_G, V, \theta, \dots \big)
 \begin{array}{ll}
 \displaystyle \min\limits_{x} &amp; f(x) \\[0.3em]
 \text{s.t.} &amp; g(x) = 0 \quad \text{（潮流方程、功率平衡方程）} \\
-            &amp; h(x) \le 0 \quad
-\text{（机组出力、电压、线路容量等约束）}
+            &amp; h(x) \le 0 \quad \text{（机组出力、电压、线路容量等约束）}
 \end{array}
 \]</span></p>
 <p>其中：</p>
 <ul>
-<li><span
-class="math inline">\(f(x)\)</span>：代价函数（发电成本、网损、电压偏差、排放，或它们的加权组合）</li>
-<li><span class="math inline">\(g(x)=0\)</span>：AC
-潮流方程，一般是<strong>非线性等式约束</strong></li>
-<li><span class="math inline">\(h(x)\le
-0\)</span>：设备与系统的<strong>不等式约束</strong></li>
+<li><span class="math inline">\(f(x)\)</span>：代价函数（发电成本、网损、电压偏差、排放，或它们的加权组合）</li>
+<li><span class="math inline">\(g(x)=0\)</span>：AC 潮流方程，一般是<strong>非线性等式约束</strong></li>
+<li><span class="math inline">\(h(x)\le 0\)</span>：设备与系统的<strong>不等式约束</strong></li>
 </ul>
-<p>由于 AC 潮流本身是非线性的，OPF 一般是一个
-<strong>非线性约束优化问题</strong>，整体多是
-<strong>非凸问题</strong>，求解难度较大。</p>
+<p>由于 AC 潮流本身是非线性的，OPF 一般是一个 <strong>非线性约束优化问题</strong>，整体多是 <strong>非凸问题</strong>，求解难度较大。</p>
 <hr />
 <h2 id="opf-与普通潮流pf的区别">3. OPF 与普通潮流（PF）的区别</h2>
 <p>从工程角度，对比 OPF 与 PF 有助于直观理解：</p>
 <table>
-
 <thead>
-<tr>
+<tr class="header">
 <th>对比项</th>
 <th>PF（潮流计算）</th>
 <th>OPF（最优潮流）</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>主要目的</td>
 <td>找到一个<strong>可行的运行点</strong>（满足潮流方程、设备约束）</td>
 <td>在所有可行运行点中，找到<strong>目标函数最优</strong>的那一个</td>
 </tr>
-<tr>
+<tr class="even">
 <td>输入已知量</td>
 <td>发电出力、负荷、电压设定、分接头等</td>
 <td>电网结构、负荷、<strong>成本函数/网损模型/电压指标</strong>、以及各项运行约束</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>输出结果</td>
 <td>节点电压、电流、支路功率、网损等</td>
 <td>上述结果+“最优”的发电出力/无功出力/分接头/无功补偿等决策</td>
 </tr>
-<tr>
+<tr class="even">
 <td>数学本质</td>
 <td>非线性方程组求解问题</td>
 <td>非线性约束优化问题</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>工程语境</td>
 <td>“看看当前运行是不是合格、潮流怎么走”</td>
 <td>“在合格的前提下，怎么调度才最省钱/最安全/电压最好/网损最小”等</td>
@@ -742,8 +720,7 @@ class="math inline">\(f(x)\)</span>：代价函数（发电成本、网损、电
 <ul>
 <li>电压幅值约为 1 p.u.</li>
 <li>线路电阻忽略（<span class="math inline">\(R \ll X\)</span>）</li>
-<li>相角差较小，<span class="math inline">\(\sin(\theta_i - \theta_j)
-\approx \theta_i - \theta_j\)</span></li>
+<li>相角差较小，<span class="math inline">\(\sin(\theta_i - \theta_j) \approx \theta_i - \theta_j\)</span></li>
 </ul>
 <p>此时：</p>
 <ul>
@@ -753,12 +730,9 @@ class="math inline">\(f(x)\)</span>：代价函数（发电成本、网损、电
 <li>缺点：忽略无功、电压幅值，精度有限</li>
 </ul>
 <h3 id="多时段-opf-动态-opf">4.3 多时段 OPF / 动态 OPF</h3>
-<p>当需要考虑多个时段 <span class="math inline">\(t=1,\cdots,T\)</span>
-的耦合时（如储能 SOC、机组爬坡约束、电动汽车充放电过程等），就得到多时段
-OPF：</p>
+<p>当需要考虑多个时段 <span class="math inline">\(t=1,\cdots,T\)</span> 的耦合时（如储能 SOC、机组爬坡约束、电动汽车充放电过程等），就得到多时段 OPF：</p>
 <ul>
-<li>决策变量变为 <span
-class="math inline">\(x_t\)</span>（每个时段的潮流状态与控制量）</li>
+<li>决策变量变为 <span class="math inline">\(x_t\)</span>（每个时段的潮流状态与控制量）</li>
 <li>目标函数累加多个时段： <span class="math display">\[
 \min \sum_{t=1}^T f_t(x_t)
 \]</span></li>
@@ -768,8 +742,7 @@ class="math inline">\(x_t\)</span>（每个时段的潮流状态与控制量）<
 <li>时段间耦合约束（如 SOC 演化、机组爬坡、负荷跟踪等）</li>
 </ul></li>
 </ul>
-<h3 id="含分布式电源-新能源-ev-的-opf">4.4 含分布式电源 / 新能源 / EV 的
-OPF</h3>
+<h3 id="含分布式电源-新能源-ev-的-opf">4.4 含分布式电源 / 新能源 / EV 的 OPF</h3>
 <p>在配电网和新型电力系统中，OPF 常常要考虑：</p>
 <ul>
 <li>多个分布式电源（DG）的有功/无功可调出力</li>
@@ -789,8 +762,7 @@ OPF</h3>
 <li>决策灵活性、鲁棒性等。</li>
 </ul></li>
 </ul>
-<h3 id="多目标-opfmulti-objective-opf">4.5 多目标 OPF（Multi-Objective
-OPF）</h3>
+<h3 id="多目标-opfmulti-objective-opf">4.5 多目标 OPF（Multi-Objective OPF）</h3>
 <p>当调度目标不止一个时，常见做法包括：</p>
 <ul>
 <li><strong>加权和法</strong>：<br />
@@ -801,8 +773,7 @@ OPF）</h3>
 通过参数扫描得到一族折衷解，并进行权衡选择。</li>
 </ul>
 <hr />
-<h2 id="仿真工具中的-opf以-matpower-为例">5. 仿真工具中的 OPF：以
-MATPOWER 为例</h2>
+<h2 id="仿真工具中的-opf以-matpower-为例">5. 仿真工具中的 OPF：以 MATPOWER 为例</h2>
 <p>在常用的电力系统仿真工具中：</p>
 <ul>
 <li><strong>MATPOWER（Matlab 环境）</strong>
@@ -821,8 +792,7 @@ MATPOWER 为例</h2>
 </ul>
 <p>在这些工具中，一般流程是：</p>
 <ol type="1">
-<li>建立或加载一个网络模型（如 <code>case14</code>,
-<code>case33bw</code> 等）；</li>
+<li>建立或加载一个网络模型（如 <code>case14</code>, <code>case33bw</code> 等）；</li>
 <li>在数据结构中配置：
 <ul>
 <li>机组成本函数</li>
@@ -844,20 +814,15 @@ MATPOWER 为例</h2>
 <hr />
 <h2 id="小结">6. 小结</h2>
 <ul>
-<li><strong>OPF（最优潮流）</strong> = 潮流方程 + 运行约束 +
-优化目标。</li>
+<li><strong>OPF（最优潮流）</strong> = 潮流方程 + 运行约束 + 优化目标。</li>
 <li>它不仅求解“电压、潮流怎么分布”，还<strong>自动“帮你调”发电、无功、分接头、灵活负荷等</strong>，使成本、网损、电压等指标达到最优。</li>
-<li>从数学上看，OPF 是一个以 AC/DC
-潮流方程为约束的非线性（常常是非凸）优化问题。</li>
-<li>工程实践中，OPF
-是机组组合、经济调度、电压/无功优化、含分布式电源/电动汽车调度等问题的<strong>基础工具</strong>，也是
-MATPOWER、PYPOWER、pandapower 等电力仿真平台的重要功能模块。</li>
+<li>从数学上看，OPF 是一个以 AC/DC 潮流方程为约束的非线性（常常是非凸）优化问题。</li>
+<li>工程实践中，OPF 是机组组合、经济调度、电压/无功优化、含分布式电源/电动汽车调度等问题的<strong>基础工具</strong>，也是 MATPOWER、PYPOWER、pandapower 等电力仿真平台的重要功能模块。</li>
 </ul>
 <blockquote>
 <p>后续可能会在本讲基础上再写：</p>
 <ul>
-<li>“基于 MATPOWER 的 OPF 实例（如
-<code>case33bw + runopf</code>）”<br />
+<li>“基于 MATPOWER 的 OPF 实例（如 <code>case33bw + runopf</code>）”<br />
 </li>
 <li>“以电压偏差最小为目标的 OPF 建模与代码”<br />
 </li>
@@ -962,9 +927,9 @@ MATPOWER、PYPOWER、pandapower 等电力仿真平台的重要功能模块。</l
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/02-duality_in_LP/" title="线性规划对偶性的直观理解：从上界到对偶定理">
+                      <a href="/matpower_pypower/" title="电力系统工具简介：MATPOWER, PYPOWER, pandapower">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">线性规划对偶性的直观理解：从上界到对偶定理</span>
+                        <span class="hidden-mobile">电力系统工具简介：MATPOWER, PYPOWER, pandapower</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -972,8 +937,8 @@ MATPOWER、PYPOWER、pandapower 等电力仿真平台的重要功能模块。</l
                   <article class="post-next col-6">
                     
                     
-                      <a href="/matpower_pypower/" title="电力系统工具简介：MATPOWER, PYPOWER, pandapower">
-                        <span class="hidden-mobile">电力系统工具简介：MATPOWER, PYPOWER, pandapower</span>
+                      <a href="/03-pandoc_MathJax/" title="用 Pandoc + MathJax 让 Hexo / Fluid 完整支持 LaTeX 公式">
+                        <span class="hidden-mobile">用 Pandoc + MathJax 让 Hexo / Fluid 完整支持 LaTeX 公式</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

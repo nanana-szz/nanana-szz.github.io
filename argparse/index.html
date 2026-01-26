@@ -19,12 +19,12 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="在写 Python 脚本时，经常会有以下需求：  想在运行脚本时传入不同参数（比如 --lr 0.001 --epochs 20） 希望用户输入错误时能有清晰提示 希望自动生成 --help 帮助文档 想批量对比多组参数的运行结果（用 .sh 一键跑一堆实验）  argparse 就是 Python 标准库中专门解决这些问题的命令行参数解析工具。➡️">
+    <meta name="description" content="在写 Python 脚本时，经常会有以下需求：  想在运行脚本时传入不同参数（比如 --lr 0.001 --epochs 20） 希望用户输入错误时能有清晰提示 希望自动生成 --help 帮助文档 想批量对比多组参数的运行结果（用 .sh 一键跑一堆实验）  argparse 就是 Python 标准库中专门解决这些问题的命令行参数解析工具。➡️">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python argparse 入门：把脚本变成“命令行工具”，并用 .sh 批量跑实验">
 <meta property="og:url" content="https://nanana-szz.github.io/argparse/index.html">
 <meta property="og:site_name" content="远大前程">
-<meta property="og:description" content="在写 Python 脚本时，经常会有以下需求：  想在运行脚本时传入不同参数（比如 --lr 0.001 --epochs 20） 希望用户输入错误时能有清晰提示 希望自动生成 --help 帮助文档 想批量对比多组参数的运行结果（用 .sh 一键跑一堆实验）  argparse 就是 Python 标准库中专门解决这些问题的命令行参数解析工具。➡️">
+<meta property="og:description" content="在写 Python 脚本时，经常会有以下需求：  想在运行脚本时传入不同参数（比如 --lr 0.001 --epochs 20） 希望用户输入错误时能有清晰提示 希望自动生成 --help 帮助文档 想批量对比多组参数的运行结果（用 .sh 一键跑一堆实验）  argparse 就是 Python 标准库中专门解决这些问题的命令行参数解析工具。➡️">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nanana-szz.github.io/img/vscode.png">
 <meta property="article:published_time" content="2026-01-21T02:10:00.000Z">
@@ -643,28 +643,22 @@
                 
                 <p>在写 Python 脚本时，经常会有以下需求：</p>
 <ul>
-<li>想在运行脚本时传入不同参数（比如
-<code>--lr 0.001 --epochs 20</code>）</li>
+<li>想在运行脚本时传入不同参数（比如 <code>--lr 0.001 --epochs 20</code>）</li>
 <li>希望用户输入错误时能有清晰提示</li>
 <li>希望自动生成 <code>--help</code> 帮助文档</li>
-<li>想批量对比多组参数的运行结果（用 <code>.sh</code>
-一键跑一堆实验）</li>
+<li>想批量对比多组参数的运行结果（用 <code>.sh</code> 一键跑一堆实验）</li>
 </ul>
-<p><code>argparse</code> 就是 Python
-标准库中专门解决这些问题的<strong>命令行参数解析工具</strong>。➡️</p>
+<p><code>argparse</code> 就是 Python 标准库中专门解决这些问题的<strong>命令行参数解析工具</strong>。➡️</p>
 <span id="more"></span>
 <hr />
 <h2 id="argparse-是干什么的">1. argparse 是干什么的？</h2>
 <p><code>argparse</code> 的作用可以概括为一句话：</p>
 <blockquote>
-<p>把命令行里的一串字符串参数，解析成 Python
-里可直接使用的变量，并自动提供帮助信息和输入校验。</p>
+<p>把命令行里的一串字符串参数，解析成 Python 里可直接使用的变量，并自动提供帮助信息和输入校验。</p>
 </blockquote>
 <p>如果希望用户在命令行里像下面这样带参数运行：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python train.py --epochs 20 --lr 0.001 --device cuda<br></code></pre></td></tr></table></figure>
-<p><code>argparse</code> 就负责把
-<code>--epochs 20</code>、<code>--lr 0.001</code> 等<strong>解析成
-Python 变量</strong>：</p>
+<p><code>argparse</code> 就负责把 <code>--epochs 20</code>、<code>--lr 0.001</code> 等<strong>解析成 Python 变量</strong>：</p>
 <ul>
 <li><code>args.epochs == 20</code>（整数）</li>
 <li><code>args.lr == 0.001</code>（浮点数）</li>
@@ -674,8 +668,7 @@ Python 变量</strong>：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">python train.py --<span class="hljs-built_in">help</span><br><span class="hljs-comment"># 或</span><br>python train.py -h<br></code></pre></td></tr></table></figure>
 <p>自动生成用法说明和参数解释。</p>
 <hr />
-<h2 id="最小例子读取一个位置参数必须提供">2.
-最小例子：读取一个位置参数（必须提供）</h2>
+<h2 id="最小例子读取一个位置参数必须提供">2. 最小例子：读取一个位置参数（必须提供）</h2>
 <p>下面的脚本要求用户必须提供一个名字：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># hello.py</span><br><span class="hljs-keyword">import</span> argparse<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    parser = argparse.ArgumentParser(description=<span class="hljs-string">&quot;Say hello to someone.&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;The person&#x27;s name&quot;</span>)<br>    args = parser.parse_args()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Hello, <span class="hljs-subst">&#123;args.name&#125;</span>!&quot;</span>)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    main()<br></code></pre></td></tr></table></figure>
 
@@ -683,35 +676,30 @@ Python 变量</strong>：</p>
 </div> 
 
 <p>上面四个环节就是<strong>使用 argparse 的基本流程</strong>。</p>
-<h3 id="argumentparser...创建解析器对象-parser">2.1
-<code>ArgumentParser(...)</code>：创建解析器对象 parser</h3>
+<h3 id="argumentparser...创建解析器对象-parser">2.1 <code>ArgumentParser(...)</code>：创建解析器对象 parser</h3>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">parser = argparse.ArgumentParser(description=<span class="hljs-string">&quot;xxx&quot;</span>)<br></code></pre></td></tr></table></figure>
 <ul>
 <li><code>ArgumentParser</code> 是 argparse 提供的核心类</li>
 <li><code>description</code> 会显示在 <code>--help</code> 的顶部</li>
 </ul>
 <blockquote>
-<p>单双引号 <code>""</code> 或 <code>''</code> 都可以，Python
-中几乎等价。</p>
+<p>单双引号 <code>""</code> 或 <code>''</code> 都可以，Python 中几乎等价。</p>
 <p>差别只在转义方便性，比如字符串里本身有单引号时：</p>
 <ul>
 <li><code>"I'm ok"</code> 方便</li>
 <li><code>'I\'m ok'</code> 也行但要转义</li>
 </ul>
 </blockquote>
-<h3 id="add_argument...声明一个参数的规则">2.2
-<code>add_argument(...)</code>：声明一个参数的“规则”</h3>
+<h3 id="add_argument...声明一个参数的规则">2.2 <code>add_argument(...)</code>：声明一个参数的“规则”</h3>
 <p>在这里定义参数名、类型、默认值、是否必填、帮助说明等。</p>
 <p>位置参数（不带 <code>--</code>）：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">parser.add_argument(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;The person&#x27;s name&quot;</span>)<br></code></pre></td></tr></table></figure>
 <p>可选参数（带 <code>--</code>）：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">parser.add_argument(<span class="hljs-string">&quot;--name&quot;</span>, default=<span class="hljs-string">&quot;World&quot;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;The person&#x27;s name&quot;</span>)<br></code></pre></td></tr></table></figure>
-<h3 id="parse_args真正去读取并解析命令行">2.3
-<code>parse_args()</code>：真正去“读取并解析命令行”</h3>
+<h3 id="parse_args真正去读取并解析命令行">2.3 <code>parse_args()</code>：真正去“读取并解析命令行”</h3>
 <p>这一行会从命令行读取输入并解析：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">args = parser.parse_args()<br></code></pre></td></tr></table></figure>
-<p>解析结果 <code>args</code> 是一个对象，用 <code>args.xxx</code>
-访问对应参数。</p>
+<p>解析结果 <code>args</code> 是一个对象，用 <code>args.xxx</code> 访问对应参数。</p>
 <p>没有这行，前面只是“定义规则”，<strong>还没有真正读取命令行</strong>。</p>
 <h3 id="运行方式">2.4 运行方式</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python hello.py Alice<br></code></pre></td></tr></table></figure>
@@ -722,20 +710,16 @@ Python 变量</strong>：</p>
 <p>会报错：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">usage: hello.py [-h] name        <span class="hljs-comment"># 语法格式摘要</span><br>hello.py: error: the following arguments are required: name<br></code></pre></td></tr></table></figure>
 <ul>
-<li><code>[-h]</code>：表示 可选参数 <code>-h</code>（或
-<code>--help</code>）
+<li><code>[-h]</code>：表示 可选参数 <code>-h</code>（或 <code>--help</code>）
 <ul>
-<li>方括号 <code>[...]</code> 在 <code>usage</code>
-里表示<em>可选</em></li>
+<li>方括号 <code>[...]</code> 在 <code>usage</code> 里表示<em>可选</em></li>
 </ul></li>
 <li><code>name</code>：表示<strong>必填的位置参数</strong>
 <ul>
 <li>没有方括号包起来，说明它必须提供</li>
-<li>位置参数的特点是：<strong>不写 <code>--name</code>
-这种前缀，直接按顺序给值</strong></li>
+<li>位置参数的特点是：<strong>不写 <code>--name</code> 这种前缀，直接按顺序给值</strong></li>
 </ul></li>
-<li>运行 <code>hello.py</code> 时，可以选择加
-<code>-h/--help</code>，但必须提供一个 <code>name</code>。</li>
+<li>运行 <code>hello.py</code> 时，可以选择加 <code>-h/--help</code>，但必须提供一个 <code>name</code>。</li>
 </ul>
 <p>如果运行：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python hello.py --<span class="hljs-built_in">help</span><br></code></pre></td></tr></table></figure>
@@ -744,8 +728,7 @@ Python 变量</strong>：</p>
 <ul>
 <li>显示完就退出，不会执行 <code>print(f"Hello...")</code>
 <ul>
-<li>运行 <code>python hello.py --help Alice</code>
-之后命令行输出与上面一致，不会打印。</li>
+<li>运行 <code>python hello.py --help Alice</code> 之后命令行输出与上面一致，不会打印。</li>
 </ul></li>
 <li><code>--help</code> 是为了让用户快速知道怎么用，
 <ul>
@@ -753,17 +736,13 @@ Python 变量</strong>：</p>
 </ul></li>
 <li><code>hello.py</code> 中的 <code>help=</code> 里面的内容也可以写中文
 <ul>
-<li>只要终端支持 UTF-8（Linux/macOS 一般没问题；Windows 建议用 Windows
-Terminal / PowerShell）。</li>
+<li>只要终端支持 UTF-8（Linux/macOS 一般没问题；Windows 建议用 Windows Terminal / PowerShell）。</li>
 </ul></li>
 </ul>
 <hr />
-<h2 id="让脚本无参也能跑给参数默认值">3.
-让脚本“无参也能跑”：给参数默认值</h2>
-<p><code>argparse</code> 的目标并不是“只写 <code>python hello.py</code>
-就能跑”。实际上关键在于：<strong>怎么设计参数</strong>。</p>
-<h3 id="位置参数变为可选nargs-default">3.1
-位置参数变为<em>可选</em>（nargs + default）</h3>
+<h2 id="让脚本无参也能跑给参数默认值">3. 让脚本“无参也能跑”：给参数默认值</h2>
+<p><code>argparse</code> 的目标并不是“只写 <code>python hello.py</code> 就能跑”。实际上关键在于：<strong>怎么设计参数</strong>。</p>
+<h3 id="位置参数变为可选nargs-default">3.1 位置参数变为<em>可选</em>（nargs + default）</h3>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> argparse<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    <span class="hljs-comment"># 1) 创建解析器对象</span><br>    parser = argparse.ArgumentParser(description=<span class="hljs-string">&quot;Say hello to someone.&quot;</span>)<br>    <span class="hljs-comment"># 2) 添加参数：位置参数，变为可选</span><br>    parser.add_argument(<span class="hljs-string">&quot;name&quot;</span>, nargs=<span class="hljs-string">&quot;?&quot;</span>, default=<span class="hljs-string">&quot;World&quot;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;Name (default: World)&quot;</span>)<br>    <span class="hljs-comment"># 3) 解析命令行输入，得到 args 对象</span><br>    args = parser.parse_args()<br>    <span class="hljs-comment"># 4) 使用解析结果</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Hello, <span class="hljs-subst">&#123;args.name&#125;</span>!&quot;</span>)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    main()<br></code></pre></td></tr></table></figure>
 
 <div class="py-demo" data-py-demo data-from="prev" data-argv="">
@@ -785,8 +764,7 @@ Terminal / PowerShell）。</li>
 <p>现在：</p>
 <ul>
 <li><code>python hello.py</code> → <code>Hello, World!</code></li>
-<li><code>python hello.py --name Alice</code> →
-<code>Hello, Alice!</code></li>
+<li><code>python hello.py --name Alice</code> → <code>Hello, Alice!</code></li>
 </ul>
 <p>也可以写：</p>
 <ul>
@@ -794,8 +772,7 @@ Terminal / PowerShell）。</li>
 <li>但 <code>"--name"</code> 可读性更强</li>
 </ul>
 <hr />
-<h2 id="经典参数能力typedefaultrequiredchoicesflag">4.
-经典参数能力：type、default、required、choices、flag</h2>
+<h2 id="经典参数能力typedefaultrequiredchoicesflag">4. 经典参数能力：type、default、required、choices、flag</h2>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># train.py</span><br><span class="hljs-keyword">import</span> argparse<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    <span class="hljs-comment"># 1) 创建解析器对象</span><br>    parser = argparse.ArgumentParser(description=<span class="hljs-string">&quot;A toy training script.&quot;</span>)<br>    <span class="hljs-comment"># 2) 添加参数：可选参数</span><br>    parser.add_argument(<span class="hljs-string">&quot;--epochs&quot;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">int</span>, default=<span class="hljs-number">10</span>,<br>                        <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;训练轮数（默认：10）&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;--lr&quot;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">float</span>, default=<span class="hljs-number">1e-3</span>,<br>                        <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;学习率（默认：1e-3）&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;--device&quot;</span>, choices=[<span class="hljs-string">&quot;cpu&quot;</span>, <span class="hljs-string">&quot;cuda&quot;</span>], default=<span class="hljs-string">&quot;cpu&quot;</span>,<br>                        <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;运行设备：cpu/cuda（默认：cpu）&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;--verbose&quot;</span>, action=<span class="hljs-string">&quot;store_true&quot;</span>,<br>                        <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;是否输出详细日志（加上该参数即为True）&quot;</span>)<br>    <span class="hljs-comment"># 3) 解析命令行输入，得到 args 对象</span><br>    args = parser.parse_args()<br>    <span class="hljs-comment"># 4) 使用解析结果</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;epochs =&quot;</span>, args.epochs)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;lr     =&quot;</span>, args.lr)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;device =&quot;</span>, args.device)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;verbose=&quot;</span>, args.verbose)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    main()<br></code></pre></td></tr></table></figure>
 <p>运行：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python train.py --epochs 20 --lr 0.001 --device cuda --verbose<br></code></pre></td></tr></table></figure>
@@ -804,24 +781,19 @@ Terminal / PowerShell）。</li>
 <li><code>type=int/float</code>：自动类型转换</li>
 <li><code>default=...</code>：不提供就用默认值</li>
 <li><code>choices=[...]</code>：限制合法取值，非法取值会报错并提示合法选项</li>
-<li><code>action="store_true"</code>：布尔开关参数，有
-<code>--verbose</code> 就打印更详细信息，否则不打印</li>
+<li><code>action="store_true"</code>：布尔开关参数，有 <code>--verbose</code> 就打印更详细信息，否则不打印</li>
 </ul>
 <hr />
-<h2 id="用-.sh-脚本批量运行多组参数做实验对比非常常用">5. 用
-<code>.sh</code> 脚本批量运行多组参数（做实验对比非常常用）</h2>
-<p><code>.sh</code> 是 <strong>Shell 脚本文件</strong>（通常在
-Linux/macOS 或 Windows 的 WSL/Git Bash中使用）</p>
+<h2 id="用-.sh-脚本批量运行多组参数做实验对比非常常用">5. 用 <code>.sh</code> 脚本批量运行多组参数（做实验对比非常常用）</h2>
+<p><code>.sh</code> 是 <strong>Shell 脚本文件</strong>（通常在 Linux/macOS 或 Windows 的 WSL/Git Bash中使用）</p>
 <p>用途：来把一堆命令写进文件，一键执行。</p>
 <h3 id="最简单运行一次">5.1 最简单：运行一次</h3>
 <p>创建 <code>run_once.sh</code>：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/usr/bin/env bash</span><br>python train.py --epochs 20 --lr 0.001 --device cpu<br></code></pre></td></tr></table></figure>
 <p>运行：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">bash run_once.sh<br></code></pre></td></tr></table></figure>
-<p>（在 Linux/macOS 上也可以 <code>chmod +x run_once.sh</code> 后用
-<code>./run_once.sh</code> 运行。）</p>
-<h3 id="批量对比循环跑多个参数组合">5.2
-批量对比：循环跑多个参数组合</h3>
+<p>（在 Linux/macOS 上也可以 <code>chmod +x run_once.sh</code> 后用 <code>./run_once.sh</code> 运行。）</p>
+<h3 id="批量对比循环跑多个参数组合">5.2 批量对比：循环跑多个参数组合</h3>
 <p>创建 <code>grid_search.sh</code>：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/usr/bin/env bash</span><br><br><span class="hljs-keyword">for</span> epochs <span class="hljs-keyword">in</span> 10 20 50; <span class="hljs-keyword">do</span><br>  <span class="hljs-keyword">for</span> lr <span class="hljs-keyword">in</span> 0.001 0.0005; <span class="hljs-keyword">do</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Running: epochs=<span class="hljs-variable">$epochs</span> lr=<span class="hljs-variable">$lr</span>&quot;</span><br>    python train.py --epochs <span class="hljs-string">&quot;<span class="hljs-variable">$epochs</span>&quot;</span> --lr <span class="hljs-string">&quot;<span class="hljs-variable">$lr</span>&quot;</span> --device cpu<br>  <span class="hljs-keyword">done</span><br><span class="hljs-keyword">done</span><br></code></pre></td></tr></table></figure>
 <p>也可以只打印将要执行的命令（不执行）：</p>
@@ -833,23 +805,17 @@ Linux/macOS 或 Windows 的 WSL/Git Bash中使用）</p>
 <li><code>epochs</code> 和 <code>lr</code> 是 bash 变量</li>
 <li><code>"$epochs"</code> 代表取出变量值并安全传入（推荐加引号）
 <ul>
-<li>bash 语法：<code>$epochs</code> 会被替换为变量 <code>epochs</code>
-的值</li>
+<li>bash 语法：<code>$epochs</code> 会被替换为变量 <code>epochs</code> 的值</li>
 </ul></li>
-<li><code>#!/usr/bin/env bash</code>：shebang / hashbang，用
-<code>/usr/bin/env</code> 去在 <code>PATH</code>环境变量里找到
-<code>bash</code>
+<li><code>#!/usr/bin/env bash</code>：shebang / hashbang，用 <code>/usr/bin/env</code> 去在 <code>PATH</code>环境变量里找到 <code>bash</code>
 <ul>
 <li><code>#</code> (hash)</li>
 <li><code>!</code> (bang)</li>
-<li>使用 <code>bash grid_search.sh</code>
-运行脚本时，已经明确<strong>解释器</strong>是 <code>bash</code>，此时
-shebang 不是必须的。</li>
+<li>使用 <code>bash grid_search.sh</code> 运行脚本时，已经明确<strong>解释器</strong>是 <code>bash</code>，此时 shebang 不是必须的。</li>
 </ul></li>
 </ul>
 <hr />
-<h2 id="最佳实践让-argparse-结构更清晰">6. 最佳实践：让 argparse
-结构更清晰</h2>
+<h2 id="最佳实践让-argparse-结构更清晰">6. 最佳实践：让 argparse 结构更清晰</h2>
 <p>当参数变多时，推荐把 parser 单独封装：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> argparse<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">build_parser</span>():<br>    parser = argparse.ArgumentParser(description=<span class="hljs-string">&quot;My script.&quot;</span>)<br>    parser.add_argument(<span class="hljs-string">&quot;--seed&quot;</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">int</span>, default=<span class="hljs-number">0</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;随机种子&quot;</span>)<br>    <span class="hljs-keyword">return</span> parser<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    parser = build_parser()<br>    args = parser.parse_args()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;seed =&quot;</span>, args.seed)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    main()<br></code></pre></td></tr></table></figure>
 <p>这样主逻辑更干净、便于维护。</p>
@@ -858,12 +824,9 @@ shebang 不是必须的。</li>
 <ul>
 <li><code>ArgumentParser(...)</code>：创建命令行解析器</li>
 <li><code>add_argument(...)</code>：定义参数规则（位置参数/可选参数）</li>
-<li><code>parse_args()</code>：读取命令行并解析成
-<code>args.xxx</code></li>
-<li><code>--help</code> 自动生成帮助信息，<code>help=</code>
-可以写中文</li>
-<li><code>.sh</code>
-脚本可以一键批量跑多组参数，适合实验对比与复现实验</li>
+<li><code>parse_args()</code>：读取命令行并解析成 <code>args.xxx</code></li>
+<li><code>--help</code> 自动生成帮助信息，<code>help=</code> 可以写中文</li>
+<li><code>.sh</code> 脚本可以一键批量跑多组参数，适合实验对比与复现实验</li>
 </ul>
 
                 
@@ -964,9 +927,9 @@ shebang 不是必须的。</li>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/04-insertmd/" title="在 Hexo 中实现 Markdown 的“文件包含”：用 before_post_render 过滤器零依赖 include">
+                      <a href="/03-gradient_descent/" title="重新审视 Gradient Descent 算法：原问题的逐次逼近求解">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">在 Hexo 中实现 Markdown 的“文件包含”：用 before_post_render 过滤器零依赖 include</span>
+                        <span class="hidden-mobile">重新审视 Gradient Descent 算法：原问题的逐次逼近求解</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
