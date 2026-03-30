@@ -1,0 +1,1846 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><link href="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文尝试换一个视角重新审视 GD 。➡️">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重新审视 Gradient Descent 算法：原问题的逐次逼近求解">
+<meta property="og:url" content="https://nanana-szz.github.io/03-gradient_descent/index.html">
+<meta property="og:site_name" content="远大前程">
+<meta property="og:description" content="本文尝试换一个视角重新审视 GD 。➡️">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nanana-szz.github.io/img/CO.png">
+<meta property="article:published_time" content="2026-01-22T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-01-30T11:39:13.235Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="gradient descent,optimization,机器学习">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nanana-szz.github.io/img/CO.png">
+  
+  
+  
+  <title>重新审视 Gradient Descent 算法：原问题的逐次逼近求解 - 远大前程</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/py-demo.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"nanana-szz.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Shan Z.Z.</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>优化方法</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/" target="_self">
+                    
+                    <span>优化基础</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/%E5%87%B8%E4%BC%98%E5%8C%96/" target="_self">
+                    
+                    <span>凸优化</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/%E8%87%AA%E9%80%82%E5%BA%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" target="_self">
+                    
+                    <span>自适应动态规划</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/%E6%9C%80%E4%BC%98%E6%8E%A7%E5%88%B6/" target="_self">
+                    
+                    <span>最优控制</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>编程</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E7%BC%96%E7%A8%8B/Python/" target="_self">
+                    
+                    <span>Python</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E7%BC%96%E7%A8%8B/VS%20Code/" target="_self">
+                    
+                    <span>VS Code</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E7%BC%96%E7%A8%8B/Git/" target="_self">
+                    
+                    <span>Git</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E7%BC%96%E7%A8%8B/Web/" target="_self">
+                    
+                    <span>Web</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>电力系统</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E7%94%B5%E5%8A%9B%E7%B3%BB%E7%BB%9F/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/" target="_self">
+                    
+                    <span>基础理论</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E7%94%B5%E5%8A%9B%E7%B3%BB%E7%BB%9F/%E4%BB%BF%E7%9C%9F%E5%B7%A5%E5%85%B7/" target="_self">
+                    
+                    <span>仿真工具</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="重新审视 Gradient Descent 算法：原问题的逐次逼近求解"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-01-22 10:00" pubdate>
+          2026年1月22日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="优化方法"
+        id="heading-d979d8e15a10839b4daa56bc522acb82" role="tab" data-toggle="collapse" href="#collapse-d979d8e15a10839b4daa56bc522acb82"
+        aria-expanded="true"
+      >
+        优化方法
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-d979d8e15a10839b4daa56bc522acb82"
+           role="tabpanel" aria-labelledby="heading-d979d8e15a10839b4daa56bc522acb82">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="优化基础"
+        id="heading-a1bdf455a9b82743446f16b48a768e9e" role="tab" data-toggle="collapse" href="#collapse-a1bdf455a9b82743446f16b48a768e9e"
+        aria-expanded="true"
+      >
+        优化基础
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-a1bdf455a9b82743446f16b48a768e9e"
+           role="tabpanel" aria-labelledby="heading-a1bdf455a9b82743446f16b48a768e9e">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/01-cvx-LP-QP/" title="用 MATLAB + CVX 调用 MOSEK/SeDuMi/SDPT3 求解二维 LP 与 QP，并读懂命令行输出"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">用 MATLAB + CVX 调用 MOSEK/SeDuMi/SDPT3 求解二维 LP 与 QP，并读懂命令行输出</span>
+        </a>
+      
+    
+      
+      
+        <a href="/02-duality_in_LP/" title="线性规划对偶性的直观理解：从上界到对偶定理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">线性规划对偶性的直观理解：从上界到对偶定理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/03-gradient_descent/" title="重新审视 Gradient Descent 算法：原问题的逐次逼近求解"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">重新审视 Gradient Descent 算法：原问题的逐次逼近求解</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">重新审视 Gradient Descent 算法：原问题的逐次逼近求解</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本文尝试换一个视角重新审视 GD 。➡️</p>
+<span id="more"></span>
+<hr />
+<p>梯度下降（Gradient Descent, GD）通常被解释为<strong>沿负梯度方向走一步</strong>，是一种最基本也最常用的<strong>一阶优化</strong>算法。</p>
+<p>但如果只停留在<strong>负梯度是最陡下降方向</strong>的直觉上，很多关键问题并不容易回答：</p>
+<ul>
+<li>步长为什么不能随便取？</li>
+<li>为什么某些步长能保证函数值下降？</li>
+<li>以及 GD 与二阶泰勒近似、上界函数、近端方法之间到底有什么关系？</li>
+</ul>
+<hr />
+<h2 id="梯度下降算法的逐次逼近视角">1. 梯度下降算法的逐次逼近视角</h2>
+<p>考虑优化问题 <span class="math display">\[
+\min_x f(x)
+\]</span> 其中，<span class="math inline">\(f: \mathbb{R}^n \to \mathbb{R}\)</span>。 设 <span class="math inline">\(f(\cdot)\)</span> 在给定点 <span class="math inline">\(x \in \mathbb{R}^n\)</span> 处具有二阶偏导数， 则对任意 <span class="math inline">\(z\)</span> （足够靠近 <span class="math inline">\(x\)</span>）的二阶泰勒展开可以写为： <span class="math display">\[
+{f}(z;x) = f(x) + \nabla f(x)^\top (z - x) + \frac{1}{2} (z - x)^\top \nabla^2 f(x) (z - x) + o(||z - x||^2).
+\]</span></p>
+<p>如果用 <span class="math inline">\(\frac{1}{t}I\)</span> 替代<span class="math inline">\(\nabla^2f(x)\)</span>，则 <span class="math inline">\(f(\cdot)\)</span> 在给定点 <span class="math inline">\(x\)</span> 处的<strong>二阶近似</strong>可以表示为： <span class="math display">\[
+\hat{f}(z;x,t) = f(x) + \nabla f(x)^\top (z - x) + \frac{1}{2t} ||z - x||^2.
+\]</span> 所以，当迭代至 <span class="math inline">\(x_k\)</span> 时，可以通过优化 <span class="math inline">\(\hat{f}(\cdot;x_k,t)\)</span> 来得到 <span class="math inline">\(x_{k+1}\)</span>： <span class="math display">\[
+\begin{align}
+    x_{k+1} =&amp; \arg\min_{z} \hat{f}(z;x_k,t)
+    \nonumber\\
+    =&amp; \arg\min_{z} \left[f(x_k) + \nabla f(x_k)^\top (z - x_k) + \frac{1}{2t} ||z - x_k||^2\right].
+\end{align}
+\]</span> 该优化问题的解析解为： <span class="math display">\[
+\begin{align}
+\label{eq:GD_f}
+x_{k+1} = x_k - t \nabla f(x_k).
+\end{align}
+\]</span></p>
+<p>因此可以得到梯度下降算法的逐次逼近视角： <div class="note note-primary">
+            <p>是一种 <strong>逐次逼近</strong> 的方法</p><ul><li>逐次怎么逼近：<ul><li>先找目标函数 <span class="math inline">\(f\)</span> 的上界 <span class="math inline">\(\hat{f}\)</span></li><li>目标函数 <span class="math inline">\(f\)</span> 虽然凸但是直接优化困难，取而代之去优化上界 <span class="math inline">\(\hat{f}\)</span></li><li>上界 <span class="math inline">\(\hat{f}\)</span> 具有良好的解析性质，可以直接得到最小值的显示表达式</li><li>总结一句话：针对上界，找上界的最小值</li></ul></li><li>每次迭代都在求解近似目标函数 <span class="math inline">\(\hat{f}(z;x,t)\)</span> 而不是原目标函数 <span class="math inline">\(f(z)\)</span></li><li>在 <span class="math inline">\(x_k\)</span> 处的近似目标函数 <span class="math inline">\(\hat{f}(z;x,t)\)</span> 最小值点就是 <span class="math inline">\(x_{k+1}\)</span>，并且 <span class="math inline">\(x_{k+1}\)</span> 具有解析表达式 <span class="math inline">\(\eqref{eq:GD_f}\)</span></li></ul>
+          </div></p>
+<hr />
+<h2 id="交互式可视化函数近似演示">交互式可视化：函数近似演示</h2>
+<p>下面的交互式图表展示了函数 <span class="math inline">\(f(x) = \ln(\cosh(x))\)</span> 的二阶泰勒近似。通过调节参数 <span class="math inline">\(c\)</span> 和 <span class="math inline">\(t\)</span>，可以观察近似函数的变化。</p>
+<!-- begin insertmd: _posts/优化方法/优化基础/_03fragments/03-html.md -->
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+
+<style>
+.viz-container {
+    max-width: 100%;
+    margin: 20px auto;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans SC', sans-serif;
+}
+.viz-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ebeef5;
+}
+.viz-section-title {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #303133;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #409eff;
+    display: inline-block;
+}
+.viz-formula-box {
+    background: #f5f7fa;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+.viz-formula-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 10px 12px;
+    background: white;
+    border-radius: 6px;
+    border-left: 4px solid #409eff;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.viz-formula-item:last-child {
+    margin-bottom: 0;
+}
+.viz-formula-item.original {
+    border-left-color: #2563eb;
+}
+.viz-formula-item.approx {
+    border-left-color: #dc2626;
+}
+.viz-formula-item.axis {
+    border-left-color: #059669;
+}
+.viz-formula-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.viz-formula-color.original {
+    background: #2563eb;
+}
+.viz-formula-color.approx {
+    background: #dc2626;
+}
+.viz-formula-color.axis {
+    background: #059669;
+}
+.viz-formula-label {
+    font-weight: 500;
+    color: #606266;
+    min-width: 70px;
+    font-size: 0.9em;
+}
+.viz-formula-math {
+    flex: 1;
+    overflow-x: auto;
+}
+.viz-canvas-container {
+    position: relative;
+    width: 100%;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #dcdfe6;
+}
+#vizFunctionCanvas {
+    display: block;
+    width: 100%;
+    height: 450px;
+    cursor: grab;
+}
+#vizFunctionCanvas:active {
+    cursor: grabbing;
+}
+.viz-legend {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255,255,255,0.95);
+    padding: 10px 12px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    font-size: 0.75em;
+    border: 1px solid #ebeef5;
+}
+.viz-legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+    color: #606266;
+}
+.viz-legend-item:last-child {
+    margin-bottom: 0;
+}
+.viz-legend-line {
+    width: 18px;
+    height: 3px;
+    margin-right: 6px;
+    border-radius: 2px;
+}
+.viz-legend-line.original {
+    background: #2563eb;
+}
+.viz-legend-line.approx {
+    background: #dc2626;
+}
+.viz-legend-line.axis {
+    background: #059669;
+    width: 3px;
+    height: 12px;
+}
+.viz-legend-point {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+.viz-legend-point.point1 {
+    background: #2563eb;
+    border: 1px solid white;
+    box-shadow: 0 0 2px rgba(0,0,0,0.3);
+}
+.viz-legend-point.point2 {
+    background: #059669;
+    border: 1px solid white;
+    box-shadow: 0 0 2px rgba(0,0,0,0.3);
+}
+.viz-slider-section {
+    margin-top: 15px;
+}
+.viz-slider-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 10px 12px;
+    background: #f5f7fa;
+    border-radius: 8px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.viz-slider-label {
+    font-weight: 600;
+    color: #303133;
+    min-width: 45px;
+    font-size: 1em;
+}
+.viz-slider-wrapper {
+    flex: 1;
+    min-width: 150px;
+}
+.viz-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: #dcdfe6;
+    outline: none;
+}
+.viz-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #409eff;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(64, 158, 255, 0.4);
+}
+.viz-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #409eff;
+    cursor: pointer;
+    border: none;
+}
+.viz-slider-value {
+    min-width: 60px;
+    text-align: right;
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 0.95em;
+    font-weight: 600;
+    color: #409eff;
+}
+.viz-point-info {
+    margin-top: 15px;
+    padding: 12px 15px;
+    background: #f0f9eb;
+    border-radius: 8px;
+    border: 1px solid #c2e7b0;
+}
+.viz-point-info-title {
+    font-weight: 600;
+    color: #67c23a;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+}
+.viz-point-info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 0.9em;
+}
+.viz-point-info-item:last-child {
+    margin-bottom: 0;
+}
+.viz-point-marker {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+.viz-point-marker.point1 {
+    background: #2563eb;
+}
+.viz-point-marker.point2 {
+    background: #059669;
+}
+.viz-point-coords {
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 0.85em;
+    color: #303133;
+    background: white;
+    padding: 3px 6px;
+    border-radius: 4px;
+}
+.viz-controls {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+.viz-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.8em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.viz-btn-primary {
+    background: #409eff;
+    color: white;
+}
+.viz-btn-primary:hover {
+    background: #66b1ff;
+}
+.viz-btn-secondary {
+    background: #f5f7fa;
+    color: #606266;
+    border: 1px solid #dcdfe6;
+}
+.viz-btn-secondary:hover {
+    background: #ecf5ff;
+    border-color: #c6e2ff;
+    color: #409eff;
+}
+.viz-tip {
+    background: #fdf6ec;
+    border: 1px solid #faecd8;
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin-top: 10px;
+    font-size: 0.8em;
+    color: #e6a23c;
+}
+</style>
+
+<div class="viz-container">
+    <div class="viz-card">
+        <div class="viz-section-title">📐 函数表达式</div>
+        <div class="viz-formula-box">
+            <div class="viz-formula-item original">
+                <div class="viz-formula-color original"></div>
+                <span class="viz-formula-label">原函数：</span>
+                <div class="viz-formula-math" id="viz-formula-original"></div>
+            </div>
+            <div class="viz-formula-item approx">
+                <div class="viz-formula-color approx"></div>
+                <span class="viz-formula-label">近似函数：</span>
+                <div class="viz-formula-math" id="viz-formula-approx"></div>
+            </div>
+            <div class="viz-formula-item axis">
+                <div class="viz-formula-color axis"></div>
+                <span class="viz-formula-label">对称轴：</span>
+                <div class="viz-formula-math" id="viz-formula-axis"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="viz-card">
+        <div class="viz-section-title">📈 函数图像</div>
+        <div class="viz-canvas-container">
+            <canvas id="vizFunctionCanvas"></canvas>
+            <div class="viz-legend">
+                <div class="viz-legend-item">
+                    <div class="viz-legend-line original"></div>
+                    <span>f(x) = ln(cosh(x))</span>
+                </div>
+                <div class="viz-legend-item">
+                    <div class="viz-legend-line approx"></div>
+                    <span>f̂(x; c)</span>
+                </div>
+                <div class="viz-legend-item">
+                    <div class="viz-legend-line axis"></div>
+                    <span>对称轴</span>
+                </div>
+                <div class="viz-legend-item">
+                    <div class="viz-legend-point point1"></div>
+                    <span>(c, ln(cosh(c)))</span>
+                </div>
+                <div class="viz-legend-item">
+                    <div class="viz-legend-point point2"></div>
+                    <span>顶点</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="viz-controls">
+            <button class="viz-btn viz-btn-primary" onclick="vizResetView()">🔄 重置视图</button>
+            <button class="viz-btn viz-btn-secondary" onclick="vizResetParams()">↩️ 重置参数</button>
+        </div>
+
+        <div class="viz-tip">💡 拖动画布移动视图，滚轮缩放（限制±10）。点击"重置视图"恢复默认。</div>
+    </div>
+
+    <div class="viz-card">
+        <div class="viz-section-title">🎛️ 参数调节</div>
+        
+        <div class="viz-slider-section">
+            <div class="viz-slider-container">
+                <span class="viz-slider-label" id="viz-label-c"></span>
+                <div class="viz-slider-wrapper">
+                    <input type="range" id="viz-slider-c" class="viz-slider" min="-8" max="8" step="0.1" value="2.2">
+                </div>
+                <span class="viz-slider-value" id="viz-value-c">2.2</span>
+            </div>
+
+            <div class="viz-slider-container">
+                <span class="viz-slider-label" id="viz-label-t"></span>
+                <div class="viz-slider-wrapper">
+                    <input type="range" id="viz-slider-t" class="viz-slider" min="-1" max="8" step="0.1" value="0.9">
+                </div>
+                <span class="viz-slider-value" id="viz-value-t">0.9</span>
+            </div>
+        </div>
+
+        <div class="viz-point-info">
+            <div class="viz-point-info-title">📍 关键点坐标</div>
+            <div class="viz-point-info-item">
+                <div class="viz-point-marker point1"></div>
+                <span>切点 P₁：</span>
+                <span class="viz-point-coords" id="viz-point1-coords">(2.2, 1.5191)</span>
+            </div>
+            <div class="viz-point-info-item">
+                <div class="viz-point-marker point2"></div>
+                <span>顶点 P₂：</span>
+                <span class="viz-point-coords" id="viz-point2-coords">(1.3218, 0.6974)</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    // 等待DOM和KaTeX加载完成
+    function initViz() {
+        const canvas = document.getElementById('vizFunctionCanvas');
+        if (!canvas) {
+            setTimeout(initViz, 100);
+            return;
+        }
+        
+        const ctx = canvas.getContext('2d');
+        
+        // 设置canvas尺寸
+        const container = canvas.parentElement;
+        const containerWidth = container.clientWidth;
+        const dpr = window.devicePixelRatio || 1;
+        
+        canvas.style.width = containerWidth + 'px';
+        canvas.style.height = '450px';
+        canvas.width = containerWidth * dpr;
+        canvas.height = 450 * dpr;
+        ctx.scale(dpr, dpr);
+        
+        const canvasWidth = containerWidth;
+        const canvasHeight = 450;
+
+        // 视图参数
+        let viewXMin = -8, viewXMax = 8;
+        let viewYMin = 0, viewYMax = 8;
+        const defaultView = { xMin: -8, xMax: 8, yMin: 0, yMax: 8 };
+        const maxRange = { xMin: -10, xMax: 10, yMin: -10, yMax: 10 };
+
+        // 函数参数
+        let c = 2.2;
+        let t = 0.9;
+
+        // 拖动状态
+        let isDragging = false;
+        let dragStartX, dragStartY;
+        let dragStartViewXMin, dragStartViewYMin;
+
+        // 数学函数
+        function cosh(x) {
+            return (Math.exp(x) + Math.exp(-x)) / 2;
+        }
+
+        function tanh(x) {
+            return (Math.exp(x) - Math.exp(-x)) / (Math.exp(x) + Math.exp(-x));
+        }
+
+        function originalFunc(x) {
+            return Math.log(cosh(x));
+        }
+
+        function approxFunc(x, c, t) {
+            return Math.log(cosh(c)) + tanh(c) * (x - c) + (1 / (2 * t)) * Math.pow(x - c, 2);
+        }
+
+        function getAxisX(c, t) {
+            return c - t * tanh(c);
+        }
+
+        // 坐标转换
+        const padding = 45;
+        
+        function xToCanvas(x) {
+            return padding + (x - viewXMin) / (viewXMax - viewXMin) * (canvasWidth - 2 * padding);
+        }
+
+        function yToCanvas(y) {
+            return canvasHeight - padding - (y - viewYMin) / (viewYMax - viewYMin) * (canvasHeight - 2 * padding);
+        }
+
+        function canvasToX(cx) {
+            return viewXMin + (cx - padding) / (canvasWidth - 2 * padding) * (viewXMax - viewXMin);
+        }
+
+        function canvasToY(cy) {
+            return viewYMin + (canvasHeight - padding - cy) / (canvasHeight - 2 * padding) * (viewYMax - viewYMin);
+        }
+
+        // 绘制网格
+        function drawGrid() {
+            ctx.strokeStyle = '#e5e7eb';
+            ctx.lineWidth = 1;
+
+            for (let x = Math.ceil(viewXMin / 2) * 2; x <= viewXMax; x += 2) {
+                const cx = xToCanvas(x);
+                if (cx >= padding && cx <= canvasWidth - padding) {
+                    ctx.beginPath();
+                    ctx.moveTo(cx, padding);
+                    ctx.lineTo(cx, canvasHeight - padding);
+                    ctx.stroke();
+                }
+            }
+
+            for (let y = Math.ceil(viewYMin / 2) * 2; y <= viewYMax; y += 2) {
+                const cy = yToCanvas(y);
+                if (cy >= padding && cy <= canvasHeight - padding) {
+                    ctx.beginPath();
+                    ctx.moveTo(padding, cy);
+                    ctx.lineTo(canvasWidth - padding, cy);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        // 绘制坐标轴
+        function drawAxes() {
+            ctx.strokeStyle = '#303133';
+            ctx.lineWidth = 2;
+
+            const yAxisCanvas = yToCanvas(0);
+            if (yAxisCanvas >= padding && yAxisCanvas <= canvasHeight - padding) {
+                ctx.beginPath();
+                ctx.moveTo(padding, yAxisCanvas);
+                ctx.lineTo(canvasWidth - padding, yAxisCanvas);
+                ctx.stroke();
+            }
+
+            const xAxisCanvas = xToCanvas(0);
+            if (xAxisCanvas >= padding && xAxisCanvas <= canvasWidth - padding) {
+                ctx.beginPath();
+                ctx.moveTo(xAxisCanvas, padding);
+                ctx.lineTo(xAxisCanvas, canvasHeight - padding);
+                ctx.stroke();
+            }
+
+            ctx.fillStyle = '#606266';
+            ctx.font = '11px -apple-system, BlinkMacSystemFont, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+
+            for (let x = Math.ceil(viewXMin / 2) * 2; x <= viewXMax; x += 2) {
+                if (x === 0) continue;
+                const cx = xToCanvas(x);
+                if (cx >= padding && cx <= canvasWidth - padding) {
+                    const labelY = yAxisCanvas >= padding && yAxisCanvas <= canvasHeight - padding ? yAxisCanvas + 4 : canvasHeight - padding + 4;
+                    ctx.fillText(x.toString(), cx, labelY);
+                }
+            }
+
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'middle';
+            for (let y = Math.ceil(viewYMin / 2) * 2; y <= viewYMax; y += 2) {
+                if (y === 0) continue;
+                const cy = yToCanvas(y);
+                if (cy >= padding && cy <= canvasHeight - padding) {
+                    const labelX = xAxisCanvas >= padding && xAxisCanvas <= canvasWidth - padding ? xAxisCanvas - 6 : padding - 6;
+                    ctx.fillText(y.toString(), labelX, cy);
+                }
+            }
+
+            if (xToCanvas(0) >= padding && xToCanvas(0) <= canvasWidth - padding &&
+                yToCanvas(0) >= padding && yToCanvas(0) <= canvasHeight - padding) {
+                ctx.textAlign = 'right';
+                ctx.textBaseline = 'top';
+                ctx.fillText('0', xToCanvas(0) - 6, yToCanvas(0) + 4);
+            }
+
+            ctx.font = 'italic 13px -apple-system, sans-serif';
+            ctx.fillStyle = '#303133';
+            ctx.textAlign = 'center';
+            ctx.fillText('x', canvasWidth - padding + 12, yAxisCanvas >= padding && yAxisCanvas <= canvasHeight - padding ? yAxisCanvas - 6 : canvasHeight - padding - 6);
+            ctx.textAlign = 'right';
+            ctx.fillText('y', xAxisCanvas >= padding && xAxisCanvas <= canvasWidth - padding ? xAxisCanvas + 12 : padding + 12, padding - 12);
+        }
+
+        // 绘制曲线
+        function drawCurve(func, color, lineWidth) {
+            const step = (viewXMax - viewXMin) / 400;
+            ctx.strokeStyle = color;
+            ctx.lineWidth = lineWidth || 2.5;
+            ctx.beginPath();
+
+            let started = false;
+            for (let x = viewXMin; x <= viewXMax; x += step) {
+                const y = func(x);
+                const cx = xToCanvas(x);
+                const cy = yToCanvas(y);
+
+                if (cx >= padding && cx <= canvasWidth - padding &&
+                    cy >= padding - 15 && cy <= canvasHeight - padding + 15 && isFinite(y)) {
+                    if (!started) {
+                        ctx.moveTo(cx, cy);
+                        started = true;
+                    } else {
+                        ctx.lineTo(cx, cy);
+                    }
+                } else {
+                    started = false;
+                }
+            }
+            ctx.stroke();
+        }
+
+        // 绘制垂直线
+        function drawVerticalLine(x, color) {
+            const cx = xToCanvas(x);
+            if (cx >= padding && cx <= canvasWidth - padding) {
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 2;
+                ctx.setLineDash([6, 4]);
+                ctx.beginPath();
+                ctx.moveTo(cx, padding);
+                ctx.lineTo(cx, canvasHeight - padding);
+                ctx.stroke();
+                ctx.setLineDash([]);
+            }
+        }
+
+        // 绘制点
+        function drawPoint(x, y, color, radius) {
+            const cx = xToCanvas(x);
+            const cy = yToCanvas(y);
+            radius = radius || 6;
+
+            if (cx >= padding - radius && cx <= canvasWidth - padding + radius &&
+                cy >= padding - radius && cy <= canvasHeight - padding + radius) {
+                ctx.fillStyle = 'white';
+                ctx.beginPath();
+                ctx.arc(cx, cy, radius + 2, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        // 主绘制函数
+        function draw() {
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+            drawGrid();
+            drawAxes();
+            drawCurve(originalFunc, '#2563eb', 2.5);
+            drawCurve(function(x) { return approxFunc(x, c, t); }, '#dc2626', 2.5);
+
+            const axisX = getAxisX(c, t);
+            drawVerticalLine(axisX, '#059669');
+
+            drawPoint(c, originalFunc(c), '#2563eb');
+            drawPoint(axisX, approxFunc(axisX, c, t), '#059669');
+        }
+
+        // 更新显示
+        function updateDisplay() {
+            document.getElementById('viz-value-c').textContent = c.toFixed(2);
+            document.getElementById('viz-value-t').textContent = t.toFixed(2);
+
+            const y1 = originalFunc(c);
+            const axisX = getAxisX(c, t);
+            const y2 = approxFunc(axisX, c, t);
+
+            document.getElementById('viz-point1-coords').textContent = '(' + c.toFixed(4) + ', ' + y1.toFixed(4) + ')';
+            document.getElementById('viz-point2-coords').textContent = '(' + axisX.toFixed(4) + ', ' + y2.toFixed(4) + ')';
+
+            draw();
+        }
+
+        // 重置视图
+        window.vizResetView = function() {
+            viewXMin = defaultView.xMin;
+            viewXMax = defaultView.xMax;
+            viewYMin = defaultView.yMin;
+            viewYMax = defaultView.yMax;
+            draw();
+        };
+
+        // 重置参数
+        window.vizResetParams = function() {
+            c = 2.2;
+            t = 0.9;
+            document.getElementById('viz-slider-c').value = c;
+            document.getElementById('viz-slider-t').value = t;
+            updateDisplay();
+        };
+
+        // 约束视图范围
+        function constrainView() {
+            const xRange = viewXMax - viewXMin;
+            const yRange = viewYMax - viewYMin;
+
+            if (viewXMin < maxRange.xMin) { viewXMin = maxRange.xMin; viewXMax = viewXMin + xRange; }
+            if (viewXMax > maxRange.xMax) { viewXMax = maxRange.xMax; viewXMin = viewXMax - xRange; }
+            if (viewYMin < maxRange.yMin) { viewYMin = maxRange.yMin; viewYMax = viewYMin + yRange; }
+            if (viewYMax > maxRange.yMax) { viewYMax = maxRange.yMax; viewYMin = viewYMax - yRange; }
+
+            viewXMin = Math.max(viewXMin, maxRange.xMin);
+            viewXMax = Math.min(viewXMax, maxRange.xMax);
+            viewYMin = Math.max(viewYMin, maxRange.yMin);
+            viewYMax = Math.min(viewYMax, maxRange.yMax);
+        }
+
+        // 滑块事件
+        document.getElementById('viz-slider-c').addEventListener('input', function(e) {
+            c = parseFloat(e.target.value);
+            updateDisplay();
+        });
+
+        document.getElementById('viz-slider-t').addEventListener('input', function(e) {
+            t = parseFloat(e.target.value);
+            updateDisplay();
+        });
+
+        // 拖动事件
+        canvas.addEventListener('mousedown', function(e) {
+            isDragging = true;
+            dragStartX = e.clientX;
+            dragStartY = e.clientY;
+            dragStartViewXMin = viewXMin;
+            dragStartViewYMin = viewYMin;
+        });
+
+        canvas.addEventListener('mousemove', function(e) {
+            if (!isDragging) return;
+            const dx = e.clientX - dragStartX;
+            const dy = e.clientY - dragStartY;
+            const xScale = (viewXMax - viewXMin) / (canvasWidth - 2 * padding);
+            const yScale = (viewYMax - viewYMin) / (canvasHeight - 2 * padding);
+            const xRange = viewXMax - viewXMin;
+            const yRange = viewYMax - viewYMin;
+            viewXMin = dragStartViewXMin - dx * xScale;
+            viewXMax = viewXMin + xRange;
+            viewYMin = dragStartViewYMin + dy * yScale;
+            viewYMax = viewYMin + yRange;
+            constrainView();
+            draw();
+        });
+
+        canvas.addEventListener('mouseup', function() { isDragging = false; });
+        canvas.addEventListener('mouseleave', function() { isDragging = false; });
+
+        // 触摸事件
+        canvas.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            isDragging = true;
+            dragStartX = touch.clientX;
+            dragStartY = touch.clientY;
+            dragStartViewXMin = viewXMin;
+            dragStartViewYMin = viewYMin;
+        });
+
+        canvas.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+            if (!isDragging) return;
+            const touch = e.touches[0];
+            const dx = touch.clientX - dragStartX;
+            const dy = touch.clientY - dragStartY;
+            const xScale = (viewXMax - viewXMin) / (canvasWidth - 2 * padding);
+            const yScale = (viewYMax - viewYMin) / (canvasHeight - 2 * padding);
+            const xRange = viewXMax - viewXMin;
+            const yRange = viewYMax - viewYMin;
+            viewXMin = dragStartViewXMin - dx * xScale;
+            viewXMax = viewXMin + xRange;
+            viewYMin = dragStartViewYMin + dy * yScale;
+            viewYMax = viewYMin + yRange;
+            constrainView();
+            draw();
+        });
+
+        canvas.addEventListener('touchend', function() { isDragging = false; });
+
+        // 滚轮缩放
+        canvas.addEventListener('wheel', function(e) {
+            e.preventDefault();
+            const zoomFactor = e.deltaY > 0 ? 1.1 : 0.9;
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = canvasToX(e.clientX - rect.left);
+            const mouseY = canvasToY(e.clientY - rect.top);
+
+            let newXMin = mouseX - (mouseX - viewXMin) * zoomFactor;
+            let newXMax = mouseX + (viewXMax - mouseX) * zoomFactor;
+            let newYMin = mouseY - (mouseY - viewYMin) * zoomFactor;
+            let newYMax = mouseY + (viewYMax - mouseY) * zoomFactor;
+
+            if (newXMax - newXMin > 20 || newYMax - newYMin > 20) return;
+            if (newXMax - newXMin < 4 || newYMax - newYMin < 4) return;
+
+            viewXMin = newXMin; viewXMax = newXMax;
+            viewYMin = newYMin; viewYMax = newYMax;
+            constrainView();
+            draw();
+        });
+
+        // 渲染公式
+        function renderFormulas() {
+            if (typeof katex !== 'undefined') {
+                katex.render('f(x) = \\ln(\\cosh(x))', document.getElementById('viz-formula-original'), { throwOnError: false });
+                katex.render('\\hat{f}(x;c) = \\ln(\\cosh(c)) + \\tanh(c)(x-c) + \\frac{1}{2t}(x-c)^2', document.getElementById('viz-formula-approx'), { throwOnError: false });
+                katex.render('x = c - t \\cdot \\tanh(c)', document.getElementById('viz-formula-axis'), { throwOnError: false });
+                katex.render('c =', document.getElementById('viz-label-c'), { throwOnError: false });
+                katex.render('t =', document.getElementById('viz-label-t'), { throwOnError: false });
+            }
+        }
+
+        // 初始化
+        renderFormulas();
+        updateDisplay();
+
+        // 窗口大小变化时重绘
+        window.addEventListener('resize', function() {
+            const newWidth = container.clientWidth;
+            canvas.style.width = newWidth + 'px';
+            canvas.width = newWidth * dpr;
+            ctx.scale(dpr, dpr);
+            draw();
+        });
+    }
+
+    // 启动
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initViz);
+    } else {
+        initViz();
+    }
+})();
+</script>
+
+<!-- end insertmd: _posts/优化方法/优化基础/_03fragments/03-html.md -->
+<hr />
+<h2 id="section">1.</h2>
+<div class="note note-secondary">
+            <p><strong>定义（<span class="math inline">\(\beta\)</span>-smooth / 梯度 <span class="math inline">\(\beta\)</span>-Lipschitz ）</strong></p><p>设函数 <span class="math inline">\(f:\mathbb{R}^n\to\mathbb{R}\)</span> 可微，若存在常数 <span class="math inline">\(\beta&gt;0\)</span> 使得对任意 <span class="math inline">\(z, x\in\mathbb{R}^n\)</span> 都有： <span class="math display">\[\left\| {\nabla f\left( z \right) - \nabla f\left( x \right)} \right\| \le \beta \left\| {z - x} \right\|,\]</span> 则称 <span class="math inline">\(f\)</span> 为 <span class="math inline">\(\beta\)</span>-smooth，或称 <span class="math inline">\(f\)</span> 的梯度在 <span class="math inline">\(\mathbb{R}^n\)</span> 上是 <span class="math inline">\(\beta\)</span>-Lipschitz 连续的。</p>
+          </div>
+<div class="note note-warning">
+            <p><strong>引理</strong> 设函数 <span class="math inline">\(f:\mathbb{R}^n\to\mathbb{R}\)</span> 二阶可导且为 <span class="math inline">\(\beta\)</span>-smooth，则对任意 <span class="math inline">\(z \in\mathbb{R}^n\)</span>，其 Hessian 矩阵满足 <span class="math display">\[\nabla^2 f(z)\preceq \beta I,\]</span> 亦即 <span class="math inline">\(\nabla^2 f(z)\)</span> 的所有特征值都不超过 <span class="math inline">\(\beta\)</span>，<strong><span class="math inline">\(\beta\)</span> 是 <span class="math inline">\(f\)</span> 曲率的上界</strong>。</p>
+          </div>
+<div class="note note-warning">
+            <p><strong>引理（Descent Lemma）</strong> <span class="math inline">\(f\)</span> 在任意点 <span class="math inline">\(x\)</span> 处都可被一个二次函数从上方界定： <span class="math display">\[f(z)\le f(x)+\langle \nabla f(x), z-x\rangle+\frac{\beta}{2}\left\|z-x\right\|^2, \forall x, z\in\mathbb{R}^n.\]</span></p>
+          </div>
+<blockquote>
+<p><span class="math inline">\(\beta\)</span>-smooth 意味着函数不会比曲率为 <span class="math inline">\(\beta\)</span> 的二次函数增长得更快。</p>
+</blockquote>
+<details>
+<summary>
+点击展开：Descent Lemma 的证明
+</summary>
+<div class="note note-light">
+            <p>记 <span class="math display">\[d:=z-x.\]</span></p><p>定义一元函数（沿线段 <span class="math inline">\(x\to z\)</span>）： <span class="math display">\[\phi(\tau):=f(x+\tau d),\quad \tau\in[0,1].\]</span> 则 <span class="math inline">\(\phi\)</span> 可导，且由链式法则 <span class="math display">\[\phi&#39;(\tau)=\left\langle \nabla f(x+\tau d), d\right\rangle.\]</span> 由微积分基本定理 <span class="math display">\[f(z)-f(x)=\phi(1)-\phi(0)=\int_0^1 \phi&#39;(\tau) d\tau=\int_0^1 \left\langle \nabla f(x+\tau d), d\right\rangle d\tau.\]</span></p><p>在被积项中加减 <span class="math inline">\(\nabla f(x)\)</span>： <span class="math display">\[\left\langle \nabla f(x+\tau d),d\right\rangle=\left\langle \nabla f(x),d\right\rangle+\left\langle \nabla f(x+\tau d)-\nabla f(x),d\right\rangle.\]</span> 代回积分： <span class="math display">\[f(z)-f(x)=\left\langle \nabla f(x),d\right\rangle+\int_0^1 \left\langle \nabla f(x+\tau d)-\nabla f(x),d\right\rangle d\tau.\]</span></p><p>对误差积分中的内积，用 Cauchy–Schwarz： <span class="math display">\[\left\langle \nabla f(x+\tau d)-\nabla f(x),d\right\rangle\le \left\|\nabla f(x+\tau d)-\nabla f(x)\right\|\cdot \left\|d\right\|.\]</span> 由 <span class="math inline">\(\beta\)</span>-smooth 可得： <span class="math display">\[\left\|\nabla f(x+\tau d)-\nabla f(x)\right\|\le \beta\left\|x+\tau d-x\right\|=\beta \tau \left\| d \right\|.\]</span> 合并得 <span class="math display">\[\left\langle \nabla f(x+\tau d)-\nabla f(x),d\right\rangle\le \beta\tau\left\| d \right\|^2.\]</span> 因此误差项积分满足 <span class="math display">\[\int_0^1 \left\langle \nabla f(x+\tau d)-\nabla f(x),d\right\rangle d\tau\le \int_0^1 \beta\tau\left\| d \right\|^2 d\tau=\frac{\beta}{2}\left\| d \right\|^2.\]</span> 所以有： <span class="math display">\[f(z)-f(x)\le \langle \nabla f(x),d\rangle+\frac{\beta}{2}\left\| d \right\|^2.\]</span> 即 <span class="math display">\[\boxed{f(z)\le f(x)+\langle \nabla f(x),z-x\rangle+\frac{\beta}{2}\left\| z-x \right\|^2,\quad \forall x,z.}\]</span></p>
+          </div>
+</details>
+<hr />
+<p>如果选步长 <span class="math inline">\(t\)</span> 使得 <span class="math display">\[
+\frac{1}{t}\ge \beta\quad (\text{等价于 } t\le \frac{1}{\beta}),
+\]</span> 则对任意 <span class="math inline">\(x,z\)</span>： <span class="math display">\[
+\frac{\beta}{2}\left\|z-x\right\|^2\le \frac{1}{2t}\left\|z-x\right\|^2.
+\]</span> 将其代入上面的 Descent Lemma 立刻得到 <span class="math display">\[
+f(z)\le f(x)+\langle \nabla f(x),z-x\rangle+\frac{1}{2t}\left\|z-x\right\|^2
+=\hat f(z;x,t).
+\]</span> 因此 <span class="math display">\[
+\boxed{\text{若 }f\text{ 是 }\beta\text{-smooth 且 }t\le 1/\beta,\ \text{则 }\hat f(\cdot;x,t)\text{ 是 }f\text{ 的上界}。}
+\]</span></p>
+<blockquote>
+<p>直观理解：<span class="math inline">\(\hat f(\cdot;x,t)\)</span> 二次项的曲率 <span class="math inline">\(\frac{1}{t}\)</span> 够大，能盖住 <span class="math inline">\(f\)</span> 的曲率上界 <span class="math inline">\(\beta\)</span>。</p>
+</blockquote>
+<h2 id="用二阶泰勒余项看同一件事">2) 用二阶泰勒余项看同一件事</h2>
+<p>若 <span class="math inline">\(f\)</span> 二次可导，泰勒定理给出： <span class="math display">\[
+f(z)=f(x)+\nabla f(x)^{\top}(z-x)+\frac{1}{2}(z-x)^{\top}\nabla^{2}f(\xi)(z-x),
+\]</span> 其中 <span class="math inline">\(\xi\)</span> 在 <span class="math inline">\(x\)</span> 与 <span class="math inline">\(z\)</span> 的连线上。若对这条线段上任意点都有 <span class="math display">\[
+\nabla^{2}f(\xi)\preceq \frac{1}{t}I,
+\]</span> 则余项满足 <span class="math display">\[
+\frac{1}{2}(z-x)^{\top}\nabla^{2}f(\xi)(z-x)\le \frac{1}{2t}\|z-x\|^{2},
+\]</span> 同样推出 <span class="math inline">\(f(z)\le \hat f(z;x,t)\)</span>。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/" class="category-chain-item">优化方法</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/" class="category-chain-item">优化基础</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/gradient-descent-optimization-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#gradient descent,optimization,机器学习</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>重新审视 Gradient Descent 算法：原问题的逐次逼近求解</div>
+      <div>https://nanana-szz.github.io/03-gradient_descent/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年1月22日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/04-insertmd/" title="在 Hexo 中实现 Markdown 的“文件包含”：用 before_post_render 过滤器零依赖 include">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">在 Hexo 中实现 Markdown 的“文件包含”：用 before_post_render 过滤器零依赖 include</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/03-argparse/" title="Python argparse 入门：把脚本变成“命令行工具”，并用 .sh 批量跑实验">
+                        <span class="hidden-mobile">Python argparse 入门：把脚本变成“命令行工具”，并用 .sh 批量跑实验</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] },
+              displayMath: { '[+]': [['$', '$'], ['$$', '$$'], ['\[', '\]']] },
+              // ★ 关键 1 ：打开 AMS 风格自动编号 + label/eqref 支持
+              tags: 'ams',   // 可选: 'none' | 'ams' | 'all'
+              // ★ 关键 2：确保 AMS 扩展加载（包含 align、cases、	ag 等）
+              packages: { '[+]': ['ams'] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              // 避免在 <code>、<pre> 里误渲染
+              skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/py-demo.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/js/index.js"></script><!-- hexo injector body_end end --></body>
+</html>

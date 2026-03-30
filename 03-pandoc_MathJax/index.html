@@ -459,7 +459,7 @@
     
       
       
-        <a href="/argparse/" title="Python argparse 入门：把脚本变成“命令行工具”，并用 .sh 批量跑实验"
+        <a href="/03-argparse/" title="Python argparse 入门：把脚本变成“命令行工具”，并用 .sh 批量跑实验"
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">Python argparse 入门：把脚本变成“命令行工具”，并用 .sh 批量跑实验</span>
@@ -468,7 +468,7 @@
     
       
       
-        <a href="/CvxPy/" title="在 Python 中调用 CvxPy 进行凸优化"
+        <a href="/01-CvxPy/" title="在 Python 中调用 CvxPy 进行凸优化"
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">在 Python 中调用 CvxPy 进行凸优化</span>
@@ -551,7 +551,7 @@
     
       
       
-        <a href="/MLP/" title="多层感知机：结构、BatchNorm、Dropout，附 PyTorch 代码"
+        <a href="/02-MLP/" title="多层感知机：结构、BatchNorm、Dropout，附 PyTorch 代码"
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">多层感知机：结构、BatchNorm、Dropout，附 PyTorch 代码</span>
@@ -651,7 +651,7 @@
 <figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\begin</span>&#123;equation&#125;<br><span class="hljs-keyword">\label</span>&#123;eq:einstein<span class="hljs-built_in">_</span>0&#125;<br>E = mc<span class="hljs-built_in">^</span>2 <br><span class="hljs-keyword">\end</span>&#123;equation&#125;<br></code></pre></td></tr></table></figure></div><div class="tab-pane" id="公式1，1-2"><p>网页渲染出来的效果如下： <span class="math display">\[\begin{equation}
 \label{eq:einstein_0}
 E = mc^2
-\end{equation}\]</span> 引用效果：由式  可知，能量与质量成正比。</p></div></div></div>
+\end{equation}\]</span> 引用效果：由式 <span class="math inline">\(\eqref{eq:einstein_0}\)</span> 可知，能量与质量成正比。</p></div></div></div>
 <blockquote>
 <p>而不需要再套一层 <code>\[ ... \]</code>，同时支持 <code>align + \tag + \label</code>、矩阵、分段函数、条件概率等复杂公式。</p>
 </blockquote>
@@ -766,7 +766,7 @@ E = mc^2
 <div class="tag-common tabs" id="公式4，1"><ul class="nav-tabs"><li class="tab active"><a data-target="公式4，1-1">Markdown 代码</a></li><li class="tab"><a data-target="公式4，1-2">效果</a></li></ul><div class="tab-content"><div class="tab-pane active" id="公式4，1-1"><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\begin</span>&#123;equation&#125;<br><span class="hljs-keyword">\label</span>&#123;eq:einstein<span class="hljs-built_in">_</span>1&#125;<br>  E = mc<span class="hljs-built_in">^</span>2<br><span class="hljs-keyword">\end</span>&#123;equation&#125;<br></code></pre></td></tr></table></figure></div><div class="tab-pane" id="公式4，1-2"><p>网页渲染效果如下： <span class="math display">\[\begin{equation}
 \label{eq:einstein_1}
   E = mc^2
-\end{equation}\]</span> 引用效果：。</p></div></div></div>
+\end{equation}\]</span> 引用效果：<span class="math inline">\(\eqref{eq:einstein_1}\)</span>。</p></div></div></div>
 <p>在正文中引用时，可以用 <code>\eqref</code>：</p>
 <figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs latex">由式 <span class="hljs-keyword">\eqref</span>&#123;eq:einstein&#125; 可知，能量与质量成正比。<br></code></pre></td></tr></table></figure>
 <blockquote>
@@ -779,7 +779,7 @@ E = mc^2
   y &amp;= ax + b, \label{eq:line} \\
   f(x) &amp;= ax^2 + bx + c, \label{eq:quad} \\
   E &amp;= mc^2 \tag{Einstein} \label{eq:einstein}
-\end{align}\]</span> 引用效果：、、。</p></div></div></div>
+\end{align}\]</span> 引用效果：<span class="math inline">\(\eqref{eq:line}\)</span>、<span class="math inline">\(\eqref{eq:quad}\)</span>、<span class="math inline">\(\eqref{eq:einstein}\)</span>。</p></div></div></div>
 <h3 id="矩阵">5.4 矩阵</h3>
 <div class="tag-common tabs" id="公式6，1"><ul class="nav-tabs"><li class="tab active"><a data-target="公式6，1-1">Markdown 代码</a></li><li class="tab"><a data-target="公式6，1-2">效果</a></li></ul><div class="tab-content"><div class="tab-pane active" id="公式6，1-1"><figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\begin</span>&#123;equation&#125;<br>  <span class="hljs-keyword">\boldsymbol</span>&#123;A&#125; =<br>  <span class="hljs-keyword">\begin</span>&#123;bmatrix&#125;<br>    1 <span class="hljs-built_in">&amp;</span> 2 <span class="hljs-built_in">&amp;</span> 3 <span class="hljs-keyword">\\</span><br>    4 <span class="hljs-built_in">&amp;</span> 5 <span class="hljs-built_in">&amp;</span> 6<br>  <span class="hljs-keyword">\end</span>&#123;bmatrix&#125;.<br><span class="hljs-keyword">\end</span>&#123;equation&#125;<br></code></pre></td></tr></table></figure></div><div class="tab-pane" id="公式6，1-2"><p><span class="math display">\[\begin{equation}
   \boldsymbol{A} =
@@ -931,9 +931,9 @@ E = mc^2
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/OPF/" title="电力系统中的最优潮流（OPF）基础讲解">
+                      <a href="/matpower_pypower/" title="电力系统工具简介：MATPOWER, PYPOWER, pandapower">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">电力系统中的最优潮流（OPF）基础讲解</span>
+                        <span class="hidden-mobile">电力系统工具简介：MATPOWER, PYPOWER, pandapower</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
