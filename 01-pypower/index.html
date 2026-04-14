@@ -1,0 +1,1003 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><link href="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="介绍 pypower.api 的作用，并用 case57 演示如何进行潮流计算、最优潮流计算以及导纳矩阵构造。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用 pypower.api 做潮流计算和最优潮流计算入门">
+<meta property="og:url" content="https://nanana-szz.github.io/01-pypower/index.html">
+<meta property="og:site_name" content="远大前程">
+<meta property="og:description" content="介绍 pypower.api 的作用，并用 case57 演示如何进行潮流计算、最优潮流计算以及导纳矩阵构造。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nanana-szz.github.io/img/power_system.jpg">
+<meta property="article:published_time" content="2026-03-30T04:00:00.000Z">
+<meta property="article:modified_time" content="2026-03-30T02:38:03.569Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="PYPOWER">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="最优潮流">
+<meta property="article:tag" content="潮流计算">
+<meta property="article:tag" content="电力系统">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nanana-szz.github.io/img/power_system.jpg">
+  
+  
+  
+  <title>用 pypower.api 做潮流计算和最优潮流计算入门 - 远大前程</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/py-demo.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"nanana-szz.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Shan Z.Z.</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>优化方法</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/%E4%BC%98%E5%8C%96%E5%9F%BA%E7%A1%80/" target="_self">
+                    
+                    <span>优化基础</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/%E5%87%B8%E4%BC%98%E5%8C%96/" target="_self">
+                    
+                    <span>凸优化</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/%E8%87%AA%E9%80%82%E5%BA%94%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" target="_self">
+                    
+                    <span>自适应动态规划</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/%E6%9C%80%E4%BC%98%E6%8E%A7%E5%88%B6/" target="_self">
+                    
+                    <span>最优控制</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>编程</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E7%BC%96%E7%A8%8B/Python/" target="_self">
+                    
+                    <span>Python</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E7%BC%96%E7%A8%8B/VS%20Code/" target="_self">
+                    
+                    <span>VS Code</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E7%BC%96%E7%A8%8B/Git/" target="_self">
+                    
+                    <span>Git</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E7%BC%96%E7%A8%8B/Web/" target="_self">
+                    
+                    <span>Web</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>电力系统</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E7%94%B5%E5%8A%9B%E7%B3%BB%E7%BB%9F/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/" target="_self">
+                    
+                    <span>基础理论</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/%E7%94%B5%E5%8A%9B%E7%B3%BB%E7%BB%9F/%E4%BB%BF%E7%9C%9F%E5%B7%A5%E5%85%B7/" target="_self">
+                    
+                    <span>仿真工具</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="用 pypower.api 做潮流计算和最优潮流计算入门"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-03-30 12:00" pubdate>
+          2026年3月30日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          17 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">用 pypower.api 做潮流计算和最优潮流计算入门</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>在用 PYPOWER 做电力系统分析时，很多人最常见到的写法就是下面这种：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pypower.api <span class="hljs-keyword">import</span> case57, runpf<br></code></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pypower.api <span class="hljs-keyword">import</span> case57, opf, makeYbus<br></code></pre></td></tr></table></figure>
+<p>这类写法之所以常见，是因为 <code>pypower.api</code> 本身就是一个统一导入入口。通过它可以方便地导入标准算例、潮流函数、最优潮流函数以及一些网络建模函数。</p>
+<span id="more"></span>
+<h2 id="pypower.api-是什么">1 <code>pypower.api</code> 是什么</h2>
+<p><code>pypower.api</code> 可以理解成一个总入口。 它把很多核心函数和标准算例统一导出，因此我们可以直接写</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pypower.api <span class="hljs-keyword">import</span> case57, runpf, opf, makeYbus<br></code></pre></td></tr></table></figure>
+<p>而不需要分别记住每个<strong>函数</strong>位于哪个模块。</p>
+<blockquote>
+<p>注意：<code>case57``runpf</code>、<code>opf</code>、<code>makeYbus</code> 都是 <code>pypower.api</code> 里直接导出的<strong>函数</strong>，而不是模块。</p>
+</blockquote>
+<p>常见可以从 <code>pypower.api</code> 中直接导入的标准算例包括：</p>
+<ul>
+<li><code>case4gs</code></li>
+<li><code>case6ww</code></li>
+<li><code>case9</code></li>
+<li><code>case14</code></li>
+<li><code>case30</code></li>
+<li><code>case39</code></li>
+<li><code>case57</code></li>
+<li><code>case118</code></li>
+<li><code>case300</code></li>
+</ul>
+<p>因此，像下面这种写法是很标准的：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pypower.api <span class="hljs-keyword">import</span> case57<br></code></pre></td></tr></table></figure>
+<p>然后再调用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">ppc = case57()<br></code></pre></td></tr></table></figure>
+<p>这里的 <code>case57()</code> 返回的是一个 PYPOWER 的 case dict，通常包含 <code>baseMVA</code>、<code>bus</code>、<code>gen</code>、<code>branch</code>，以及在 OPF 场景下常见的 <code>gencost</code>。</p>
+<hr />
+<h2 id="潮流计算和最优潮流计算的区别">2 潮流计算和最优潮流计算的区别</h2>
+<p>在 PYPOWER 里，潮流计算和最优潮流计算是两类不同的问题。</p>
+<h3 id="潮流计算">2.1 潮流计算</h3>
+<p>潮流计算对应的典型函数是 <code>runpf()</code>。</p>
+<p>它的作用是，在给定系统参数、发电和负荷的条件下，求解系统的稳态运行点，例如：</p>
+<ul>
+<li>母线电压幅值</li>
+<li>母线电压相角</li>
+<li>支路有功潮流</li>
+<li>支路无功潮流</li>
+</ul>
+<p>简单理解就是：</p>
+<p>给定运行条件，求网络状态。</p>
+<h3 id="最优潮流计算">2.2 最优潮流计算</h3>
+<p>最优潮流对应的典型函数是 <code>opf()</code>。</p>
+<p>它不只是解潮流方程，还要在各种约束下去优化某个目标，例如：</p>
+<ul>
+<li>发电成本最小</li>
+<li>某些运行代价最小</li>
+<li>约束条件下的最优分配</li>
+</ul>
+<p>简单理解就是：</p>
+<p>在满足潮流方程和运行约束的前提下，求一个最优运行点。</p>
+<p>所以可以把两者概括为：</p>
+<ul>
+<li><code>runpf()</code> 解的是潮流问题</li>
+<li><code>opf()</code> 解的是优化后的潮流问题</li>
+</ul>
+<hr />
+<h2 id="用-pypower.api-做潮流计算">3 用 <code>pypower.api</code> 做潮流计算</h2>
+<h3 id="最小示例">3.1 最小示例</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pypower.api <span class="hljs-keyword">import</span> case57, runpf<br><span class="hljs-keyword">from</span> pypower.ppoption <span class="hljs-keyword">import</span> ppoption<br><br>ppc = case57()<br>ppopt = ppoption(VERBOSE=<span class="hljs-number">0</span>)<br>results, success = runpf(ppc, ppopt)<br></code></pre></td></tr></table></figure>
+<h3 id="代码说明">3.2 代码说明</h3>
+<p>这几行代码分别在做下面几件事。</p>
+<h4 id="第一步-读取标准算例">第一步 读取标准算例</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">ppc = case57()<br></code></pre></td></tr></table></figure>
+<p>这里读取的是 IEEE 57 节点测试系统。</p>
+<h4 id="第二步-设置求解选项">第二步 设置求解选项</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">ppopt = ppoption(VERBOSE=<span class="hljs-number">0</span>)<br></code></pre></td></tr></table></figure>
+<p>这里用 <code>ppoption()</code> 设置 PYPOWER 的选项。 <code>VERBOSE=0</code> 表示减少屏幕输出。</p>
+<h4 id="第三步-执行潮流计算">第三步 执行潮流计算</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">results, success = runpf(ppc, ppopt)<br></code></pre></td></tr></table></figure>
+<p>这里调用 <code>runpf()</code> 做普通潮流计算。 返回值里：</p>
+<ul>
+<li><code>results</code> 是求解后的结果字典</li>
+<li><code>success</code> 表示是否成功收敛</li>
+</ul>
+<hr />
+<h2 id="提取潮流结果">4 提取潮流结果</h2>
+<p>潮流计算完成后，通常还需要从结果中取出母线电压和线路潮流。</p>
+<p>示例如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pypower.idx_bus <span class="hljs-keyword">import</span> VM, VA<br><span class="hljs-keyword">from</span> pypower.idx_brch <span class="hljs-keyword">import</span> PF, PT, QF, QT<br><br>vm = results[<span class="hljs-string">&quot;bus&quot;</span>][:, VM]<br>va = results[<span class="hljs-string">&quot;bus&quot;</span>][:, VA]<br><br>pf = results[<span class="hljs-string">&quot;branch&quot;</span>][:, PF]<br>pt = results[<span class="hljs-string">&quot;branch&quot;</span>][:, PT]<br>qf = results[<span class="hljs-string">&quot;branch&quot;</span>][:, QF]<br>qt = results[<span class="hljs-string">&quot;branch&quot;</span>][:, QT]<br></code></pre></td></tr></table></figure>
+<p>这里的 <code>VM</code>、<code>VA</code>、<code>PF</code>、<code>PT</code>、<code>QF</code>、<code>QT</code> 不是普通变量，而是列索引常量。 这样写的好处是代码可读性更强，不需要手动记忆矩阵第几列代表什么。</p>
+<p>例如：</p>
+<ul>
+<li><code>VM</code> 表示母线电压幅值所在列</li>
+<li><code>VA</code> 表示母线电压相角所在列</li>
+<li><code>PF</code> 表示支路首端有功潮流所在列</li>
+<li><code>PT</code> 表示支路末端有功潮流所在列</li>
+</ul>
+<hr />
+<h2 id="用-pypower.api-做最优潮流计算">5 用 <code>pypower.api</code> 做最优潮流计算</h2>
+<p>如果要做最优潮流，核心函数就从 <code>runpf()</code> 变成了 <code>opf()</code>。</p>
+<h3 id="最小示例-1">5.1 最小示例</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pypower.api <span class="hljs-keyword">import</span> case57, opf<br><span class="hljs-keyword">from</span> pypower.ppoption <span class="hljs-keyword">import</span> ppoption<br><br>ppc = case57()<br>ppopt = ppoption(VERBOSE=<span class="hljs-number">0</span>)<br>results = opf(ppc, ppopt)<br></code></pre></td></tr></table></figure>
+<h3 id="代码说明-1">5.2 代码说明</h3>
+<p>这段代码和前面的潮流计算看起来很像，但含义不同。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">results = opf(ppc, ppopt)<br></code></pre></td></tr></table></figure>
+<p>这里执行的是最优潮流求解。 它不仅要求满足潮流方程，还要在各种约束下优化目标函数。</p>
+<p>通常在 OPF 场景下，算例中还需要 <code>gencost</code> 数据，因为要描述发电成本函数。</p>
+<hr />
+<h2 id="如何提取最优潮流结果">6 如何提取最优潮流结果</h2>
+<p>OPF 求解完成后，也可以从结果里读取发电机出力和其他变量。</p>
+<p>示例如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pypower.idx_gen <span class="hljs-keyword">import</span> PG, QG, PMAX, PMIN<br><br>pg = results[<span class="hljs-string">&quot;gen&quot;</span>][:, PG]<br>qg = results[<span class="hljs-string">&quot;gen&quot;</span>][:, QG]<br>pmax = results[<span class="hljs-string">&quot;gen&quot;</span>][:, PMAX]<br>pmin = results[<span class="hljs-string">&quot;gen&quot;</span>][:, PMIN]<br></code></pre></td></tr></table></figure>
+<p>这里可以得到：</p>
+<ul>
+<li>各发电机有功出力</li>
+<li>各发电机无功出力</li>
+<li>发电机上下限信息</li>
+</ul>
+<p>如果你的目标是经济调度或者约束优化，这部分结果通常很重要。</p>
+<hr />
+<h2 id="makeybus-是做什么的">7 <code>makeYbus</code> 是做什么的</h2>
+<p>很多代码里还会看到下面这种写法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pypower.api <span class="hljs-keyword">import</span> makeYbus<br></code></pre></td></tr></table></figure>
+<p>它和 <code>runpf()</code>、<code>opf()</code> 不一样。 <code>makeYbus()</code> 不是直接用来求解潮流或最优潮流的，而是用来构造网络导纳矩阵。</p>
+<h3 id="最小示例-2">7.1 最小示例</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pypower.api <span class="hljs-keyword">import</span> case57, makeYbus<br><br>ppc = case57()<br>Ybus, Yf, Yt = makeYbus(ppc[<span class="hljs-string">&quot;baseMVA&quot;</span>], ppc[<span class="hljs-string">&quot;bus&quot;</span>], ppc[<span class="hljs-string">&quot;branch&quot;</span>])<br></code></pre></td></tr></table></figure>
+<h3 id="它返回什么">7.2 它返回什么</h3>
+<ul>
+<li><code>Ybus</code> 表示母线导纳矩阵</li>
+<li><code>Yf</code> 表示与支路首端相关的矩阵</li>
+<li><code>Yt</code> 表示与支路末端相关的矩阵</li>
+</ul>
+<p>它们常用于：</p>
+<ul>
+<li>自己写潮流方程</li>
+<li>做灵敏度分析</li>
+<li>将电网模型嵌入优化或机器学习框架</li>
+<li>进行约束纠正或物理一致性建模</li>
+</ul>
+<p>所以，<code>makeYbus()</code> 更偏向网络建模工具，而不是直接的求解器。</p>
+<hr />
+<h2 id="常见-import-语句怎么理解">8 常见 import 语句怎么理解</h2>
+<p>在实际代码里，经常能看到下面这种写法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pypower.api <span class="hljs-keyword">import</span> opf, makeYbus<br><span class="hljs-keyword">from</span> pypower <span class="hljs-keyword">import</span> idx_bus, idx_gen, ppoption<br></code></pre></td></tr></table></figure>
+<p>这几句可以分开理解。</p>
+<h3 id="第一行在做什么">8.1 第一行在做什么</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pypower.api <span class="hljs-keyword">import</span> opf, makeYbus<br></code></pre></td></tr></table></figure>
+<p>这一行表示从统一入口导入两个核心函数：</p>
+<ul>
+<li><code>opf</code> 用于最优潮流求解</li>
+<li><code>makeYbus</code> 用于构造导纳矩阵</li>
+</ul>
+<h3 id="第二行在做什么">8.2 第二行在做什么</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pypower <span class="hljs-keyword">import</span> idx_bus, idx_gen, ppoption<br></code></pre></td></tr></table></figure>
+<p>这一行导入的是模块。</p>
+<p>其中：</p>
+<ul>
+<li><code>idx_bus</code> 用来访问母线矩阵列索引</li>
+<li><code>idx_gen</code> 用来访问发电机矩阵列索引</li>
+<li><code>ppoption</code> 是选项模块</li>
+</ul>
+<p>因此，这种写法下通常会这样用：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">opt = ppoption.ppoption(VERBOSE=<span class="hljs-number">0</span>)<br>vmax = ppc[<span class="hljs-string">&quot;bus&quot;</span>][:, idx_bus.VMAX]<br>pmax = ppc[<span class="hljs-string">&quot;gen&quot;</span>][:, idx_gen.PMAX]<br></code></pre></td></tr></table></figure>
+<p>如果你不想写两层名字，也可以直接写：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pypower.ppoption <span class="hljs-keyword">import</span> ppoption<br></code></pre></td></tr></table></figure>
+<p>然后就可以用：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">opt = ppoption(VERBOSE=<span class="hljs-number">0</span>)<br></code></pre></td></tr></table></figure>
+<hr />
+<h2 id="一个把三部分串起来的完整示例">9 一个把三部分串起来的完整示例</h2>
+<p>下面给出一个稍完整一点的例子，把标准算例读取、导纳矩阵构造、潮流计算和最优潮流计算串起来。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pypower.api <span class="hljs-keyword">import</span> case57, runpf, opf, makeYbus<br><span class="hljs-keyword">from</span> pypower.ppoption <span class="hljs-keyword">import</span> ppoption<br><span class="hljs-keyword">from</span> pypower.idx_bus <span class="hljs-keyword">import</span> VM, VA<br><span class="hljs-keyword">from</span> pypower.idx_gen <span class="hljs-keyword">import</span> PG, QG<br><br><span class="hljs-comment"># 读取标准算例</span><br>ppc = case57()<br><br><span class="hljs-comment"># 构造导纳矩阵</span><br>Ybus, Yf, Yt = makeYbus(ppc[<span class="hljs-string">&quot;baseMVA&quot;</span>], ppc[<span class="hljs-string">&quot;bus&quot;</span>], ppc[<span class="hljs-string">&quot;branch&quot;</span>])<br><br><span class="hljs-comment"># 普通潮流计算</span><br>pf_opt = ppoption(VERBOSE=<span class="hljs-number">0</span>)<br>pf_results, success = runpf(ppc, pf_opt)<br><br><span class="hljs-keyword">if</span> success:<br>    vm = pf_results[<span class="hljs-string">&quot;bus&quot;</span>][:, VM]<br>    va = pf_results[<span class="hljs-string">&quot;bus&quot;</span>][:, VA]<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Power flow converged&quot;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Voltage magnitude =&quot;</span>, vm)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Voltage angle =&quot;</span>, va)<br><br><span class="hljs-comment"># 最优潮流计算</span><br>opf_opt = ppoption(VERBOSE=<span class="hljs-number">0</span>)<br>opf_results = opf(ppc, opf_opt)<br><br>pg = opf_results[<span class="hljs-string">&quot;gen&quot;</span>][:, PG]<br>qg = opf_results[<span class="hljs-string">&quot;gen&quot;</span>][:, QG]<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Optimal generator active power =&quot;</span>, pg)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Optimal generator reactive power =&quot;</span>, qg)<br></code></pre></td></tr></table></figure>
+<hr />
+<h2 id="这几个函数应该怎么记">10 这几个函数应该怎么记</h2>
+<p>如果刚开始接触 PYPOWER，可以先把下面几个函数记住。</p>
+<h3 id="case57"><code>case57()</code></h3>
+<p>读取标准算例。</p>
+<h3 id="runpf"><code>runpf()</code></h3>
+<p>做普通潮流计算。</p>
+<h3 id="opf"><code>opf()</code></h3>
+<p>做最优潮流计算。</p>
+<h3 id="makeybus"><code>makeYbus()</code></h3>
+<p>构造导纳矩阵。</p>
+<h3 id="ppoption"><code>ppoption()</code></h3>
+<p>设置求解选项。</p>
+<h3 id="idx_bus-和-idx_gen"><code>idx_bus</code> 和 <code>idx_gen</code></h3>
+<p>按名字读取 <code>bus</code> 和 <code>gen</code> 矩阵的列索引。</p>
+<hr />
+<h2 id="小结">11 小结</h2>
+<p>本文主要总结了 <code>pypower.api</code> 在潮流计算和最优潮流计算中的基本用法。</p>
+<p>核心结论可以概括为下面几点：</p>
+<ol type="1">
+<li><code>pypower.api</code> 是统一导入入口，适合快速导入常用函数和标准算例</li>
+<li><code>runpf()</code> 用于普通潮流计算</li>
+<li><code>opf()</code> 用于最优潮流计算</li>
+<li><code>makeYbus()</code> 用于构造导纳矩阵，而不是直接求解潮流</li>
+<li><code>idx_bus</code>、<code>idx_gen</code> 和 <code>ppoption()</code> 对编写清晰代码很有帮助</li>
+</ol>
+<p>如果后续还想继续深入，可以进一步研究以下内容：</p>
+<ul>
+<li><code>ppc</code> 结构中 <code>bus</code>、<code>gen</code>、<code>branch</code>、<code>gencost</code> 的具体含义</li>
+<li>交流潮流和直流潮流的区别</li>
+<li>AC OPF 和 DC OPF 的建模差异</li>
+<li>如何将 PYPOWER 与机器学习或优化框架结合</li>
+</ul>
+<hr />
+<h2 id="参考">参考</h2>
+<ol type="1">
+<li>PYPOWER 官方 API 文档</li>
+<li><code>pypower.api</code> 源码</li>
+<li><code>runpf</code>、<code>opf</code>、<code>makeYbus</code>、<code>ppoption</code> 相关模块说明</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%94%B5%E5%8A%9B%E7%B3%BB%E7%BB%9F/" class="category-chain-item">电力系统</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%94%B5%E5%8A%9B%E7%B3%BB%E7%BB%9F/%E4%BB%BF%E7%9C%9F%E5%B7%A5%E5%85%B7/" class="category-chain-item">仿真工具</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Python/" class="print-no-link">#Python</a>
+      
+        <a href="/tags/PYPOWER/" class="print-no-link">#PYPOWER</a>
+      
+        <a href="/tags/%E6%BD%AE%E6%B5%81%E8%AE%A1%E7%AE%97/" class="print-no-link">#潮流计算</a>
+      
+        <a href="/tags/%E6%9C%80%E4%BC%98%E6%BD%AE%E6%B5%81/" class="print-no-link">#最优潮流</a>
+      
+        <a href="/tags/%E7%94%B5%E5%8A%9B%E7%B3%BB%E7%BB%9F/" class="print-no-link">#电力系统</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>用 pypower.api 做潮流计算和最优潮流计算入门</div>
+      <div>https://nanana-szz.github.io/01-pypower/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年3月30日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/05-python-interaction/" title="在 Hexo + Fluid 博客中实现可复用的 Python 交互运行组件（Pyodide + PJAX）">
+                        <span class="hidden-mobile">在 Hexo + Fluid 博客中实现可复用的 Python 交互运行组件（Pyodide + PJAX）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/py-demo.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="https://fastly.jsdelivr.net/npm/hexo-tag-common@0.2.0/js/index.js"></script><!-- hexo injector body_end end --></body>
+</html>
